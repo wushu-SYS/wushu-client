@@ -116,10 +116,11 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
                     firstname: $scope.firstname,
                     lastname: $scope.lastname,
                     phone: $scope.phone,
-                    address: $scope.address,
                     email: $scope.email,
-                    birthdate: $filter('date')($scope.birthdate, "MM/dd/yyyy").toString(),
-                    sportclub: $scope.sportclub.id
+                    birthdate: $filter('date')($scope.birthdate, "MM/dd/yyyy"),
+                    address: $scope.address,
+                    sportclub: $scope.sportclub.id,
+                    sportStyle: $scope.sportStyle
                 });
             }
             registerUsers(data, $scope.userType, coachAsJudge)
