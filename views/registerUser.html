@@ -1,11 +1,11 @@
 <body>
 
 <div>
-<!--    <div id="chooseTypeUser" ng-show="access==userTypes.MANAGER">-->
-<!--        <input type="radio" name="userType" ng-click="isRegisterCoach=false;downloadClicked=false" checked="checked">-->
-<!--        רישום ספורטאי</input>-->
-<!--        <input type="radio" name="userType" ng-click="isRegisterCoach=true;downloadClicked=false"> רישום מאמן </input>-->
-<!--    </div>-->
+    <div id="chooseTypeUser" ng-show="access==userTypes.MANAGER">
+        <input type="radio" name="userType" ng-click="userType == 'sportsman';downloadClicked=false" checked="checked">
+        רישום ספורטאי</input>
+        <input type="radio" name="userType" ng-click="userType == 'coach';downloadClicked=false"> רישום מאמן </input>
+    </div>
 </div>
 
 
@@ -88,7 +88,7 @@
                 </div>
                 <span class="focus-input100" data-symbol="&#xf211;"></span>
             </div>
-            <div class="wrap-input100 validate-input" id="sportStyle"
+            <div ng-show="userType == 'sportsman'" class="wrap-input100 validate-input" id="sportStyle"
                  ng-class="{'alert-validate' : registerForm.sportStyle.$invalid && (registerForm.sportStyle.$touched || isClicked)}"
                  data-validate="בחר ענף">
                 <label class="label-input100">ענף</label>
@@ -125,14 +125,14 @@
                 </select>
                 <span class="focus-input100" data-symbol="&#xf205"></span>
             </div>
-            <div ng-show="userType == 'coach' " class="wrap-input100 validate-input"
+            <!--<div ng-show="userType == 'coach' " class="wrap-input100 validate-input"
                  ng-class="{'alert-validate' : registerForm.teamname.$invalid && (registerForm.teamname.$touched || isClicked)}"
                  data-validate="הכנס שם קבוצה ">
                 <span class="label-input100">קבוצה</span>
                 <input class="input100" type="text" name="teamname" ng-model="teamname" ng-required="userType == 'coach'">
                 <span class="focus-input100" data-symbol="&#xf207;"></span>
             </div>
-
+            -->
             <input type="submit" name="signup_submit" ng-click="isClicked=true" value="הירשם"/>
         </form>
     </div>
@@ -152,7 +152,7 @@
             <div class="validate-input downloadLink" ng-show="userType == 'coach'">
                 <span class="focus-input100" data-symbol="&#xf220"></span>
                 <a id="downExcelCoach" class="linkDark" style="padding-right: 15px"
-                   href="http://localhost:3000/downloadExcelFormatCoach" download> הורד פורמט קובץ אקסל לרישום מאמן</a>
+                   href="" ng-click="downloadExcelRegisterCoaches()" download> הורד פורמט קובץ אקסל לרישום מאמן</a>
             </div>
         </div>
 
