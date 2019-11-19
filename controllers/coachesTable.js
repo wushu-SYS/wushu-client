@@ -4,7 +4,6 @@ app.controller("coachController", function ($scope, $http, $filter, $window, $lo
     getDataForDisplay();
 
     $scope.getImageUrl = commonFunctionsService.getImageUrl;
-
     function getDataForDisplay() {
         coachService.getCoaches()
             .then(function (result) {
