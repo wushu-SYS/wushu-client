@@ -62,6 +62,7 @@ app.config(function($routeProvider) {
                     if ($rootScope.access == $rootScope.userTypes.MANAGER) {
                     }
                     else if($rootScope.access == $rootScope.userTypes.COACH){
+                        $location.path("/coachProfile/");
                     }
                     else if($rootScope.access == $rootScope.userTypes.SPORTSMAN){
                         $location.path("/sportsmanProfile/");
@@ -72,6 +73,10 @@ app.config(function($routeProvider) {
         .when('/sportsmanProfile/:id?', {
             templateUrl: 'views/profilePage.html',
             controller: 'sportsmanProfileController as sportsmanProfileCtrl'
+        })
+        .when('/coachProfile/:id?', {
+            templateUrl: 'views/profilePage.html',
+            controller: 'coachProfileController as coachProfileCtrl'
         })
         .when('/sportClubs/addSportClub', {
             templateUrl: 'views/home.html',
