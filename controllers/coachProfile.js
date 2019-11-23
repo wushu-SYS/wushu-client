@@ -20,8 +20,7 @@ app.controller("coachProfileController", function ($scope, $http, $route,$filter
                 phone: $scope.user.phone,
                 email: $scope.user.email,
                 birthdate: $filter('date')($scope.user.birthdate, "dd/MM/yyyy"),
-                address: $scope.user.address,
-                oldId: $routeParams.id
+                address: $scope.user.address
             }
             coachService.updateProfile(data)
                 .then(function (result) {

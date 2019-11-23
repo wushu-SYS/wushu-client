@@ -45,6 +45,7 @@ app.service('coachService', function ($window, $http, constants) {
             data: data
         };
         return $http(req);
+
     }
 
 });
