@@ -27,9 +27,9 @@ app.service('registerService', function ($window, $http, constants) {
 
     function getRegisterUserUrl  (userType) {
         if (userType=="sportsman")
-            return constants.serverUrl + '/private/registerSportsman';
+            return constants.serverUrl + '/private/commonCoachManager/registerSportsman';
         else
-            return constants.serverUrl + '/private/registerCoach';
+            return constants.serverUrl + '/private/manager/registerCoach';
     }
 
     function getRegisterUserExcelUrl(userType) {
