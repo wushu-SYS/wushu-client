@@ -1,111 +1,118 @@
 <div id="box">
     <form name="updateProfile" class="login100-form validate-form" ng-submit="submit(updateProfile.$valid)" novalidate>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="profile-img">
-                <img ng-src="{{getImageUrl(user.photo)}}" alt=""/>
-                <div ng-show="isEditModeOn">
-                    <input class="uploadBtnClass" type="button" value="שנה תמונה" ng-click="btnPressed()"/>
-                    <!--<input type="file" id="SportsmanProfilePicUpload" name="sportsmanPicupload" style="display: none"/>-->
-                    <input type="file"  id="SportsmanProfilePicUpload" ngf-select  name="file" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="20MB"/>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <img ng-src="{{getImageUrl(user.photo)}}" alt=""/>
+                    <div ng-show="isEditModeOn">
+                        <input class="uploadBtnClass" type="button" value="שנה תמונה" ng-click="btnPressed()"/>
+                        <!--<input type="file" id="SportsmanProfilePicUpload" name="sportsmanPicupload" style="display: none"/>-->
+                        <input type="file"  id="SportsmanProfilePicUpload" ngf-select  name="file" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="20MB"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h5>
+                        {{::user.firstname}} {{::user.lastname}}
+                    </h5>
+                    <h6>
+                        {{whoAmI}}
+                    </h6>
+                    <!--                <p class="proile-rating">דירוג : <span>{{6}}</span></p>-->
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='personalData'"
+                               ng-class="{'active' : activeTag==='personalData' || activeTag===undefined}">פרטים
+                                אישיים</a>
+                        </li>
+                        <!--                    <li class="nav-item">-->
+                        <!--                        <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='attachments'" ng-class="{'active' : activeTag==='attachments'}">קבצים מצורפים</a>-->
+                        <!--                    </li>-->
+                        <!--                    <li class="nav-item">-->
+                        <!--                        <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='compData'" ng-class="{'active' : activeTag==='compData'}">מידע תחרויות</a>-->
+                        <!--                    </li>-->
+                        <!--                    <li class="nav-item" ng-show="false">-->
+                        <!--                        <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='judgeStat'" ng-class="{'active' : activeTag==='judgeStat'}">סטטיסטיקות שיפוט</a>-->
+                        <!--                    </li>-->
+                    </ul>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="profile-head">
-                <h5>
-                    {{::user.firstname}} {{::user.lastname}}
-                </h5>
-                <h6>
-                    {{whoAmI}}
-                </h6>
-<!--                <p class="proile-rating">דירוג : <span>{{6}}</span></p>-->
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='personalData'" ng-class="{'active' : activeTag==='personalData' || activeTag===undefined}">פרטים אישיים</a>
-                    </li>
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='attachments'" ng-class="{'active' : activeTag==='attachments'}">קבצים מצורפים</a>-->
-<!--                    </li>-->
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='compData'" ng-class="{'active' : activeTag==='compData'}">מידע תחרויות</a>-->
-<!--                    </li>-->
-<!--                    <li class="nav-item" ng-show="false">-->
-<!--                        <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='judgeStat'" ng-class="{'active' : activeTag==='judgeStat'}">סטטיסטיקות שיפוט</a>-->
-<!--                    </li>-->
-                </ul>
+        <div class="row">
+            <div class="col-md-4">
+                <div>
+                    <i class="fa fa-pencil iColored" aria-hidden="true"></i>
+                    <a class="linkDark iLink" href="" ng-click="isEditModeOn = !isEditModeOn">{{isEditModeOn ? 'ביטול עריכת פרופיל' : 'ערוך פרופיל'}}</a>
+                </div>
+                <!--            <div ng-show="access==userTypes.MANAGER || access==userTypes.COACH">-->
+                <!--                <i class="fa fa-chain-broken iColored" aria-hidden="true"></i>-->
+                <!--                <a class="linkDark iLink" href="">החלפת מאמן</a>-->
+                <!--            </div>-->
+                <div ng-show="access==userTypes.MANAGER || access==userTypes.COACH">
+                    <i class="fa fa-trash-o iColored" aria-hidden="true"></i>
+                    <a class="linkDark iLink" href="" ng-click="delProfile(user.id)">מחק פרופיל</a>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div>
-                <i class="fa fa-pencil iColored" aria-hidden="true"></i>
-                <a class="linkDark iLink" href="" ng-click="isEditModeOn = !isEditModeOn">{{isEditModeOn ? 'ביטול עריכת פרופיל' : 'ערוך פרופיל'}}</a>
-            </div>
-<!--            <div ng-show="access==userTypes.MANAGER || access==userTypes.COACH">-->
-<!--                <i class="fa fa-chain-broken iColored" aria-hidden="true"></i>-->
-<!--                <a class="linkDark iLink" href="">החלפת מאמן</a>-->
-<!--            </div>-->
-            <div ng-show="access==userTypes.MANAGER || access==userTypes.COACH">
-                <i class="fa fa-trash-o iColored" aria-hidden="true"></i>
-                <a class="linkDark iLink" href="" ng-click="delProfile(user.id)">מחק פרופיל</a>
-            </div>
-        </div>
-        <div class="col-md-8">
-            <div class="tab-content profile-tab" id="myTabContent">
-                <div class="tab-pane fade" ng-class="{'show' : activeTag==='personalData' || activeTag===undefined , 'active' : activeTag==='personalData' || activeTag===undefined}" id="personalData" role="tabpanel" aria-labelledby="compData">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label>תעודת זהות</label>
-                        </div>
-                        <div class="col-md-6">
-                            <label ng-show="!isEditModeOn">{{user.id}}</label>
-                            <div ng-show="isEditModeOn"   class="update-input"
-                                 ng-class="{'alert-validate' : updateProfile.id.$invalid && (updateProfile.id.$touched || isClicked)}"
-                                 data-validate="{{updateProfile.id.$error.required ? 'הכנס ת.ז.' : (updateProfile.id.$error.minlength || updateProfile.id.$error.maxlength || updateProfile.id.$error.pattern ? 'ת.ז. לא תקינה' : '')}}">
-                                <input class="update-input100" ng-disabled="true" type="text" name="id" ng-model="user.id" placeholder="ת.ז">
-                                <!--ng-minlength="9" ng-maxlength="9" ng-required="true" ng-pattern="regex.regexOnlyNumbers" ng-pattern-restrict-->
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade"
+                         ng-class="{'show' : activeTag==='personalData' || activeTag===undefined , 'active' : activeTag==='personalData' || activeTag===undefined}"
+                         id="personalData" role="tabpanel" aria-labelledby="compData">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>תעודת זהות</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label ng-show="!isEditModeOn">{{user.id}}</label>
+                                <div ng-show="isEditModeOn" class="update-input"
+                                     ng-class="{'alert-validate' : updateProfile.id.$invalid && (updateProfile.id.$touched || isClicked)}"
+                                     data-validate="{{updateProfile.id.$error.required ? 'הכנס ת.ז.' : (updateProfile.id.$error.minlength || updateProfile.id.$error.maxlength || updateProfile.id.$error.pattern ? 'ת.ז. לא תקינה' : '')}}">
+                                    <input class="update-input100" ng-disabled="true" type="text" name="id"
+                                           ng-model="user.id" placeholder="ת.ז">
+                                    <!--ng-minlength="9" ng-maxlength="9" ng-required="true" ng-pattern="regex.regexOnlyNumbers" ng-pattern-restrict-->
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label>שם פרטי</label>
-                        </div>
-                        <div class="col-md-6">
-                            <label ng-show="!isEditModeOn">{{user.firstname}}</label>
-                            <div ng-show="isEditModeOn" class="update-input"
-                                 ng-class="{'alert-validate' : updateProfile.firstname.$invalid && (updateProfile.firstname.$touched || isClicked)}"
-                                 data-validate="{{updateProfile.firstname.$error.required ? 'הכנס שם פרטי' : updateProfile.firstname.$error.pattern ? 'שם פרטי לא תקין' : ''}}">
-                                <input class="update-input100" type="text" name="firstname" ng-model="user.firstname" placeholder="שם פרטי"
-                                       required ng-pattern="regex.regexHeb" ng-pattern-restrict>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>שם פרטי</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label ng-show="!isEditModeOn">{{user.firstname}}</label>
+                                <div ng-show="isEditModeOn" class="update-input"
+                                     ng-class="{'alert-validate' : updateProfile.firstname.$invalid && (updateProfile.firstname.$touched || isClicked)}"
+                                     data-validate="{{updateProfile.firstname.$error.required ? 'הכנס שם פרטי' : updateProfile.firstname.$error.pattern ? 'שם פרטי לא תקין' : ''}}">
+                                    <input class="update-input100" type="text" name="firstname"
+                                           ng-model="user.firstname" placeholder="שם פרטי"
+                                           required ng-pattern="regex.regexHeb" ng-pattern-restrict>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label>שם משפחה</label>
-                        </div>
-                        <div class="col-md-6">
-                            <label ng-show="!isEditModeOn">{{user.lastname}}</label>
-                            <div ng-show="isEditModeOn" class="update-input"
-                                 ng-class="{'alert-validate' : updateProfile.lastname.$invalid && (updateProfile.lastname.$touched || isClicked)}"
-                                 data-validate="{{updateProfile.lastname.$error.required ? 'הכנס שם משפחה' : updateProfile.lastname.$error.pattern ? 'שם משפחה לא תקין' : ''}}">
-                                <input class="update-input100" type="text" name="lastname" ng-model="user.lastname" placeholder="שם משפחה"
-                                       required ng-pattern="regex.regexHeb" ng-pattern-restrict>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>שם משפחה</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label ng-show="!isEditModeOn">{{user.lastname}}</label>
+                                <div ng-show="isEditModeOn" class="update-input"
+                                     ng-class="{'alert-validate' : updateProfile.lastname.$invalid && (updateProfile.lastname.$touched || isClicked)}"
+                                     data-validate="{{updateProfile.lastname.$error.required ? 'הכנס שם משפחה' : updateProfile.lastname.$error.pattern ? 'שם משפחה לא תקין' : ''}}">
+                                    <input class="update-input100" type="text" name="lastname" ng-model="user.lastname"
+                                           placeholder="שם משפחה"
+                                           required ng-pattern="regex.regexHeb" ng-pattern-restrict>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row" ng-show="access==userTypes.SPORTSMAN">
-                        <div class="col-md-3">
-                            <label>מין</label>
-                        </div>
-                        <div class="col-md-6">
-                            <label ng-show="!isEditModeOn">{{user.sex}}</label>
-                            <div ng-show="isEditModeOn" class="update-input" id="sexUser"
-                                 ng-class="{'alert-validate' : updateProfile.selectedSex.$invalid && (updateProfile.selectedSex.$touched || isClicked)}"
-                                 data-validate="בחר מין">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>מין</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label ng-show="!isEditModeOn">{{user.sex}}</label>
+                                <div ng-show="isEditModeOn" class="update-input" id="sexUser"
+                                     ng-class="{'alert-validate' : updateProfile.selectedSex.$invalid && (updateProfile.selectedSex.$touched || isClicked)}"
+                                     data-validate="בחר מין">
                                 <span ng-repeat="sex in sexEnum" radioInput>
                                     <input type="radio" name="selectedSex" ng-model="user.sex"
                                            ng-required="!selectedSex" ng-value="sex.name"><label

@@ -47,6 +47,4 @@ app.controller("coachProfileController", function ($scope, $http, $route,$filter
             })
     }
 
-
-
 });
