@@ -107,12 +107,10 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
                     firstname: $scope.firstname,
                     lastname: $scope.lastname,
                     phone: $scope.phone,
+                    address: $scope.address,
                     email: $scope.email,
                     birthdate: $filter('date')($scope.birthdate, "MM/dd/yyyy").toString(),
-                    address: $scope.address,
-                    sportclub: $scope.sportclub.id,
-                    sportStyle: $scope.sportStyle,
-                    teamname: $scope.teamname
+                    sportclub: $scope.sportclub.id
                 });
             }
             registerUsers(data, $scope.userType)
@@ -199,6 +197,32 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
         $scope.selectedSex = 'זכר'
         $scope.sportStyle = 'טאולו'
         $scope.birthdate = new Date(1990, 3, 3);
+    }
+
+    $scope.fillData = function (coach) {
+        if(coach!=undefined) {
+            $scope.judgeFill = true;
+            $scope.id = coach.id;
+            $scope.firstname = coach.firstname;
+            $scope.lastname = coach.lastname;
+            $scope.phone = coach.phone;
+            $scope.email = coach.email;
+            $scope.address = coach.address;
+            $scope.birthdate = new Date(coach.birthdate);
+            $scope.sportclub = $scope.clubs.find(club => club.id == coach.sportclub);
+        }
+        else {
+            $scope.judgeFill = false;
+            $scope.id ='';
+            $scope.firstname ='';
+            $scope.lastname = '';
+            $scope.phone = '';
+            $scope.email = '';
+            $scope.address = '';
+            $scope.birthdate ='';
+            $scope.sportclub =$scope.clubs.find(club => club.name == 'בחר מועדון ספורט');;
+        }
+
     }
 
     function getIdFromErrorMessage(error) {
