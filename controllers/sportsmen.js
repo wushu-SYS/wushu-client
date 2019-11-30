@@ -1,4 +1,4 @@
-app.controller("sportsmenController", function ($scope, $http, $window, $location, constants, clubService, pagingService, sportsmanService) {
+app.controller("sportsmenController", function ($scope, $http, $window, $location, constants, clubService, pagingService, sportsmanService, commonFunctionsService) {
     $scope.sexEnum = constants.sexEnum;
     $scope.sportStyles = constants.sportStyleEnum;
     var allUsers;
@@ -7,6 +7,8 @@ app.controller("sportsmenController", function ($scope, $http, $window, $locatio
     $scope.headerTable = "ספורטאיים";
     setPage(1);
     getDataForDisplay();
+
+    $scope.getImageUrl = commonFunctionsService.getImageUrl;
 
     function getDataForDisplay() {
         clubService.getClubs()
@@ -47,7 +49,7 @@ app.controller("sportsmenController", function ($scope, $http, $window, $locatio
         $scope.isToDesc = !$scope.isToDesc;
         setPage(1);
     }
-    
+
     $scope.watchProfile = function (selectedId) {
         $location.path("/sportsmanProfile/" + selectedId);
     }

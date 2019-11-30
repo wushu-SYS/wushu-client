@@ -1,10 +1,12 @@
-app.controller("sportsmanProfileController", function ($scope, $http, $filter, $window, $location, $rootScope, $routeParams, constants, sportsmanService, userService, confirmDialogService, toastNotificationService) {
+app.controller("sportsmanProfileController", function ($scope, $http, $filter, $window, $location, $rootScope, $routeParams, constants, sportsmanService, userService, confirmDialogService, toastNotificationService, commonFunctionsService) {
     var oldId;
     $scope.whoAmI = "ספורטאי";
     $scope.isEditModeOn = false;
     $scope.currentDate = new Date();
     $scope.sexEnum = constants.sexEnum;
     $scope.regex = constants.regex;
+
+    $scope.getImageUrl = commonFunctionsService.getImageUrl;
 
     $scope.submit = function (isValid) {
         if (isValid) {
