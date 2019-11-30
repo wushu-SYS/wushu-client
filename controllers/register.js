@@ -207,6 +207,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
         downloadExcelLinkCoachAsJudge.click()
     }
 
+
     fillDataTmpFunction();
     function fillDataTmpFunction() {
         $scope.id = 222222222;
@@ -219,6 +220,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
         $scope.sportStyle = 'טאולו'
         $scope.birthdate = new Date(1990, 3, 3);
     }
+
 
     $scope.fillData = function (coach) {
         if (coach != undefined) {
