@@ -1,4 +1,4 @@
-app.controller("coachProfileController", function ($scope, $http, $filter, $window, $location, $rootScope, $routeParams, constants, coachService, userService, confirmDialogService, toastNotificationService, commonFunctionsService) {
+app.controller("coachProfileController", function ($scope, $http, $route,$filter, $window, $location, $rootScope, $routeParams, constants, coachService, userService, confirmDialogService, toastNotificationService, commonFunctionsService) {
     $scope.whoAmI = "מאמן";
 
     $scope.getImageUrl = commonFunctionsService.getImageUrl;
@@ -21,20 +21,31 @@ app.controller("coachProfileController", function ($scope, $http, $filter, $wind
                 email: $scope.user.email,
                 birthdate: $filter('date')($scope.user.birthdate, "dd/MM/yyyy"),
                 address: $scope.user.address,
+                oldId: $routeParams.id
             }
             coachService.updateProfile(data)
                 .then(function (result) {
                     toastNotificationService.successNotification("המשתמש עודכן בהצלחה");
                     $scope.isSaved = true;
-                    if($rootScope.isChangingLocationFirstTime) $location.path("/users/couches");
-                }, function (error) {
+                    $scope.isEditModeOn = false;
+                    $route.reload();
+                    }, function (error) {
                     toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע העדכון");
                     console.log(error)
                 })
         }
     };
 
-    $scope.delProfile = function (id) {}
+    $scope.delProfile = function (id) {
+        coachService.deleteCoach($routeParams.id)
+            .then(function (result) {
+                toastNotificationService.successNotification("המשתמש נמחק בהצלחה");
+                $location.path("/users/coaches");
+            }, function (error) {
+                toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע מחיקה");
+                console.log(error)
+            })
+    }
 
 
 
