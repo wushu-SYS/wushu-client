@@ -1,7 +1,9 @@
-app.controller("coachController", function ($scope, $http, $filter, $window, $location, constants, clubService, coachService) {
+app.controller("coachController", function ($scope, $http, $filter, $window, $location, constants, clubService, coachService, commonFunctionsService) {
     $scope.headerTable = "מאמנים";
     $scope.isToDesc = true;
     getDataForDisplay();
+
+    $scope.getImageUrl = commonFunctionsService.getImageUrl;
 
     function getDataForDisplay() {
         coachService.getCoaches()

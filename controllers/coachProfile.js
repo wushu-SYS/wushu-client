@@ -1,5 +1,8 @@
-app.controller("coachProfileController", function ($scope, $http, $filter, $window, $location, $rootScope, $routeParams, constants, coachService, userService, confirmDialogService, toastNotificationService) {
+app.controller("coachProfileController", function ($scope, $http, $filter, $window, $location, $rootScope, $routeParams, constants, coachService, userService, confirmDialogService, toastNotificationService, commonFunctionsService) {
     $scope.whoAmI = "מאמן";
+
+    $scope.getImageUrl = commonFunctionsService.getImageUrl;
+
     coachService.getCoachProfile({id: $routeParams.id})
         .then(function (result) {
             $scope.user = result.data;
@@ -7,13 +10,6 @@ app.controller("coachProfileController", function ($scope, $http, $filter, $wind
         }, function (error) {
             console.log(error)
         })
-
-    $scope.turnOnEditMode = function () {
-        $scope.isEditModeOn = true;
-    };
-    $scope.turnOffEditMode = function () {
-        $scope.isEditModeOn = false;
-    };
 
     $scope.submit = function (isValid) {
         if (isValid) {
