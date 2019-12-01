@@ -2,7 +2,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
     $scope.sexEnum = constants.sexEnum;
     $scope.sportStyleEnum = constants.sportStyleEnum;
     $scope.regex = constants.regex;
-
+    $scope.judgeFill = false;
     $scope.currentDate = new Date();
     $scope.userType = "sportsman";
     $scope.coaches = new Array()
@@ -10,6 +10,8 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
     let dropZoneRegisterUsers = document.getElementById("dropZoneRegisterUsers");
     let downloadExcelLinkSportsman = document.getElementById("downExcelSportsman");
     let downloadExcelLinkCoahces = document.getElementById("downExcelCoach");
+    let downloadExcelLinkJudge = document.getElementById("downExcelNewJudge");
+    let downloadExcelLinkCoachAsJudge = document.getElementById("downExcelCoachJudge");
     getCoachesAndClub();
 
     $scope.BrowseFileClick = function () {
@@ -180,11 +182,22 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
 
     $scope.downloadExcelRegisterCoaches = function () {
         let token = $window.sessionStorage.getItem('token')
-        let url = constants.serverUrl + '/downloadExcelFormatCoach/' + token;
+        let url = constants.serverUrl + '/downloadExcelFormatCoach/'+token;
         downloadExcelLinkCoahces.setAttribute('href', url);
-        downloadExcelLinkCoahces.click();
+        downloadExcelLinkCoahces.click()
     }
-
+    $scope.downloadExcelRegisterJudge = function () {
+        let token = $window.sessionStorage.getItem('token')
+        let url = constants.serverUrl + '/downloadExcelFormatJudge/' + token;
+        downloadExcelLinkJudge.setAttribute('href', url);
+        downloadExcelLinkJudge.click()
+    }
+    $scope.downloadExcelRegisterCoachAsJudge = function () {
+        let token = $window.sessionStorage.getItem('token')
+        let url = constants.serverUrl + '/downloadExcelFormatCoachAsJudge/' + token;
+        downloadExcelLinkCoachAsJudge.setAttribute('href', url);
+        downloadExcelLinkCoachAsJudge.click()
+    }
 
     fillDataTmpFunction();
     function fillDataTmpFunction() {
@@ -200,7 +213,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
     }
 
     $scope.fillData = function (coach) {
-        if(coach!=undefined) {
+        if (coach != undefined) {
             $scope.judgeFill = true;
             $scope.id = coach.id;
             $scope.firstname = coach.firstname;
@@ -210,17 +223,16 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
             $scope.address = coach.address;
             $scope.birthdate = new Date(coach.birthdate);
             $scope.sportclub = $scope.clubs.find(club => club.id == coach.sportclub);
-        }
-        else {
+        } else {
             $scope.judgeFill = false;
-            $scope.id ='';
-            $scope.firstname ='';
+            $scope.id = '';
+            $scope.firstname = '';
             $scope.lastname = '';
             $scope.phone = '';
             $scope.email = '';
             $scope.address = '';
-            $scope.birthdate ='';
-            $scope.sportclub =$scope.clubs.find(club => club.name == 'בחר מועדון ספורט');;
+            $scope.birthdate = '';
+            $scope.sportclub = $scope.clubs.find(club => club.name == 'בחר מועדון ספורט');
         }
 
     }
