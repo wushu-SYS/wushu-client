@@ -167,10 +167,16 @@
         <div class="center">
             <div class="validate-input downloadLink" ng-show="userType == 'coach'">
                 <span class="focus-input100" data-symbol="&#xf220"></span>
-                <a id="downExcelCoach" class="linkDark" style="padding-right: 15px" ng-show="userType == 'coach'"
+                <a id="downExcelCoach" class="linkDark" style="padding-right: 15px"
                    href="" ng-click="downloadExcelRegisterCoaches()" download> הורד פורמט קובץ אקסל לרישום מאמן</a>
-                <a id="downExcelNewJudge" class="linkDark" style="padding-right: 15px" ng-show="userType == 'judge'"
-                   href="" ng-click="downloadExcelRegisterJudge()" download> הורד פורמט קובץ אקסל לרישום שופטים חדשים</a>
+            </div>
+        </div>
+
+        <div class="center">
+            <div class="validate-input downloadLink" ng-show="userType=='judge'">
+                <span class="focus-input100" data-symbol="&#xf220"></span>
+                <a id="downExcelNewJudge" class="linkDark" style="padding-right: 15px"
+                   href="" ng-click="downloadExcelRegisterNewJudge()" download> הורד פורמט קובץ אקסל לרישום שופטים חדשים</a>
             </div>
         </div>
         <div class="center">
