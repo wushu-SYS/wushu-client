@@ -190,7 +190,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
 
     $scope.downloadExcelRegisterCoaches = function () {
         let token = $window.sessionStorage.getItem('token')
-        let url = constants.serverUrl + '/downloadExcelFormatCoach/'+token;
+        let url = constants.serverUrl + '/downloadExcelFormatCoach/' + token;
         downloadExcelLinkCoahces.setAttribute('href', url);
         downloadExcelLinkCoahces.click()
     }
