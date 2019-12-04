@@ -24,6 +24,9 @@ app.constant('constants', {
         OPEN: 0,
         CLOSE: 1,
         REGCLOSE: 2
+    },
+    fileName :{
+      coachAsJudge :'שיוך מאמנים כשופטים במערכת.xlsx'
     }
     //'someElseSetting': 'settingValue'
 });

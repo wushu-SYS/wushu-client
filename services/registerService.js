@@ -1,6 +1,6 @@
 app.service('registerService', function ($window, $http, constants) {
-    this.registerUsersExcel = function (data,userType) {
-        let url = getRegisterUserExcelUrl(userType);
+    this.registerUsersExcel = function (data,userType, coachAsJudge) {
+        let url = getRegisterUserExcelUrl(userType, coachAsJudge);
         let req = {
             method: 'POST',
             url: url,
@@ -28,8 +28,12 @@ app.service('registerService', function ($window, $http, constants) {
     function getRegisterUserUrl  (userType) {
         if (userType=="sportsman")
             return constants.serverUrl + '/private/commonCoachManager/registerSportsman';
-        else
+        else if(userType=='coach')
             return constants.serverUrl + '/private/manager/registerCoach';
+        else if (userType=='judge')
+            return constants.serverUrl + '/private/manager/registerNewJudge';
+        else if(userType=='judge' && coachAsJudge == true)
+            return constants.serverUrl + '/private/manager/registerCoachAsJudge';
     }
 
     function getRegisterUserExcelUrl(userType) {

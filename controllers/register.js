@@ -4,6 +4,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
     $scope.regex = constants.regex;
     $scope.judgeFill = false;
     $scope.currentDate = new Date();
+    let coachAsJudge = false;
     $scope.userType = "sportsman";
     $scope.coaches = new Array()
     $scope.clubs = new Array();
@@ -56,16 +57,22 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
     $scope.ExcelExport = function (event) {
         excelService.uploadExcel(event, function (res) {
             res.result.shift();
-            registerExcelUsers(res.result, $scope.userType)
+            registerExcelUsers(res.result, $scope.userType, coachAsJudge)
         })
     };
 
+
+    function isCoachAsJudge(fileName) {
+        if(fileName==constants.fileName.coachAsJudge)
+            return true;
+        return false;
+    }
 
     dropZoneRegisterUsers.ondrop = function (e) {
         excelService.dropZoneDropFile(e, function (res) {
             changeDropZone(res.fileName)
             res.result.shift();
-            registerExcelUsers(res.result, $scope.userType)
+            registerExcelUsers(res.result, $scope.userType, coachAsJudge)
         })
     };
 
@@ -103,7 +110,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
                     sportStyle: $scope.sportStyle,
                     idCoach: $scope.coach.id
                 });
-            } else {
+            } else if ($scope.userType == 'coach') {
                 data.push({
                     id: $scope.id,
                     firstname: $scope.firstname,
@@ -115,7 +122,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
                     sportclub: $scope.sportclub.id
                 });
             }
-            registerUsers(data, $scope.userType)
+            registerUsers(data, $scope.userType, coachAsJudge)
         }
     };
     $rootScope.isChangingLocationFirstTime = true;
@@ -151,7 +158,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
 
     function registerUsers(data, userType) {
         if (userType=='sportsman')
-            registerService.registerUsers(data,userType)
+            registerService.registerUsers(data,userType, coachAsJudge)
                 .then((results) => {
                     $scope.isSaved = true;
                     toastNotificationService.successNotification("הרישום בוצע בהצלחה");
@@ -182,7 +189,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
 
     $scope.downloadExcelRegisterCoaches = function () {
         let token = $window.sessionStorage.getItem('token')
-        let url = constants.serverUrl + '/downloadExcelFormatCoach/'+token;
+        let url = constants.serverUrl + '/downloadExcelFormatCoach/' + token;
         downloadExcelLinkCoahces.setAttribute('href', url);
         downloadExcelLinkCoahces.click()
     }
@@ -214,6 +221,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
 
     $scope.fillData = function (coach) {
         if (coach != undefined) {
+            coachAsJudge = true;
             $scope.judgeFill = true;
             $scope.id = coach.id;
             $scope.firstname = coach.firstname;
@@ -224,6 +232,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
             $scope.birthdate = new Date(coach.birthdate);
             $scope.sportclub = $scope.clubs.find(club => club.id == coach.sportclub);
         } else {
+            coachAsJudge = false;
             $scope.judgeFill = false;
             $scope.id = '';
             $scope.firstname = '';
