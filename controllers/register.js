@@ -123,7 +123,16 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
                     sportStyle: $scope.sportStyle
                 });
             }
-            registerUsers(data, $scope.userType, coachAsJudge)
+            else if ($scope.userType == 'judge' && coachAsJudge == true){
+                data.push({
+                    id: $scope.id,
+                    firstname: $scope.firstname,
+                    lastname: $scope.lastname,
+                    phone: $scope.phone,
+                    email: $scope.email
+                });
+            }
+            registerUsers(data, $scope.userType,coachAsJudge)
         }
     };
     $rootScope.isChangingLocationFirstTime = true;
@@ -231,9 +240,6 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
             $scope.lastname = coach.lastname;
             $scope.phone = coach.phone;
             $scope.email = coach.email;
-            $scope.address = coach.address;
-            $scope.birthdate = new Date(coach.birthdate);
-            $scope.sportclub = $scope.clubs.find(club => club.id == coach.sportclub);
         } else {
             coachAsJudge = false;
             $scope.judgeFill = false;
