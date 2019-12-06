@@ -76,10 +76,11 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
             return true;
         }
         else{
+            let isExisted = user.category === user.selectedCategory.id;
             user.selectedCategory = $scope.categories.find(function (category) {
                 return category.id == oldCategory;
             });
-            return false;
+            return isExisted;
         }
     }
     function removeSportsmanFromoldCategory(oldCategory, user) {
@@ -147,10 +148,13 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
         $scope.selectedSportsmenToMerge.forEach(user => {
            user.selectedCategory = maxCategory;
            user.isChecked = false;
-           isDuplicate = isDuplicate || !updateUserCategories(user, user.category);
+           isDuplicate = !updateUserCategories(user, user.category) || isDuplicate;
         });
         $scope.selectedSportsmenToMerge = [];
-        toastNotificationService.successNotification("הספורטאיים מוזגו לקטגוריה " + maxCategory.name + " " + categoryService.getAgeRange(maxCategory));
+        if(isDuplicate)
+            toastNotificationService.warningNotification("חלק מהספורטאיים שסומנו רשומים כבר לקטגוריה ולכן אלה לא מוזגו.\n שאר הספורטאיים מוזגו בהצלחה לקטגוריה " + maxCategory.name + " " + categoryService.getAgeRange(maxCategory));
+        else
+            toastNotificationService.successNotification("הספורטאיים מוזגו לקטגוריה " + maxCategory.name + " " + categoryService.getAgeRange(maxCategory));
     };
     $scope.removeSportsmanFromCategory = function(fromCategory, user){
         confirmDialogService.askQuestion("האם אתה בטוח שאתה רוצה לבטל את הרישום של הספורטאי לקטגוריה" + fromCategory.name + "?", function () {
