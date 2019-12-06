@@ -96,6 +96,7 @@
 <script src="controllers/editCompetitionDetailsModal.js"></script>
 <script src="controllers/addCategoryModalController.js"></script>
 <script src="controllers/coachesTable.js"></script>
+<script src="controllers/clubTable.js"></script>
 <script src="controllers/coachProfile.js"></script>
 
 <!-- Load Services -->
@@ -158,21 +159,21 @@
     </div>
     <div id="managerMenu" ng-show="access==userTypes.MANAGER || access==userTypes.COACH">
         <ul class="menu">
-            <!--            <div class="dropdown">-->
-            <!--                <div ng-class="getClass('/sportClubs')" class="menuItem">ניהול מועדונים-->
-            <!--                    <i class="fa fa-caret-down" aria-hidden="true"></i>-->
-            <!--                </div>-->
-            <!--                <div class="dropdown-content">-->
-            <!--                    <a href="#!sportClubs/addSportClub">-->
-            <!--                        <i class="fa fa-plus-square" aria-hidden="true"></i>-->
-            <!--                        הוספת מועדונים-->
-            <!--                    </a>-->
-            <!--                    <a href="#!sportClubs/sportClubs">-->
-            <!--                        <i class="fa fa-th-list" aria-hidden="true"></i>-->
-            <!--                        רשימת מועדונים-->
-            <!--                    </a>-->
-            <!--                </div>-->
-            <!--            </div>-->
+            <div class="dropdown">
+                <div ng-class="getClass('/sportClubs')" class="menuItem">ניהול מועדונים
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </div>
+                <div class="dropdown-content">
+                    <a href="#!sportClubs/addSportClub">
+                        <i class="fa fa-plus-square" aria-hidden="true"></i>
+                        הוספת מועדונים
+                    </a>
+                    <a href="#!sportClubs/sportClubs">
+                        <i class="fa fa-th-list" aria-hidden="true"></i>
+                        רשימת מועדונים
+                    </a>
+                </div>
+            </div>
             <div class="dropdown">
                 <div ng-class="getClass('/users')" class="menuItem">ניהול משתמשים
                     <i class="fa fa-caret-down" aria-hidden="true"></i>

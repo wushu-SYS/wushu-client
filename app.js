@@ -83,8 +83,8 @@ app.config(function($routeProvider) {
             controller: 'homeController as hCtrl'
         })
         .when('/sportClubs/sportClubs', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
+            templateUrl: 'views/clubTable.html',
+            controller: 'clubController as clubCtrl'
         })
         .when('/users/couches', {
             templateUrl: 'views/userTable.html',
