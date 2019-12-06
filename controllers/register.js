@@ -123,7 +123,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
                     sportStyle: $scope.sportStyle
                 });
             }
-            else if ($scope.userType == 'judge' && coachAsJudge == true){
+            else if ($scope.registerUser == 'judge'){
                 data.push({
                     id: $scope.id,
                     firstname: $scope.firstname,
