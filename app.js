@@ -79,8 +79,8 @@ app.config(function($routeProvider) {
             controller: 'coachProfileController as coachProfileCtrl'
         })
         .when('/sportClubs/addSportClub', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
+            templateUrl: 'views/addFormsView/addNewClub.html',
+            controller: 'addNewClubController as addClubCtrl'
         })
         .when('/sportClubs/sportClubs', {
             templateUrl: 'views/tablesView/clubTable.html',

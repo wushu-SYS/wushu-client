@@ -1,0 +1,82 @@
+<body>
+
+<div id="box">
+    <h1>הוספת מועדון חדש</h1>
+    <form class="centered-form validate-form" name="addClubForm" ng-submit="submit(addClubForm.$valid)" novalidate>
+        <div class="wrap-input100 validate-input"
+             ng-class="{'alert-validate' : addClubForm.clubName.$invalid && (addClubForm.clubName.$touched || isClicked)}"
+             data-validate="{{addClubForm.clubName.$error.required ? 'הכנס שם מועדון.' : addClubForm.clubName.pattern ? 'הכנס שם מועדון בשפה העברית' : ''}}">
+            <span class="label-input100">שם המועדון</span>
+            <input class="input100" type="text" name="clubName" ng-model="clubName"
+                   ng-required="true" ng-pattern="regex.regexHebWithSpace" ng-pattern-restrict>
+            <span class="focus-input100" data-symbol="&#xf187;"></span>
+        </div>
+        <div class="wrap-input100 validate-input"
+             ng-class="{'alert-validate' : addClubForm.address.$invalid && (addClubForm.address.$touched || isClicked)}"
+             data-validate="{{addClubForm.address.$error.required ? 'הכנס מיקום.' : addClubForm.address.pattern ? 'הכנס מיקום בשפה העברית' : ''}}">
+            <span class="label-input100">מיקום</span>
+            <input class="input100" type="text" name="address" ng-model="address"
+                   ng-required="true" ng-pattern="regex.regexHebrewAndNumbers" ng-pattern-restrict>
+            <span class="focus-input100" data-symbol="&#xf175;"></span>
+        </div>
+        <div class="wrap-input100 validate-input"
+             ng-class="{'alert-validate' : addClubForm.phone.$invalid && (addClubForm.phone.$touched || isClicked)}"
+             data-validate="{{addClubForm.phone.$error.required ? 'הכנס טלפון.' : addClubForm.phone.pattern ? 'הכנס טלפון בשפה העברית' : ''}}">
+            <span class="label-input100">טלפון</span>
+            <input class="input100" type="text" name="phone" ng-model="phone"
+                   ng-required="true" ng-pattern="regex.regexOnlyNumbers" ng-pattern-restrict>
+            <span class="focus-input100" data-symbol="&#xf2b6;"></span>
+        </div>
+        <div class="wrap-input100 validate-input"
+             ng-class="{'alert-validate' : addClubForm.contact.$invalid && (addClubForm.contact.$touched || isClicked)}"
+             data-validate="{{addClubForm.contact.$error.required ? 'הכנס שם איש קשר.' : addClubForm.contact.pattern ? 'הכנס שם איש קשר בשפה העברית' : ''}}">
+            <span class="label-input100">איש קשר</span>
+            <input class="input100" type="text" name="contact" ng-model="contact"
+                   ng-required="true" ng-pattern="regex.regexHebWithSpace" ng-pattern-restrict>
+            <span class="focus-input100" data-symbol="&#xf207;"></span>
+        </div>
+        <div id="ergon" class="wrap-input100 validate-input"
+             ng-class="{'alert-validate' : addClubForm.ergon.$invalid && (addClubForm.ergon.$touched || isClicked)}"
+             data-validate="בחר ארגון">
+            <span class="label-input100">ארגון</span>
+            <select name="ergon" ng-model="ergon" required
+                    ng-options="x.name
+                            for
+                            x in ergons">
+                <option value="" disabled="disabled">בחר ארגון</option>
+            </select>
+            <span class="focus-input100" data-symbol="&#xf20c"></span>
+        </div>
+        <div id="aguda" class="wrap-input100 validate-input"
+             ng-class="{'alert-validate' : addClubForm.aguda.$invalid && (addClubForm.aguda.$touched || isClicked)}"
+             data-validate="בחר אגודה">
+            <span class="label-input100">אגודה</span>
+            <select name="aguda" ng-model="aguda" required
+                    ng-options="x.name
+                            for
+                            x in agudas">
+                <option value="" disabled="disabled">בחר אגודה</option>
+            </select>
+            <span class="focus-input100" data-symbol="&#xf20c"></span>
+        </div>
+        <div id="amuta" class="wrap-input100 validate-input"
+             ng-class="{'alert-validate' : addClubForm.amuta.$invalid && (addClubForm.amuta.$touched || isClicked)}"
+             data-validate="בחר עמותה">
+            <span class="label-input100">עמותה</span>
+            <select name="amuta" ng-model="amuta" required
+                    ng-options="x.name
+                            for
+                            x in amutas">
+                <option value="" disabled="disabled">בחר עמותה</option>
+            </select>
+            <span class="focus-input100" data-symbol="&#xf20c"></span>
+        </div>
+
+
+        <div style="text-align: center">
+            <input type="submit" name="signup_submit" ng-click="isClicked=true" value="שמור"/>
+        </div>
+    </form>
+</div>
+
+</body>
