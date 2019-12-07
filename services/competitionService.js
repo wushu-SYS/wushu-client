@@ -69,7 +69,7 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
 
     this.addNewCategory = function (finishAddingNewCategory) {
         $uibModal.open({
-            templateUrl: "views/addNewCategoryModal.html",
+            templateUrl: "views/modalView/addNewCategoryModal.html",
             controller: "addCategoryModalController as aCMCCtrl",
             backdrop: true,
             keyboard: false,
@@ -80,7 +80,7 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
     }
     this.editCompetitionDetails = function (id) {
         $uibModal.open({
-            templateUrl: "views/editCompetitionDetails.html",
+            templateUrl: "views/modalView/editCompetitionDetails.html",
             controller: "editCompetitionDetailsModal as cEditDetailsCtrl",
             backdrop: 'static',
             keyboard: false,
@@ -180,7 +180,7 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
 
     this.watchCompDetails = function (idCompetiton) {
         $uibModal.open({
-            templateUrl: "views/competitonDetails.html",
+            templateUrl: "views/modalView/competitonDetails.html",
             controller: "competitionDetailsModal as cDetailsCtrl",
             backdrop: true,
             keyboard: false,

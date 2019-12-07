@@ -49,7 +49,7 @@ app.config(function($routeProvider) {
             controller: 'loginController as loginCtrl'
         })
         .when('/users/register',{
-            templateUrl :'views/registerUser.html',
+            templateUrl :'views/addFormsView/registerUser.html',
             controller: 'registerController as chRegCtrl'
         })
         .when('/calendar', {
@@ -71,11 +71,11 @@ app.config(function($routeProvider) {
             }
         })
         .when('/sportsmanProfile/:id?', {
-            templateUrl: 'views/profilePage.html',
+            templateUrl: 'views/profileView/profilePage.html',
             controller: 'sportsmanProfileController as sportsmanProfileCtrl'
         })
         .when('/coachProfile/:id?', {
-            templateUrl: 'views/profilePage.html',
+            templateUrl: 'views/profileView/profilePage.html',
             controller: 'coachProfileController as coachProfileCtrl'
         })
         .when('/sportClubs/addSportClub', {
@@ -83,11 +83,11 @@ app.config(function($routeProvider) {
             controller: 'homeController as hCtrl'
         })
         .when('/sportClubs/sportClubs', {
-            templateUrl: 'views/clubTable.html',
+            templateUrl: 'views/tablesView/clubTable.html',
             controller: 'clubController as clubCtrl'
         })
         .when('/users/couches', {
-            templateUrl: 'views/userTable.html',
+            templateUrl: 'views/tablesView/userTable.html',
             controller: 'coachController as coachCtrl'
         })
         .when('/users/admins', {
@@ -95,7 +95,7 @@ app.config(function($routeProvider) {
             controller: 'homeController as hCtrl'
         })
         .when('/users/sportsmen', {
-            templateUrl: 'views/userTable.html',
+            templateUrl: 'views/tablesView/userTable.html',
             controller: 'sportsmenController as sportsmenCtrl'
         })
         .when('/users/referees', {
@@ -103,11 +103,11 @@ app.config(function($routeProvider) {
             controller: 'homeController as hCtrl'
         })
         .when('/competitions/addCompetition', {
-            templateUrl: 'views/openCompetition.html',
+            templateUrl: 'views/addFormsView/openCompetition.html',
             controller: 'openCompetitionController as hCtrl'
         })
         .when('/competitions/registerToCompetition', {
-            templateUrl: 'views/competitionTable.html',
+            templateUrl: 'views/tablesView/competitionTable.html',
             controller: 'registerToCompetitionController as regCompCtrl'
         })
         .when('/competitions/addResults', {
@@ -119,11 +119,11 @@ app.config(function($routeProvider) {
             controller: 'homeController as hCtrl'
         })
         .when('/competitions/getCompetitions', {
-            templateUrl: 'views/competitionTable.html',
+            templateUrl: 'views/tablesView/competitionTable.html',
             controller: 'competitionTableController as cTCtrl'
         })
         .when('/competitions/RegistrationState/:idCompetition/:date', {
-            templateUrl: 'views/registrationState.html',
+            templateUrl: 'views/competitionRegistrationView/registrationState.html',
             controller: 'registrationStateController as regStateCtrl'
         })
         .when('/events/addEvent', {
@@ -143,7 +143,7 @@ app.config(function($routeProvider) {
             controller: 'homeController as hCtrl'
         })
         .when('/competitionRegistration/:idComp', {
-            templateUrl: 'views/regSportsmanCompetition.html',
+            templateUrl: 'views/competitionRegistrationView/regSportsmanCompetition.html',
             controller: 'competitionRegisterModal as cRegCtrl'
         })
         .otherwise({redirectTo: '/login'});

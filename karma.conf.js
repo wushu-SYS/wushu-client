@@ -35,7 +35,7 @@ module.exports = function(config) {
         './services/competitionService.js',
         './services/commonFunctionsService.js',
         './services/categoryService.js',
-        './controllers/registrationStateController.js',
+        'controllers/competitionRegistration/registrationStateController.js',
         './filters/categoryBySportsmanFilter.js',
         './filters/coachByClubFilter.js',
         './filters/sportsmanByClubFilter.js',
