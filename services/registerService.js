@@ -30,7 +30,7 @@ app.service('registerService', function ($window, $http, constants) {
             return constants.serverUrl + '/private/commonCoachManager/registerSportsman';
         else if(userType=='coach')
             return constants.serverUrl + '/private/manager/registerCoach';
-        else if (userType=='judge')
+        else if (registerUser =='judge'&& coachAsJudge == false)
             return constants.serverUrl + '/private/manager/registerNewJudge';
         else if(userType=='judge' && coachAsJudge == true)
             return constants.serverUrl + '/private/manager/registerCoachAsJudge';

@@ -19,9 +19,8 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
         let fileinput = document.getElementById("fileSportsman");
         fileinput.click();
         fileinput.onchange = function (event) {
-            $scope.ExcelExport(event)
             changeDropZone(event.target.value.toString());
-
+            $scope.ExcelExport(event)
         }
     }
 
@@ -54,6 +53,9 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
         dropZoneRegisterUsers.className = "dropzone"
         document.getElementById("fileSportsman").value = "";
     }
+
+
+
     $scope.ExcelExport = function (event) {
         excelService.uploadExcel(event, function (res) {
             res.result.shift();
@@ -65,6 +67,8 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
     function isCoachAsJudge(fileName) {
         if(fileName==constants.fileName.coachAsJudge)
             return true;
+        if(constants.fileName.coachAsJudge.toString().includes("שיוך"))
+            return true;
         return false;
     }
 
@@ -72,13 +76,14 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
         excelService.dropZoneDropFile(e, function (res) {
             changeDropZone(res.fileName)
             res.result.shift();
-            registerExcelUsers(res.result, $scope.userType, coachAsJudge)
+            registerExcelUsers(res.result, $scope.userType)
         })
     };
 
     function changeDropZone(name) {
         let nameArray = name.toString().split("\\");
         $scope.filename = nameArray[nameArray.length - 1];
+        coachAsJudge = isCoachAsJudge($scope.filename)
         $scope.isDropped = true;
         dropZoneRegisterUsers.className = "dropzoneExcel"
     }
