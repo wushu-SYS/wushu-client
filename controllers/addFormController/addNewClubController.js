@@ -24,8 +24,27 @@ app.controller("addNewClubController", function ($scope, $rootScope,$filter,$loc
     }
 
     $scope.submit = function (isValid) {
-
-    }
+        if(isValid) {
+            let data = {
+                clubName: $scope.clubName,
+                address: $scope.address,
+                phone: $scope.phone,
+                contactname: $scope.contact,
+                ergonId: $scope.ergon.id,
+                agudaId: $scope.aguda.id,
+                amutaId: $scope.amuta.id
+            };
+            clubService.addClub(data)
+                .then(function (result) {
+                    toastNotificationService.successNotification("המועדון נוצר בהצלחה");
+                    $scope.isSaved = true;
+                    if ($rootScope.isChangingLocationFirstTime) $location.path('/home');
+                }, function (error) {
+                    console.log(error);
+                    toastNotificationService.errorNotification("ארעה שגיאה בעת יצירת המועדון");
+                })
+        }
+    };
     $rootScope.isChangingLocationFirstTime = true;
     $scope.$on('$routeChangeStart', function(event, newRoute, oldRoute) {
         if($scope.addClubForm.$dirty && !$scope.isSaved && $rootScope.isChangingLocationFirstTime) {

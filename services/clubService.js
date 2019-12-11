@@ -44,4 +44,15 @@ app.service('clubService', function($window, $http, constants) {
         return $http(req);
     }
 
+    this.addClub = function (data) {
+        var req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/manager/addClub',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: data
+        };
+        return $http(req);
+    }
 });
