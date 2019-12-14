@@ -11,7 +11,7 @@
         </button>
     </div>
     <div>
-        <select ng-show="access==userTypes.MANAGER" class="searchInput" name="selectedClub" ng-model="selectedClub"
+        <select ng-show="access==userTypes.MANAGER && clubs.length > 0" class="searchInput" name="selectedClub" ng-model="selectedClub"
                 ng-options="x.name
                 for
                 x in clubs" ng-change="setPage(1)">
@@ -29,7 +29,7 @@
                 x in sexEnum" ng-change="setPage(1)">
             <option value="">זכר ונקבה</option>
         </select>
-        <button>
+        <button style="height: 55px;">
             <i ng-model="isToDesc"
                ng-class="isToDesc ? 'fa fa-sort-alpha-desc clickableSearch' : 'fa fa-sort-alpha-asc clickableSearch'"
                ng-click="isToDesc = !isToDesc; setPage(1)" ng-change="setPage(1)" aria-hidden="true"></i>

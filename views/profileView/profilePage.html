@@ -26,15 +26,15 @@
                                ng-class="{'active' : activeTag==='personalData' || activeTag===undefined}">פרטים
                                 אישיים</a>
                         </li>
-                        <!--                    <li class="nav-item">-->
-                        <!--                        <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='attachments'" ng-class="{'active' : activeTag==='attachments'}">קבצים מצורפים</a>-->
-                        <!--                    </li>-->
-                        <!--                    <li class="nav-item">-->
-                        <!--                        <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='compData'" ng-class="{'active' : activeTag==='compData'}">מידע תחרויות</a>-->
-                        <!--                    </li>-->
-                        <!--                    <li class="nav-item" ng-show="false">-->
-                        <!--                        <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='judgeStat'" ng-class="{'active' : activeTag==='judgeStat'}">סטטיסטיקות שיפוט</a>-->
-                        <!--                    </li>-->
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='attachments'" ng-class="{'active' : activeTag==='attachments'}">קבצים מצורפים</a>
+                        </li>
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='compData'" ng-class="{'active' : activeTag==='compData'}">מידע תחרויות</a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item" ng-show="false">-->
+<!--                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='judgeStat'" ng-class="{'active' : activeTag==='judgeStat'}">סטטיסטיקות שיפוט</a>-->
+<!--                        </li>-->
                     </ul>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                     <div class="tab-pane fade"
                          ng-class="{'show' : activeTag==='personalData' || activeTag===undefined , 'active' : activeTag==='personalData' || activeTag===undefined}"
                          id="personalData" role="tabpanel" aria-labelledby="compData">
-                        <div class="row">
+                        <div class="row" ng-show="user.id">
                             <div class="col-md-3">
                                 <label>תעודת זהות</label>
                             </div>
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" ng-show="user.firstname">
                             <div class="col-md-3">
                                 <label>שם פרטי</label>
                             </div>
@@ -89,7 +89,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" ng-show="user.lastname">
                             <div class="col-md-3">
                                 <label>שם משפחה</label>
                             </div>
@@ -104,7 +104,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="profileSex" class="row" ng-show="access==userTypes.SPORTSMAN">
+                        <div id="profileSex" class="row" ng-show="user.sex">
                             <div class="col-md-3">
                                 <label>מין</label>
                             </div>
@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="profileBirthDate" class="row">
+                        <div id="profileBirthDate" class="row" ng-show="user.birthdate">
                             <div class="col-md-3">
                                 <label>תאירך לידה</label>
                             </div>
@@ -136,7 +136,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="profileAddress" class="row">
+                        <div id="profileAddress" class="row" ng-show="user.address">
                             <div class="col-md-3">
                                 <label>כתובת</label>
                             </div>
@@ -151,7 +151,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" ng-show="user.phone">
                             <div class="col-md-3">
                                 <label>טלפון</label>
                             </div>
@@ -167,7 +167,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" ng-show="user.email">
                             <div class="col-md-3">
                                 <label>אימייל</label>
                             </div>
@@ -183,7 +183,7 @@
                             </div>
                         </div>
                         <br>
-                        <div class="row" ng-show="access==userTypes.SPORTSMAN">
+                        <div class="row" ng-show="user.sportStyle">
                             <div class="col-md-3">
                                 <label>ענף</label>
                             </div>
@@ -191,7 +191,7 @@
                                 <label>{{user.sportStyle}}</label>
                             </div>
                         </div>
-                        <div id="profileSportClub" class="row">
+                        <div id="profileSportClub" class="row" ng-show="user.club">
                             <div class="col-md-3">
                                 <label>מועדון ספורט</label>
                             </div>
@@ -199,7 +199,7 @@
                                 <label>{{user.club}}</label>
                             </div>
                         </div>
-                        <div class="row" ng-show="access==userTypes.SPORTSMAN">
+                        <div class="row" ng-show="user.cfirstname">
                             <div class="col-md-3">
                                 <label>מאמן</label>
                             </div>
@@ -212,22 +212,13 @@
                     <div class="tab-pane fade"
                          ng-class="{'show' : activeTag==='attachments' , 'active' : activeTag==='attachments'}"
                          id="attachments" role="tabpanel" aria-labelledby="attachments">
-                        <div class="row">
+                        <div class="row" ng-repeat="file in files">
                             <div class="col-md-3">
-                                <label>ביטוח</label>
+                                <label>{{file.name}}</label>
                             </div>
                             <div class="col-md-6">
                                 <!--                            mabey put a preview for the attachment and the expite date, coler red when expired-->
                                 <!--                            popup when entering the profile that the file expired-->
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label>בדיקות רפואיות</label>
-                            </div>
-                            <div class="col-md-6">
-                                <!--                            //mabey put a preview for the attachment and the expite date, coler red when expired-->
-                                <!--                            //popup when entering the profile that the file expired-->
                             </div>
                         </div>
                     </div>

@@ -3,15 +3,6 @@ app.controller("refereeProfileController", function ($scope, $http, $route,$filt
 
     $scope.getImageUrl = commonFunctionsService.getImageUrl;
 
-    function hideData() {
-        document.getElementById("profileSportClub").style.display ="NONE"
-        document.getElementById("profileAddress").style.display ="NONE"
-        document.getElementById("profileSex").style.display ="NONE"
-        document.getElementById("profileBirthDate").style.display ="NONE"
-    }
-
-    hideData()
-
     refereesService.getRefereeProfile({id: $routeParams.id})
         .then(function (result) {
             $scope.user = result.data;
