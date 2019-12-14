@@ -49,7 +49,7 @@
                     <div class="tab-pane fade"
                          ng-class="{'show' : activeTag==='basicData' || activeTag===undefined , 'active' : activeTag==='basicData' || activeTag===undefined}"
                          id="basicData" role="tabpanel" aria-labelledby="compData">
-                        <div id="profileAddress" class="row" ng-show="club.address">
+                        <div id="profileAddress" class="row" ng-show="club.address || isEditModeOn">
                             <div class="col-md-3">
                                 <label>כתובת</label>
                             </div>
@@ -64,7 +64,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" ng-show="club.phone">
+                        <div class="row" ng-show="club.phone || isEditModeOn">
                             <div class="col-md-3">
                                 <label>טלפון</label>
                             </div>
@@ -80,7 +80,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" ng-show="club.contactname">
+                        <div class="row" ng-show="club.contactname || isEditModeOn">
                             <div class="col-md-3">
                                 <label>איש קשר</label>
                             </div>

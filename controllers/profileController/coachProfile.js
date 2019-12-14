@@ -1,5 +1,9 @@
 app.controller("coachProfileController", function ($scope, $http, $route,$filter, $window, $location, $rootScope, $routeParams, constants, coachService, userService, confirmDialogService, toastNotificationService, commonFunctionsService) {
     $scope.whoAmI = "מאמן";
+    $scope.eWhoAmI = "coach";
+    $scope.isEditModeOn = false;
+    $scope.currentDate = new Date();
+    $scope.regex = constants.regex;
 
     $scope.getImageUrl = commonFunctionsService.getImageUrl;
 

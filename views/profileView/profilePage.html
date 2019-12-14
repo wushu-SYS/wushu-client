@@ -59,7 +59,7 @@
                     <div class="tab-pane fade"
                          ng-class="{'show' : activeTag==='personalData' || activeTag===undefined , 'active' : activeTag==='personalData' || activeTag===undefined}"
                          id="personalData" role="tabpanel" aria-labelledby="compData">
-                        <div class="row" ng-show="user.id">
+                        <div class="row">
                             <div class="col-md-3">
                                 <label>תעודת זהות</label>
                             </div>
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" ng-show="user.firstname">
+                        <div class="row">
                             <div class="col-md-3">
                                 <label>שם פרטי</label>
                             </div>
@@ -89,7 +89,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" ng-show="user.lastname">
+                        <div class="row">
                             <div class="col-md-3">
                                 <label>שם משפחה</label>
                             </div>
@@ -104,7 +104,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="profileSex" class="row" ng-show="user.sex">
+                        <div id="profileSex" class="row" ng-if="eWhoAmI!='coach' && eWhoAmI!='referee'">
                             <div class="col-md-3">
                                 <label>מין</label>
                             </div>
@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="profileBirthDate" class="row" ng-show="user.birthdate">
+                        <div id="profileBirthDate" class="row" ng-if="eWhoAmI!='referee'">
                             <div class="col-md-3">
                                 <label>תאירך לידה</label>
                             </div>
@@ -136,7 +136,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="profileAddress" class="row" ng-show="user.address">
+                        <div id="profileAddress" class="row" ng-if="eWhoAmI!='referee'">
                             <div class="col-md-3">
                                 <label>כתובת</label>
                             </div>
@@ -151,7 +151,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" ng-show="user.phone">
+                        <div class="row">
                             <div class="col-md-3">
                                 <label>טלפון</label>
                             </div>
@@ -167,7 +167,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" ng-show="user.email">
+                        <div class="row">
                             <div class="col-md-3">
                                 <label>אימייל</label>
                             </div>

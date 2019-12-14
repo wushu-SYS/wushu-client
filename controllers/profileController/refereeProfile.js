@@ -1,5 +1,7 @@
 app.controller("refereeProfileController", function ($scope, $http, $route,$filter, $window, $location, $rootScope, $routeParams, constants, refereesService, userService, confirmDialogService, toastNotificationService, commonFunctionsService) {
     $scope.whoAmI = "שופט";
+    $scope.eWhoAmI = "referee";
+    $scope.regex = constants.regex;
 
     $scope.getImageUrl = commonFunctionsService.getImageUrl;
 
@@ -18,13 +20,11 @@ app.controller("refereeProfileController", function ($scope, $http, $route,$filt
                 lastname: $scope.user.lastname,
                 phone: $scope.user.phone,
                 email: $scope.user.email,
-                birthdate: $filter('date')($scope.user.birthdate, "dd/MM/yyyy"),
-                address: $scope.user.address,
                 oldId: $routeParams.id
-            }
-            coachService.updateProfile(data)
+            };
+            refereesService.updateProfile(data)
                 .then(function (result) {
-                    toastNotificationService.successNotification("המשתמש עודכן בהצלחה");
+                    toastNotificationService.successNotification("השופט עודכן בהצלחה");
                     $scope.isSaved = true;
                     $scope.isEditModeOn = false;
                     $route.reload();
@@ -36,14 +36,14 @@ app.controller("refereeProfileController", function ($scope, $http, $route,$filt
     };
 
     $scope.delProfile = function (id) {
-        coachService.deleteCoach($routeParams.id)
-            .then(function (result) {
-                toastNotificationService.successNotification("המשתמש נמחק בהצלחה");
-                $location.path("/users/coaches");
-            }, function (error) {
-                toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע מחיקה");
-                console.log(error)
-            })
+        // coachService.deleteCoach($routeParams.id)
+        //     .then(function (result) {
+        //         toastNotificationService.successNotification("המשתמש נמחק בהצלחה");
+        //         $location.path("/users/coaches");
+        //     }, function (error) {
+        //         toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע מחיקה");
+        //         console.log(error)
+        //     })
     }
 
 

@@ -21,4 +21,15 @@ app.service('refereesService', function ($window, $http, constants) {
         };
         return $http(req);
     };
+    this.updateProfile = function (data) {
+        let req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/commonCoachManager/updateRefereeProfile',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: data
+        };
+        return $http(req);
+    }
 });
