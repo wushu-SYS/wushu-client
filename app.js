@@ -24,7 +24,8 @@ app.controller("mainController", function ($scope, $location, $window, $rootScop
     $rootScope.userTypes = {
         MANAGER: 1,
         COACH: 2,
-        SPORTSMAN: 3
+        SPORTSMAN: 3,
+        Judge :4
     };
 
     $scope.logout = function () {
@@ -78,6 +79,10 @@ app.config(function($routeProvider) {
             templateUrl: 'views/profileView/profilePage.html',
             controller: 'coachProfileController as coachProfileCtrl'
         })
+        .when('/refereeProfile/:id?', {
+            templateUrl: 'views/profileView/profilePage.html',
+            controller: 'refereeProfileController as coachProfileCtrl'
+        })
         .when('/sportClubs/addSportClub', {
             templateUrl: 'views/addFormsView/addNewClub.html',
             controller: 'addNewClubController as addClubCtrl'
@@ -99,8 +104,8 @@ app.config(function($routeProvider) {
             controller: 'sportsmenController as sportsmenCtrl'
         })
         .when('/users/referees', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
+            templateUrl: 'views/tablesView/userTable.html',
+            controller: 'refereesTableController as hCtrl'
         })
         .when('/competitions/addCompetition', {
             templateUrl: 'views/addFormsView/openCompetition.html',
