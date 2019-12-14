@@ -31,9 +31,11 @@ app.controller("addNewClubController", function ($scope, $rootScope,$filter,$loc
                 phone: $scope.phone,
                 contactname: $scope.contact,
                 ergonId: $scope.ergon.id,
-                agudaId: $scope.aguda.id,
-                amutaId: $scope.amuta.id
+                agudaId: $scope.aguda.id
             };
+            if($scope.amuta)
+                data.amutaId = $scope.amuta.id;
+            console.log(data)
             clubService.addClub(data)
                 .then(function (result) {
                     toastNotificationService.successNotification("המועדון נוצר בהצלחה");

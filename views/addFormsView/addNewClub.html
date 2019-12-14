@@ -21,10 +21,10 @@
         </div>
         <div class="wrap-input100 validate-input"
              ng-class="{'alert-validate' : addClubForm.phone.$invalid && (addClubForm.phone.$touched || isClicked)}"
-             data-validate="{{addClubForm.phone.$error.required ? 'הכנס טלפון.' : addClubForm.phone.pattern ? 'הכנס טלפון בשפה העברית' : ''}}">
+             data-validate="{{addClubForm.phone.$error.required ? 'הכנס פלאפון' : (addClubForm.phone.$error.minlength || addClubForm.phone.$error.maxlength || addClubForm.phone.$error.pattern ? 'פלאפון לא תקין' : '')}}">
             <span class="label-input100">טלפון</span>
             <input class="input100" type="text" name="phone" ng-model="phone"
-                   ng-required="true" ng-pattern="regex.regexOnlyNumbers" ng-pattern-restrict>
+                   ng-required="true" ng-minlength="10" ng-maxlength="10" ng-pattern="regex.regexOnlyNumbers" ng-pattern-restrict>
             <span class="focus-input100" data-symbol="&#xf2b6;"></span>
         </div>
         <div class="wrap-input100 validate-input"
@@ -60,10 +60,9 @@
             <span class="focus-input100" data-symbol="&#xf20c"></span>
         </div>
         <div id="amuta" class="wrap-input100 validate-input"
-             ng-class="{'alert-validate' : addClubForm.amuta.$invalid && (addClubForm.amuta.$touched || isClicked)}"
              data-validate="בחר עמותה">
             <span class="label-input100">עמותה</span>
-            <select name="amuta" ng-model="amuta" required
+            <select name="amuta" ng-model="amuta"
                     ng-options="x.name
                             for
                             x in amutas">
