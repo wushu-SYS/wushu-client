@@ -91,6 +91,10 @@ app.config(function($routeProvider) {
             templateUrl: 'views/tablesView/clubTable.html',
             controller: 'clubController as clubCtrl'
         })
+        .when('/sportClubs/clubProfile/:id?', {
+            templateUrl: 'views/profileView/clubProfile.html',
+            controller: 'clubProfileController as clubProfileCtrl'
+        })
         .when('/users/couches', {
             templateUrl: 'views/tablesView/userTable.html',
             controller: 'coachController as coachCtrl'

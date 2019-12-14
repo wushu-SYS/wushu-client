@@ -9,7 +9,7 @@ app.service('clubService', function($window, $http, constants) {
             },
         };
         return $http(req);
-    }
+    };
 
     this.getErgons = function () {
         var req = {
@@ -20,7 +20,7 @@ app.service('clubService', function($window, $http, constants) {
             },
         };
         return $http(req);
-    }
+    };
 
     this.getAmutas = function () {
         var req = {
@@ -31,7 +31,7 @@ app.service('clubService', function($window, $http, constants) {
             },
         };
         return $http(req);
-    }
+    };
 
     this.getAgudas = function () {
         var req = {
@@ -42,7 +42,7 @@ app.service('clubService', function($window, $http, constants) {
             },
         };
         return $http(req);
-    }
+    };
 
     this.addClub = function (data) {
         var req = {
@@ -52,6 +52,17 @@ app.service('clubService', function($window, $http, constants) {
                 'x-auth-token': $window.sessionStorage.getItem('token')
             },
             data: data
+        };
+        return $http(req);
+    };
+
+    this.getClubProfile = function (clubId) {
+        var req = {
+            method: 'GET',
+            url: constants.serverUrl + '/private/commonCoachManager/getClubs/' + clubId,
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            }
         };
         return $http(req);
     }

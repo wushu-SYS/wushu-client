@@ -31,6 +31,6 @@ app.controller("clubController", function ($scope, $http, $filter, $window, $loc
     }
 
     $scope.watchProfile = function (selectedId) {
-        $location.path("/clubProfile/" + selectedId);
+        $location.path("/sportClubs/clubProfile/" + selectedId);
     }
 });
