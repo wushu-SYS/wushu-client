@@ -1,6 +1,6 @@
 app.constant('constants', {
-    //serverUrl: "http://localhost:3000",
-    serverUrl: "https://app-wushu.herokuapp.com",
+    serverUrl: "http://localhost:3000",
+    // serverUrl: "https://app-wushu.herokuapp.com",
     regex:{
         regexOnlyNumbers : new RegExp("^(\\d)*$"),
         regexEmail : new RegExp("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(.[a-zA-Z0-9-]+)+$"),

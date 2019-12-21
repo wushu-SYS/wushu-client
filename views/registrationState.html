@@ -15,7 +15,7 @@
                 </tr>
                 <tbody ng-repeat="userCategory in usersCategories">
                     <tr colspan="6">
-                        <td>{{userCategory.category.name}}</td>
+                        <td>{{userCategory.category.name}} {{getAgeRange(userCategory.category)}} ({{userCategory.category.sex}})</td>
                     </tr>
                     <tr ng-repeat="user in userCategory.users track by $index">
                         <td></td>

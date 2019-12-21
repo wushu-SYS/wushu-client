@@ -2,7 +2,7 @@
 
 <div class="center">
     <div ng-init="searchClicked=false">
-        <input class="searchInput" type="text" placeholder="חפש לפי מיקום..." ng-model="searchText" ng-change="searchClicked=false">
+        <input class="searchInput" type="text" placeholder="חפש לפי מיקום..." ng-model="searchText" ng-change="searchClicked=false" ng-keydown="$event.keyCode === 13 && setPage(1); searchClicked=true">
         <button ng-click="setPage(1); searchClicked=true" ng-show="searchClicked==false">
             <i class="fa fa-search clickableSearch" style="left: 45px" aria-hidden="true"></i>
         </button>
