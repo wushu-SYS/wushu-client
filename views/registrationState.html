@@ -4,15 +4,17 @@
     <form class="login100-form row" name="registrationState" ng-submit="submit()" novalidate>
         <div class="col-md-9">
             <table cellspacing="0">
-                <tr>
+                <thead>
+                    <tr>
                     <th></th>
-                    <th colspan="2" style="text-align: center" class="thInItemList"><a class="linkDark th" ng-click="mergeSelected()" ng-show="selectedSportsmenToMerge.length>1">מזג לקטגוריה<br>אחת</a></th>
+                    <th colspan="2" class="thInItemList stickyLink"><a class="linkDark th" ng-click="mergeSelected()" ng-show="selectedSportsmenToMerge.length>1">מזג לקטגוריה<br>אחת</a></th>
                     <th class="thInItemList">ת.ז.</th>
                     <th class="thInItemList">שם מלא</th>
                     <th class="thInItemList">מין</th>
                     <th class="thInItemList">גיל</th>
                     <th class="thInItemList">קטגוריה</th>
                 </tr>
+                </thead>
                 <tbody ng-repeat="userCategory in usersCategories">
                     <tr colspan="6">
                         <td>{{userCategory.category.name}} {{getAgeRange(userCategory.category)}} ({{userCategory.category.sex}})</td>
@@ -60,7 +62,7 @@
                 <i class="fa fa-file-excel-o iColored" aria-hidden="true"></i>
                 <a id="downRegistrationCompState" class="linkDark" href="" ng-click="downloadExcelRegistrationState()">ייצא לאקסל</a>
             </div>
-            <div style="position: fixed;" ng-show="access==userTypes.MANAGER">
+            <div class="stickyLink" ng-show="access==userTypes.MANAGER">
                 <i class="fa fa-plus-square-o iColored" aria-hidden="true"></i>
                 <a class="linkDark" href="" ng-click="addCategoeyModal()">הוסף קטגוריה חדשה</a>
             </div>

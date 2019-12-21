@@ -42,3 +42,8 @@
 .iColored{
     color: #276873;
 }
+
+.stickyLink{
+    position: sticky;
+    top: 0;
+}

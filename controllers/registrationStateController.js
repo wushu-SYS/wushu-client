@@ -2,7 +2,10 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
     $scope.categoryForSportsman = [];
     $scope.toUnRegisterUsers = [];
     $scope.selectedSportsmenToMerge = [];
-    $scope.currentCompetition = JSON.parse($routeParams.competition);
+    $scope.currentCompetition = {
+      idCompetition: $routeParams.idCompetition,
+      date: $routeParams.date
+    };
     getDisplayData();
     let downloadExcelLink = document.getElementById("downRegistrationCompState")
 

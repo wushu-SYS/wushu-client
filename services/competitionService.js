@@ -196,7 +196,7 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         $location.path('/competitionRegistration/' + idCompetiton);
     };
     this.registrationState = function (competition) {
-        $location.path('/competitions/RegistrationState/' + JSON.stringify(competition));
+        $location.path('/competitions/RegistrationState/' + competition.idCompetition + '/' + competition.date);
     };
     this.buildConditions = function buildConditions(location, sportStyle, statusArr, startIndex, endIndex) {
         var conditions = [];
