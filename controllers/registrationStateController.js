@@ -114,12 +114,14 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
         });
         if (categorySportsman) {
             categorySportsman.category = user.selectedCategory.id;
+            categorySportsman.isDeleted = user.isDeleted;
         } else {
             $scope.categoryForSportsman.push(
                 {
                     id: user.id,
                     category: user.selectedCategory.id,
-                    oldCategory: parseInt(oldCategory)
+                    oldCategory: parseInt(oldCategory),
+                    isDeleted: user.isDeleted
                 }
             );
         }
@@ -159,12 +161,14 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
         else
             toastNotificationService.successNotification("הספורטאיים מוזגו לקטגוריה " + maxCategory.name + " " + categoryService.getAgeRange(maxCategory));
     };
-    $scope.removeSportsmanFromCategory = function(fromCategory, user){
-        confirmDialogService.askQuestion("האם אתה בטוח שאתה רוצה לבטל את הרישום של הספורטאי לקטגוריה" + fromCategory.name + "?", function () {
-            removeSportsmanFromoldCategory(fromCategory.id, user);
-            $scope.toUnRegisterUsers.push({id: user.id, category: fromCategory.id});
-            $scope.$apply();
-        });
+    $scope.setIsDeletedSportsmanFromCategory = function(fromCategory, user){
+        setNewCategoryToUser(user, fromCategory.id);
+
+        // confirmDialogService.askQuestion("האם אתה בטוח שאתה רוצה לבטל את הרישום של הספורטאי לקטגוריה" + fromCategory.name + "?", function () {
+        //     removeSportsmanFromoldCategory(fromCategory.id, user);
+        //     $scope.toUnRegisterUsers.push({id: user.id, category: fromCategory.id});
+        //     $scope.$apply();
+        // });
     };
 
     $scope.closeRegistration = function() {

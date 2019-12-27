@@ -1,6 +1,15 @@
 table {
     width: 100%;
 }
+td { position: relative; }
+tr.deletedItem td:not(:first-child):before {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    border-bottom: 1px solid #111;
+    width: 100%;
+}
 .bodyTable {
     background-color: #91ced4;
 }
@@ -124,7 +133,15 @@ select.searchInput:focus{
     background: white;
     color: red;
 }
-.clickableSearch.little:hover{
+.clickableSearch.undo{
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+    font-size: 13px;
+    background: white;
+    color: red;
+}
+.clickableSearch.little:hover, .clickableSearch.undo:hover{
     /*font-weight: bold;*/
     border-width: 1.2px;
 }

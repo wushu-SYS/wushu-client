@@ -19,9 +19,15 @@
                     <tr colspan="6">
                         <td>{{userCategory.category.name}} {{getAgeRange(userCategory.category)}} ({{userCategory.category.sex}})</td>
                     </tr>
-                    <tr ng-repeat="user in userCategory.users track by $index">
+                    <tr ng-repeat="user in userCategory.users track by $index" ng-class="{'deletedItem':user.isDeleted}">
                         <td></td>
-                        <td class="tdInItemList"><input type="checkbox" ng-show="access==userTypes.MANAGER" ng-model="user.isChecked" ng-change="selectSportsman(user, userCategory.category.id)"></td>
+                        <td class="tdInItemList">
+                            <div>
+                                <i class="fa fa-undo clickableSearch undo" ng-show="access==userTypes.MANAGER && user.isDeleted"
+                                   ng-click="user.isDeleted = false; setIsDeletedSportsmanFromCategory(userCategory.category, user)" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="בטל מחיקה"></i>
+                            </div>
+                            <input type="checkbox" ng-show="access==userTypes.MANAGER" ng-model="user.isChecked" ng-change="selectSportsman(user, userCategory.category.id)" ng-disabled="user.isDeleted" ng-hide="user.isDeleted">
+                        </td>
                         <td class="tdInItemList">{{$index+1}}.</td>
                         <td class="tdInItemList">{{user.id}}</td>
                         <td class="tdInItemList">{{user.firstname}} {{user.lastname}}</td>
@@ -30,8 +36,8 @@
                         <td>
                             <div ng-disable="access==userTypes.MANAGER" class="tdInItemList" style="display: flex">
                                 <div>
-                                    <i class="fa fa-minus clickableSearch little" ng-show="access==userTypes.MANAGER"
-                                       ng-click="removeSportsmanFromCategory(userCategory.category, user)"
+                                    <i class="fa fa-minus clickableSearch little" ng-show="access==userTypes.MANAGER && !user.isDeleted"
+                                       ng-click="user.isDeleted = true; setIsDeletedSportsmanFromCategory(userCategory.category, user)"
                                        aria-hidden="true"></i>
                                 </div>
                                 <select name="selectedCategory" ng-model="user.selectedCategory" class="littleSelect"
@@ -40,7 +46,7 @@
                                         ng-options="x.name + ' ' + getAgeRange(x)
                                          for
                                          x in categories | categoryBySportsmanFilter : user : undefined : false"
-                                        ng-disabled="access!=userTypes.MANAGER">
+                                        ng-disabled="access!=userTypes.MANAGER || user.isDeleted">
                                     <option value="" disabled="disabled">בחר קטגוריה</option>
                                 </select>
                             </div>
