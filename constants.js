@@ -4,9 +4,8 @@ app.constant('constants', {
     regex:{
         regexOnlyNumbers : new RegExp("^(\\d)*$"),
         regexEmail : new RegExp("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(.[a-zA-Z0-9-]+)+$"),
-        regexHeb : new RegExp("^[\u0590-\u05fe]*$"),
-        regexHebWithSpace : new RegExp("^[\u0590-\u05fe ]*$"),
-        regexHebrewAndNumbers : new RegExp("^[\u0590-\u05fe0-9 ]*$")
+        regexHeb : new RegExp("^[\u0590-\u05FF ,.'-]+$"),
+        regexHebrewAndNumbers : new RegExp("^[\u0590-\u05FF\0-9 ,.'-]+$")
     },
     sexEnum: [
         {id : 1, name : 'זכר' },
