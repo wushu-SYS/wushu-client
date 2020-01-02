@@ -19,8 +19,9 @@ app.service('excelService', function () {
             range.e.c = 20; // 6 == XLSX.utils.decode_col("Q")
             let new_range = XLSX.utils.encode_range(range);
             ans.result = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName], {
-                blankRows: false,
-                defval: '',
+                header:1,
+                blankrows: false,
+                //defval: '',
                 range: new_range
             });
             //ans.result = XLSX.utils.sheet_to_json(worksheet);
@@ -47,7 +48,8 @@ app.service('excelService', function () {
             range.e.c = 20; // 6 == XLSX.utils.decode_col("Q")
             let new_range = XLSX.utils.encode_range(range);
             results = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName], {
-                blankRows: false,
+                header: 1,
+                blankrows: false,
                 //defval: '',
                 range: new_range
             });
@@ -66,3 +68,4 @@ app.service('excelService', function () {
     }
 
 });
+
