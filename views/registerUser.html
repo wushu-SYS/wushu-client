@@ -11,8 +11,8 @@
 
 <div id="box" style="height: 1250px">
     <div class="right">
-        <h1 ng-show="!isRegisterCoach">רישום ספורטאי חדש למערכת</h1>
-        <h1 ng-show="isRegisterCoach">רישום מאמן חדש למערכת</h1>
+        <h1 ng-show="userType == 'sportsman' ">רישום ספורטאי חדש למערכת</h1>
+        <h1 ng-show="userType == 'coach' ">רישום מאמן חדש למערכת</h1>
 
         <form class="login100-form validate-form" name="registerForm" ng-submit="submit(registerForm.$valid)"
               novalidate>
@@ -75,14 +75,14 @@
                        required ng-pattern="regex.regexHebrewAndNumbers" ng-pattern-restrict>
                 <span class="focus-input100" data-symbol="&#xf175;"></span>
             </div>
-            <div class="wrap-input100 validate-input" id="sexUser" ng-show="!isRegisterCoach"
+            <div class="wrap-input100 validate-input" id="sexUser" ng-show="userType == 'sportsman'"
                  ng-class="{'alert-validate' : registerForm.selectedSex.$invalid && (registerForm.selectedSex.$touched || isClicked)}"
                  data-validate="בחר מין">
                 <label class="label-input100">מין</label>
                 <div class="radioDiv">
                     <span ng-repeat="sex in sexEnum" class="radioInput">
                         <input type="radio" name="selectedSex" ng-model="$parent.selectedSex"
-                               ng-required="!selectedSex && !isRegisterCoach" ng-value="sex.name"><label
+                               ng-required="!selectedSex && (userType == 'sportsman')" ng-value="sex.name"><label
                             class="radio_label"> {{sex.name}} </label></input>
                     </span>
                 </div>
@@ -113,11 +113,11 @@
                 </select>
                 <span class="focus-input100" data-symbol="&#xf20c"></span>
             </div>
-            <div ng-show="!isRegisterCoach" id="coachChoose" class="wrap-input100 validate-input"
+            <div ng-show="userType == 'sportsman'" id="coachChoose" class="wrap-input100 validate-input"
                  ng-class="{'alert-validate' : registerForm.coach.$invalid && (registerForm.coach.$touched || isClicked)}"
                  data-validate="בחר מאמן">
                 <span class="label-input100">מאמן</span>
-                <select name="coach" ng-model="coach" ng-required="!isRegisterCoach"
+                <select name="coach" ng-model="coach" ng-required="userType == sportsman"
                         ng-options="x.firstname + ' ' + x.lastname + ' '
                             for
                             x in coaches | coachByClubFilter : sportclub" ng-change="filterClub()">
@@ -125,11 +125,11 @@
                 </select>
                 <span class="focus-input100" data-symbol="&#xf205"></span>
             </div>
-            <div ng-show="isRegisterCoach" class="wrap-input100 validate-input"
+            <div ng-show="userType == 'coach' " class="wrap-input100 validate-input"
                  ng-class="{'alert-validate' : registerForm.teamname.$invalid && (registerForm.teamname.$touched || isClicked)}"
                  data-validate="הכנס שם קבוצה ">
                 <span class="label-input100">קבוצה</span>
-                <input class="input100" type="text" name="teamname" ng-model="teamname" ng-required="isRegisterCoach">
+                <input class="input100" type="text" name="teamname" ng-model="teamname" ng-required="userType == 'coach'">
                 <span class="focus-input100" data-symbol="&#xf207;"></span>
             </div>
 
@@ -137,11 +137,11 @@
         </form>
     </div>
     <div class="left" style="min-width: 450px">
-        <h1 ng-show="!isRegisterCoach">רישום ספורטאיים חדשים למערכת<br>באמצעות קובץ אקסל</h1>
-        <h1 ng-show="isRegisterCoach">רישום מאמנים חדשים למערכת<br>באמצעות קובץ אקסל</h1>
+        <h1 ng-show="userType == 'sportsman'">רישום ספורטאיים חדשים למערכת<br>באמצעות קובץ אקסל</h1>
+        <h1 ng-show="userType == 'coach'">רישום מאמנים חדשים למערכת<br>באמצעות קובץ אקסל</h1>
 
         <div class="center">
-            <div class="validate-input downloadLink" ng-show="!isRegisterCoach">
+            <div class="validate-input downloadLink" ng-show="userType == 'sportsman'">
                 <span class="focus-input100" data-symbol="&#xf220"></span>
                 <a id="downExcelSportsman" class="linkDark" style="padding-right: 15px"
                    href="" ng-click="downloadExcelRegisterSportsMan()" download>הורד פורמט קובץ אקסל לרישום
@@ -149,7 +149,7 @@
             </div>
         </div>
         <div class="center">
-            <div class="validate-input downloadLink" ng-show="isRegisterCoach">
+            <div class="validate-input downloadLink" ng-show="userType == 'coach'">
                 <span class="focus-input100" data-symbol="&#xf220"></span>
                 <a id="downExcelCoach" class="linkDark" style="padding-right: 15px"
                    href="http://localhost:3000/downloadExcelFormatCoach" download> הורד פורמט קובץ אקסל לרישום מאמן</a>
@@ -172,7 +172,7 @@
                 הרישום לא הצליח, הקובץ מכיל שגיאות
                 <div ng-repeat="errorSportsman in excelErrors" style="text-align: right">
                     <br>
-                    <div ng-show="errorSportsman.line">
+                    <div ng-show="errorSportsman.errors.length>0">
                     בשורה מס' {{errorSportsman.line}}:
                     </div>
                     <div ng-repeat="error in errorSportsman.errors track by $index">

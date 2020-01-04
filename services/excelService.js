@@ -1,5 +1,4 @@
 app.service('excelService', function () {
-
     this.dropZoneDropFile = function (e, callback) {
         e.stopPropagation();
         e.preventDefault();
@@ -20,11 +19,15 @@ app.service('excelService', function () {
             range.e.c = 20; // 6 == XLSX.utils.decode_col("Q")
             let new_range = XLSX.utils.encode_range(range);
             ans.result = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName], {
-                blankRows: false,
+                header:1,
+                blankrows: false,
                 //defval: '',
                 range: new_range
             });
             //ans.result = XLSX.utils.sheet_to_json(worksheet);
+
+            console.log(ans.result)
+
             callback(ans);
         };
         reader.readAsArrayBuffer(f);
@@ -37,7 +40,7 @@ app.service('excelService', function () {
         reader.onload = function () {
             let fileData = reader.result,
                 fixedData = fixData(fileData),
-                workbook = XLSX.read(btoa(fixedData), {type: 'base64'}),
+                workbook = XLSX.read(btoa(fixedData), {type: 'base64',sheetStubs: true}),
                 firstSheetName = workbook.SheetNames[0],
                 worksheet = workbook.Sheets[firstSheetName];
             let range = XLSX.utils.decode_range(workbook.Sheets[firstSheetName]['!ref']);
@@ -45,10 +48,12 @@ app.service('excelService', function () {
             range.e.c = 20; // 6 == XLSX.utils.decode_col("Q")
             let new_range = XLSX.utils.encode_range(range);
             results = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName], {
-                blankRows: false,
+                header: 1,
+                blankrows: false,
                 //defval: '',
                 range: new_range
             });
+            console.log(results)
             callback(results);
         };
         reader.readAsArrayBuffer(input.files[0]);
@@ -63,3 +68,4 @@ app.service('excelService', function () {
     }
 
 });
+

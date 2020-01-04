@@ -1,6 +1,19 @@
 app.service('registerService', function ($window, $http, constants) {
-    this.registerUsers = function (data, isRegisterCoach) {
-        let url = getRegisterUserUrl(isRegisterCoach);
+    this.registerUsersExcel = function (data,userType) {
+        let url = getRegisterUserExcelUrl(userType);
+        let req = {
+            method: 'POST',
+            url: url,
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: data
+        };
+        return $http(req);
+    }
+
+    this.registerUsers = function (data, userType) {
+        let url = getRegisterUserUrl(userType);
         let req = {
             method: 'POST',
             url: url,
@@ -12,11 +25,16 @@ app.service('registerService', function ($window, $http, constants) {
         return $http(req);
     };
 
-    function getRegisterUserUrl  (isRegisterCoach) {
-        if (!isRegisterCoach)
+    function getRegisterUserUrl  (userType) {
+        if (userType=="sportsman")
             return constants.serverUrl + '/private/registerSportsman';
         else
             return constants.serverUrl + '/private/registerCoach';
+    }
+
+    function getRegisterUserExcelUrl(userType) {
+        if (userType ==="sportsman")
+            return constants.serverUrl + '/private/registerSportsmenExcel';
     }
 });
 
