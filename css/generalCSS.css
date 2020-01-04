@@ -171,17 +171,13 @@ form {
     align-items: center;
 }
 
-
-#loading-bar .bar {
-    background: #33ba3a;
-    height: 4px;
+#loading-bar-container{
+    text-align: center;
+    color: #29d;
+    font-size: 12px;
 }
-#loading-bar-spinner .spinner-icon {
-    width: 18px;
-    height: 18px;
-    border: solid 4px transparent;
-    border-top-color: #cadd22;
-    border-left-color: #cadd22;
-    border-radius: 10px;
-}
+/*#loading-bar .bar {*/
+/*    background: red;*/
+/*    width:  50%;*/
+/*}*/
 

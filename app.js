@@ -1,7 +1,12 @@
 let app = angular.module('myApp', ["ngRoute", 'ui.bootstrap', 'ngPatternRestrict', 'cp.ngConfirm', 'angularjsToast', 'angular-loading-bar', 'ngAnimate'])
     .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+        cfpLoadingBarProvider.includeSpinner = true;
+        cfpLoadingBarProvider.includeBar = true;
         cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
-        cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner">אנא המתן...</div>';
+        cfpLoadingBarProvider.spinnerTemplate = '<div>' +
+                                                '<i class="fa fa-spinner fa-pulse"></i>\n' +
+                                                '<span>אנא המתן...</span>' +
+                                                '</div>';
     }]);
 app.controller("mainController", function ($scope, $location, $window, $rootScope) {
     if($window.sessionStorage.getItem('name') != null && $window.sessionStorage.getItem('name')!=='')
