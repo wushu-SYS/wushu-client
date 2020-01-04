@@ -1,4 +1,8 @@
-let app = angular.module('myApp', ["ngRoute", 'ui.bootstrap', 'ngPatternRestrict', 'cp.ngConfirm', 'angularjsToast']);
+let app = angular.module('myApp', ["ngRoute", 'ui.bootstrap', 'ngPatternRestrict', 'cp.ngConfirm', 'angularjsToast', 'angular-loading-bar', 'ngAnimate'])
+    .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+        cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
+        cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner">אנא המתן...</div>';
+    }]);
 app.controller("mainController", function ($scope, $location, $window, $rootScope) {
     if($window.sessionStorage.getItem('name') != null && $window.sessionStorage.getItem('name')!=='')
         $rootScope.name = $window.sessionStorage.getItem('name');
