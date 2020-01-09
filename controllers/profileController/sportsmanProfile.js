@@ -8,27 +8,30 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
 
     $scope.getImageUrl = commonFunctionsService.getImageUrl;
 
+
+    $scope.uploadFile = function(files) {
+        var fd = new FormData();
+        fd.append("file", files[0]);
+        $http.post(constants.serverUrl + '/private/uploadUserProfileImage/'+$scope.user.id, fd, {
+            method:'POST',
+            URL : constants.serverUrl + '/private/uploadUserProfileImage',
+            headers: {'Content-Type': undefined,
+                         'x-auth-token': $window.sessionStorage.getItem('token'),
+            },
+            transformRequest: angular.identity
+        })
+            .then(()=>{window.location.reload()}).catch(()=>{})
+
+    };
+
     $scope.btnPressed =function() {
         console.log("btn pressed")
+        var imgtag;
         let fileinput = document.getElementById("SportsmanProfilePicUpload");
         fileinput.click();
-        fileinput.onchange = function (event) {
-            let file = event.target.files[0];
-            let dataFile =new FormData();
-            dataFile.append("profileImage", file);
-            let data = {
-                profileImage : file
-            }
-            sportsmanService.uploadProfilePic(data,dataFile)
-                .then((res)=>{
-                    console.log("ok")
-                })
-                .catch((err)=>{
-                    console.log(err)
-                })
+        };
 
-        }
-    }
+
     $scope.submit = function (isValid) {
         if (isValid) {
             let data = {

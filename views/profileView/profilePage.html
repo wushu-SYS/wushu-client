@@ -3,12 +3,8 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
-                    <img ng-src="{{getImageUrl(user.photo)}}" alt=""/>
-                    <div ng-show="isEditModeOn">
-                        <input class="uploadBtnClass" type="button" value="שנה תמונה" ng-click="btnPressed()"/>
-                        <!--<input type="file" id="SportsmanProfilePicUpload" name="sportsmanPicupload" style="display: none"/>-->
-                        <input type="file"  id="SportsmanProfilePicUpload" ngf-select  name="file" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="20MB"/>
-                    </div>
+                    <img id=proImg ng-src="{{getImageUrl(user.photo)}}" alt=""/>
+
                 </div>
             </div>
             <div class="col-md-6">
@@ -49,10 +45,16 @@
                 <!--                <i class="fa fa-chain-broken iColored" aria-hidden="true"></i>-->
                 <!--                <a class="linkDark iLink" href="">החלפת מאמן</a>-->
                 <!--            </div>-->
+                <div>
+                    <i class="fa fa-picture-o" aria-hidden="true"></i>
+                    <input class="linkDark iLink" aria-hidden="true" type="button" value="שנה תמונה" ng-click="btnPressed()" style="background: none"/>
+                    <input type="file"  id="SportsmanProfilePicUpload" ngf-select  name="file" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="20MB" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+                </div>
                 <div ng-show="access==userTypes.MANAGER || access==userTypes.COACH">
                     <i class="fa fa-trash-o iColored" aria-hidden="true"></i>
                     <a class="linkDark iLink" href="" ng-click="delProfile(user.id)">מחק פרופיל</a>
                 </div>
+
             </div>
             <div class="col-md-8">
                 <div class="tab-content profile-tab" id="myTabContent">

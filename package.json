@@ -23,6 +23,7 @@
     "angular-route": "^1.7.8",
     "angular-sanitize": "^1.7.8",
     "angularjs-toast": "^2.0.3",
+    "fs": "0.0.1-security",
     "util": "^0.12.1",
     "xlsx": "^0.15.4"
   }
