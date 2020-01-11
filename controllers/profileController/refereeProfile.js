@@ -16,8 +16,8 @@ app.controller("refereeProfileController", function ($scope, $http, $route,$filt
         if (isValid) {
             let data = {
                 id: $scope.user.id,
-                firstname: $scope.user.firstname,
-                lastname: $scope.user.lastname,
+                firstName: $scope.user.firstname,
+                lastName: $scope.user.lastname,
                 phone: $scope.user.phone,
                 email: $scope.user.email,
                 oldId: $routeParams.id
@@ -35,16 +35,27 @@ app.controller("refereeProfileController", function ($scope, $http, $route,$filt
         }
     };
 
-    $scope.delProfile = function (id) {
-        // coachService.deleteCoach($routeParams.id)
-        //     .then(function (result) {
-        //         toastNotificationService.successNotification("המשתמש נמחק בהצלחה");
-        //         $location.path("/users/coaches");
-        //     }, function (error) {
-        //         toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע מחיקה");
-        //         console.log(error)
-        //     })
-    }
+    $scope.uploadFile = function(files) {
+        var fd = new FormData();
+        fd.append("file", files[0]);
+        $http.post(constants.serverUrl + '/private/uploadUserProfileImage/'+$scope.user.id+'/judge', fd, {
+            method:'POST',
+            URL : constants.serverUrl + '/private/uploadUserProfileImage',
+            headers: {'Content-Type': undefined,
+                'x-auth-token': $window.sessionStorage.getItem('token'),
+            },
+            transformRequest: angular.identity
+        })
+            .then(()=>{window.location.reload()}).catch(()=>{})
+
+    };
+
+    $scope.btnPressed =function() {
+        console.log("btn pressed")
+        let file_input = document.getElementById("profilePicUpload");
+        file_input.click();
+    };
+    $scope.delProfile = function (id) {}
 
 
 

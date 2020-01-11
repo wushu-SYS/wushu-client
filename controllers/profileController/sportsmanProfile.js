@@ -8,15 +8,14 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
 
     $scope.getImageUrl = commonFunctionsService.getImageUrl;
 
-
     $scope.uploadFile = function(files) {
         var fd = new FormData();
         fd.append("file", files[0]);
-        $http.post(constants.serverUrl + '/private/uploadUserProfileImage/'+$scope.user.id, fd, {
+        $http.post(constants.serverUrl + '/private/uploadUserProfileImage/'+$scope.user.id+'/sportsman', fd, {
             method:'POST',
             URL : constants.serverUrl + '/private/uploadUserProfileImage',
             headers: {'Content-Type': undefined,
-                         'x-auth-token': $window.sessionStorage.getItem('token'),
+                'x-auth-token': $window.sessionStorage.getItem('token'),
             },
             transformRequest: angular.identity
         })
@@ -25,25 +24,22 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
     };
 
     $scope.btnPressed =function() {
-        console.log("btn pressed")
-        var imgtag;
-        let fileinput = document.getElementById("SportsmanProfilePicUpload");
-        fileinput.click();
-        };
-
+        console.log("btn pressed");
+        let file_input = document.getElementById("profilePicUpload");
+        file_input.click();
+    };
 
     $scope.submit = function (isValid) {
         if (isValid) {
             let data = {
                 id: $scope.user.id,
-                firstname: $scope.user.firstname,
-                lastname: $scope.user.lastname,
+                firstName: $scope.user.firstname,
+                lastName: $scope.user.lastname,
                 phone: $scope.user.phone,
                 email: $scope.user.email,
-                birthdate: $filter('date')($scope.user.birthdate, "dd/MM/yyyy"),
+                birthDate: $filter('date')($scope.user.birthdate, "MM/dd/yyyy"),
                 address: $scope.user.address,
-                sex: $scope.user.sex,
-                oldId: oldId
+                sex: $scope.user.sex
             }
             sportsmanService.updateProfile(data)
                 .then(function (result) {

@@ -3,8 +3,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
-                    <img id=proImg ng-src="{{getImageUrl(user.photo)}}" alt=""/>
-
+                    <img ng-src="{{getImageUrl(user.photo)}}" alt=""/>
                 </div>
             </div>
             <div class="col-md-6">
@@ -48,11 +47,11 @@
                 <div>
                     <i class="fa fa-picture-o" aria-hidden="true"></i>
                     <input class="linkDark iLink" aria-hidden="true" type="button" value="שנה תמונה" ng-click="btnPressed()" style="background: none"/>
-                    <input type="file"  id="SportsmanProfilePicUpload" ngf-select  name="file" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="20MB" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+                    <input type="file"  id="profilePicUpload" ngf-select  name="file" ngf-pattern="'image/'" accept="image/" ngf-max-size="20MB" onchange="angular.element(this).scope().uploadFile(this.files)"/>
                 </div>
-                <div ng-show="access==userTypes.MANAGER || access==userTypes.COACH">
+                <div id="delLink" ng-show="(access==userTypes.MANAGER || access==userTypes.COACH)">
                     <i class="fa fa-trash-o iColored" aria-hidden="true"></i>
-                    <a class="linkDark iLink" href="" ng-click="delProfile(user.id)">מחק פרופיל</a>
+                    <a  class="linkDark iLink" href="" ng-click="delProfile(user.id)">מחק פרופיל</a>
                 </div>
 
             </div>

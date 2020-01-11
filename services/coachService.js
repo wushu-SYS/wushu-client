@@ -34,7 +34,8 @@ app.service('coachService', function ($window, $http, constants) {
         };
         return $http(req);
 
-    }
+    };
+
     this.deleteCoach = function (data) {
         let req = {
             method: 'POST',
@@ -42,7 +43,7 @@ app.service('coachService', function ($window, $http, constants) {
             headers: {
                 'x-auth-token': $window.sessionStorage.getItem('token')
             },
-            data: data
+            data: {id:data}
         };
         return $http(req);
 

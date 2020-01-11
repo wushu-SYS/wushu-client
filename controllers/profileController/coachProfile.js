@@ -7,6 +7,9 @@ app.controller("coachProfileController", function ($scope, $http, $route,$filter
 
     $scope.getImageUrl = commonFunctionsService.getImageUrl;
 
+    let delLink = document.getElementById("delLink");
+
+
     coachService.getCoachProfile({id: $routeParams.id})
         .then(function (result) {
             $scope.user = result.data;
@@ -19,12 +22,12 @@ app.controller("coachProfileController", function ($scope, $http, $route,$filter
         if (isValid) {
             let data = {
                 id: $scope.user.id,
-                firstname: $scope.user.firstname,
-                lastname: $scope.user.lastname,
+                firstName: $scope.user.firstname,
+                lastName: $scope.user.lastname,
                 phone: $scope.user.phone,
                 email: $scope.user.email,
-                birthdate: $filter('date')($scope.user.birthdate, "dd/MM/yyyy"),
-                address: $scope.user.address
+                birthDate: $filter('date')($scope.user.birthdate, "MM/dd/yyyy"),
+                address: $scope.user.address,
             }
             coachService.updateProfile(data)
                 .then(function (result) {
@@ -39,8 +42,12 @@ app.controller("coachProfileController", function ($scope, $http, $route,$filter
         }
     };
 
+
+    delLink.hidden=true;
+/*
+//TODO: OPEN MODAL FOR CHANGE SPORTSMAN COACH ==> THEN DELETE COACH
     $scope.delProfile = function (id) {
-        coachService.deleteCoach($routeParams.id)
+        coachService.deleteCoach(id)
             .then(function (result) {
                 toastNotificationService.successNotification("המשתמש נמחק בהצלחה");
                 $location.path("/users/coaches");
@@ -49,5 +56,29 @@ app.controller("coachProfileController", function ($scope, $http, $route,$filter
                 console.log(error)
             })
     }
+
+ */
+
+    $scope.uploadFile = function(files) {
+        var fd = new FormData();
+        fd.append("file", files[0]);
+        $http.post(constants.serverUrl + '/private/uploadUserProfileImage/'+$scope.user.id+'/coach', fd, {
+            method:'POST',
+            URL : constants.serverUrl + '/private/uploadUserProfileImage',
+            headers: {'Content-Type': undefined,
+                'x-auth-token': $window.sessionStorage.getItem('token'),
+            },
+            transformRequest: angular.identity
+        })
+            .then(()=>{window.location.reload()}).catch(()=>{})
+
+    };
+
+    $scope.btnPressed =function() {
+        console.log("btn pressed")
+        let file_input = document.getElementById("profilePicUpload");
+        file_input.click();
+    };
+
 
 });

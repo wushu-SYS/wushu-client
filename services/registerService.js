@@ -1,6 +1,6 @@
 app.service('registerService', function ($window, $http, constants) {
-    this.registerUsersExcel = function (data,userType, coachAsJudge) {
-        let url = getRegisterUserExcelUrl(userType, coachAsJudge);
+    this.registerUsersExcel = function (data,userType) {
+        let url = getRegisterUserExcelUrl(userType);
         let req = {
             method: 'POST',
             url: url,
@@ -26,19 +26,22 @@ app.service('registerService', function ($window, $http, constants) {
     };
 
     function getRegisterUserUrl  (userType) {
-        if (userType=="sportsman")
-            return constants.serverUrl + '/private/commonCoachManager/registerSportsman';
-        else if(userType=='coach')
-            return constants.serverUrl + '/private/manager/registerCoach';
-        else if (registerUser =='judge'&& coachAsJudge == false)
-            return constants.serverUrl + '/private/manager/registerNewJudge';
-        else if(userType=='judge' && coachAsJudge == true)
-            return constants.serverUrl + '/private/manager/registerCoachAsJudge';
+        switch (userType) {
+            case "sportsman":
+                return constants.serverUrl + '/private/commonCoachManager/registerSportsmanManual';
+            case "coach":
+                return constants.serverUrl + '/private/manager/registerCoachManual';
+            case "judge":
+                return constants.serverUrl + '/private/manager/registerJudgeManual';
+        }
     }
-
     function getRegisterUserExcelUrl(userType) {
-        if (userType ==="sportsman")
-            return constants.serverUrl + '/private/registerSportsmenExcel';
+        switch (userType) {
+            case "sportsman":
+                return constants.serverUrl + '/private/commonCoachManager/registerSportsmenExcel';
+            case "coach":
+                return constants.serverUrl + '/private/manager/registerCoachExcel';
+        }
     }
 });
 
