@@ -13,6 +13,7 @@ app.controller("coachProfileController", function ($scope, $http, $route,$filter
     coachService.getCoachProfile({id: $routeParams.id})
         .then(function (result) {
             $scope.user = result.data;
+            $scope.user.photo = $scope.user.photo + '?' + new Date().getTime();
             $scope.user.birthdate = new Date($scope.user.birthdate);
         }, function (error) {
             console.log(error)
@@ -70,7 +71,10 @@ app.controller("coachProfileController", function ($scope, $http, $route,$filter
             },
             transformRequest: angular.identity
         })
-            .then(()=>{window.location.reload()}).catch(()=>{})
+            .then(()=>{
+                toastNotificationService.successNotification("התמונה נשמרה בהצלחה");
+                $route.reload();
+            }).catch(()=>{})
 
     };
 

@@ -1,4 +1,4 @@
-app.controller("sportsmanProfileController", function ($scope, $http, $filter, $window, $location, $rootScope, $routeParams, constants, sportsmanService, userService, confirmDialogService, toastNotificationService, commonFunctionsService) {
+app.controller("sportsmanProfileController", function ($scope, $http, $filter, $window, $location, $rootScope, $route, $routeParams, constants, sportsmanService, userService, confirmDialogService, toastNotificationService, commonFunctionsService) {
     var oldId;
     $scope.whoAmI = "ספורטאי";
     $scope.isEditModeOn = false;
@@ -19,7 +19,10 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
             },
             transformRequest: angular.identity
         })
-            .then(()=>{window.location.reload()}).catch(()=>{})
+            .then(()=>{
+                toastNotificationService.successNotification("התמונה נשמרה בהצלחה");
+                $route.reload();
+            }).catch(()=>{})
 
     };
 
@@ -45,7 +48,8 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
                 .then(function (result) {
                     toastNotificationService.successNotification("המשתמש עודכן בהצלחה");
                     $scope.isSaved = true;
-                    if($rootScope.isChangingLocationFirstTime) $location.path("/users/sportsmen");
+                    $scope.isEditModeOn = false;
+                    $route.reload();
                 }, function (error) {
                     toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע העדכון");
                     console.log(error)
@@ -64,6 +68,7 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
     sportsmanService.getSportsmanProfile({id: $routeParams.id})
         .then(function (result) {
             $scope.user = result.data;
+            $scope.user.photo = $scope.user.photo + '?' + new Date().getTime();
             $scope.user.birthdate = new Date($scope.user.birthdate);
             oldId = $scope.user.id;
         }, function (error) {

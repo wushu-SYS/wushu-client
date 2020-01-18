@@ -8,6 +8,7 @@ app.controller("refereeProfileController", function ($scope, $http, $route,$filt
     refereesService.getRefereeProfile({id: $routeParams.id})
         .then(function (result) {
             $scope.user = result.data;
+            $scope.user.photo = $scope.user.photo + '?' + new Date().getTime();
         }, function (error) {
             console.log(error)
         })
@@ -46,7 +47,10 @@ app.controller("refereeProfileController", function ($scope, $http, $route,$filt
             },
             transformRequest: angular.identity
         })
-            .then(()=>{window.location.reload()}).catch(()=>{})
+            .then(()=>{
+                toastNotificationService.successNotification("התמונה נשמרה בהצלחה");
+                $route.reload();
+            }).catch(()=>{})
 
     };
 
