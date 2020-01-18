@@ -55,4 +55,16 @@ app.service('confirmDialogService', function ($ngConfirm, $location, $route, $ro
             }
         })
     }
+
+    this.showErrors = function (errors) {
+        $ngConfirm({
+            title: 'שגיאות בעת ביצוע הפעולה',
+            type: 'red',
+            content: errors.join('<br>'),
+            buttons: {
+                הבנתי: function () {
+                }
+            }
+        })
+    }
 });

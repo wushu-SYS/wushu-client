@@ -172,17 +172,15 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
                 })
                 .catch((err) => {
                     console.log(err);
-                    if (!err.data.message)
-                        $scope.excelErrors = err.data;
-                    else {
-                        let serverErrors = [];
-                        if (err.data.number === 547)
-                            serverErrors.push("ת.ז מאמן לא קיימת במערכת");
+                    if(err.data) {
                         if (err.data.number === 2627)
-                            serverErrors.push("ת.ז " + getIdFromErrorMessage(err.data.message) + " קיימת כבר במערכת.");
-                        if (serverErrors.length > 0)
-                            $scope.excelErrors = [{errors: serverErrors}]
+                            toastNotificationService.errorNotification("ת.ז " + getIdFromErrorMessage(err.data.message) + " קיימת כבר במערכת.");
+                        else{
+                            confirmDialogService.showErrors(err.data[0].errors);
+                        }
                     }
+                    else
+                        toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע הרישום");
                 })
     }
 
