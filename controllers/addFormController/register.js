@@ -224,7 +224,6 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
 
     $scope.fillData = function (coach) {
         if (coach != undefined) {
-            coachAsJudge = true;
             $scope.judgeFill = true;
             $scope.id = coach.id;
             $scope.firstname = coach.firstname;
@@ -232,7 +231,6 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
             $scope.phone = coach.phone;
             $scope.email = coach.email;
         } else {
-            coachAsJudge = false;
             $scope.judgeFill = false;
             $scope.id = '';
             $scope.firstname = '';

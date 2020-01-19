@@ -28,5 +28,4 @@ app.constant('constants', {
     fileName :{
       coachAsJudge :'שיוך מאמנים כשופטים במערכת'
     }
-    //'someElseSetting': 'settingValue'
 });
