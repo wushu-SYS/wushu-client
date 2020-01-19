@@ -27,7 +27,8 @@ app.controller("openCompetitionController", function ($scope, $rootScope,$filter
                 })
 
         }
-    }
+    };
+
     $rootScope.isChangingLocationFirstTime = true;
     $scope.$on('$routeChangeStart', function(event, newRoute, oldRoute) {
         if($scope.openCompetitionForm.$dirty && !$scope.isSaved && $rootScope.isChangingLocationFirstTime) {

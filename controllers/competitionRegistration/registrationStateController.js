@@ -6,8 +6,10 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
       idCompetition: $routeParams.idCompetition,
       date: $routeParams.date
     };
-    getDisplayData();
+    $scope.getAgeRange = categoryService.getAgeRange;
     let downloadExcelLink = document.getElementById("downRegistrationCompState")
+
+    getDisplayData();
 
     async function getDisplayData(){
         await getCategories();
@@ -42,26 +44,6 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
             return obj;
         });
     }
-    $scope.getAgeRange = categoryService.getAgeRange;
-
-    $scope.submit = function () {
-        //competitionService.setCategoryRegistration($scope.currentCompetition.idCompetition, $scope.categoryForSportsman)
-        competitionService.registerSportsmenToCompetition($scope.currentCompetition.idCompetition, undefined, $scope.toUnRegisterUsers, $scope.categoryForSportsman)
-            .then(function(result){
-                $scope.isSaved = true;
-                toastNotificationService.successNotification("השינויים נשמרו בהצלחה");
-            }, function (error) {
-                console.log(error);
-            })
-    };
-    $rootScope.isChangingLocationFirstTime = true;
-    $scope.$on('$routeChangeStart', function(event, newRoute, oldRoute) {
-        if(changesNotSaved())
-            confirmDialogService.notSavedItems(event, $location.path(), $scope.submit);
-    });
-    function changesNotSaved(){
-        return $scope.categoryForSportsman.length > 0 && !$scope.isSaved && $rootScope.isChangingLocationFirstTime;
-    }
 
     $scope.changeCategory = function (user, oldCategory) {
         if(updateUserCategories(user, oldCategory))
@@ -69,6 +51,14 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
         else
             toastNotificationService.warningNotification("הספורטאי רשום כבר בקטגוריה שנבחרה");
     };
+
+    /**
+     * handles when the user asks to move a sportsman to another category
+     * firstly remove the sportsman from the current (old) category
+     * secondly set the new category for the sportsman
+     * thirdly add the sportsman to the list of his new category
+     * @returns true when the move successfully done and false when the sportsman already registered to the selected category
+     */
     function updateUserCategories(user, oldCategory) {
         let newUserCategory = $scope.usersCategories.find(usersCategory => usersCategory.category.id === user.selectedCategory.id);
         if(!newUserCategory || !newUserCategory.users.map(u=>u.id).includes(user.id)){
@@ -86,6 +76,11 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
             return isExisted;
         }
     }
+
+    /**
+     * remove the given sportsman from the given category
+     * remove the category if its list become empty
+     */
     function removeSportsmanFromoldCategory(oldCategory, user) {
         if (oldCategory != '') {
             $scope.categories.find(category => {
@@ -97,6 +92,11 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
                 $scope.usersCategories = commonFunctionsService.arrayRemove($scope.usersCategories, oldUsersCategory);
         }
     }
+
+    /**
+     * add the given sportsman to the given category
+     * add list to category if doesn't exist
+     */
     function addSportsmanToNewCategory(newUserCategory, user) {
         if (newUserCategory)
             newUserCategory.users.push(user);
@@ -108,6 +108,10 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
                 }
             );
     }
+
+    /**
+     * set the given category for the given sportsman
+     */
     function setNewCategoryToUser(user, oldCategory) {
         let categorySportsman = $scope.categoryForSportsman.find(item => {
             return item.id == user.id && item.oldCategory == oldCategory;
@@ -126,6 +130,16 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
             );
         }
     }
+
+    $scope.submit = function () {
+        competitionService.registerSportsmenToCompetition($scope.currentCompetition.idCompetition, undefined, $scope.toUnRegisterUsers, $scope.categoryForSportsman)
+            .then(function(result){
+                $scope.isSaved = true;
+                toastNotificationService.successNotification("השינויים נשמרו בהצלחה");
+            }, function (error) {
+                console.log(error);
+            })
+    };
 
     $scope.selectSportsman = function(user, category){
         let selectedUser = $scope.selectedSportsmenToMerge.find(u => u.id == user.id);
@@ -182,14 +196,7 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
                 })
         });
     }
-    $scope.exportRegistrationState = function () {
-        if($scope.categoryForSportsman.length > 0) {
-            var res = confirm("שים לב השינויים לא נשמרו.\nהאם להמשיך את הייצוא?")
-            if (res == false)
-                return;
-        }
-        exportExcel();
-    };
+
     $scope.addCategoeyModal =function (event) {
         competitionService.addNewCategory(finishAddingCategory);
     };
@@ -198,37 +205,20 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
         setSelectedCategories();
     }
 
-    function exportExcel() {
-        let fileName = "רישום לתחרות " + $filter('date')($scope.currentCompetition.date, "dd/MM/yyyy");
-        let resultJson = [];
-        $scope.usersCategories.forEach((catUsers) =>{
-            resultJson.push(getExcelObj(catUsers.category.name , '', '', ''));
-            catUsers.users.forEach(user => {
-                resultJson.push(getExcelObj('', user.id, user.firstname, user.lastname));
-            });
-        });
-
-        var mystyle = {
-            headers:true,
-            column: {style:{Font:{Bold:"1"}}}
-        };
-        alasql('SELECT category as [קטגוריה], id as [תעודת זהות], firstname as [שם פרטי], lastname as [שם משפחה] INTO XLSX("' + fileName + '.xlsx",?) FROM ?', [mystyle, resultJson]);
-    }
-    function getExcelObj(category, id, firstname, lastname) {
-        return {
-            category: category,
-            id: id,
-            firstname: firstname,
-            lastname: lastname
-        }
-    }
-
     $scope.downloadExcelRegistrationState = function () {
-        //let date =($filter('date')($scope.currentCompetition.date, "dd/MM/yyyy"));
         let date =($scope.currentCompetition.date)
         let token =$window.sessionStorage.getItem('token')
         let url = constants.serverUrl + '/downloadExcelCompetitionState/'+token+'/'+$scope.currentCompetition.idCompetition+'/'+date;
         downloadExcelLink.setAttribute('href', url);
         downloadExcelLink.click();
+    };
+
+    $rootScope.isChangingLocationFirstTime = true;
+    $scope.$on('$routeChangeStart', function(event, newRoute, oldRoute) {
+        if(changesNotSaved())
+            confirmDialogService.notSavedItems(event, $location.path(), $scope.submit);
+    });
+    function changesNotSaved(){
+        return $scope.categoryForSportsman.length > 0 && !$scope.isSaved && $rootScope.isChangingLocationFirstTime;
     }
 });
