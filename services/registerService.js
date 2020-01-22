@@ -1,3 +1,7 @@
+/**
+ * this service provides all the functions for the registration process to the system
+ * manual + with excel
+ */
 app.service('registerService', function ($window, $http, constants) {
     this.registerUsersExcel = function (data,userType) {
         let url = getRegisterUserExcelUrl(userType);
@@ -25,6 +29,10 @@ app.service('registerService', function ($window, $http, constants) {
         return $http(req);
     };
 
+    /**
+     * @param userType
+     * @return string of the relevant endpoint for manual registration, depend on who we want to register
+     */
     function getRegisterUserUrl  (userType) {
         switch (userType) {
             case "sportsman":
@@ -35,6 +43,10 @@ app.service('registerService', function ($window, $http, constants) {
                 return constants.serverUrl + '/private/manager/registerJudgeManual';
         }
     }
+    /**
+     * @param userType
+     * @return string of the relevant endpoint for excel registration, depend on who we want to register
+     */
     function getRegisterUserExcelUrl(userType) {
         switch (userType) {
             case "sportsman":

@@ -1,3 +1,6 @@
+/**
+ * this service contains calls for endpoints for the club entity
+ */
 app.service('clubService', function($window, $http, constants) {
 
     this.getClubs = function () {

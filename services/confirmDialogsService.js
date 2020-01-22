@@ -1,3 +1,6 @@
+/**
+ * confirmDialogService - provides building of pop ups for errors, questions, warnings etc
+ */
 app.service('confirmDialogService', function ($ngConfirm, $location, $route, $rootScope) {
     this.notSavedItems = function (event, next, saveFunction, isValidForm, modalOpen) {
         if (event)

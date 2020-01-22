@@ -1,3 +1,6 @@
+/**
+ * this service contains calls for endpoints for the coach entity
+ */
 app.service('coachService', function ($window, $http, constants) {
 
     this.getCoaches = function () {

@@ -1,3 +1,4 @@
+//TODO: for what it is?
 app.service('userService', function($window, $http, constants) {
     this.deleteProfile =function (data) {
         var req = {

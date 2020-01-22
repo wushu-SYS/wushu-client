@@ -1,3 +1,7 @@
+/**
+ * this service contains calls for endpoints for the competition entity
+ * and common function for the competition module and screen
+ */
 app.service('competitionService', function ($window, $http, $uibModal, $location, constants) {
     this.checkExcel = function (data) {
         if (isNaN(parseInt(data)) || data.toString().length != 9)
@@ -67,34 +71,6 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         return $http(req);
     };
 
-    this.addNewCategory = function (finishAddingNewCategory) {
-        $uibModal.open({
-            templateUrl: "views/modalView/addNewCategoryModal.html",
-            controller: "addCategoryModalController as aCMCCtrl",
-            backdrop: true,
-            keyboard: false,
-        }).result.then(function () {
-            finishAddingNewCategory();
-        }).catch(function () {
-        });
-    }
-    this.editCompetitionDetails = function (id) {
-        $uibModal.open({
-            templateUrl: "views/modalView/editCompetitionDetails.html",
-            controller: "editCompetitionDetailsModal as cEditDetailsCtrl",
-            backdrop: 'static',
-            keyboard: false,
-            size: 'lg',
-            resolve: {
-                getId: function () {
-                    return id;
-                }
-            }
-        }).result.then(function(){
-            // parent.location.reload();
-        }).catch(function () {
-        });
-    }
     this.getCompetitionDetails = function (id) {
         var req = {
             method: 'POST',
@@ -176,8 +152,46 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         return $http(req);
     };
 
-    /*****common functions for gui*****/
-
+    /**
+     * open modal for adding new category
+     * @param finishAddingNewCategory - callback function to call when closing the category modal
+     */
+    this.addNewCategory = function (finishAddingNewCategory) {
+        $uibModal.open({
+            templateUrl: "views/modalView/addNewCategoryModal.html",
+            controller: "addCategoryModalController as aCMCCtrl",
+            backdrop: true,
+            keyboard: false,
+        }).result.then(function () {
+            finishAddingNewCategory();
+        }).catch(function () {
+        });
+    }
+    /**
+     * open modal for editing competition
+     * @param id - competition id to edit
+     */
+    this.editCompetitionDetails = function (id) {
+        $uibModal.open({
+            templateUrl: "views/modalView/editCompetitionDetails.html",
+            controller: "editCompetitionDetailsModal as cEditDetailsCtrl",
+            backdrop: 'static',
+            keyboard: false,
+            size: 'lg',
+            resolve: {
+                getId: function () {
+                    return id;
+                }
+            }
+        }).result.then(function(){
+            // parent.location.reload();
+        }).catch(function () {
+        });
+    }
+    /**
+     * open modal with details about the competition
+     * @param idCompetiton
+     */
     this.watchCompDetails = function (idCompetiton) {
         $uibModal.open({
             templateUrl: "views/modalView/competitonDetails.html",
@@ -198,6 +212,16 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
     this.registrationState = function (competition) {
         $location.path('/competitions/RegistrationState/' + competition.idCompetition + '/' + competition.date);
     };
+
+    /**
+     * build query params for the competition route
+     * @param location - can filter by location string
+     * @param sportStyle - can filter by sport style
+     * @param statusArr - can filter by at least one status
+     * @param startIndex - for setting the start of the paging
+     * @param endIndex - for setting the end of the paging
+     * @return part of string url that starts with ?, if no filter centurions exists return empty string
+     */
     this.buildConditions = function buildConditions(location, sportStyle, statusArr, startIndex, endIndex) {
         var conditions = [];
 

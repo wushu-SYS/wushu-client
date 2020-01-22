@@ -1,3 +1,7 @@
+/**
+ * this service contains calls for endpoints for the sportaman entity
+ * and common function based on sportsman entity
+ */
 app.service('sportsmanService', function($window, $http, constants) {
     this.getSportsmanProfile = function (data) {
         var req = {
@@ -11,6 +15,7 @@ app.service('sportsmanService', function($window, $http, constants) {
         return $http(req);
     };
 
+    //TODO: nor using it?
     this.uploadProfilePic =function(data,data2){
         var req = {
             method: 'POST',
@@ -57,6 +62,19 @@ app.service('sportsmanService', function($window, $http, constants) {
         return $http(req);
     };
 
+    /**
+     * build query params for the sportsman route
+     * @param searchText - can filter by string of first name or last name to search
+     * @param sportStyle - can filter by sport style
+     * @param club - can filter by club id
+     * @param sex - can filter by sex
+     * @param isToDesc - can define the sorting order, desc or asc
+     * @param compId - can filter by comp id
+     * @param compOperator - set is the comp must be equal or comp must be different
+     * @param startIndex - for setting the start of the paging
+     * @param endIndex - for setting the end of the paging
+     * @return part of string url that starts with ?, if no filter centurions exists return empty string
+     */
     this.buildConditionds = function buildConditions(searchText, sportStyle, club, sex, isToDesc, compId, compOperator, startIndex, endIndex){
         var conditions = [];
 
@@ -89,6 +107,12 @@ app.service('sportsmanService', function($window, $http, constants) {
         return conditions.length ? '?' + conditions.join('&') : '';
     }
 
+    /**
+     * making "join" between the two given lists by sportsman
+     * @param sportsmanList
+     * @param categoriesList
+     * @return return json of sportsmen, each sportsman contains a json of categories
+     */
     this.formatSportsmanCategoriesList = function (sportsmanList, categoriesList) {
         let sportsmanCategoriesList = [];
         if(sportsmanList !== undefined && categoriesList !== undefined && sportsmanList.length > 0) {

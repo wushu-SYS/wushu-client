@@ -1,3 +1,7 @@
+/**
+ * this service contains calls for endpoints for the category entity
+ * and common function based on category entity
+ */
 app.service('categoryService', function($window, $http, constants) {
     this.getCategories = function(){
         var req = {
@@ -10,6 +14,11 @@ app.service('categoryService', function($window, $http, constants) {
         return $http(req);
     };
 
+    /**
+     * format for printing on the screen
+     * @param category
+     * @returns {string} in the following format {minAge}-{maxAge}
+     */
     this.getAgeRange = function(category){
         if(category.maxAge == null)
             return category.minAge != 0 ? category.minAge + "+" : "";

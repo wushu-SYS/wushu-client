@@ -1,3 +1,6 @@
+/**
+ * this service contains calls for endpoints for the referee entity
+ */
 app.service('refereesService', function ($window, $http, constants) {
 
     this.getReferees = function () {
