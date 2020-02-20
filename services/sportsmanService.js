@@ -71,6 +71,8 @@ app.service('sportsmanService', function($window, $http, constants) {
      * @param isToDesc - can define the sorting order, desc or asc
      * @param compId - can filter by comp id
      * @param compOperator - set is the comp must be equal or comp must be different
+     *  == -> %3D%3D
+     *  != -> !%3D
      * @param startIndex - for setting the start of the paging
      * @param endIndex - for setting the end of the paging
      * @return part of string url that starts with ?, if no filter centurions exists return empty string

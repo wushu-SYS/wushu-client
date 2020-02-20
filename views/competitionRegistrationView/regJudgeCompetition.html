@@ -1,0 +1,72 @@
+<div ng-repeat="pass in [{'userType':'judge'}]"
+     ng-include="'views/competitionRegistrationView/regCompetition.html'"></div>
+<div id="box" style="width: 97%;">
+    <h1>
+        רישום שופטים לתחרות
+    </h1>
+    <div style="justify-content: center; display: grid">
+        <div ng-init="searchClicked=false" style="width: 300px">
+            <input class="searchInput" type="text" placeholder="חפש..." ng-model="searchText"
+                   ng-change="searchClicked=false" style="width: auto;">
+            <button ng-click="searchClicked=true" ng-show="searchClicked==false">
+                <i class="fa fa-search clickableSearch" style="left: 45px" aria-hidden="true"></i>
+            </button>
+            <button ng-click="searchText=''; searchClicked=false" ng-show="searchClicked==true">
+                <i class="fa fa-times clickableSearch" style="left: 45px" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div class="flexCenteredDiv">
+            <div>
+                <label>בחירת שופטים:</label>
+                <div class="itemListPanel">
+                    <table class="tableUser" cellspacing="0">
+                        <tr>
+                            <th class="thInItemList">ת.ז.</th>
+                            <th class="thInItemList">שם מלא</th>
+                        </tr>
+                        <tr class="itemInItemList"
+                            ng-repeat="user in notRegisteredUsers | filter : searchText"
+                            ng-class="{'active' : selectedNotRegisteredUsers.includes(user)}"
+                            ng-click="selectNotRegistered(user)">
+                            <td class="tdInItemList">{{user.id}}</td>
+                            <td class="tdInItemList">{{user.firstname}} {{user.lastname}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="arrowDiv">
+                <button ng-click="registerSelected()">
+                    <i class="fa fa-arrow-left clickableSearch squreClickable" style="border-radius: 0px;"
+                       aria-hidden="true"></i>
+                </button>
+                <button ng-click="unRegisterSelected()" style="display: block;">
+                    <i class="fa fa-arrow-right clickableSearch squreClickable" style="border-radius: 0px;"
+                       aria-hidden="true"></i>
+                </button>
+            </div>
+            <div>
+                <label>שופטים לרישום:</label>
+                <div class="itemListPanel">
+                    <table class="tableUser" cellspacing="0">
+                        <tr>
+                            <th class="thInItemList">ת.ז.</th>
+                            <th class="thInItemList">שם מלא</th>
+                        </tr>
+                        <tr class="itemInItemList" ng-class="{'active' : selectedRegisteredUsers.includes(user)}"
+                            ng-repeat="user in registeredUsers | filter : searchText"
+                            ng-click="selectRegistered(user)">
+                            <td class="tdInItemList">{{user.id}}</td>
+                            <td class="tdInItemList">{{user.firstname}} {{user.lastname}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="center" style="margin-top: 10px">
+            <input type="submit" ng-class="{'disabled' : toRegisterUsers.length==0 && toUnRegisterUsers.length==0}"
+                   ng-click="register()"
+                   ng-disabled="toRegisterUsers.length==0 && toUnRegisterUsers.length==0"
+                   value="שמור"/>
+        </div>
+    </div>
+</div>

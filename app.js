@@ -151,9 +151,13 @@ app.config(function($routeProvider) {
             templateUrl: 'views/home.html',
             controller: 'homeController as hCtrl'
         })
-        .when('/competitionRegistration/:idComp', {
+        .when('/sportsmanCompetitionRegistration/:idComp', {
             templateUrl: 'views/competitionRegistrationView/regSportsmanCompetition.html',
-            controller: 'competitionRegisterModal as cRegCtrl'
+            controller: 'regSportsmanCompetitionController as sCompetitionRegCtrl'
+        })
+        .when('/judgeCompetitionRegistration/:idComp', {
+            templateUrl: 'views/competitionRegistrationView/regJudgeCompetition.html',
+            controller: 'regJudgeCompetitionController as jCompetitionRegCtrl'
         })
         .otherwise({redirectTo: '/login'});
 });

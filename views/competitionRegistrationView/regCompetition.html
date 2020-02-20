@@ -1,0 +1,6 @@
+<div ng-init="userType=pass.userType" ng-controller="regCompetitionController">
+    <div id="chooseTypeUser" ng-show="access==userTypes.MANAGER">
+        <input type="radio" name="userType" ng-click="go('sportsman')" ng-checked="userType=='sportsman'"> רישום ספורטאיים </input>
+        <input type="radio" name="userType" ng-click="go('judge')" ng-checked="userType=='judge'"> רישום שופטים </input>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-app.controller("competitionRegisterModal", function ($scope, $rootScope, $window, $http, $routeParams, $filter, $location, sportsmanService, clubService, pagingService, competitionService, excelService, commonFunctionsService, constants, categoryService, confirmDialogService, toastNotificationService) {
+app.controller("regSportsmanCompetitionController", function ($scope, $rootScope, $window, $http, $routeParams, $filter, $location, sportsmanService, clubService, pagingService, competitionService, excelService, commonFunctionsService, constants, categoryService, confirmDialogService, toastNotificationService) {
     $scope.selectedNotRegisteredUsers = [];
     $scope.selectedRegisteredUsers = [];
     $scope.toRegisterUsers = [];

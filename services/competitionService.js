@@ -111,6 +111,21 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         };
         return $http(req);
     };
+    this.registerJudgeToCompetition = function (compId, registerJusges, unregisterJudges) {
+        var req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/manager/competitionJudge',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: {
+                compId: compId,
+                insertJudges: registerJusges,
+                deleteJudges: unregisterJudges
+            }
+        };
+        return $http(req);
+    };
     this.getRegistrationState = function (compId) {
         var req = {
             method: 'POST',
@@ -120,6 +135,17 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
             },
             data: {
                 compId: compId
+            }
+        };
+        return $http(req);
+    };
+    this.getJudgeRegistrationState = function (compId) {
+        let condition = '?' + 'competitionId='+ compId;
+        var req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/manager/getJudgeRegistrationState' + condition,
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
             }
         };
         return $http(req);
@@ -207,7 +233,7 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         });
     };
     this.regSportsman = function (idCompetiton) {
-        $location.path('/competitionRegistration/' + idCompetiton);
+        $location.path('/sportsmanCompetitionRegistration/' + idCompetiton);
     };
     this.registrationState = function (competition) {
         $location.path('/competitions/RegistrationState/' + competition.idCompetition + '/' + competition.date);
