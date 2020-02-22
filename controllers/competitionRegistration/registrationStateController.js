@@ -3,9 +3,12 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
     $scope.toUnRegisterUsers = [];
     $scope.selectedSportsmenToMerge = [];
     $scope.currentCompetition = {
-      idCompetition: $routeParams.idCompetition,
-      date: $routeParams.date
+        idCompetition: $routeParams.idCompetition,
+        date: $routeParams.date,
+        status: $routeParams.status
     };
+    $scope.compStatus = constants.compStatus;
+    $scope.compStatusType = constants.compStatusType;
     $scope.getAgeRange = categoryService.getAgeRange;
     let downloadExcelLink = document.getElementById("downRegistrationCompState")
 
@@ -190,7 +193,6 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
             competitionService.closeRegistration($scope.currentCompetition.idCompetition)
                 .then(function (result) {
                     toastNotificationService.successNotification("הרישום נסגר בהצלחה");
-                    $location.path('/competitions/registerToCompetition');
                 }, function (error) {
                     console.log(error);
                 })

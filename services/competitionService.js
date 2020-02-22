@@ -236,7 +236,7 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         $location.path('/sportsmanCompetitionRegistration/' + idCompetiton);
     };
     this.registrationState = function (competition) {
-        $location.path('/competitions/RegistrationState/' + competition.idCompetition + '/' + competition.date);
+        $location.path('/competitions/RegistrationState/' + competition.idCompetition + '/' + competition.date + '/' + competition.status);
     };
 
     /**

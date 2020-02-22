@@ -60,7 +60,7 @@
 
         <div class="col-md-3">
             <label>סטטוס הרישום: {{currentCompetition.status}}</label>
-            <div ng-show="access==userTypes.MANAGER">
+            <div ng-show="access==userTypes.MANAGER && currentCompetition.status==compStatus[compStatusType.OPEN].name">
                 <i class="fa fa-times iColored" aria-hidden="true"></i>
                 <a class="linkDark" href="" ng-click="closeRegistration()">סגור רישום</a>
             </div>

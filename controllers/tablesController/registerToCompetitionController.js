@@ -2,7 +2,7 @@ app.controller("registerToCompetitionController", function($scope, $rootScope, $
     $scope.sportStyles = constants.sportStyleEnum;
     $scope.compStatus = constants.compStatus;
     $scope.compStatusType = constants.compStatusType;
-    $scope.headerTable = "תחרויות פתוחות להרשמה";
+    $scope.headerTable = "תחרויות פתוחות";
     $scope.isShowStatus = false;
     $scope.pager = {};
     setPage(1);
