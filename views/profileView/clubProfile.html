@@ -23,6 +23,9 @@
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='clubCoaches'" ng-class="{'active' : activeTag==='clubCoaches'}">מאמני המועדון</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='clubSportsman'" ng-class="{'active' : activeTag==='clubSportsman'}">ספורטאי המועדון</a>
+                        </li>
 <!--                        <li class="nav-item">-->
 <!--                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='attachments'" ng-class="{'active' : activeTag==='attachments'}">קבצים מצורפים</a>-->
 <!--                        </li>-->
@@ -129,6 +132,15 @@
                         <div class="row" ng-repeat="coach in club.coaches track by $index">
                             <label style="line-height: 2.7;">{{$index+1}}. </label>
                             <a class="linkDark" ng-href="#!/coachProfile/{{coach.id}}">{{coach.firstname}} {{coach.lastname}}</a>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade"
+                        ng-class="{'show' :activeTag==='clubSportsman' , 'active' : activeTag==='clubSportsman'}" id="clubSportsman"
+                         role="tabpanel" aria-labelledby="compData">
+                        <div class="row" ng-show="club.sportsmen.length==0">אין ספורטאיים רשומים למועדון</div>
+                        <div class="row" ng-repeat="sportsman in club.sportsmen track by $index">
+                            <label style="line-height: 2.7;">{{$index+1}}. </label>
+                            <a class="linkDark" ng-href="#!/sportsmanProfile/{{sportsman.id}}">{{sportsman.firstname}} {{sportsman.lastname}}</a>
                         </div>
                     </div>
                     <div class="tab-pane fade"
