@@ -21,11 +21,16 @@ module.exports = function(config) {
         './node_modules/angular-ui-router/release/angular-ui-router.js',
         './node_modules/angular-mocks/angular-mocks.js',
         './node_modules/angular-route/angular-route.js',
+        './node_modules/angular-animate/angular-animate.js',
+        './node_modules/angular-sanitize/angular-sanitize.js',
+        './node_modules/angularjs-toast/angularjs-toast.min.js',
+        './node_modules/angular-loading-bar/build/loading-bar.min.js',
         'https://cdn.rawgit.com/angular-ui/bootstrap/gh-pages/ui-bootstrap-tpls-2.5.0.js',
         'https://cdn.rawgit.com/AlphaGit/ng-pattern-restrict/master/src/ng-pattern-restrict.min.js',
         './css/confirm/angular-confirm.js',
         './app.js',
         './services/confirmDialogsService.js',
+        './services/toastNotificationService.js',
         './constants.js',
 
         //files to test
