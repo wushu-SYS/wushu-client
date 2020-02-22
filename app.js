@@ -124,8 +124,8 @@ app.config(function($routeProvider) {
             controller: 'homeController as hCtrl'
         })
         .when('/competitions/results', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
+            templateUrl: 'views/tablesView/competitionTable.html',
+            controller: 'competitionResultsController as compResCtrl'
         })
         .when('/competitions/getCompetitions', {
             templateUrl: 'views/tablesView/competitionTable.html',
