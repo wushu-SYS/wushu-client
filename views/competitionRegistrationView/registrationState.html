@@ -15,11 +15,11 @@
                     <th class="thInItemList">קטגוריה</th>
                 </tr>
                 </thead>
-                <tbody ng-repeat="userCategory in usersCategories">
+                <tbody ng-repeat="userCategory in usersCategories" drag-drop>
                     <tr colspan="6">
                         <td>{{userCategory.category.name}} {{getAgeRange(userCategory.category)}} ({{userCategory.category.sex}})</td>
                     </tr>
-                    <tr ng-repeat="user in userCategory.users track by $index" ng-class="{'deletedItem':user.isDeleted}">
+                    <tr ng-repeat="user in userCategory.users" ng-class="{'deletedItem':user.isDeleted}" drag-drop>
                         <td></td>
                         <td class="tdInItemList">
                             <div>
