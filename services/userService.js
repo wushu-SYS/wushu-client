@@ -1,4 +1,7 @@
-//TODO: for what it is?
+/**
+ * This service contains calls for endpoint for the user entity
+ */
+
 app.service('userService', function($window, $http, constants) {
     this.deleteProfile =function (data) {
         var req = {

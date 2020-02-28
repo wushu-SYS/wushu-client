@@ -9,15 +9,6 @@ app.controller("regSportsmanCompetitionController", function ($scope, $rootScope
     let dropZoneRegCompetition = document.getElementById("dropZoneRegCompetition");
     let downExcelRegCompetition = document.getElementById("downExcelRegCompetition");
 
-    //TODO: need to delete?
-    var regObj = {
-        compId: $routeParams.idComp,
-        sportsmenIds: []
-    };
-    function makeJsonToReg(rowObj) {
-        for (let i = 0; i < rowObj.length; i++)
-            regObj.sportsmenIds.push(parseInt(rowObj[i]["ת.ז ספורטאי"]))
-    }
 
     setPage(1);
     getDisplayData();

@@ -25,6 +25,5 @@ describe('sportsman service test', function () {
     });
 
     describe('formatSportsmanCategoriesList', function () {
-        //TODO
     })
 });
