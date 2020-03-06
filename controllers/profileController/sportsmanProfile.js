@@ -68,7 +68,7 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
     sportsmanService.getSportsmanProfile({id: $routeParams.id})
         .then(function (result) {
             $scope.user = result.data;
-            $scope.user.photo = $scope.user.photo + '?' + new Date().getTime();
+            $scope.user.photo = $scope.user.photo;// + '?' + new Date().getTime();
             $scope.user.birthdate = new Date($scope.user.birthdate);
             oldId = $scope.user.id;
         }, function (error) {

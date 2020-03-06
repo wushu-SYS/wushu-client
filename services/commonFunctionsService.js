@@ -17,6 +17,7 @@ app.service('commonFunctionsService', function(constants) {
      * @returns {string}
      */
     this.getImageUrl = function (src) {
-        return src ? constants.serverUrl + '/static' + src : '';
+        console.log(src)
+        return src
     }
 });
