@@ -25,9 +25,31 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
 
     };
 
+    $scope.uploadMedicalInsurance = function(files){
+        var fd = new FormData();
+        fd.append("file", files[0]);
+        $http.post(constants.serverUrl + '/private/uploadSportsmanMedicalInsurance/'+$scope.user.id+'/sportsman', fd, {
+            method:'POST',
+            URL : constants.serverUrl + '/private/uploadSportsmanMedicalInsurance/',
+            headers: {'Content-Type': undefined,
+                'x-auth-token': $window.sessionStorage.getItem('token'),
+            },
+            transformRequest: angular.identity
+        })
+            .then(()=>{
+                toastNotificationService.successNotification("הקובץ הועלה בהצלחה");
+                $route.reload();
+            }).catch(()=>{})
+    };
+
     $scope.btnPressed =function() {
         console.log("btn pressed");
         let file_input = document.getElementById("profilePicUpload");
+        file_input.click();
+    };
+
+    $scope.medicalInsuranceUpload = function(){
+        let file_input = document.getElementById("medicalInsuranceUpload");
         file_input.click();
     };
 
