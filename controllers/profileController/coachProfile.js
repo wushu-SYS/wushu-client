@@ -5,7 +5,6 @@ app.controller("coachProfileController", function ($scope, $http, $route,$filter
     $scope.currentDate = new Date();
     $scope.regex = constants.regex;
 
-    $scope.getImageUrl = commonFunctionsService.getImageUrl;
 
     let delLink = document.getElementById("delLink");
 

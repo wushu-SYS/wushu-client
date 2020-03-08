@@ -48,7 +48,7 @@
         </tr>
         <tr class="tableTr" ng-repeat="user in users">
             <td class="tableTd"><img class="tableProfileImg"
-                     ng-src="{{getImageUrl(user.photo)}}"
+                     ng-src="{{user.photo}}"
                      alt=""/></td>
             <td class="tableTd">{{user.firstname}}</td>
             <td class="tableTd">{{user.lastname}}</td>

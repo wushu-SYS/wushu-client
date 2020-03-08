@@ -8,8 +8,6 @@ app.controller("sportsmenController", function ($scope, $http, $window, $locatio
     setPage(1);
     getDataForDisplay();
 
-    $scope.getImageUrl = commonFunctionsService.getImageUrl;
-
     function getDataForDisplay() {
         clubService.getClubs()
             .then(function (result) {

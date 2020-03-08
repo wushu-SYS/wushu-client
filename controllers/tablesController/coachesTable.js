@@ -3,7 +3,6 @@ app.controller("coachController", function ($scope, $http, $filter, $window, $lo
     $scope.isToDesc = true;
     getDataForDisplay();
 
-    $scope.getImageUrl = commonFunctionsService.getImageUrl;
     function getDataForDisplay() {
         coachService.getCoaches()
             .then(function (result) {

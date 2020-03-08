@@ -3,7 +3,6 @@ app.controller("refereesTableController", function ($scope, $http, $filter, $win
     $scope.isToDesc = true;
     getDataForDisplay();
 
-    $scope.getImageUrl = commonFunctionsService.getImageUrl;
 
     function getDataForDisplay() {
         refereesService.getReferees()

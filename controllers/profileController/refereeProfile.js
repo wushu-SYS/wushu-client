@@ -3,7 +3,6 @@ app.controller("refereeProfileController", function ($scope, $http, $route,$filt
     $scope.eWhoAmI = "referee";
     $scope.regex = constants.regex;
 
-    $scope.getImageUrl = commonFunctionsService.getImageUrl;
 
     refereesService.getRefereeProfile({id: $routeParams.id})
         .then(function (result) {

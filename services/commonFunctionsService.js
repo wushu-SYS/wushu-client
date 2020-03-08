@@ -11,13 +11,4 @@ app.service('commonFunctionsService', function(constants) {
         });
     }
 
-    /**
-     * return the image url to show it on the screen
-     * @param src
-     * @returns {string}
-     */
-    this.getImageUrl = function (src) {
-        console.log(src)
-        return src
-    }
 });
