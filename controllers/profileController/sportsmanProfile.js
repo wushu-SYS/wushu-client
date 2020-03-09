@@ -6,6 +6,9 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
     $scope.sexEnum = constants.sexEnum;
     $scope.regex = constants.regex;
 
+    let medicalScanIframe = document.getElementById("medicalScanIframe");
+    let insuranceIframe = document.getElementById("insuranceIframe");
+
 
     $scope.uploadFile = function(files) {
         var fd = new FormData();
@@ -25,12 +28,12 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
 
     };
 
-    $scope.uploadMedicalInsurance = function(files){
+    $scope.uploadMedicalScan = function(files){
         var fd = new FormData();
         fd.append("file", files[0]);
-        $http.post(constants.serverUrl + '/private/uploadSportsmanMedicalInsurance/'+$scope.user.id+'/sportsman', fd, {
+        $http.post(constants.serverUrl + '/private/uploadSportsmanMedicalScan/'+$scope.user.id+'/sportsman', fd, {
             method:'POST',
-            URL : constants.serverUrl + '/private/uploadSportsmanMedicalInsurance/',
+            URL : constants.serverUrl + '/private/uploadSportsmanMedicalScan/',
             headers: {'Content-Type': undefined,
                 'x-auth-token': $window.sessionStorage.getItem('token'),
             },
@@ -48,8 +51,8 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
         file_input.click();
     };
 
-    $scope.medicalInsuranceUpload = function(){
-        let file_input = document.getElementById("medicalInsuranceUpload");
+    $scope.medicalScanUpload = function(){
+        let file_input = document.getElementById("medicalScanUpload");
         file_input.click();
     };
 
@@ -89,8 +92,12 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
     sportsmanService.getSportsmanProfile({id: $routeParams.id})
         .then(function (result) {
             $scope.user = result.data;
-            $scope.user.photo = $scope.user.photo;// + '?' + new Date().getTime();
+            //$scope.user.photo = $scope.user.photo + '?' + new Date().getTime();
             $scope.user.birthdate = new Date($scope.user.birthdate);
+            // $scope.user.medicalScan = "https://drive.google.com/file/d/1h0JO7_izq_nYBLvmfQRtSvABKvpQCkgM/preview";
+            console.log($scope.user);
+            medicalScanIframe.src = $scope.user.medicalScan;
+            insuranceIframe.src = $scope.user.insurance;
             oldId = $scope.user.id;
         }, function (error) {
             console.log(error)
