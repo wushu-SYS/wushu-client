@@ -5,6 +5,7 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
     $scope.currentDate = new Date();
     $scope.sexEnum = constants.sexEnum;
     $scope.regex = constants.regex;
+    let medicalScanPreview = document.getElementById("medicalScanPreview");
 
 
     $scope.uploadFile = function(files) {
@@ -28,9 +29,9 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
     $scope.uploadMedicalInsurance = function(files){
         var fd = new FormData();
         fd.append("file", files[0]);
-        $http.post(constants.serverUrl + '/private/uploadSportsmanMedicalInsurance/'+$scope.user.id+'/sportsman', fd, {
+        $http.post(constants.serverUrl + '/private/uploadSportsmanMedicalScan/'+$scope.user.id+'/sportsman', fd, {
             method:'POST',
-            URL : constants.serverUrl + '/private/uploadSportsmanMedicalInsurance/',
+            URL : constants.serverUrl + '/private/uploadSportsmanMedicalScan',
             headers: {'Content-Type': undefined,
                 'x-auth-token': $window.sessionStorage.getItem('token'),
             },
@@ -92,6 +93,8 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
             $scope.user.photo = $scope.user.photo;// + '?' + new Date().getTime();
             $scope.user.birthdate = new Date($scope.user.birthdate);
             oldId = $scope.user.id;
+            medicalScanPreview.src = $scope.user.medicalScan;
+            console.log(result.data)
         }, function (error) {
             console.log(error)
         });

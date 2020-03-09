@@ -217,9 +217,9 @@
                             ביטוח בריאות
                             <div>
                                 <input class="linkDark iLink" aria-hidden="true" type="button" value="הוסף קובץ" ng-click="medicalInsuranceUpload()" style="background: none"/>
-                                <input id="medicalInsuranceUpload" type="file" ngf-select name="file" ngf-pattern="'image/'" accept="image/" ngf-max-size="20MB" onchange="angular.element(this).scope().uploadMedicalInsurance(this.files)"/>
+                                <input id="medicalInsuranceUpload" type="file" ngf-select name="file" ngf-max-size="20MB" onchange="angular.element(this).scope().uploadMedicalInsurance(this.files)"/>
                             </div>
-                            <iframe src="https://drive.google.com/file/d/1KhIDlKkYcYp5uNkQcu2vaJ5sanyL3zke/preview" width="500px"></iframe>
+                            <iframe id="medicalScanPreview" width="500px"></iframe>
                         </div>
                         <div class="row" ng-repeat="file in files">
                             <div class="col-md-3">
