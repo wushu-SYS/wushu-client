@@ -213,21 +213,32 @@
                     <div class="tab-pane fade"
                          ng-class="{'show' : activeTag==='attachments' , 'active' : activeTag==='attachments'}"
                          id="attachments" role="tabpanel" aria-labelledby="attachments">
-                        <div>
-                            ביטוח בריאות
-                            <div>
-                                <input class="linkDark iLink" aria-hidden="true" type="button" value="הוסף קובץ" ng-click="medicalInsuranceUpload()" style="background: none"/>
-                                <input id="medicalInsuranceUpload" type="file" ngf-select name="file" ngf-max-size="20MB" onchange="angular.element(this).scope().uploadMedicalInsurance(this.files)"/>
-                            </div>
-                            <iframe id="medicalScanPreview" width="500px"></iframe>
-                        </div>
-                        <div class="row" ng-repeat="file in files">
-                            <div class="col-md-3">
-                                <label>{{file.name}}</label>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>אישור רפואי</label>
                             </div>
                             <div class="col-md-6">
-                                <!--                            mabey put a preview for the attachment and the expite date, coler red when expired-->
-                                <!--                            popup when entering the profile that the file expired-->
+                                <iframe id="medicalScanIframe" alt="" width="550px" height="220px"></iframe>
+                                <div style="margin-top: -10px">
+                                    <input class="linkDark iLink" aria-hidden="true" type="button" ng-value="user.medicalScan ? 'שנה קובץ' : 'הוסף קובץ'" ng-click="medicalScanUpload()" style="padding: 0"/>
+                                    <input class="linkDark iLink" aria-hidden="true" ng-show="user.medicalScan" type="button" value="הורד" ng-click="medicalScanUpload()"/>
+                                    <input id="medicalScanUpload" type="file" ngf-select name="file" ngf-pattern="'image/'" accept="image/" ngf-max-size="20MB" onchange="angular.element(this).scope().uploadMedicalScan(this.files)"/>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>ביטוח בריאות</label>
+                            </div>
+                            <div class="col-md-6">
+                                <div ng-show="!user.insurance">לא קיים קובץ במערכת</div>
+                                <iframe id="insuranceIframe" ng-show="user.insurance" ng-src="{{user.insurance}}" width="500px" height="200px"></iframe>
+                                <div style="margin-top: -10px">
+                                    <input class="linkDark iLink" aria-hidden="true" type="button" ng-value="user.insurance ? 'שנה קובץ' : 'הוסף קובץ'" ng-click="medicalInsuranceUpload()" style="padding: 0"/>
+                                    <input class="linkDark iLink" aria-hidden="true" ng-show="user.insurance" type="button" value="הורד" ng-click="medicalInsuranceUpload()"/>
+                                    <input id="medicalInsuranceUpload" type="file" ngf-select name="file" ngf-pattern="'image/'" accept="image/" ngf-max-size="20MB" onchange="angular.element(this).scope().uploadMedicalInsurance(this.files)"/>
+                                </div>
                             </div>
                         </div>
                     </div>
