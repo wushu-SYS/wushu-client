@@ -27,6 +27,9 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
             }).catch(()=>{})
 
     };
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
     $scope.uploadMedicalScan = function(files){
         var fd = new FormData();
@@ -41,7 +44,9 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
         })
             .then(()=>{
                 toastNotificationService.successNotification("הקובץ הועלה בהצלחה");
-                $route.reload();
+                 sleep(1000)
+                    .then(()=>{$window.location.reload()})
+
             }).catch(()=>{})
     };
 
@@ -91,14 +96,16 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
 
     sportsmanService.getSportsmanProfile({id: $routeParams.id})
         .then(function (result) {
+            console.log("reload page")
             $scope.user = result.data;
             //$scope.user.photo = $scope.user.photo + '?' + new Date().getTime();
             $scope.user.birthdate = new Date($scope.user.birthdate);
             // $scope.user.medicalScan = "https://drive.google.com/file/d/1h0JO7_izq_nYBLvmfQRtSvABKvpQCkgM/preview";
             console.log($scope.user);
-            medicalScanIframe.src = $scope.user.medicalScan;
-            insuranceIframe.src = $scope.user.insurance;
+            medicalScanIframe.src = $scope.user.medicalScan ? $scope.user.medicalScan : "";
+            insuranceIframe.src = $scope.user.insurance ? $scope.user.insurance : "";
             oldId = $scope.user.id;
+            medicalScanIframe.window.location.reload(true);
         }, function (error) {
             console.log(error)
         });
