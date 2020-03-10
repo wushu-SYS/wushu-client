@@ -218,7 +218,8 @@
                                 <label>אישור רפואי</label>
                             </div>
                             <div class="col-md-6">
-                                <iframe id="medicalScanIframe" alt="" width="550px" height="220px"></iframe>
+                                <div ng-show="!user.medicalScan">לא קיים קובץ במערכת</div>
+                                <iframe id="medicalScanIframe" ng-show="user.medicalScan" width="550px" height="220px"></iframe>
                                 <div style="margin-top: -10px">
                                     <input class="linkDark iLink" aria-hidden="true" type="button" ng-value="user.medicalScan ? 'שנה קובץ' : 'הוסף קובץ'" ng-click="medicalScanUpload()" style="padding: 0"/>
                                     <input class="linkDark iLink" aria-hidden="true" ng-show="user.medicalScan" type="button" value="הורד" ng-click="medicalScanUpload()"/>
