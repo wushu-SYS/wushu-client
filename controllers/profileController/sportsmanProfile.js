@@ -8,6 +8,7 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
 
     let medicalScanIframe = document.getElementById("medicalScanIframe");
     let insuranceIframe = document.getElementById("insuranceIframe");
+    let downSportsmanMedicalScan = document.getElementById("downSportsmanMedicalScan");
 
 
     $scope.uploadFile = function(files) {
@@ -49,6 +50,16 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
 
             }).catch(()=>{})
     };
+    $scope.medicalScanDownload = function(){
+        let splitedFilePath = $scope.user.medicalScan.split('/');
+        let fileId = splitedFilePath[splitedFilePath.length - 2];
+
+        let token = $window.sessionStorage.getItem('token')
+        let url = constants.serverUrl + '/downloadSportsmanMedicalScan/' + token + '/' + fileId;
+        downSportsmanMedicalScan.setAttribute('href', url);
+        downSportsmanMedicalScan.click();
+    };
+
 
     $scope.btnPressed =function() {
         console.log("btn pressed");
@@ -105,7 +116,6 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
             medicalScanIframe.src = $scope.user.medicalScan ? $scope.user.medicalScan : "";
             insuranceIframe.src = $scope.user.insurance ? $scope.user.insurance : "";
             oldId = $scope.user.id;
-            medicalScanIframe.window.location.reload(true);
         }, function (error) {
             console.log(error)
         });

@@ -222,7 +222,7 @@
                                 <iframe id="medicalScanIframe" ng-show="user.medicalScan" width="550px" height="220px"></iframe>
                                 <div style="margin-top: -10px">
                                     <input class="linkDark iLink" aria-hidden="true" type="button" ng-value="user.medicalScan ? 'שנה קובץ' : 'הוסף קובץ'" ng-click="medicalScanUpload()" style="padding: 0"/>
-                                    <input class="linkDark iLink" aria-hidden="true" ng-show="user.medicalScan" type="button" value="הורד" ng-click="medicalScanUpload()"/>
+                                    <a id="downSportsmanMedicalScan" class="linkDark" aria-hidden="true" ng-show="user.medicalScan" type="button" ng-click="medicalScanDownload()" href="" download>הורד</a>
                                     <input id="medicalScanUpload" type="file" ngf-select name="file" ngf-pattern="'image/'" accept="image/" ngf-max-size="20MB" onchange="angular.element(this).scope().uploadMedicalScan(this.files)"/>
                                 </div>
                             </div>
