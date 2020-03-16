@@ -5,6 +5,7 @@ app.controller("sportsmenController", function ($scope, $http, $window, $locatio
     $scope.pager = {};
     $scope.isToDesc = true;
     $scope.headerTable = "ספורטאיים";
+    $scope.isSportsmanList = true;
     setPage(1);
     getDataForDisplay();
 
