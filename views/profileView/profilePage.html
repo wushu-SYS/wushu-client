@@ -69,9 +69,9 @@
                                 <div ng-show="isEditModeOn" class="update-input"
                                      ng-class="{'alert-validate' : updateProfile.id.$invalid && (updateProfile.id.$touched || isClicked)}"
                                      data-validate="{{updateProfile.id.$error.required ? 'הכנס ת.ז.' : (updateProfile.id.$error.minlength || updateProfile.id.$error.maxlength || updateProfile.id.$error.pattern ? 'ת.ז. לא תקינה' : '')}}">
-                                    <input class="update-input100" ng-disabled="true" type="text" name="id"
-                                           ng-model="user.id" placeholder="ת.ז">
-                                    <!--ng-minlength="9" ng-maxlength="9" ng-required="true" ng-pattern="regex.regexOnlyNumbers" ng-pattern-restrict-->
+                                    <input class="update-input100" type="text" name="id"
+                                           ng-model="user.id"
+                                            ng-minlength="9" ng-maxlength="9" ng-required="true" ng-pattern="regex.regexOnlyNumbers" ng-pattern-restrict>
                                 </div>
                             </div>
                         </div>

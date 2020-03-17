@@ -2,7 +2,7 @@
  * this service contains calls for endpoints for the sportaman entity
  * and common function based on sportsman entity
  */
-app.service('sportsmanService', function($window, $http, constants) {
+app.service('sportsmanService', function($window, $http, constants, $location) {
     this.getSportsmanProfile = function (data) {
         var req = {
             method: 'POST',
@@ -130,4 +130,13 @@ app.service('sportsmanService', function($window, $http, constants) {
         }
         return sportsmanCategoriesList;
     }
+
+    /**
+     * go to sportsman profile page, by the given sportsman id
+     * @param selectedId - the sportsman id
+     */
+    this.watchProfile = function (selectedId) {
+        $location.path("/sportsmanProfile/" + selectedId);
+    }
+
 });

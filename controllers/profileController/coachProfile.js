@@ -1,4 +1,5 @@
 app.controller("coachProfileController", function ($scope, $http, $route,$filter, $window, $location, $rootScope, $routeParams, constants, coachService, userService, confirmDialogService, toastNotificationService, commonFunctionsService) {
+    var oldId;
     $scope.whoAmI = "מאמן";
     $scope.eWhoAmI = "coach";
     $scope.isEditModeOn = false;
@@ -12,8 +13,9 @@ app.controller("coachProfileController", function ($scope, $http, $route,$filter
     coachService.getCoachProfile({id: $routeParams.id})
         .then(function (result) {
             $scope.user = result.data;
-            $scope.user.photo = $scope.user.photo + '?' + new Date().getTime();
+            // $scope.user.photo = $scope.user.photo + '?' + new Date().getTime();
             $scope.user.birthdate = new Date($scope.user.birthdate);
+            oldId = $scope.user.id;
         }, function (error) {
             console.log(error)
         })
@@ -28,13 +30,14 @@ app.controller("coachProfileController", function ($scope, $http, $route,$filter
                 email: $scope.user.email,
                 birthDate: $filter('date')($scope.user.birthdate, "MM/dd/yyyy"),
                 address: $scope.user.address,
+                oldId: oldId
             }
             coachService.updateProfile(data)
                 .then(function (result) {
                     toastNotificationService.successNotification("המשתמש עודכן בהצלחה");
                     $scope.isSaved = true;
                     $scope.isEditModeOn = false;
-                    $route.reload();
+                    coachService.watchProfile($scope.user.id);
                     }, function (error) {
                     toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע העדכון");
                     console.log(error)

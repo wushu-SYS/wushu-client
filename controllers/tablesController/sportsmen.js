@@ -50,7 +50,7 @@ app.controller("sportsmenController", function ($scope, $http, $window, $locatio
     }
 
     $scope.watchProfile = function (selectedId) {
-        $location.path("/sportsmanProfile/" + selectedId);
+        sportsmanService.watchProfile(selectedId);
     }
 
 });

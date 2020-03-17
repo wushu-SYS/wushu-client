@@ -82,14 +82,15 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
                 email: $scope.user.email,
                 birthDate: $filter('date')($scope.user.birthdate, "MM/dd/yyyy"),
                 address: $scope.user.address,
-                sex: $scope.user.sex
+                sex: $scope.user.sex,
+                oldId: oldId
             }
             sportsmanService.updateProfile(data)
                 .then(function (result) {
                     toastNotificationService.successNotification("המשתמש עודכן בהצלחה");
                     $scope.isSaved = true;
                     $scope.isEditModeOn = false;
-                    $route.reload();
+                    sportsmanService.watchProfile($scope.user.id);
                 }, function (error) {
                     toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע העדכון");
                     console.log(error)

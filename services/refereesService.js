@@ -1,7 +1,7 @@
 /**
  * this service contains calls for endpoints for the referee entity
  */
-app.service('refereesService', function ($window, $http, constants) {
+app.service('refereesService', function ($window, $http, constants, $location) {
 
     this.getReferees = function () {
         var req = {
@@ -34,5 +34,13 @@ app.service('refereesService', function ($window, $http, constants) {
             data: data
         };
         return $http(req);
+    }
+
+    /**
+     * go to referee profile, by the given referee id
+     * @param selectedId - referee id
+     */
+    this.watchProfile = function (selectedId) {
+        $location.path("/refereeProfile/" + selectedId);
     }
 });

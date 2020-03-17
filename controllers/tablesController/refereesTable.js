@@ -27,7 +27,7 @@ app.controller("refereesTableController", function ($scope, $http, $filter, $win
         };
 
         $scope.watchProfile = function (selectedId) {
-            $location.path("/refereeProfile/" + selectedId);
+            refereesService.watchProfile(selectedId);
         }
     }
 

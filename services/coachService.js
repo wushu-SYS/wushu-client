@@ -1,7 +1,7 @@
 /**
  * this service contains calls for endpoints for the coach entity
  */
-app.service('coachService', function ($window, $http, constants) {
+app.service('coachService', function ($window, $http, constants, $location) {
 
     this.getCoaches = function () {
         var req = {
@@ -50,6 +50,14 @@ app.service('coachService', function ($window, $http, constants) {
         };
         return $http(req);
 
+    }
+
+    /**
+     * go to coach profile page, by the given coach id
+     * @param selectedId - coach id
+     */
+    this.watchProfile = function (selectedId) {
+        $location.path("/coachProfile/" + selectedId);
     }
 
 });

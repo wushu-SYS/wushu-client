@@ -35,6 +35,6 @@ app.controller("coachController", function ($scope, $http, $filter, $window, $lo
     };
 
     $scope.watchProfile = function (selectedId) {
-        $location.path("/coachProfile/" + selectedId);
+        coachService.watchProfile(selectedId);
     }
 });

@@ -7,7 +7,7 @@ app.controller("refereeProfileController", function ($scope, $http, $route,$filt
     refereesService.getRefereeProfile({id: $routeParams.id})
         .then(function (result) {
             $scope.user = result.data;
-            $scope.user.photo = $scope.user.photo + '?' + new Date().getTime();
+            // $scope.user.photo = $scope.user.photo + '?' + new Date().getTime();
         }, function (error) {
             console.log(error)
         })
@@ -27,7 +27,7 @@ app.controller("refereeProfileController", function ($scope, $http, $route,$filt
                     toastNotificationService.successNotification("השופט עודכן בהצלחה");
                     $scope.isSaved = true;
                     $scope.isEditModeOn = false;
-                    $route.reload();
+                    refereesService.watchProfile($scope.user.id);
                 }, function (error) {
                     toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע העדכון");
                     console.log(error)
