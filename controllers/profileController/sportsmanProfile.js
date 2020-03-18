@@ -106,7 +106,7 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
         }
     });
 
-    sportsmanService.getSportsmanProfile({id: $routeParams.id})
+    sportsmanService.getSportsmanProfile({id: parseInt($routeParams.id)})
         .then(function (result) {
             console.log("reload page")
             $scope.user = result.data;

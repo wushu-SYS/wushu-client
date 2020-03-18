@@ -9,6 +9,7 @@ app.controller("loginController", function ($scope, $http, $window, $location, $
             $http.post(constants.serverUrl+ '/login', user)
                 .then(function (response) {
                         $window.sessionStorage.setItem('name', response.data.firstname);
+                        $window.sessionStorage.setItem('id', response.data.id);
                         $rootScope.name = $window.sessionStorage.getItem('name');
 
                         $window.sessionStorage.setItem('access', response.data.access);

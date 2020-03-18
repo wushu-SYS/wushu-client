@@ -4,7 +4,7 @@ app.controller("refereeProfileController", function ($scope, $http, $route,$filt
     $scope.regex = constants.regex;
 
 
-    refereesService.getRefereeProfile({id: $routeParams.id})
+    refereesService.getRefereeProfile({id: parseInt($routeParams.id)})
         .then(function (result) {
             $scope.user = result.data;
             // $scope.user.photo = $scope.user.photo + '?' + new Date().getTime();

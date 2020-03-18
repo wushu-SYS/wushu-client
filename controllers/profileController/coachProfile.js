@@ -10,7 +10,7 @@ app.controller("coachProfileController", function ($scope, $http, $route,$filter
     let delLink = document.getElementById("delLink");
 
 
-    coachService.getCoachProfile({id: $routeParams.id})
+    coachService.getCoachProfile({id: parseInt($routeParams.id)})
         .then(function (result) {
             $scope.user = result.data;
             // $scope.user.photo = $scope.user.photo + '?' + new Date().getTime();

@@ -150,12 +150,12 @@
             <!--                    לוח אירועים-->
             <!--                </a>-->
             <!--            </li>-->
-            <!--            <li>-->
-            <!--                <a href="#!profile" ng-class="getClass('/profile')" class="menuItem">-->
-            <!--                    <i class="fa fa-user" aria-hidden="true"></i>-->
-            <!--                    פרופיל אישי-->
-            <!--                </a>-->
-            <!--            </li>-->
+            <li>
+                <a href="#!profile" ng-class="getClass('/profile')" class="menuItem" ng-show="access!=userTypes.MANAGER">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    הפרופיל שלי
+                </a>
+            </li>
         </ul>
 
         <div id="greeting">

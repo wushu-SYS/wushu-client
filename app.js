@@ -60,13 +60,15 @@ app.config(function($routeProvider) {
         .when('/profile', {
             resolve: {
                 "check": function ($rootScope, $location, $window) {
-                    if ($rootScope.access == $rootScope.userTypes.MANAGER) {
-                    }
-                    else if($rootScope.access == $rootScope.userTypes.COACH){
-                        $location.path("/coachProfile/");
+                    let id = $window.sessionStorage.getItem("id");
+                    if($rootScope.access == $rootScope.userTypes.COACH){
+                        $location.path("/coachProfile/" + id);
                     }
                     else if($rootScope.access == $rootScope.userTypes.SPORTSMAN){
-                        $location.path("/sportsmanProfile/");
+                        $location.path("/sportsmanProfile/" + id);
+                    }
+                    else if($rootScope.access == $rootScope.userTypes.Judge){
+                        $location.path("/refereeProfile/" + id)
                     }
                 }
             }
