@@ -1,6 +1,7 @@
 app.controller("refereeProfileController", function ($scope, $http, $route,$filter, $window, $location, $rootScope, $routeParams, constants, refereesService, userService, confirmDialogService, toastNotificationService, commonFunctionsService) {
     $scope.whoAmI = "שופט";
     $scope.eWhoAmI = "referee";
+    $scope.userType = $rootScope.userTypes.Judge;
     $scope.regex = constants.regex;
 
 

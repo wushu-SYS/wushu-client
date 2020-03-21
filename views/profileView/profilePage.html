@@ -22,7 +22,7 @@
                                 אישיים</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='attachments'" ng-class="{'active' : activeTag==='attachments'}">קבצים מצורפים</a>
+                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='attachments'" ng-class="{'active' : activeTag==='attachments'}" ng-show="userType == userTypes.SPORTSMAN || userType == userTypes.Judge">קבצים מצורפים</a>
                         </li>
 <!--                        <li class="nav-item">-->
 <!--                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='compData'" ng-class="{'active' : activeTag==='compData'}">מידע תחרויות</a>-->
@@ -213,32 +213,50 @@
                     <div class="tab-pane fade"
                          ng-class="{'show' : activeTag==='attachments' , 'active' : activeTag==='attachments'}"
                          id="attachments" role="tabpanel" aria-labelledby="attachments">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label>אישור רפואי</label>
-                            </div>
-                            <div class="col-md-6">
-                                <div ng-show="!user.medicalScan">לא קיים קובץ במערכת</div>
-                                <iframe id="medicalScanIframe" ng-show="user.medicalScan" width="550px" height="220px"></iframe>
-                                <div style="margin-top: -10px">
-                                    <input class="linkDark iLink" aria-hidden="true" type="button" ng-value="user.medicalScan ? 'שנה קובץ' : 'הוסף קובץ'" ng-click="sportsmanFileUpload('medicalScan')" style="padding: 0"/>
-                                    <a id="downSportsmanMedicalScan" class="linkDark" aria-hidden="true" ng-show="user.medicalScan" type="button" ng-click="sportsmanFileDownload(user.medicalScan,'medicalScan')" href="" download>הורד</a>
-                                    <input id="medicalScanUpload" type="file" ngf-select name="file" ngf-pattern="'image/'" accept="image/" ngf-max-size="20MB" onchange="angular.element(this).scope().uploadMedicalScanHealthInsurance(this.files,'medicalScan')"/>
+                        <div ng-show="userType == userTypes.SPORTSMAN">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>אישור רפואי</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <div ng-show="!user.medicalScan">לא קיים קובץ במערכת</div>
+                                    <iframe class="iframeFile" id="medicalScanIframe" ng-show="user.medicalScan"></iframe>
+                                    <div style="margin-top: -10px">
+                                        <input class="linkDark iLink" aria-hidden="true" type="button" ng-value="user.medicalScan ? 'שנה קובץ' : 'הוסף קובץ'" ng-click="sportsmanFileUpload('medicalScan')" style="padding: 0"/>
+                                        <a id="downSportsmanMedicalScan" class="linkDark" aria-hidden="true" ng-show="user.medicalScan" type="button" ng-click="sportsmanFileDownload(user.medicalScan,'medicalScan')" href="" download>הורד</a>
+                                        <input id="medicalScanUpload" type="file" ngf-select name="file" ngf-pattern="'image/'" accept="image/" ngf-max-size="20MB" onchange="angular.element(this).scope().uploadMedicalScanHealthInsurance(this.files,'medicalScan')"/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <br>
-                        <div class="row">
+                            <br>
+                            <div class="row">
                             <div class="col-md-2">
                                 <label>ביטוח בריאות</label>
                             </div>
                             <div class="col-md-6">
                                 <div ng-show="!user.insurance">לא קיים קובץ במערכת</div>
-                                <iframe id="insuranceIframe" ng-show="user.insurance" width="500px" height="200px"></iframe>
+                                <iframe class="iframeFile" id="insuranceIframe" ng-show="user.insurance"></iframe>
                                 <div style="margin-top: -10px">
                                     <input class="linkDark iLink" aria-hidden="true" type="button" ng-value="user.insurance ? 'שנה קובץ' : 'הוסף קובץ'" ng-click="sportsmanFileUpload('healthInsurance')" style="padding: 0"/>
                                     <a id="downSportsmanHealthInsurance" class="linkDark" aria-hidden="true" ng-show="user.insurance" type="button" ng-click="sportsmanFileDownload(user.medicalScan,'healthInsurance')" href="" download>הורד</a>
                                     <input id="medicalInsuranceUpload" type="file" ngf-select name="file" ngf-pattern="'image/'" accept="image/" ngf-max-size="20MB" onchange="angular.element(this).scope().uploadMedicalScanHealthInsurance(this.files,'healthInsurance')"/>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div ng-show="userType == userTypes.Judge">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>רישום פלילי</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <div ng-show="!user.medicalScan">לא קיים קובץ במערכת</div>
+                                    <iframe id="criminalRecordIframe" ng-show="user.criminalRecord"></iframe>
+                                    <div style="margin-top: -10px">
+                                        <input class="linkDark iLink" aria-hidden="true" type="button" ng-value="user.criminalRecord ? 'שנה קובץ' : 'הוסף קובץ'" ng-click="judgeFileUpload('criminalRecord')" style="padding: 0"/>
+                                        <a id="downCriminalRecord" class="linkDark" aria-hidden="true" ng-show="user.criminalRecord" type="button" ng-click="judgeFileDownload(user.criminalRecord,'criminalRecord')" href="" download>הורד</a>
+                                        <input id="criminalRecordUpload" type="file" ngf-select name="file" ngf-pattern="'image/'" accept="image/" ngf-max-size="20MB" onchange="angular.element(this).scope().uploadMedicalScanHealthInsurance(this.files,'medicalScan')"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
