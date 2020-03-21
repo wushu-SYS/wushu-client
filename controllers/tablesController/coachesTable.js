@@ -1,6 +1,7 @@
 app.controller("coachController", function ($scope, $http, $filter, $window, $location, constants, clubService, coachService, commonFunctionsService) {
     $scope.headerTable = "מאמנים";
     $scope.isToDesc = true;
+    let exportList = document.getElementById("export");
     getDataForDisplay();
 
     function getDataForDisplay() {
@@ -36,5 +37,12 @@ app.controller("coachController", function ($scope, $http, $filter, $window, $lo
 
     $scope.watchProfile = function (selectedId) {
         coachService.watchProfile(selectedId);
+    }
+
+    $scope.export = function () {
+        let token =$window.sessionStorage.getItem('token')
+        let url = constants.serverUrl + '/downloadCoachList/'+token;
+        exportList.setAttribute('href', url);
+        exportList.click();
     }
 });
