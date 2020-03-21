@@ -8,7 +8,7 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
 
     let medicalScanIframe = document.getElementById("medicalScanIframe");
     let insuranceIframe = document.getElementById("insuranceIframe");
-    let downSportsmanMedicalScan = document.getElementById("downSportsmanMedicalScan");
+
 
 
     $scope.uploadFile = function(files) {
@@ -32,12 +32,27 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    $scope.uploadMedicalScan = function(files){
+    $scope.sportsmanFileUpload = function(type){
+        let file_input;
+        switch (type) {
+            case 'medicalScan':
+                file_input = document.getElementById("medicalScanUpload");
+                break;
+            case 'healthInsurance':
+                file_input = document.getElementById("medicalInsuranceUpload");
+                break;
+        }
+        file_input.click();
+    };
+
+
+    $scope.uploadMedicalScanHealthInsurance = function(files,fileType){
+        console.log(fileType)
         var fd = new FormData();
         fd.append("file", files[0]);
-        $http.post(constants.serverUrl + '/private/uploadSportsmanMedicalScan/'+$scope.user.id+'/sportsman', fd, {
+        $http.post(constants.serverUrl + '/private/uploadSportsmanFile/'+$scope.user.id+'/'+fileType, fd, {
             method:'POST',
-            URL : constants.serverUrl + '/private/uploadSportsmanMedicalScan/',
+            URL : constants.serverUrl + '/private/uploadSportsmanFile/',
             headers: {'Content-Type': undefined,
                 'x-auth-token': $window.sessionStorage.getItem('token'),
             },
@@ -50,14 +65,25 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
 
             }).catch(()=>{})
     };
-    $scope.medicalScanDownload = function(){
-        let splitedFilePath = $scope.user.medicalScan.split('/');
-        let fileId = splitedFilePath[splitedFilePath.length - 2];
 
+    $scope.sportsmanFileDownload = function(path,fileType){
+        let downSportsmaFile;
+        switch (fileType) {
+            case 'medicalScan':
+                downSportsmaFile = document.getElementById("downSportsmanMedicalScan");
+                break;
+            case 'healthInsurance':
+                downSportsmaFile = document.getElementById("downSportsmanHealthInsurance");
+                break;
+        }
+
+        let splitedFilePath = path.split('/');
+        let fileId = splitedFilePath[splitedFilePath.length - 2];
         let token = $window.sessionStorage.getItem('token')
-        let url = constants.serverUrl + '/downloadSportsmanMedicalScan/' + token + '/' + fileId+'/'+$scope.user.id;
-        downSportsmanMedicalScan.setAttribute('href', url);
-        downSportsmanMedicalScan.click();
+        let url = constants.serverUrl + '/downloadSportsmanFile/' + token + '/' + fileId+'/'+$scope.user.id+'/'+fileType;
+        downSportsmaFile.setAttribute('href', url);
+        downSportsmaFile.click();
+
     };
 
 
@@ -67,10 +93,6 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
         file_input.click();
     };
 
-    $scope.medicalScanUpload = function(){
-        let file_input = document.getElementById("medicalScanUpload");
-        file_input.click();
-    };
 
     $scope.submit = function (isValid) {
         if (isValid) {
