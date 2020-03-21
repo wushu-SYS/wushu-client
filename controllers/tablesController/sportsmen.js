@@ -6,6 +6,8 @@ app.controller("sportsmenController", function ($scope, $http, $window, $locatio
     $scope.isToDesc = true;
     $scope.headerTable = "ספורטאיים";
     $scope.isSportsmanList = true;
+    let exportList = document.getElementById("export");
+
     setPage(1);
     getDataForDisplay();
 
@@ -51,6 +53,14 @@ app.controller("sportsmenController", function ($scope, $http, $window, $locatio
 
     $scope.watchProfile = function (selectedId) {
         sportsmanService.watchProfile(selectedId);
+    }
+
+    $scope.export = function () {
+        let token =$window.sessionStorage.getItem('token')
+        let conditions = sportsmanService.buildConditionds($scope.searchText, $scope.selectedsportStyle, $scope.selectedClub, $scope.selectedSex, $scope.isToDesc, null, null, null, null);
+        let url = constants.serverUrl + '/downloadSportsmanList/'+token + conditions;
+        exportList.setAttribute('href', url);
+        exportList.click();
     }
 
 });
