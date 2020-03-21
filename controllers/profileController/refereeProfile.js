@@ -1,6 +1,7 @@
 app.controller("refereeProfileController", function ($scope, $http, $route,$filter, $window, $location, $rootScope, $routeParams, constants, refereesService, userService, confirmDialogService, toastNotificationService, commonFunctionsService) {
     $scope.whoAmI = "שופט";
     $scope.eWhoAmI = "referee";
+    $scope.userType = $rootScope.userTypes.Judge;
     $scope.regex = constants.regex;
 
 
@@ -58,7 +59,17 @@ app.controller("refereeProfileController", function ($scope, $http, $route,$filt
         let file_input = document.getElementById("profilePicUpload");
         file_input.click();
     };
-    $scope.delProfile = function (id) {}
+    $scope.delProfile = function () {
+        confirmDialogService.askQuestion("האם אתה בטוח שברצונך למחוק את פרופיל השופט?", function () {
+            refereesService.deleteProfile($routeParams.id)
+                .then(function (reusult) {
+                    toastNotificationService.successNotification("השופט נמחק בהצלחה");
+                    $location.path("/users/referees");
+                }, function (error) {
+                    console.log(error)
+                })
+        });
+    }
 
 
 

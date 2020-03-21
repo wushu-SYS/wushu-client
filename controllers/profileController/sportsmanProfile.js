@@ -1,6 +1,7 @@
 app.controller("sportsmanProfileController", function ($scope, $http, $filter, $window, $location, $rootScope, $route, $routeParams, constants, sportsmanService, userService, confirmDialogService, toastNotificationService, commonFunctionsService) {
     var oldId;
     $scope.whoAmI = "ספורטאי";
+    $scope.userType = $rootScope.userTypes.SPORTSMAN;
     $scope.isEditModeOn = false;
     $scope.currentDate = new Date();
     $scope.sexEnum = constants.sexEnum;
