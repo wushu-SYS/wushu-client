@@ -24,7 +24,8 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
         })
             .then(()=>{
                 toastNotificationService.successNotification("התמונה נשמרה בהצלחה");
-                $route.reload();
+                sleep(1000)
+                    .then(()=>{$window.location.reload()})
             }).catch(()=>{})
 
     };
