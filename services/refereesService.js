@@ -3,6 +3,9 @@
  */
 app.service('refereesService', function ($window, $http, constants, $location) {
 
+    /**
+     * get all judges from DB
+     */
     this.getReferees = function () {
         var req = {
             method: 'POST',
@@ -13,6 +16,11 @@ app.service('refereesService', function ($window, $http, constants, $location) {
         };
         return $http(req);
     };
+
+    /**
+     * get judge profile data
+     * @param data - json data that include the rellevant judge id
+     */
     this.getRefereeProfile = function (data) {
         var req = {
             method: 'POST',
@@ -24,6 +32,11 @@ app.service('refereesService', function ($window, $http, constants, $location) {
         };
         return $http(req);
     };
+
+    /**
+     * update judge details
+     * @param data - json input of judge data
+     */
     this.updateProfile = function (data) {
         let req = {
             method: 'POST',
@@ -42,5 +55,24 @@ app.service('refereesService', function ($window, $http, constants, $location) {
      */
     this.watchProfile = function (selectedId) {
         $location.path("/refereeProfile/" + selectedId);
+    }
+
+    /**
+     * delete judge profile with the given id
+     * @param id - judge id to delete
+     */
+    this.deleteProfile = function (id) {
+        let data = {
+            userID: id
+        };
+        let req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/manager/deleteJudgeProfile',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: data
+        };
+        return $http(req);
     }
 });
