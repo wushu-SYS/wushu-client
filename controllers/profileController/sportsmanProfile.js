@@ -55,7 +55,7 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
         let fileId = splitedFilePath[splitedFilePath.length - 2];
 
         let token = $window.sessionStorage.getItem('token')
-        let url = constants.serverUrl + '/downloadSportsmanMedicalScan/' + token + '/' + fileId;
+        let url = constants.serverUrl + '/downloadSportsmanMedicalScan/' + token + '/' + fileId+'/'+$scope.user.id;
         downSportsmanMedicalScan.setAttribute('href', url);
         downSportsmanMedicalScan.click();
     };
