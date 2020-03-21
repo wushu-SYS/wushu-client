@@ -121,6 +121,7 @@ select.searchInput:focus{
     border: 1px solid #575756;
     outline: none;
     /*box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);*/
+    color: black;
 }
 .clickableSearch:hover{
     color: #327a81;
@@ -150,6 +151,15 @@ select.searchInput:focus{
     margin: 1px;
 }
 
+.actionsBar::before{
+    content:'| ';
+    font-size: 30px;
+    white-space: pre;
+}
+.filtersBar::after{
+    content: " ";
+    white-space: pre;
+}
 
 /***PAGINATION***/
 ul.pagination li{

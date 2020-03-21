@@ -10,7 +10,7 @@
             <i class="fa fa-times clickableSearch" style="left: 45px" aria-hidden="true"></i>
         </button>
     </div>
-    <div>
+    <div class="filtersBar">
         <select ng-show="access==userTypes.MANAGER && clubs.length > 0" class="searchInput" name="selectedClub" ng-model="selectedClub"
                 ng-options="x.name
                 for
@@ -33,6 +33,13 @@
             <i ng-model="isToDesc"
                ng-class="isToDesc ? 'fa fa-sort-alpha-desc clickableSearch' : 'fa fa-sort-alpha-asc clickableSearch'"
                ng-click="isToDesc = !isToDesc; setPage(1)" ng-change="setPage(1)" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div class="actionsBar">
+        <button style="height: 55px;">
+            <a id="export" href="">
+                <i class="fa fa-file-excel-o clickableSearch" ng-click="export()" aria-hidden="true"></i>
+            </a>
         </button>
     </div>
 </div>
