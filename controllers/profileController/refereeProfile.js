@@ -28,6 +28,23 @@ app.controller("refereeProfileController", function ($scope, $http, $route,$filt
         file_input.click();
     };
 
+    $scope.judgeFileDownload = function(path,fileType){
+        let downJudgeFile;
+        switch (fileType) {
+            case 'criminalRecord':
+                downJudgeFile = document.getElementById("downCriminalRecord");
+                break;
+        }
+
+        let splitedFilePath = path.split('/');
+        let fileId = splitedFilePath[splitedFilePath.length - 2];
+        let token = $window.sessionStorage.getItem('token')
+        let url = constants.serverUrl + '/downloadJudgeFile/' + token + '/' + fileId+'/'+$scope.user.id+'/'+fileType;
+        downJudgeFile.setAttribute('href', url);
+        downJudgeFile.click();
+
+    };
+
     $scope.uploadCriminalRecord = function(files,fileType){
         var fd = new FormData();
         fd.append("file", files[0]);
