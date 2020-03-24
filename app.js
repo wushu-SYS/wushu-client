@@ -1,4 +1,4 @@
-let app = angular.module('myApp', ["ngRoute", 'ui.bootstrap', 'ngPatternRestrict', 'cp.ngConfirm', 'angularjsToast', 'angular-loading-bar', 'ngAnimate'])
+let app = angular.module('myApp', ["ngRoute", 'ui.bootstrap', 'ngPatternRestrict', 'cp.ngConfirm', 'angularjsToast', 'angular-loading-bar', 'ngAnimate','btford.socket-io'])
     .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
         cfpLoadingBarProvider.includeSpinner = true;
         cfpLoadingBarProvider.includeBar = true;
@@ -8,6 +8,13 @@ let app = angular.module('myApp', ["ngRoute", 'ui.bootstrap', 'ngPatternRestrict
                                                 '<span>אנא המתן...</span>' +
                                                 '</div>';
     }]);
+
+app.service('SocketService', ['socketFactory', function SocketService(socketFactory) {
+    return socketFactory({
+        ioSocket: io.connect('http://localhost:3000')
+    });
+}]);
+
 app.controller("mainController", function ($scope, $location, $window, $rootScope) {
     if($window.sessionStorage.getItem('name') != null && $window.sessionStorage.getItem('name')!=='')
         $rootScope.name = $window.sessionStorage.getItem('name');
