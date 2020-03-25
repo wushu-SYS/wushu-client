@@ -128,6 +128,10 @@ app.config(function($routeProvider) {
             templateUrl: 'views/tablesView/competitionTable.html',
             controller: 'registerToCompetitionController as regCompCtrl'
         })
+        .when('/competitions/startCompetition', {
+            templateUrl: 'views/tablesView/competitionsToJudgeTable.html',
+            controller: 'competitionsToJudgeController as competitionsToJudgeController'
+        })
         .when('/competitions/addResults', {
             templateUrl: 'views/home.html',
             controller: 'homeController as hCtrl'
@@ -167,6 +171,14 @@ app.config(function($routeProvider) {
         .when('/judgeCompetitionRegistration/:idComp', {
             templateUrl: 'views/competitionRegistrationView/regJudgeCompetition.html',
             controller: 'regJudgeCompetitionController as jCompetitionRegCtrl'
+        })
+        .when('/judgingCompetitionMaster/:idComp', {
+            templateUrl: 'views/competitionJudgingView/judgeCompetition.html',
+            controller: 'judgingCompetitionMaster as jCompetitionMaster'
+        })
+        .when('/judgingCompetitionSimple/:idComp', {
+            templateUrl: 'views/competitionJudgingView/judgeCompetition.html',
+            controller: 'judgingCompetitionSimple as jCompetitionSimple'
         })
         .otherwise({redirectTo: '/login'});
 });

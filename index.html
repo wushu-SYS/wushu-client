@@ -110,6 +110,9 @@
 <script src="controllers/competitionRegistration/regCompetitionController.js"></script>
 <script src="controllers/competitionRegistration/regJudgeCompetitionController.js"></script>
 <script src="controllers/tablesController/competitionResultsController.js"></script>
+<script src="controllers/competitionJudgingController/masterJudgeCompetitionController.js"></script>
+<script src="controllers/competitionJudgingController/simpleJudgeCompetitionController.js"></script>
+<script src="controllers/competitionJudgingController/competitionsToJudgeController.js"></script>
 
 <!-- Load Services -->
 <script src="services/moment.js"></script>
@@ -170,7 +173,7 @@
             </div>
         </div>
     </div>
-    <div id="managerMenu" ng-show="access==userTypes.MANAGER || access==userTypes.COACH">
+    <div id="managerMenu" ng-show="access==userTypes.MANAGER || access==userTypes.COACH || access==userTypes.Judge">
         <ul class="menu">
             <div class="dropdown">
                 <div ng-class="getClass('/sportClubs')" class="menuItem">ניהול מועדונים
@@ -226,6 +229,10 @@
                     <a href="#!competitions/registerToCompetition">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         רישום לתחרות
+                    </a>
+                    <a href="#!competitions/startCompetition">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                        התחל תחרות/לשפוט
                     </a>
                     <a href="#!competitions/addResults">
                         <i class="fa fa-pencil" aria-hidden="true"></i>

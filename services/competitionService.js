@@ -239,6 +239,23 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         $location.path('/competitions/RegistrationState/' + competition.idCompetition + '/' + competition.date + '/' + competition.status);
     };
 
+    this.startJudgingCompetition = function (competitionId, idMaster) {
+        if(idMaster)
+            $location.path('/judgingCompetitionMaster/' + competitionId);
+        else
+            $location.path('/judgingCompetitionSimple/' + competitionId);
+    };
+    this.getCompetitionsToJudge = function () {
+        var req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/getCompetitionToJudge',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            }
+        };
+        return $http(req);
+    };
+
     /**
      * build query params for the competition route
      * @param location - can filter by location string
