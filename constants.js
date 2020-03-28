@@ -16,14 +16,16 @@ app.constant('constants', {
         {id : 2, name : 'סנדא' }
     ],
     compStatus: [
-        {id : 1, name : 'פתוח'},
-        {id : 2, name : 'סגור'},
-        {id : 3, name : 'רישום סגור'}
+        {id : 1, name : 'תחרות פתוחה'},
+        {id : 2, name : 'תחרות סגורה'},
+        {id : 3, name : 'רישום סגור'},
+        {id : 4, name : 'תחרות בתהליך'}
     ],
     compStatusType: {
         OPEN: 0,
         CLOSE: 1,
-        REGCLOSE: 2
+        REGCLOSE: 2,
+        COMPETITIONPROGRESS: 3
     },
     fileName :{
       coachAsJudge :'שיוך מאמנים כשופטים במערכת'

@@ -1,5 +1,7 @@
 app.controller("competitionsToJudgeController", function ($scope, $window, $http, competitionService, pagingService, constants) {
     $scope.sportStyles = constants.sportStyleEnum;
+    $scope.compStatus = constants.compStatus;
+    $scope.compStatusType = constants.compStatusType;
 
     getDisplayData();
     function getDisplayData() {

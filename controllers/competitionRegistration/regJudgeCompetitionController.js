@@ -59,7 +59,7 @@ app.controller("regJudgeCompetitionController", function ($scope, $rootScope, $r
                 toastNotificationService.successNotification("הרישום בוצע בהצלחה")
             }, function (error) {
                 console.log(error);
-                toastNotificationService.successNotification("ארעה שגיאה בעת ביצוע הרישום")
+                toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע הרישום")
             });
     }
 
