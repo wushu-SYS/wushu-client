@@ -239,11 +239,11 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         $location.path('/competitions/RegistrationState/' + competition.idCompetition + '/' + competition.date + '/' + competition.status);
     };
 
-    this.startJudgingCompetition = function (competitionId, idMaster) {
-        if(idMaster)
+    this.startJudgingCompetition = function (competitionId, isMaster) {
+        if(isMaster)
             $location.path('/judgingCompetitionMaster/' + competitionId);
         else
-            $location.path('/judgingCompetitionSimple/' + competitionId);
+            $location.path('/waitingForCompetitionHost/' + competitionId);
     };
     this.getCompetitionsToJudge = function () {
         var req = {

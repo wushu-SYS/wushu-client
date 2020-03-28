@@ -180,5 +180,9 @@ app.config(function($routeProvider) {
             templateUrl: 'views/competitionJudgingView/judgeCompetition.html',
             controller: 'judgingCompetitionSimple as jCompetitionSimple'
         })
+        .when('/waitingForCompetitionHost/:idComp', {
+            templateUrl: 'views/loadingView/loading.html',
+            controller: 'waitingForCompetitionHost as waitingForCompetitionHost'
+        })
         .otherwise({redirectTo: '/login'});
 });

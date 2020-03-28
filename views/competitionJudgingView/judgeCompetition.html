@@ -1,0 +1,20 @@
+<div id="box" style="width: 60%">
+    <h1>תחרות {{compName}}</h1>
+
+    <div class="center" style="display: grid">
+        <h5>ספורטאי נוכחי: {{currentSportsman}}</h5>
+        <div class="wrap-input100 validate-input" style="width: 200px">
+            <span class="label-input100">ציון: </span>
+            <input class="input100" type="text" name="grade" ng-model="grade"
+                   ng-required="true" ng-pattern="regex.regexOnlyNumbers" ng-pattern-restrict>
+            <span class="focus-input100"></span>
+        </div>
+    </div>
+
+    <div style="margin-top: 10px">
+        <input type="submit" ng-class="{'disabled' : true}"
+               ng-click="nextSportsman()"
+               ng-disabled="true"
+               value="לספורטאי הבא"/>
+    </div>
+</div>
