@@ -1,3 +1,5 @@
-app.controller("judgingCompetitionMaster", function ($scope, $http, $window, $location, constants, SocketService) {
+app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams, $window, $location, constants, SocketService) {
+
+    SocketService.emit('judgeMasterEnterToCompetition',{idComp : $routeParams.idComp})
 
 });

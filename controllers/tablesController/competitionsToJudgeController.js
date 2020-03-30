@@ -1,4 +1,4 @@
-app.controller("competitionsToJudgeController", function ($scope, $window, $http, competitionService, pagingService, constants) {
+app.controller("competitionsToJudgeController", function ($scope, $window, $http, competitionService, pagingService, constants,SocketService) {
     $scope.sportStyles = constants.sportStyleEnum;
     $scope.compStatus = constants.compStatus;
     $scope.compStatusType = constants.compStatusType;
@@ -15,6 +15,8 @@ app.controller("competitionsToJudgeController", function ($scope, $window, $http
     }
 
     $scope.watchCompDetails = competitionService.watchCompDetails;
-    $scope.startJudgingCompetition = competitionService.startJudgingCompetition;
+    $scope.startJudgingCompetition = function (compId,isMaster,status){
+        competitionService.startJudgingCompetition(compId,isMaster,status);
+    }
 
 });

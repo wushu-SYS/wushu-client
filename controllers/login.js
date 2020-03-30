@@ -16,7 +16,7 @@ app.controller("loginController", function ($scope, $http, $window, $location, $
                         $rootScope.access = $window.sessionStorage.getItem('access');
                         $window.sessionStorage.setItem('isFirstLogin', response.data.isFirstTime);
                         $window.sessionStorage.setItem('token', response.data.token);
-                        SocketService.emit('login',{ loginId: user.userID });
+                        SocketService.emit('login',{ userId: user.userID });
                         $location.path('/home');
                     },
                     function (error) {
