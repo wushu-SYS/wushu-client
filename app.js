@@ -184,5 +184,9 @@ app.config(function($routeProvider) {
             templateUrl: 'views/loadingView/loading.html',
             controller: 'waitingForCompetitionHost as waitingForCompetitionHost'
         })
+        .when('/waitingForTheNextSportsman/:idComp/:preSportsman', {
+            templateUrl: 'views/loadingView/loading.html',
+            controller: 'waitingForTheNextSportsman as waitingForTheNextSportsman'
+        })
         .otherwise({redirectTo: '/login'});
 });

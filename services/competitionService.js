@@ -254,6 +254,11 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         }
     };
 
+    this.waitsForNextSportsman = function (idComp,preSportsman) {
+        $location.path('/waitingForTheNextSportsman/' + idComp+ '/'+preSportsman);
+
+    };
+
     this.getCompetitionsToJudge = function () {
         var req = {
             method: 'POST',
