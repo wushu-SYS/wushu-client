@@ -189,23 +189,31 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
         // });
     };
 
-    $scope.changeOrder = function(scope){
+    $scope.changeOrder = function(){
         let indx = 0;
         $scope.usersCategories.forEach(userCategory => userCategory.users.forEach(user => {
             if(user.indx !== indx) {
                 user.indx = indx;
-                scope.categoryForSportsman.push(
-                    {
-                        id: user.id,
-                        category: user.selectedCategory.id,
-                        oldCategory: user.selectedCategory.id,
-                        isDeleted: user.isDeleted,
-                        indx: user.indx
-                    }
-                );
+                let categorySportsman = $scope.categoryForSportsman.find(item => {
+                    return item.id == user.id;
+                });
+                if (categorySportsman) {
+                    categorySportsman.indx = user.indx;
+                } else {
+                    $scope.categoryForSportsman.push(
+                        {
+                            id: user.id,
+                            category: user.selectedCategory.id,
+                            oldCategory: user.selectedCategory.id,
+                            isDeleted: user.isDeleted,
+                            indx: user.indx
+                        }
+                    );
+                }
             }
             indx += 1;
         }));
+        $scope.$apply();
     };
     $scope.closeRegistration = function() {
         confirmDialogService.askQuestion("האם אתה בטוח שברצונך לסגור את הרישום לתחרות?", function () {
@@ -367,7 +375,7 @@ app.directive("dragDrop", ["$parse",
                     sourceParent = "";
                     sourceIndex = -1;
 
-                    $scope.changeOrder($scope);
+                    $scope.changeOrder();
                 }
 
             }
