@@ -48,13 +48,13 @@ input[type=date]::-webkit-inner-spin-button {
 .wrap-input100 {
     /*width: 100%;*/
     position: relative;
-    border-bottom: 1px solid #e5ffff;
+    border-bottom: 1px solid #5CF9FF;
     margin-bottom: 30px;
 }
 
 .update-input{
     position: relative;
-    border-bottom: 1px solid #e5ffff;
+    border-bottom: 1px solid #5CF9FF;
 }
 .update-input100{
     font-size: 16px;

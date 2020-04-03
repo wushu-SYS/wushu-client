@@ -261,7 +261,7 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         }).result.catch(function () {
         });
     };
-    this.openCheckInJudgesModal = function (idCompetition) {
+    this.openCheckInJudgesModal = function (idCompetition, onCloseModal) {
         $uibModal.open({
             templateUrl: "views/modalView/checkInJudgesModal.html",
             controller: "checkInJudgesModalController as checkInJudgesModalController",
@@ -272,8 +272,11 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
                     return idCompetition;
                 }
             }
-        }).result.catch(function () {
+        }).closed.then(function(){
+            onCloseModal();
         });
+        //     .result.catch(function () {
+        // });
     };
     this.regSportsman = function (idCompetiton) {
         $location.path('/sportsmanCompetitionRegistration/' + idCompetiton);

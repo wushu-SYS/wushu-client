@@ -11,7 +11,6 @@ app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams,
         competitionService.getRegistrationState($routeParams.idComp)
             .then(function (result) {
                sportsmanQueue  = result.data;
-               console.log(sportsmanQueue);
                $scope.currentCategory = sportsmanQueue[currentCategoryIndex].category;
                $scope.currentSportsman = sportsmanQueue[currentCategoryIndex].users[currentSportsmanIndex];
                SocketService.emit('setNextSportsman',{ idComp: $routeParams.idComp ,sportsman: $scope.currentSportsman,category : $scope.currentCategory })

@@ -16,8 +16,11 @@ app.controller("competitionsToJudgeController", function ($scope, $window, $http
 
     $scope.watchCompDetails = competitionService.watchCompDetails;
     $scope.startJudgingCompetition = function (compId,isMaster,status){
-        competitionService.openCheckInJudgesModal(compId);
-        // competitionService.startJudgingCompetition(compId,isMaster,status);
+        this.compId = compId;
+        this.isMaster = isMaster;
+        this.status = status;
+        competitionService.openCheckInJudgesModal(compId, function () {
+            competitionService.startJudgingCompetition(compId,isMaster,status);
+        });
     }
-
 });

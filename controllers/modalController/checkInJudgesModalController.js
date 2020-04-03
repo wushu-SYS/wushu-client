@@ -21,6 +21,7 @@ app.controller("checkInJudgesModalController", function($scope, $uibModalInstanc
                     toastNotificationService.errorNotification("ארעה שגיאה. אנא פנה לתמיכה טכנית");
                     console.log(error)
                 });
-        }
+        }else
+            $uibModalInstance.close();
     }
 });
