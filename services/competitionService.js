@@ -140,13 +140,42 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         return $http(req);
     };
     this.getJudgeRegistrationState = function (compId) {
-        let condition = '?' + 'competitionId='+ compId;
+        let condition = '?' + 'competitionId=' + compId;
         var req = {
             method: 'POST',
             url: constants.serverUrl + '/private/manager/getJudgeRegistrationState' + condition,
             headers: {
                 'x-auth-token': $window.sessionStorage.getItem('token')
             }
+        };
+        return $http(req);
+    };
+    this.getRegisteredJudges = function (compId) {
+        let data = {
+            compId: compId
+        };
+        var req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/judge/getRegisteredJudgeCompetition',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: data
+        };
+        return $http(req);
+    };
+    this.checkInCompetitionJudges = function (compId, unselectedJudgeIds) {
+        let data = {
+            compId: compId,
+            judgeIds: unselectedJudgeIds
+        };
+        var req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/judge/deleteJudgesFromCompetition',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: data
         };
         return $http(req);
     };
@@ -209,7 +238,7 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
                     return id;
                 }
             }
-        }).result.then(function(){
+        }).result.then(function () {
             // parent.location.reload();
         }).catch(function () {
         });
@@ -232,6 +261,20 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         }).result.catch(function () {
         });
     };
+    this.openCheckInJudgesModal = function (idCompetition) {
+        $uibModal.open({
+            templateUrl: "views/modalView/checkInJudgesModal.html",
+            controller: "checkInJudgesModalController as checkInJudgesModalController",
+            backdrop: 'static',
+            keyboard: false,
+            resolve: {
+                getId: function () {
+                    return idCompetition;
+                }
+            }
+        }).result.catch(function () {
+        });
+    };
     this.regSportsman = function (idCompetiton) {
         $location.path('/sportsmanCompetitionRegistration/' + idCompetiton);
     };
@@ -239,10 +282,10 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         $location.path('/competitions/RegistrationState/' + competition.idCompetition + '/' + competition.date + '/' + competition.status);
     };
 
-    this.startJudgingCompetition = function (idComp, isMaster,status) {
-        if(isMaster)
+    this.startJudgingCompetition = function (idComp, isMaster, status) {
+        if (isMaster)
             $location.path('/judgingCompetitionMaster/' + idComp);
-        else{
+        else {
             switch (status) {
                 case 'wait':
                     $location.path('/waitingForCompetitionHost/' + idComp);
@@ -254,8 +297,8 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         }
     };
 
-    this.waitsForNextSportsman = function (idComp,preSportsman) {
-        $location.path('/waitingForTheNextSportsman/' + idComp+ '/'+preSportsman);
+    this.waitsForNextSportsman = function (idComp, preSportsman) {
+        $location.path('/waitingForTheNextSportsman/' + idComp + '/' + preSportsman);
 
     };
 
@@ -295,7 +338,7 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
             });
             conditions.push('status=' + statusCond.join(','));
         }
-        if(startIndex !== null && startIndex !== undefined && endIndex !== null && endIndex !== undefined){
+        if (startIndex !== null && startIndex !== undefined && endIndex !== null && endIndex !== undefined) {
             conditions.push('startIndex=' + startIndex);
             conditions.push('endIndex=' + endIndex);
         }
