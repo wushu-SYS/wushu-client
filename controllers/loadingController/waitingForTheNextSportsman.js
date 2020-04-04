@@ -1,4 +1,4 @@
-app.controller("waitingForTheNextSportsman", function ($scope, $route, SocketService,$routeParams,competitionService) {
+app.controller("waitingForTheNextSportsman", function ($scope,$window, $route, SocketService,$routeParams,competitionService) {
     $scope.loadingMessage = "המתן לספורטאי הבא"
 
     function waitForChange () {

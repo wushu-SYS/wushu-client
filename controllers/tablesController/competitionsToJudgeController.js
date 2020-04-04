@@ -7,7 +7,7 @@ app.controller("competitionsToJudgeController", function ($scope, $window, $http
 
 
     function getDisplayData() {
-        competitionService.getCompetitionsToJudge()
+         competitionService.getCompetitionsToJudge()
             .then(function (result) {
                 $scope.competitions = result.data;
                 $scope.competitions.forEach(comp => comp.startHour = comp.startHour.substring(0, comp.startHour.length - 1));

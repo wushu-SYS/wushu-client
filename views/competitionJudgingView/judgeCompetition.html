@@ -23,10 +23,11 @@
                     <b>ספורטאי:</b>
                     {{currentSportsman.firstname}} {{currentSportsman.lastname}}
                 </h6>
-                <div class="wrap-input100 validate-input" style="width: 200px">
+                <div class="wrap-input100 validate-input" style="width: 200px"
+                     ng-class="{'alert-validate' : grade.$invalid}"
+                     data-validate="{{grade.$error.pattern ? 'ציון לא תקין' : ''}}">
                     <span class="label-input100">ציון: </span>
-                    <input class="input100" type="text" name="grade" ng-model="grade"
-                           ng-required="true" ng-pattern="regex.regexOnlyDouble">
+                    <input class="input100" type="text" name="grade" ng-model="grade">
                     <span class="focus-input100"></span>
                 </div>
             </div>
@@ -44,11 +45,11 @@
     </div>
 
     <div style="margin-top: 10px">
-        <input type="submit" ng-class="{'disabled' : disableButtonNext}"
+        <input type="submit" ng-class="{'disabled' : disableButtonNext || !grade}"
                ng-click="nextSportsman()"
-               ng-disabled="disableButtonNext"
+               ng-disabled="disableButtonNext || !grade"
                value="לספורטאי הבא"/>
 
-        <i class="fa fa-male" aria-hidden="true" ng-repeat="judge in judges" style="font-size: x-large; padding: 5px;" ng-style="{'color': judge.isGraded ? 'black' : 'lightGray'}" data-toggle="tooltip" data-placement="right" title="{{judge.firstname}} {{judge.lastname}}"></i>
+        <i class="fa fa-male" aria-hidden="true" ng-repeat="judge in judges" style="font-size: x-large; padding: 5px;" ng-style="{'color': judge.isGraded ? 'green' : 'lightGray'}" data-toggle="tooltip" data-placement="right" title="{{judge.firstname}} {{judge.lastname}}"></i>
     </div>
 </div>
