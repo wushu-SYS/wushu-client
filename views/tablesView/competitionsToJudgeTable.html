@@ -40,7 +40,7 @@
                 <button class="linkDark" ng-click="watchCompDetails(competition.idCompetition)"> פרטי תחרות</button>
             </td>
             <td class="tableTd tdLast" >
-                <button class="linkDark" ng-click="startJudgingCompetition(competition.idCompetition, competition.isMaster,'wait')" ng-show="competition.status == compStatus[compStatusType.COMPETITIONPROGRESS].name && (competition.isMaster||(!competition.isMaster&&competition.compOpen==true))">
+                <button class="linkDark" ng-click="startJudgingCompetition(competition.idCompetition, competition.isMaster,'start')" ng-show="competition.status == compStatus[compStatusType.COMPETITIONPROGRESS].name && (competition.isMaster||(!competition.isMaster&&competition.compOpen==true))">
                     {{competition.isMaster ? "התחל תחרות" : "התחל לשפוט"}}
                 </button>
                 <label ng-show="competition.status == compStatus[compStatusType.COMPETITIONPROGRESS].name && competition.compOpen!=true &&!competition.isMaster" style="color: red"> *תחרות תפתח לשיפוט בקרוב </label>

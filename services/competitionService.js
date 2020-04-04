@@ -290,9 +290,6 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
             $location.path('/judgingCompetitionMaster/' + idComp);
         else {
             switch (status) {
-                case 'wait':
-                    $location.path('/waitingForCompetitionHost/' + idComp);
-                    break;
                 case 'start':
                     $location.path('/judgingCompetitionSimple/' + idComp);
                     break

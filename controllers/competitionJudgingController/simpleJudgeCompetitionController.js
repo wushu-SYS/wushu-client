@@ -2,7 +2,7 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
     $scope.regex = constants.regex;
 
     function get() {
-        SocketService.emit('whoIsNextSportsman', {idComp: $routeParams.idComp});
+        SocketService.emit('whoIsNextSportsman', {userId :$window.sessionStorage.getItem('id'),idComp: $routeParams.idComp});
     }
 
 

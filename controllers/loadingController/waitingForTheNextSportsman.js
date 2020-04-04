@@ -2,7 +2,7 @@ app.controller("waitingForTheNextSportsman", function ($scope, $route, SocketSer
     $scope.loadingMessage = "המתן לספורטאי הבא"
 
     function waitForChange () {
-        SocketService.emit('whoIsNextSportsman', {idComp: $routeParams.idComp});
+        SocketService.emit('whoIsNextSportsman', {userId :$window.sessionStorage.getItem('id'),idComp: $routeParams.idComp});
 
         SocketService.on("nextSportsman", function (data) {
             if($routeParams.preSportsman != data.sportsman.id)

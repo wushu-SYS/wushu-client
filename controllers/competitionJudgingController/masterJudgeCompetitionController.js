@@ -1,7 +1,7 @@
 app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams, $window, $location, constants, SocketService, competitionService, categoryService) {
     $scope.regex = constants.regex;
 
-    SocketService.emit('judgeMasterEnterToCompetition',{idComp : $routeParams.idComp})
+    SocketService.emit('judgeMasterEnterToCompetition',{userId :$window.sessionStorage.getItem('id'),idComp : $routeParams.idComp})
 
     let sportsmanQueue;
     let currentCategoryIndex = 0;
@@ -13,7 +13,7 @@ app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams,
                sportsmanQueue  = result.data;
                $scope.currentCategory = sportsmanQueue[currentCategoryIndex].category;
                $scope.currentSportsman = sportsmanQueue[currentCategoryIndex].users[currentSportsmanIndex];
-               SocketService.emit('setNextSportsman',{ idComp: $routeParams.idComp ,sportsman: $scope.currentSportsman,category : $scope.currentCategory })
+               SocketService.emit('setNextSportsman',{ userId :$window.sessionStorage.getItem('id'),idComp: $routeParams.idComp ,sportsman: $scope.currentSportsman,category : $scope.currentCategory })
 
             }, function (error) {
                 console.log(error)
@@ -29,7 +29,7 @@ app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams,
         $scope.currentCategory = sportsmanQueue[currentCategoryIndex].category;
         $scope.currentSportsman = sportsmanQueue[currentCategoryIndex].users[currentSportsmanIndex];
         $scope.grade = ''
-        SocketService.emit('setNextSportsman',{ idComp: $routeParams.idComp ,sportsman: $scope.currentSportsman,category : $scope.currentCategory })
+        SocketService.emit('setNextSportsman',{ userId :$window.sessionStorage.getItem('id') ,idComp: $routeParams.idComp ,sportsman: $scope.currentSportsman,category : $scope.currentCategory })
 
     }
 
