@@ -14,13 +14,24 @@ app.controller("competitionsToJudgeController", function ($scope, $window, $http
             });
     }
 
+    SocketService.on("updateCompetitionState",function (data) {
+        console.log("get Responde")
+        let comp = $scope.competitions.find((comp)=>comp.idCompetition==data.idComp)
+        comp.compOpen=true;
+
+    });
+
     $scope.watchCompDetails = competitionService.watchCompDetails;
     $scope.startJudgingCompetition = function (compId,isMaster,status){
         this.compId = compId;
         this.isMaster = isMaster;
         this.status = status;
-        competitionService.openCheckInJudgesModal(compId, function () {
+        if(isMaster)
+            competitionService.openCheckInJudgesModal(compId, function () {
+                competitionService.startJudgingCompetition(compId,isMaster,status);
+            });
+        else {
             competitionService.startJudgingCompetition(compId,isMaster,status);
-        });
+        }
     }
 });
