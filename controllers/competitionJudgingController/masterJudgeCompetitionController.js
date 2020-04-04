@@ -18,6 +18,11 @@ app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams,
             }, function (error) {
                 console.log(error)
             });
+
+        competitionService.getCompetitionDetails($routeParams.idComp)
+            .then(function (result) {
+                $scope.currentCompetition = result.data;
+            }).catch(function (error) {console.log(error)})
     }
 
     $scope.nextSportsman=function(){
