@@ -1,6 +1,14 @@
 app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$routeParams ,$location, constants, SocketService,categoryService,competitionService) {
     $scope.regex = constants.regex;
+    $scope.disableButtonNext = false;
 
+    getDisplayDitails()
+    function getDisplayDitails() {
+        competitionService.getCompetitionDetails($routeParams.idComp)
+            .then(function (result) {
+                $scope.currentCompetition = result.data;
+            }).catch(function (error) {console.log(error)})
+    }
     function get() {
         SocketService.emit('whoIsNextSportsman', {idComp: $routeParams.idComp});
     }
