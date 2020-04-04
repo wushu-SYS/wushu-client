@@ -1,14 +1,45 @@
 <div id="box" style="width: 60%">
-    <h1>תחרות {{compName}}</h1>
+    <h1>תחרות - {{currentCompetition.description}}</h1>
 
-    <div class="center" style="display: grid">
-        <h6>קטגוריה נוכחית: {{currentCategory.name}} {{getAgeRange(currentCategory)}}</h6>
-        <h6>ספורטאי נוכחי: {{currentSportsman.firstname}} {{currentSportsman.lastname}}</h6>
-        <div class="wrap-input100 validate-input" style="width: 200px">
-            <span class="label-input100">ציון: </span>
-            <input class="input100" type="text" name="grade" ng-model="grade"
-                   ng-required="true" ng-pattern="regex.regexOnlyDouble">
-            <span class="focus-input100"></span>
+    <div class="center">
+        <div class="verticalLine threePartsScreenDiv">
+            <h5>כעת מופיע</h5>
+            <br>
+            <h6>
+                <b>ספורטאי:</b>
+                {{currentSportsman.firstname}} {{currentSportsman.lastname}}
+            </h6>
+        </div>
+
+        <div style="display: grid" class="verticalLine threePartsScreenDiv">
+            <h5>הזן ציון לספורטאי</h5>
+            <br>
+            <div style="text-align: right; justify-content: center; display: grid;">
+                <h6>
+                    <b>קטגוריה:</b>
+                    {{currentCategory.name}} {{getAgeRange(currentCategory)}}
+                </h6>
+                <h6>
+                    <b>ספורטאי:</b>
+                    {{currentSportsman.firstname}} {{currentSportsman.lastname}}
+                </h6>
+                <div class="wrap-input100 validate-input" style="width: 200px">
+                    <span class="label-input100">ציון: </span>
+                    <input class="input100" type="text" name="grade" ng-model="grade"
+                           ng-required="true" ng-pattern="regex.regexOnlyDouble">
+                    <span class="focus-input100"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="threePartsScreenDiv">
+            <h5>ציונים סופיים</h5>
+            <br>
+            <h6>
+                <b>קטגוריה:</b>
+                {{currentCategory.name}} {{getAgeRange(currentCategory)}}
+            </h6>
+
         </div>
     </div>
 
@@ -16,5 +47,8 @@
         <input type="submit" ng-class="{'disabled' : false}"
                ng-click="nextSportsman()"
                value="לספורטאי הבא"/>
+
+        <i class="fa fa-male" aria-hidden="true" style="font-size: x-large; padding: 5px;"></i>
+        <i class="fa fa-male" aria-hidden="true" style="font-size: x-large; padding: 5px;"></i>
     </div>
 </div>

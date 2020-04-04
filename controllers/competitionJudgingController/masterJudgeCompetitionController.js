@@ -14,10 +14,14 @@ app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams,
                $scope.currentCategory = sportsmanQueue[currentCategoryIndex].category;
                $scope.currentSportsman = sportsmanQueue[currentCategoryIndex].users[currentSportsmanIndex];
                SocketService.emit('setNextSportsman',{ idComp: $routeParams.idComp ,sportsman: $scope.currentSportsman,category : $scope.currentCategory })
-
             }, function (error) {
                 console.log(error)
             });
+
+        competitionService.getCompetitionDetails($routeParams.idComp)
+            .then(function (result) {
+                $scope.currentCompetition = result.data;
+            }).catch(function (error) {console.log(error)})
     }
 
     $scope.nextSportsman=function(){

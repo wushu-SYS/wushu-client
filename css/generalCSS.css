@@ -186,3 +186,12 @@ form {
     height: 220px;
 }
 
+.verticalLine {
+    border-left: 1px solid lightgrey;
+}
+.threePartsScreenDiv{
+    text-align: center;
+    width: 33%;
+    padding: 10px;
+}
+
