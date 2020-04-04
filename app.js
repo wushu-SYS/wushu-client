@@ -90,7 +90,7 @@ app.config(function($routeProvider) {
         })
         .when('/refereeProfile/:id?', {
             templateUrl: 'views/profileView/profilePage.html',
-            controller: 'refereeProfileController as coachProfileCtrl'
+            controller: 'refereeProfileController as refereeProfileCtrl'
         })
         .when('/sportClubs/addSportClub', {
             templateUrl: 'views/addFormsView/addNewClub.html',
