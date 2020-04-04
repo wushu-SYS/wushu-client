@@ -1,5 +1,6 @@
 app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams, $window, $location, constants, SocketService, competitionService, categoryService) {
     $scope.regex = constants.regex;
+    $scope.disableButtonNext = $scope.judges ? $scope.judges.some(j => !j.isGraded) : true;
 
     SocketService.emit('judgeMasterEnterToCompetition',{userId :$window.sessionStorage.getItem('id'),idComp : $routeParams.idComp})
 
@@ -23,6 +24,15 @@ app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams,
             .then(function (result) {
                 $scope.currentCompetition = result.data;
             }).catch(function (error) {console.log(error)})
+
+        competitionService.getRegisteredJudges($routeParams.idComp)
+            .then(function (result) {
+                $scope.judges = result.data;
+            }, function (error) {
+                toastNotificationService.errorNotification("ארעה שגיאה. אנא פנה לתמיכה טכנית");
+                console.log(error)
+            });
+
     }
 
     $scope.nextSportsman=function(){

@@ -44,11 +44,11 @@
     </div>
 
     <div style="margin-top: 10px">
-        <input type="submit" ng-class="{'disabled' : false}"
+        <input type="submit" ng-class="{'disabled' : disableButtonNext}"
                ng-click="nextSportsman()"
+               ng-disabled="disableButtonNext"
                value="לספורטאי הבא"/>
 
-        <i class="fa fa-male" aria-hidden="true" style="font-size: x-large; padding: 5px;"></i>
-        <i class="fa fa-male" aria-hidden="true" style="font-size: x-large; padding: 5px;"></i>
+        <i class="fa fa-male" aria-hidden="true" ng-repeat="judge in judges" style="font-size: x-large; padding: 5px;" ng-style="{'color': judge.isGraded ? 'black' : 'lightGray'}" data-toggle="tooltip" data-placement="right" title="{{judge.firstname}} {{judge.lastname}}"></i>
     </div>
 </div>
