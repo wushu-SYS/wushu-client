@@ -14,7 +14,8 @@ app.constant('constants', {
     ],
     sportStyleEnum: [
         {id : 1, name : 'טאולו' },
-        {id : 2, name : 'סנדא' }
+        {id : 2, name : 'סנדא' },
+        {id :3 ,name : 'משולב'}
     ],
     compStatus: [
         {id : 1, name : 'תחרות פתוחה'},
