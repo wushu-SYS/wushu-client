@@ -183,15 +183,24 @@
                                 </div>
                             </div>
                         </div>
-                        <br>
                         <div class="row" ng-show="user.sportStyle">
                             <div class="col-md-3">
                                 <label>ענף</label>
                             </div>
                             <div class="col-md-6">
-                                <label>{{user.sportStyle}}</label>
+                                <label ng-show="!isEditModeOn">{{user.sportStyle}}</label>
+                                <div ng-show="isEditModeOn" class="update-input" id="sportStyleUser"
+                                     ng-class="{'alert-validate' : updateProfile.selectedSportStyle.$invalid && (updateProfile.selectedSportStyle.$touched || isClicked)}"
+                                     data-validate="בחר מין">
+                                <span ng-repeat="sportStyle in sportStyleEnum" radioInput>
+                                    <input type="radio" name="selectedSportStyle" ng-model="user.sportStyle"
+                                           ng-required="!selectedSportStyle" ng-value="sportStyle.name"><label
+                                        class="radio_label"> {{sportStyle.name}} </label></input>
+                                </span>
+                                </div>
                             </div>
                         </div>
+                        <br>
                         <div id="profileSportClub" class="row" ng-show="user.club">
                             <div class="col-md-3">
                                 <label>מועדון ספורט</label>
