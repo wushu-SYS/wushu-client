@@ -63,7 +63,7 @@ app.service('sportsmanService', function($window, $http, constants, $location) {
      * @param endIndex - for setting the end of the paging
      * @return part of string url that starts with ?, if no filter centurions exists return empty string
      */
-    this.buildConditionds = function buildConditions(searchText, sportStyle, club, sex, isToDesc, compId, compOperator, startIndex, endIndex){
+    this.buildConditionds = function buildConditions(searchText, sportStyle, club, sex, isToDesc, compId, compOperator, startIndex, endIndex, isNumCompToDesc){
         var conditions = [];
 
         if(searchText !== null && searchText !== undefined && searchText !== '') {
@@ -90,6 +90,12 @@ app.service('sportsmanService', function($window, $http, constants, $location) {
         if(startIndex !== null && startIndex !== undefined && endIndex !== null && endIndex !== undefined){
             conditions.push('startIndex=' + startIndex);
             conditions.push('endIndex=' + endIndex);
+        }
+        if(isNumCompToDesc !==null && isNumCompToDesc !== undefined){
+            if(isNumCompToDesc === false)
+                conditions.push('numCompSort=desc');
+            else
+                conditions.push('numCompSort=asc');
         }
 
         return conditions.length ? '?' + conditions.join('&') : '';

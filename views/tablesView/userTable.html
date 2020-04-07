@@ -29,10 +29,15 @@
                 x in sexEnum" ng-change="setPage(1)">
             <option value="">זכר ונקבה</option>
         </select>
-        <button style="height: 55px;">
+        <button style="height: 55px;" data-toggle="tooltip" data-placement="right" title="מיין לפי שם פרטי">
             <i ng-model="isToDesc"
                ng-class="isToDesc ? 'fa fa-sort-alpha-desc clickableSearch' : 'fa fa-sort-alpha-asc clickableSearch'"
                ng-click="isToDesc = !isToDesc; setPage(1)" ng-change="setPage(1)" aria-hidden="true"></i>
+        </button>
+        <button style="height: 55px;" data-toggle="tooltip" data-placement="right" title="מיין לפי השתתפות בתחרויות" ng-show="isSportsmanList">
+            <i ng-model="isNumberToDesc"
+               ng-class="isNumberToDesc ? 'fa fa-sort-numeric-desc clickableSearch' : 'fa fa-sort-numeric-asc clickableSearch'"
+               ng-click="isNumberToDesc = !isNumberToDesc; setPage(1)" ng-change="setPage(1)" aria-hidden="true"></i>
         </button>
     </div>
     <div class="actionsBar">
