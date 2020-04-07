@@ -26,9 +26,6 @@
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='clubSportsman'" ng-class="{'active' : activeTag==='clubSportsman'}">ספורטאי המועדון</a>
                         </li>
-<!--                        <li class="nav-item">-->
-<!--                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='attachments'" ng-class="{'active' : activeTag==='attachments'}">קבצים מצורפים</a>-->
-<!--                        </li>-->
 <!--                        <li class="nav-item" ng-show="false">-->
 <!--                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='stat'" ng-class="{'active' : activeTag==='stat'}">סטטיסטיקות</a>-->
 <!--                        </li>-->
@@ -38,10 +35,10 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-<!--                <div>-->
-<!--                    <i class="fa fa-pencil iColored" aria-hidden="true"></i>-->
-<!--                    <a class="linkDark iLink" href="" ng-click="isEditModeOn = !isEditModeOn">{{isEditModeOn ? 'ביטול עריכה' : 'ערוך מועדון'}}</a>-->
-<!--                </div>-->
+                <div>
+                    <i class="fa fa-pencil iColored" aria-hidden="true"></i>
+                    <a class="linkDark iLink" href="" ng-click="isEditModeOn = !isEditModeOn">{{isEditModeOn ? 'ביטול עריכה' : 'ערוך מועדון'}}</a>
+                </div>
 <!--                <div>-->
 <!--                    <i class="fa fa-trash-o iColored" aria-hidden="true"></i>-->
 <!--                    <a class="linkDark iLink" href="" ng-click="delProfile(club.id)">מחק מועדון</a>-->
@@ -52,6 +49,21 @@
                     <div class="tab-pane fade"
                          ng-class="{'show' : activeTag==='basicData' || activeTag===undefined , 'active' : activeTag==='basicData' || activeTag===undefined}"
                          id="basicData" role="tabpanel" aria-labelledby="compData">
+                        <div class="row" ng-show="club.name || isEditModeOn">
+                            <div class="col-md-3">
+                                <label>שם המועדון</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label ng-show="!isEditModeOn">{{club.name}}</label>
+                                <div ng-show="isEditModeOn" class="update-input"
+                                     ng-class="{'alert-validate' : updateProfile.clubName.$invalid && (updateProfile.clubName.$touched || isClicked)}"
+                                     data-validate="{{updateProfile.clubName.$error.required ? 'הכנס שם מועדון' : updateProfile.clubName.$error.pattern ? 'שם מועדון לא תקין' : ''}}">
+                                    <input class="update-input100" type="text" name="clubName"
+                                           ng-model="club.name" placeholder="שם מועדון"
+                                           required ng-pattern="regex.regexHeb" ng-pattern-restrict>
+                                </div>
+                            </div>
+                        </div>
                         <div id="profileAddress" class="row" ng-show="club.address || isEditModeOn">
                             <div class="col-md-3">
                                 <label>כתובת</label>
@@ -99,28 +111,46 @@
                             </div>
                         </div>
                         <br>
-                        <div class="row" ng-show="club.ergon">
+                        <div class="row" ng-show="club.ergonName">
                             <div class="col-md-3">
                                 <label>ארגון</label>
                             </div>
                             <div class="col-md-6">
-                                <label>{{club.ergon}}</label>
+                                <label ng-show="!isEditModeOn">{{club.ergonName}}</label>
+<!--                                <select name="ergon" ng-model="ergon" required ng-show="isEditModeOn" style="padding: 0px" class="update-input"-->
+<!--                                        ng-options="x.name-->
+<!--                                                        for-->
+<!--                                                        x in ergons">-->
+<!--                                    <option value="" disabled="disabled">בחר ארגון</option>-->
+<!--                                </select>-->
                             </div>
                         </div>
-                        <div id="profileSportClub" class="row" ng-show="club.aguda">
+                        <div class="row" ng-show="club.agudaName">
                             <div class="col-md-3">
                                 <label>אגודה</label>
                             </div>
                             <div class="col-md-6">
-                                <label>{{club.aguda}}</label>
+                                <label ng-show="!isEditModeOn">{{club.agudaName}}</label>
+<!--                                <select name="aguda" ng-model="aguda" required ng-show="isEditModeOn" style="padding: 0px" class="update-input"-->
+<!--                                        ng-options="x.name-->
+<!--                                                        for-->
+<!--                                                        x in agudas">-->
+<!--                                    <option value="" disabled="disabled">בחר אגודה</option>-->
+<!--                                </select>-->
                             </div>
                         </div>
-                        <div class="row" ng-show="club.amuta">
+                        <div class="row" ng-show="club.amutaName">
                             <div class="col-md-3">
                                 <label>עמותה</label>
                             </div>
                             <div class="col-md-6">
-                                <label>{{club.amuta}}</label>
+                                <label ng-show="!isEditModeOn">{{club.amutaName}}</label>
+<!--                                <select name="amuta" ng-model="amuta" ng-show="isEditModeOn" style="padding: 0px" class="update-input"-->
+<!--                                        ng-options="x.name-->
+<!--                                                        for-->
+<!--                                                        x in amutas">-->
+<!--                                    <option value="" disabled="disabled">בחר עמותה</option>-->
+<!--                                </select>-->
                             </div>
                         </div>
 
