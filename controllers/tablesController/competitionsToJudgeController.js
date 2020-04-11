@@ -31,6 +31,7 @@ app.controller("competitionsToJudgeController", function ($scope, $window, $http
     })
     $scope.watchCompDetails = competitionService.watchCompDetails;
     $scope.startJudgingCompetition = function (compId, isMaster, status) {
+        clearInterval(updateCompState)
         this.compId = compId;
         this.isMaster = isMaster;
         this.status = status;
