@@ -120,8 +120,7 @@
                                  ng-class="{'alert-validate' : gradeForm.grade.$invalid}"
                                  data-validate="{{gradeForm.grade.$error.pattern ? 'ציון לא תקין' : ''}}">
                                 <input class="input100" style="padding: 0px; text-align: center; height: auto"
-                                       type="text" name="grade" [ngModel]="sportsman.judgeGrades.get(judge.idJudge)"
-                                       (ngModelChange)="sportsman.judgeGrades.set(judge.idJudge, $event)"
+                                       type="text" name="grade" ng-model="sportsman.judgeGrades[judge.idJudge]"
                                        ng-pattern="regex.regexForCompetitionGrade">
                                 <span class="focus-input100"></span>
                             </div>

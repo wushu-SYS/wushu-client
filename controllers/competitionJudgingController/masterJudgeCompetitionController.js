@@ -20,17 +20,14 @@ app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams,
                            id: sportsman.id,
                            firstname: sportsman.firstname,
                            lastname: sportsman.lastname,
-                           judgeGrades: new Object()
+                           judgeGrades: {}
                        }));
                    $scope.sportsmanGrade.set(categorySportsman.category.id, sportsmans)
                });
+
                $scope.currentCategory = $scope.sportsmanQueue[$scope.currentCategoryIndex].category;
                $scope.currentSportsman = $scope.sportsmanQueue[$scope.currentCategoryIndex].users[$scope.currentSportsmanIndex];
                SocketService.emit('setNextSportsman',{ userId :$window.sessionStorage.getItem('id'),idComp: $routeParams.idComp ,sportsman: $scope.currentSportsman,category : $scope.currentCategory })
-
-                console.log($scope.sportsmanGrade)
-                console.log($scope.sportsmanGrade.get($scope.currentCategory.id));
-                console.log($scope.currentCategory)
 
             }, function (error) {
                 console.log(error)
@@ -54,9 +51,7 @@ app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams,
         console.log("given grade")
         let judge= $scope.judges.find((judge)=>judge.idJudge ==data.userId)
         judge.isGraded=true;
-        //$scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id).judgeGrades.set(judge.is, data.grade);
-        let judges =$scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id)
-        judges[judge.idJudge]=data.grade;
+        $scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id).judgeGrades[judge.idJudge] = data.grade;
         console.log($scope.sportsmanGrade);
         $scope.disableButtonNext = $scope.judges ? $scope.judges.some(j => !j.isGraded) : true;
     })
