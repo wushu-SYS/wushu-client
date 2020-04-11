@@ -1,4 +1,4 @@
-<div id="box" style="width: 60%">
+<div id="box">
     <h1>תחרות - {{currentCompetition.description}}</h1>
 
     <div class="center">
@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <div style="display: grid" class="verticalLine threePartsScreenDiv">
+        <div class="verticalLine threePartsScreenDiv">
             <h5>הזן ציון לספורטאי</h5>
             <br>
             <div class="centerButTextRight">
@@ -43,11 +43,72 @@
         <div class="threePartsScreenDiv">
             <h5>ציונים סופיים</h5>
             <br>
+<!--            <h6>-->
+<!--                <b>קטגוריה:</b>-->
+<!--                {{sportsmanQueue[currentCategoryIndex].name}} {{getAgeRange(sportsmanQueue[currentCategoryIndex])}}-->
+<!--            </h6>-->
+<!--            <table class="tableUser" cellspacing="0">-->
+<!--                <tr>-->
+<!--                    <th class="thInItemList">ת.ז.</th>-->
+<!--                    <th class="thInItemList">שם מלא</th>-->
+<!--                    <th class="thInItemList" ng-repeat="judge in judges">ציון שופט {{1+index$}}</th>-->
+<!--                    <th class="thInItemList">ציון שופט ראשי</th>-->
+<!--                    <th class="thInItemList">ציון סופי</th>-->
+<!--                </tr>-->
+<!--                <tr class="itemInItemList"-->
+<!--                    ng-repeat="sportsman in sportsmanQueue[currentCategoryIndex].users"-->
+<!--                    ng-class="{'active' : selectedNotRegisteredUsers.includes(user)}"-->
+<!--                    ng-click="selectNotRegistered(user)">-->
+<!--                    <td class="tdInItemList">{{user.id}}</td>-->
+<!--                    <td class="tdInItemList">{{user.firstname}} {{user.lastname}}</td>-->
+<!--                </tr>-->
+<!--            </table>-->
             <h6>
                 <b>קטגוריה:</b>
                 {{currentCategory.name}} {{getAgeRange(currentCategory)}}
             </h6>
-
+            <table class="tableUser" cellspacing="0">
+                <tr>
+                    <th class="thInItemList">ת.ז.</th>
+                    <th class="thInItemList">שם מלא</th>
+                    <th class="thInItemList" ng-repeat="judge in judges">ציון-{{judge.firstname}}</th>
+                    <th class="thInItemList">ציון שופט ראשי</th>
+                    <th class="thInItemList">ציון סופי</th>
+                    <th class="thInItemList"></th>
+                </tr>
+                <tr
+                    ng-repeat="sportsman in sportsmanGrade.get(currentCategory.id)">
+                    <td class="tdInItemList">{{sportsman.value.id}}</td>
+                    <td class="tdInItemList">{{sportsman.value.firstname}} {{sportsman.value.lastname}}</td>
+                    <td class="tdInItemList" ng-repeat="judge in judges">
+                        <div ng-form name="judgesGradeForm" class="wrap-input100 validate-input"
+                             style="width: 70px; border-bottom: 1px solid black; margin-bottom: 0px;"
+                             ng-class="{'alert-validate' : gradeForm.grade.$invalid}"
+                             data-validate="{{gradeForm.grade.$error.pattern ? 'ציון לא תקין' : ''}}">
+                            <input class="input100" style="padding: 0px; text-align: center; height: auto" type="text" name="grade" ng-model="sportsman.judgeGrades.get(judge.id)"
+                                   ng-pattern="regex.regexForCompetitionGrade">
+                            <span class="focus-input100"></span>
+                        </div>
+                    </td>
+                    <td class="tdInItemList">
+                        <div ng-form name="masterGradeForm" class="wrap-input100 validate-input"
+                             style="width: 70px; border-bottom: 1px solid black; margin-bottom: 0px;"
+                             ng-class="{'alert-validate' : gradeForm.grade.$invalid}"
+                             data-validate="{{gradeForm.grade.$error.pattern ? 'ציון לא תקין' : ''}}">
+                            <input class="input100" style="padding: 0px; text-align: center; height: auto" type="text" name="grade" ng-model="sportsman.masterGrade"
+                                   ng-pattern="regex.regexForCompetitionGrade">
+                            <span class="focus-input100"></span>
+                        </div>
+                    </td>
+                    <td class="tdInItemList">{{avg}}</td>
+                    <td class="tdInItemList">
+                        <input type="submit" ng-class="{'disabled' : masterGradeForm.$valid && judgesGradeForm.$valid}"
+                               ng-click="saveGrades()" style="padding: 9px 10px;"
+                               ng-disabled="masterGradeForm.$valid && judgesGradeForm.$valid"
+                               value="אשר"/>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 
