@@ -59,17 +59,16 @@
                         <th class="thInItemList"></th>
                     </tr>
                     <tr
-                            ng-repeat="(key, sportsman) in sportsmanGrade.get(sportsmanQueue[currentCategoryIndex-1].category.id) | fromMap">
-                        <td class="tdInItemList">{{sportsman.id}}</td>
-                        <td class="tdInItemList">{{sportsman.firstname}} {{sportsman.lastname}}</td>
+                        ng-repeat="(key, sportsman) in sportsmanGrade.get(sportsmanQueue[currentCategoryIndex-1].category.id) | fromMap">
+                    <td class="tdInItemList">{{sportsman.id}}</td>
+                    <td class="tdInItemList">{{sportsman.firstname}} {{sportsman.lastname}}</td>
                         <td class="tdInItemList" ng-repeat="judge in judges">
                             <div ng-form name="judgesGradeForm" class="wrap-input100 validate-input"
                                  style="width: 70px; border-bottom: 1px solid black; margin-bottom: 0px;"
                                  ng-class="{'alert-validate' : gradeForm.grade.$invalid}"
                                  data-validate="{{gradeForm.grade.$error.pattern ? 'ציון לא תקין' : ''}}">
                                 <input class="input100" style="padding: 0px; text-align: center; height: auto"
-                                       type="text" name="grade" [ng-model]="sportsman.judgeGrades.get(judge.id)"
-                                       (ngModelChange)="sportsman.judgeGrades.set(judge.id, $event)"
+                                       type="text" name="grade" ng-model="sportsman.judgeGrades[judge.idJudge]"
                                        ng-pattern="regex.regexForCompetitionGrade">
                                 <span class="focus-input100"></span>
                             </div>
@@ -96,6 +95,7 @@
                     </tr>
                 </table>
             </div>
+            <br>
             <div>
                 <h6>
                     <b>קטגוריה:</b>
