@@ -17,11 +17,6 @@ app.controller("competitionsToJudgeController", function ($scope, $window, $http
             });
     }
 
-    SocketService.on("updateCompetitionState", function (data) {
-        let comp = $scope.competitions.find((comp) => comp.idCompetition == data.idComp)
-        comp.compOpen = true;
-    });
-
 
     function askForStartedCompetitions() {
         SocketService.emit('isCompetitionStart', {userId :$window.sessionStorage.getItem('id'),userId :$window.sessionStorage.getItem('id')})
@@ -32,6 +27,7 @@ app.controller("competitionsToJudgeController", function ($scope, $window, $http
         console.log($scope.competitions)
         let comp = $scope.competitions.find((comp) => comp.idCompetition == data.idComp)
         comp.compOpen = true;
+        clearInterval(updateCompState)
     })
     $scope.watchCompDetails = competitionService.watchCompDetails;
     $scope.startJudgingCompetition = function (compId, isMaster, status) {
@@ -46,5 +42,7 @@ app.controller("competitionsToJudgeController", function ($scope, $window, $http
             competitionService.startJudgingCompetition(compId, isMaster, status);
         }
     }
+
+    let updateCompState =setInterval(askForStartedCompetitions,1000);
 
 });
