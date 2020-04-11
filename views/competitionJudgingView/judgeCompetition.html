@@ -96,7 +96,7 @@
                 </table>
             </div>
             <br>
-            <div>
+            <div ng-if="currentCategoryIndex < sportsmanQueue.length">
                 <h6>
                     <b>קטגוריה:</b>
                     {{currentCategory.name}} {{getAgeRange(currentCategory)}}
@@ -136,7 +136,7 @@
                                 <span class="focus-input100"></span>
                             </div>
                         </td>
-                        <td class="tdInItemList">{{avg}}</td>
+                        <td class="tdInItemList">{{sportsman.finalGrade ? (sportsman.finalGrade | number : 2) : '-'}}</td>
                         <td class="tdInItemList">
                             <input type="submit"
                                    ng-class="{'disabled' : masterGradeForm.$valid && judgesGradeForm.$valid}"
