@@ -54,6 +54,10 @@ app.controller("regJudgeCompetitionController", function ($scope, $rootScope, $r
     };
 
     $scope.register = function () {
+
+        console.log($scope.toRegisterUsers)
+        /*
+
         competitionService.registerJudgeToCompetition($routeParams.idComp, $scope.toRegisterUsers, $scope.toUnRegisterUsers)
             .then(function (result) {
                 toastNotificationService.successNotification("הרישום בוצע בהצלחה")
@@ -61,6 +65,7 @@ app.controller("regJudgeCompetitionController", function ($scope, $rootScope, $r
                 console.log(error);
                 toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע הרישום")
             });
+            */
     }
 
     $rootScope.isChangingLocationFirstTime = true;

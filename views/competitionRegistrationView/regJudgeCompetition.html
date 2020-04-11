@@ -51,12 +51,14 @@
                         <tr>
                             <th class="thInItemList">ת.ז.</th>
                             <th class="thInItemList">שם מלא</th>
+                            <th class="thInItemList">שופט ראשי</th>
                         </tr>
                         <tr class="itemInItemList" ng-class="{'active' : selectedRegisteredUsers.includes(user)}"
                             ng-repeat="user in registeredUsers | filter : searchText"
                             ng-click="selectRegistered(user)">
                             <td class="tdInItemList">{{user.id}}</td>
                             <td class="tdInItemList">{{user.firstname}} {{user.lastname}}</td>
+                            <td class="tdInItemList"><input type="radio" name="selectedMaster" ng-model="isMaster"> </td>
                         </tr>
                     </table>
                 </div>
