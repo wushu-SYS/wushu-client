@@ -2,8 +2,12 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
     $scope.regex = constants.regex;
     $scope.disableButtonNext = false;
 
+    $scope.currentCategoryIndex = 0;
+    $scope.currentSportsmanIndex = 0;
     getDisplayDitails()
-    function getDisplayDitails() {
+    async function getDisplayDitails() {
+
+
         competitionService.getCompetitionDetails($routeParams.idComp)
             .then(function (result) {
                 $scope.currentCompetition = result.data;
@@ -15,10 +19,24 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
 
 
     SocketService.on("nextSportsman",function (data) {
-        if($scope.currentSportsman==undefined) {
-            $scope.currentSportsman = data.sportsman
-            $scope.currentCategory = data.category
-        }
+         competitionService.getRegistrationState($routeParams.idComp)
+            .then( function (result) {
+                $scope.sportsmanQueue =  result.data;
+                if($scope.currentSportsman==undefined) {
+                    $scope.currentSportsman = data.sportsman;
+                    $scope.currentCategory = data.category;
+
+                    console.log($scope.sportsmanQueue);
+                    console.log($scope.currentCategory.id);
+
+                    $scope.currentCategoryIndex = $scope.sportsmanQueue.findIndex(categorySportsman => categorySportsman.category.id === $scope.currentCategory.id);
+                    $scope.currentSportsmanIndex = $scope.sportsmanQueue[$scope.currentCategoryIndex].users.findIndex(sportsman => sportsman.id === $scope.currentSportsman.id);
+                    console.log($scope.currentSportsmanIndex)
+                }
+            }, function (error) {
+                console.log(error)
+            });
+
     })
 
     get()

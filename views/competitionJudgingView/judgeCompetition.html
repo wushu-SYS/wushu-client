@@ -3,18 +3,23 @@
 
     <div class="center">
         <div class="verticalLine threePartsScreenDiv">
-            <h5>כעת מופיע</h5>
+            <h5>סדר התחרות</h5>
             <br>
-            <h6>
-                <b>ספורטאי:</b>
-                {{currentSportsman.firstname}} {{currentSportsman.lastname}}
-            </h6>
+            <div class="centerButTextRight">
+                <h6 ng-repeat="categorySportsman in sportsmanQueue" ng-if="$index >= currentCategoryIndex">
+                    <b>קטגוריה: {{getAgeRange(categorySportsman.category)}} {{currentCategory.name}}</b>
+                    <div ng-repeat="sportsman in categorySportsman.users" ng-if="$index >= currentSportsmanIndex">
+                        {{sportsman.firstname}} {{sportsman.lastname}}
+                    </div>
+                    <br>
+                </h6>
+            </div>
         </div>
 
         <div style="display: grid" class="verticalLine threePartsScreenDiv">
             <h5>הזן ציון לספורטאי</h5>
             <br>
-            <div style="text-align: right; justify-content: center; display: grid;">
+            <div class="centerButTextRight">
                 <h6>
                     <b>קטגוריה:</b>
                     {{currentCategory.name}} {{getAgeRange(currentCategory)}}
@@ -23,11 +28,13 @@
                     <b>ספורטאי:</b>
                     {{currentSportsman.firstname}} {{currentSportsman.lastname}}
                 </h6>
-                <div ng-form name="gradeForm" class="wrap-input100 validate-input" style="width: 200px; border-bottom: 1px solid black;"
+                <div ng-form name="gradeForm" class="wrap-input100 validate-input"
+                     style="width: 200px; border-bottom: 1px solid black;"
                      ng-class="{'alert-validate' : gradeForm.grade.$invalid}"
                      data-validate="{{gradeForm.grade.$error.pattern ? 'ציון לא תקין' : ''}}">
                     <span class="label-input100">ציון: </span>
-                    <input class="input100" type="text" name="grade" ng-model="grade" ng-pattern="regex.regexForCompetitionGrade">
+                    <input class="input100" type="text" name="grade" ng-model="grade"
+                           ng-pattern="regex.regexForCompetitionGrade">
                     <span class="focus-input100"></span>
                 </div>
             </div>
@@ -50,6 +57,8 @@
                ng-disabled="disableButtonNext || !grade"
                value="לספורטאי הבא"/>
 
-        <i class="fa fa-male" aria-hidden="true" ng-repeat="judge in judges" style="font-size: x-large; padding: 5px;" ng-style="{'color': judge.isGraded ? 'green' : 'lightGray'}" data-toggle="tooltip" data-placement="right" title="{{judge.firstname}} {{judge.lastname}}"></i>
+        <i class="fa fa-male" aria-hidden="true" ng-repeat="judge in judges" style="font-size: x-large; padding: 5px;"
+           ng-style="{'color': judge.isGraded ? 'green' : 'lightGray'}" data-toggle="tooltip" data-placement="right"
+           title="{{judge.firstname}} {{judge.lastname}}"></i>
     </div>
 </div>

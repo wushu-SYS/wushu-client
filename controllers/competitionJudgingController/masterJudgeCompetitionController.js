@@ -4,16 +4,16 @@ app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams,
 
     SocketService.emit('judgeMasterEnterToCompetition',{userId :$window.sessionStorage.getItem('id'),idComp : $routeParams.idComp})
 
-    let sportsmanQueue;
-    let currentCategoryIndex = 0;
-    let currentSportsmanIndex = 0;
+    $scope.sportsmanQueue = [];
+    $scope.currentCategoryIndex = 0;
+    $scope.currentSportsmanIndex = 0;
     getDisplayData()
     function getDisplayData() {
         competitionService.getRegistrationState($routeParams.idComp)
             .then(function (result) {
-               sportsmanQueue  = result.data;
-               $scope.currentCategory = sportsmanQueue[currentCategoryIndex].category;
-               $scope.currentSportsman = sportsmanQueue[currentCategoryIndex].users[currentSportsmanIndex];
+               $scope.sportsmanQueue  = result.data;
+               $scope.currentCategory = $scope.sportsmanQueue[$scope.currentCategoryIndex].category;
+               $scope.currentSportsman = $scope.sportsmanQueue[$scope.currentCategoryIndex].users[$scope.currentSportsmanIndex];
                SocketService.emit('setNextSportsman',{ userId :$window.sessionStorage.getItem('id'),idComp: $routeParams.idComp ,sportsman: $scope.currentSportsman,category : $scope.currentCategory })
 
             }, function (error) {
@@ -41,13 +41,13 @@ app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams,
         $scope.disableButtonNext = $scope.judges ? $scope.judges.some(j => !j.isGraded) : true;
     })
     $scope.nextSportsman=function(){
-        currentSportsmanIndex++
-        if(!sportsmanQueue[currentCategoryIndex].users[currentSportsmanIndex]) {
-            currentSportsmanIndex = 0
-            currentCategoryIndex++
+        $scope.currentSportsmanIndex++
+        if(!$scope.sportsmanQueue[$scope.currentCategoryIndex].users[$scope.currentSportsmanIndex]) {
+            $scope.currentSportsmanIndex = 0
+            $scope.currentCategoryIndex++
         }
-        $scope.currentCategory = sportsmanQueue[currentCategoryIndex].category;
-        $scope.currentSportsman = sportsmanQueue[currentCategoryIndex].users[currentSportsmanIndex];
+        $scope.currentCategory = $scope.sportsmanQueue[$scope.currentCategoryIndex].category;
+        $scope.currentSportsman = $scope.sportsmanQueue[$scope.currentCategoryIndex].users[$scope.currentSportsmanIndex];
         $scope.grade = ''
         $scope.judges.forEach((judge)=>judge.isGraded=false)
         SocketService.emit('setNextSportsman',{ userId :$window.sessionStorage.getItem('id') ,idComp: $routeParams.idComp ,sportsman: $scope.currentSportsman,category : $scope.currentCategory })
