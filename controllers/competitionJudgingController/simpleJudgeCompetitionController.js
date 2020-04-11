@@ -25,7 +25,7 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
     $scope.getAgeRange = categoryService.getAgeRange;
 
     $scope.nextSportsman = function () {
-        SocketService.emit("judgeGiveGrade",{ userId:$window.sessionStorage.getItem('id'),idComp:$routeParams.idComp})
+        SocketService.emit("judgeGiveGrade",{ userId:$window.sessionStorage.getItem('id'),idComp:$routeParams.idComp ,grade :$scope.grade})
         let preSportsman = $scope.currentSportsman.id
         get()
         if (preSportsman== $scope.currentSportsman.id)
