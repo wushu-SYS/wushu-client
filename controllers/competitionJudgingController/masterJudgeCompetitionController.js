@@ -1,9 +1,10 @@
 app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams, $window, $location, constants, SocketService, competitionService, categoryService) {
     $scope.regex = constants.regex;
-    $scope.disableButtonNext = true;
+    $scope.disableButtonNext = $scope.judges ? $scope.judges.some(j => !j.isGraded) : true;;
 
     SocketService.emit('judgeMasterEnterToCompetition',{userId :$window.sessionStorage.getItem('id'),idComp : $routeParams.idComp})
 
+    $scope.sportsmanGrade = new Map();
     $scope.sportsmanQueue = [];
     $scope.currentCategoryIndex = 0;
     $scope.currentSportsmanIndex = 0;
@@ -12,9 +13,23 @@ app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams,
         competitionService.getRegistrationState($routeParams.idComp)
             .then(function (result) {
                $scope.sportsmanQueue  = result.data;
+               $scope.sportsmanQueue.forEach(categorySportsman => {
+                   let sportsmans = new Map();
+                   categorySportsman.users.forEach(sportsman =>
+                       sportsmans.set(sportsman.id, {
+                           id: sportsman.id,
+                           firstname: sportsman.firstname,
+                           lastname: sportsman.lastname,
+                           judgeGrades: new Map()
+                       }));
+                   $scope.sportsmanGrade.set(categorySportsman.category.id, sportsmans)
+               });
                $scope.currentCategory = $scope.sportsmanQueue[$scope.currentCategoryIndex].category;
                $scope.currentSportsman = $scope.sportsmanQueue[$scope.currentCategoryIndex].users[$scope.currentSportsmanIndex];
                SocketService.emit('setNextSportsman',{ userId :$window.sessionStorage.getItem('id'),idComp: $routeParams.idComp ,sportsman: $scope.currentSportsman,category : $scope.currentCategory })
+
+                console.log($scope.sportsmanGrade)
+                console.log($scope.currentCategory)
 
             }, function (error) {
                 console.log(error)
@@ -38,9 +53,12 @@ app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams,
         console.log("given grade")
         let judge= $scope.judges.find((judge)=>judge.idJudge ==data.userId)
         judge.isGraded=true;
+        $scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id).judgeGrades.set(data.userId, data.grade);
         $scope.disableButtonNext = $scope.judges ? $scope.judges.some(j => !j.isGraded) : true;
     })
     $scope.nextSportsman=function(){
+        $scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id).masterGrade = $scope.grade;
+
         $scope.currentSportsmanIndex++
         if(!$scope.sportsmanQueue[$scope.currentCategoryIndex].users[$scope.currentSportsmanIndex]) {
             $scope.currentSportsmanIndex = 0
@@ -54,7 +72,9 @@ app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams,
 
     }
 
-
     $scope.getAgeRange = categoryService.getAgeRange;
 
+    $scope.saveGrades = function () {
+
+    }
 });

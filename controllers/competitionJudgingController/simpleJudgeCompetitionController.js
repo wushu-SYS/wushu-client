@@ -26,12 +26,8 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
                     $scope.currentSportsman = data.sportsman;
                     $scope.currentCategory = data.category;
 
-                    console.log($scope.sportsmanQueue);
-                    console.log($scope.currentCategory.id);
-
                     $scope.currentCategoryIndex = $scope.sportsmanQueue.findIndex(categorySportsman => categorySportsman.category.id === $scope.currentCategory.id);
                     $scope.currentSportsmanIndex = $scope.sportsmanQueue[$scope.currentCategoryIndex].users.findIndex(sportsman => sportsman.id === $scope.currentSportsman.id);
-                    console.log($scope.currentSportsmanIndex)
                 }
             }, function (error) {
                 console.log(error)
