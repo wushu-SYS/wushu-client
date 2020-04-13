@@ -31,7 +31,7 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
                     $scope.sportsmanGrade.set(categorySportsman.category.id, sportsmans)
                 });
 
-                // $scope.sportsmanGrade.get(20).get(217418712).judgeGrades[305077911] = 10;
+                $scope.sportsmanGrade.get(20).get(217418712).judgeGrades[305077911] = 10;
 
 
                 $scope.currentCategory = $scope.sportsmanQueue[$scope.currentCategoryIndex].category;
@@ -57,8 +57,8 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
         competitionService.getRegisteredJudges($routeParams.idComp)
             .then(function (result) {
                 $scope.judges = result.data
-                // $scope.judges.forEach((judge) => judge.isGraded = true)
-                // $scope.disableButtonNext = $scope.judges ? $scope.judges.some(j => !j.isGraded) : true;
+                 $scope.judges.forEach((judge) => judge.isGraded = true)
+                 $scope.disableButtonNext = $scope.judges ? $scope.judges.some(j => !j.isGraded) : true;
             }, function (error) {
                 toastNotificationService.errorNotification("ארעה שגיאה. אנא פנה לתמיכה טכנית");
                 console.log(error)
@@ -130,13 +130,11 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
              avgGrade :sportsman.finalGrade
 
          };
-
         competitionService.saveSportsmanGrade(data)
             .then((res)=>{
                 sportsman.isSaved = true;
+                SocketService.emit("masterJudgeSaveGrade",{userId :$window.sessionStorage.getItem('id'),idComp : $routeParams.idComp,idSportsman:sportsman.id, grade :sportsman.finalGrade})
             })
-
-
     }
 
 
