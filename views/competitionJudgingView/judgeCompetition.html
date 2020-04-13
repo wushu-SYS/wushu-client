@@ -63,7 +63,10 @@
                     <td class="tdInItemList">{{sportsman.id}}</td>
                     <td class="tdInItemList">{{sportsman.firstname}} {{sportsman.lastname}}</td>
                         <td class="tdInItemList" ng-repeat="judge in judges">
-                            <div ng-form name="ladtCategoryJudgesGradeForm" class="validate-input"
+                            <div ng-show="sportsman.isSaved">
+                                {{sportsman.judgeGrades[judge.idJudge]}}
+                            </div>
+                            <div ng-form name="ladtCategoryJudgesGradeForm" class="validate-input" ng-show="!sportsman.isSaved"
                                  style="width: 70px; margin-bottom: 0px;"
                                  ng-class="ladtCategoryJudgesGradeForm.grade.$invalid ? 'simpleInvalidInput' : 'wrap-input100-black'">
                                 <input class="input100" style="padding: 0px; text-align: center; height: auto"
@@ -124,7 +127,10 @@
                         <td class="tdInItemList">{{sportsman.id}}</td>
                         <td class="tdInItemList">{{sportsman.firstname}} {{sportsman.lastname}}</td>
                         <td class="tdInItemList" ng-repeat="judge in judges">
-                            <div ng-form name="judgesGradeForm" class="validate-input"
+                            <div ng-show="sportsman.isSaved">
+                                {{sportsman.judgeGrades[judge.idJudge]}}
+                            </div>
+                            <div ng-form name="judgesGradeForm" class="validate-input" ng-show="!sportsman.isSaved && $index < currentSportsmanIndex"
                                  style="width: 70px; margin-bottom: 0px;"
                                  ng-class="judgesGradeForm.grade.$invalid ? 'simpleInvalidInput' : 'wrap-input100-black'">
                                 <input class="input100" style="padding: 0px; text-align: center; height: auto"
@@ -133,12 +139,13 @@
                                        ng-pattern="regex.regexForCompetitionGrade" ng-required="true">
                                 <span class="focus-input100"></span>
                             </div>
+                            <div ng-show="!sportsman.isSaved && $index >= currentSportsmanIndex">-</div>
                         </td>
                         <td class="tdInItemList">
                             <div ng-show="sportsman.isSaved">
                                 {{sportsman.masterGrade}}
                             </div>
-                            <div ng-form name="masterGradeForm" class="validate-input" ng-show="!sportsman.isSaved"
+                            <div ng-form name="masterGradeForm" class="validate-input" ng-show="!sportsman.isSaved && $index < currentSportsmanIndex"
                                  style="width: 70px; margin-bottom: 0px;"
                                  ng-class="masterGradeForm.grade.$invalid ? 'simpleInvalidInput' : 'wrap-input100-black'">
                                 <input class="input100" style="padding: 0px; text-align: center; height: auto"
@@ -147,6 +154,7 @@
                                        ng-pattern="regex.regexForCompetitionGrade" ng-required="true">
                                 <span class="focus-input100"></span>
                             </div>
+                            <div ng-show="!sportsman.isSaved && $index >= currentSportsmanIndex">-</div>
                         </td>
                         <td class="tdInItemList">{{sportsman.finalGrade ? (sportsman.finalGrade | number : 2) : '-'}}</td>
                         <td class="tdInItemList">
