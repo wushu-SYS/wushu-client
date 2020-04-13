@@ -1,4 +1,4 @@
-app.controller("competitionResultsController", function ($scope, $window, $http, competitionService, pagingService, constants) {
+app.controller("competitionResultsTableController", function ($scope, $window, $http, competitionService, pagingService, constants) {
     $scope.sportStyles = constants.sportStyleEnum;
     $scope.compStatus = constants.compStatus;
     $scope.compStatusType = constants.compStatusType;

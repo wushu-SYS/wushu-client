@@ -17,6 +17,11 @@ app.constant('constants', {
         {id : 2, name : 'סנדא' },
         {id :3 ,name : 'משולב'}
     ],
+    sportStyleType:{
+      TAULLO: 0,
+      SANDA: 1,
+      BOTH: 2
+    },
     compStatus: [
         {id : 1, name : 'תחרות פתוחה'},
         {id : 2, name : 'תחרות סגורה'},
