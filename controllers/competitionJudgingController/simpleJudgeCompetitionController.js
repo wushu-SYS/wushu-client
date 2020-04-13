@@ -1,12 +1,31 @@
 app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$routeParams ,$location, constants, SocketService,categoryService,competitionService) {
     $scope.regex = constants.regex;
     $scope.disableButtonNext = false;
+    $scope.isMaster = false;
 
+    $scope.sportsmanGrade = new Map();
     $scope.currentCategoryIndex = 0;
     $scope.currentSportsmanIndex = 0;
     getDisplayDitails()
     async function getDisplayDitails() {
+        competitionService.getRegistrationState($routeParams.idComp)
+            .then(function (result) {
+                $scope.sportsmanQueue = result.data;
+                $scope.sportsmanQueue.forEach(categorySportsman => {
+                    let sportsmans = new Map();
+                    categorySportsman.users.forEach(sportsman =>
+                        sportsmans.set(sportsman.id, {
+                            id: sportsman.id,
+                            firstname: sportsman.firstname,
+                            lastname: sportsman.lastname
+                        }));
+                    $scope.sportsmanGrade.set(categorySportsman.category.id, sportsmans)
+                });
 
+                console.log($scope.sportsmanGrade)
+            }, function (error) {
+                console.log(error)
+            });
 
         competitionService.getCompetitionDetails($routeParams.idComp)
             .then(function (result) {

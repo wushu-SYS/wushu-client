@@ -1,7 +1,8 @@
 app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams, $window, $location, constants, SocketService, competitionService, categoryService) {
     $scope.regex = constants.regex;
     $scope.disableButtonNext = $scope.judges ? $scope.judges.some(j => !j.isGraded) : true;
-    ;
+    $scope.isMaster = true;
+
 
     SocketService.emit('judgeMasterEnterToCompetition', {
         userId: $window.sessionStorage.getItem('id'),
@@ -18,7 +19,6 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
         competitionService.getRegistrationState($routeParams.idComp)
             .then(function (result) {
                 $scope.sportsmanQueue = result.data;
-                console.log($scope.sportsmanQueue)
                 $scope.sportsmanQueue.forEach(categorySportsman => {
                     let sportsmans = new Map();
                     categorySportsman.users.forEach(sportsman =>
@@ -71,7 +71,6 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
         let judge = $scope.judges.find((judge) => judge.idJudge == data.userId)
         judge.isGraded = true;
         $scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id).judgeGrades[judge.idJudge] = data.grade;
-        console.log($scope.sportsmanGrade);
         $scope.disableButtonNext = $scope.judges ? $scope.judges.some(j => !j.isGraded) : true;
     })
     $scope.nextSportsman = function () {
