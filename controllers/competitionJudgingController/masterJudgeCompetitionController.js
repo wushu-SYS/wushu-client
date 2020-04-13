@@ -96,7 +96,8 @@ app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams,
       return !(isMasterValid && isJudgesGradeValid);
     };
 
-    $scope.saveGrades = function () {
+    $scope.saveGrades = function (sportsman) {
         // let data = [];
+        sportsman.isSaved = true;
     }
 });

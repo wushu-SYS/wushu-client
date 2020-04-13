@@ -74,7 +74,10 @@
                             </div>
                         </td>
                         <td class="tdInItemList">
-                            <div ng-form name="lastCategoryMasterGradeForm" class="validate-input"
+                            <div ng-show="sportsman.isSaved">
+                                {{sportsman.masterGrade}}
+                            </div>
+                            <div ng-form name="lastCategoryMasterGradeForm" class="validate-input" ng-show="!sportsman.isSaved"
                                  style="width: 70px; margin-bottom: 0px;"
                                  ng-class="lastCategoryMasterGradeForm.grade.$invalid ? 'simpleInvalidInput' : 'wrap-input100-black'">
                                 <input class="input100" style="padding: 0px; text-align: center; height: auto"
@@ -86,11 +89,17 @@
                         </td>
                         <td class="tdInItemList">{{sportsman.finalGrade | number:2}}</td>
                         <td class="tdInItemList">
-                            <input type="submit"
-                                   ng-class="{'disabled' : isDisableSaveButton(sportsmanQueue[currentCategoryIndex-1].category, sportsman)}"
-                                   ng-click="saveGrades()" style="padding: 9px 10px;"
-                                   ng-disabled="isDisableSaveButton(sportsmanQueue[currentCategoryIndex-1].category, sportsman)"
-                                   value="אשר"/>
+                            <div ng-show="sportsman.isSaved" style="color: green">
+                                נשמר
+                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                            </div>
+                            <div ng-show="!sportsman.isSaved">
+                                <input type="submit"
+                                       ng-class="{'disabled' : isDisableSaveButton(sportsmanQueue[currentCategoryIndex-1].category, sportsman)}"
+                                       ng-click="saveGrades(sportsman)" style="padding: 9px 10px;"
+                                       ng-disabled="isDisableSaveButton(sportsmanQueue[currentCategoryIndex-1].category, sportsman)"
+                                       value="אשר"/>
+                            </div>
                         </td>
                     </tr>
                 </table>
@@ -126,7 +135,10 @@
                             </div>
                         </td>
                         <td class="tdInItemList">
-                            <div ng-form name="masterGradeForm" class="validate-input"
+                            <div ng-show="sportsman.isSaved">
+                                {{sportsman.masterGrade}}
+                            </div>
+                            <div ng-form name="masterGradeForm" class="validate-input" ng-show="!sportsman.isSaved"
                                  style="width: 70px; margin-bottom: 0px;"
                                  ng-class="masterGradeForm.grade.$invalid ? 'simpleInvalidInput' : 'wrap-input100-black'">
                                 <input class="input100" style="padding: 0px; text-align: center; height: auto"
@@ -138,11 +150,17 @@
                         </td>
                         <td class="tdInItemList">{{sportsman.finalGrade ? (sportsman.finalGrade | number : 2) : '-'}}</td>
                         <td class="tdInItemList">
-                            <input type="submit"
-                                   ng-class="{'disabled' : isDisableSaveButton(currentCategory, sportsman)}"
-                                   ng-click="saveGrades()" style="padding: 9px 10px;"
-                                   ng-disabled="isDisableSaveButton(currentCategory, sportsman)"
-                                   value="אשר"/>
+                            <div ng-show="sportsman.isSaved" style="color: green">
+                                נשמר
+                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                            </div>
+                            <div ng-show="!sportsman.isSaved">
+                                <input type="submit"
+                                       ng-class="{'disabled' : isDisableSaveButton(currentCategory, sportsman)}"
+                                       ng-click="saveGrades(sportsman)" style="padding: 9px 10px;"
+                                       ng-disabled="isDisableSaveButton(currentCategory, sportsman)"
+                                       value="אשר"/>
+                            </div>
                         </td>
                     </tr>
                 </table>
