@@ -96,7 +96,7 @@
                             <div ng-show="!sportsman.isSaved">
                                 <input type="submit"
                                        ng-class="{'disabled' : isDisableSaveButton(sportsmanQueue[currentCategoryIndex-1].category, sportsman)}"
-                                       ng-click="saveGrades(sportsman)" style="padding: 9px 10px;"
+                                       ng-click="saveGrades(sportsman,sportsmanQueue[currentCategoryIndex-1].category)" style="padding: 9px 10px;"
                                        ng-disabled="isDisableSaveButton(sportsmanQueue[currentCategoryIndex-1].category, sportsman)"
                                        value="אשר"/>
                             </div>
@@ -157,7 +157,7 @@
                             <div ng-show="!sportsman.isSaved">
                                 <input type="submit"
                                        ng-class="{'disabled' : isDisableSaveButton(currentCategory, sportsman)}"
-                                       ng-click="saveGrades(sportsman)" style="padding: 9px 10px;"
+                                       ng-click="saveGrades(sportsman,currentCategory)" style="padding: 9px 10px;"
                                        ng-disabled="isDisableSaveButton(currentCategory, sportsman)"
                                        value="אשר"/>
                             </div>

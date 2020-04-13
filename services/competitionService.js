@@ -354,4 +354,16 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         }
         return (sum + parseFloat(masterGrade)) / (count + 1);
     }
+
+    this.saveSportsmanGrade = function (data) {
+        var req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/judge/updateSportsmanCompetitionGrade',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: data
+        };
+        return $http(req);
+    }
 });
