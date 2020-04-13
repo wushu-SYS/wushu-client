@@ -86,7 +86,6 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
         $scope.currentSportsmanIndex++
         console.log($scope.currentSportsmanIndex)
         if (!$scope.sportsmanQueue[$scope.currentCategoryIndex].users[$scope.currentSportsmanIndex]) {
-            console.log("XD")
             $scope.currentSportsmanIndex = 0
             $scope.currentCategoryIndex++
         }

@@ -377,7 +377,10 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         };
         return $http(req);
     }
-    this.manualCloseCompetition =function (data) {
+    this.manualCloseCompetition =function (compId) {
+        let data = {
+            idComp:compId
+        }
         var req = {
             method: 'POST',
             url: constants.serverUrl + '/private/judge/manualCloseCompetition',
