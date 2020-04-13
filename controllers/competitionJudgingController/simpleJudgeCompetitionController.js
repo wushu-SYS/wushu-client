@@ -6,6 +6,13 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
     $scope.sportsmanGrade = new Map();
     $scope.currentCategoryIndex = 0;
     $scope.currentSportsmanIndex = 0;
+
+    SocketService.on("masterJudgeSendFinalGrade",function (data) {
+        let grade = data.grade
+        let idSportsman = data.idSportsman
+        let idCategory = data.idCategory
+        $scope.sportsmanGrade.get(idCategory).get(idSportsman).finalGrade=grade;
+    })
     getDisplayDitails()
     async function getDisplayDitails() {
         competitionService.getRegistrationState($routeParams.idComp)
