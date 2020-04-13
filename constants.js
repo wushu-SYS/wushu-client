@@ -3,7 +3,7 @@ app.constant('constants', {
     // serverUrl: "https://app-wushu.herokuapp.com",
     regex:{
         regexOnlyNumbers : new RegExp("^(\\d)*$"),
-        regexForCompetitionGrade: new RegExp("^[0-9]\\.[0-9][0-9]|10$"),
+        regexForCompetitionGrade: new RegExp("^[0-9]\\.[0-9][0-9]$|^10$|^[1-9]$"),
         regexEmail : new RegExp("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(.[a-zA-Z0-9-]+)+$"),
         regexHeb : new RegExp("^[\u0590-\u05FF ,.'-]+$"),
         regexHebrewAndNumbers : new RegExp("^[\u0590-\u05FF\0-9 ,.'-]+$")

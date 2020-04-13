@@ -25,7 +25,7 @@ app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams,
                    $scope.sportsmanGrade.set(categorySportsman.category.id, sportsmans)
                });
 
-                // $scope.sportsmanGrade.get(20).get(217418712).judgeGrades[305077911] = 10;
+                $scope.sportsmanGrade.get(20).get(217418712).judgeGrades[305077911] = 10;
 
 
                $scope.currentCategory = $scope.sportsmanQueue[$scope.currentCategoryIndex].category;
@@ -44,8 +44,8 @@ app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams,
         competitionService.getRegisteredJudges($routeParams.idComp)
             .then(function (result) {
                 $scope.judges = result.data
-                // $scope.judges.forEach((judge)=>judge.isGraded=true)
-                // $scope.disableButtonNext = $scope.judges ? $scope.judges.some(j => !j.isGraded) : true;
+                $scope.judges.forEach((judge)=>judge.isGraded=true)
+                $scope.disableButtonNext = $scope.judges ? $scope.judges.some(j => !j.isGraded) : true;
             }, function (error) {
                 toastNotificationService.errorNotification("ארעה שגיאה. אנא פנה לתמיכה טכנית");
                 console.log(error)
@@ -62,7 +62,7 @@ app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams,
     })
     $scope.nextSportsman=function(){
         $scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id).masterGrade = $scope.grade;
-        console.log($scope.sportsmanGrade)
+        $scope.reCalcFinalGrade($scope.currentCategory, $scope.currentSportsman);
 
         $scope.currentSportsmanIndex++
         if(!$scope.sportsmanQueue[$scope.currentCategoryIndex].users[$scope.currentSportsmanIndex]) {
@@ -78,8 +78,26 @@ app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams,
     }
 
     $scope.getAgeRange = categoryService.getAgeRange;
+    $scope.calcAverage = competitionService.calcAverageGrade;
+    $scope.reCalcFinalGrade = function (category, sportsman){
+        $scope.sportsmanGrade.get(category.id).get(sportsman.id).finalGrade = competitionService.calcAverageGrade($scope.sportsmanGrade.get(category.id).get(sportsman.id).judgeGrades , $scope.sportsmanGrade.get(category.id).get(sportsman.id).masterGrade);
+        console.log($scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id).finalGrade)
+    };
+    $scope.isDisableSaveButton = function (category, sportsman){
+      let masterGrade = $scope.sportsmanGrade.get(category.id).get(sportsman.id).masterGrade;
+      let isMasterValid = masterGrade && masterGrade != '' && $scope.regex.regexForCompetitionGrade.test(masterGrade);
 
-    $scope.saveGrades = function () {
+      let isJudgesGradeValid = true;
+      let judgeGrades = $scope.sportsmanGrade.get(category.id).get(sportsman.id).judgeGrades;
+      for(var key in judgeGrades){
+          isJudgesGradeValid = isJudgesGradeValid && judgeGrades[key] && judgeGrades[key] != '' && $scope.regex.regexForCompetitionGrade.test(judgeGrades[key])
+      }
 
+      return !(isMasterValid && isJudgesGradeValid);
+    };
+
+    $scope.saveGrades = function (sportsman) {
+        // let data = [];
+        sportsman.isSaved = true;
     }
 });

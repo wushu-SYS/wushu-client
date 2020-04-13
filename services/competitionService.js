@@ -346,5 +346,12 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         return conditions.length ? '?' + conditions.join('&') : '';
     }
 
-
+    this.calcAverageGrade = function (judgeGrades, masterGrade) {
+        let sum = 0, count = 0;
+        for (var key in judgeGrades) {
+            sum += parseFloat(judgeGrades[key]);
+            count++;
+        }
+        return (sum + parseFloat(masterGrade)) / (count + 1);
+    }
 });
