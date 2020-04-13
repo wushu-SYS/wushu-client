@@ -28,8 +28,8 @@
                     <b>ספורטאי:</b>
                     {{currentSportsman.firstname}} {{currentSportsman.lastname}}
                 </h6>
-                <div ng-form name="gradeForm" class="wrap-input100 validate-input"
-                     style="width: 200px; border-bottom: 1px solid black;"
+                <div ng-form name="gradeForm" class="wrap-input100-black validate-input"
+                     style="width: 200px;"
                      ng-class="{'alert-validate' : gradeForm.grade.$invalid}"
                      data-validate="{{gradeForm.grade.$error.pattern ? 'ציון לא תקין' : ''}}">
                     <span class="label-input100">ציון: </span>
@@ -63,33 +63,33 @@
                     <td class="tdInItemList">{{sportsman.id}}</td>
                     <td class="tdInItemList">{{sportsman.firstname}} {{sportsman.lastname}}</td>
                         <td class="tdInItemList" ng-repeat="judge in judges">
-                            <div ng-form name="judgesGradeForm" class="wrap-input100 validate-input"
-                                 style="width: 70px; border-bottom: 1px solid black; margin-bottom: 0px;"
-                                 ng-class="{'alert-validate' : gradeForm.grade.$invalid}"
-                                 data-validate="{{gradeForm.grade.$error.pattern ? 'ציון לא תקין' : ''}}">
+                            <div ng-form name="ladtCategoryJudgesGradeForm" class="validate-input"
+                                 style="width: 70px; margin-bottom: 0px;"
+                                 ng-class="ladtCategoryJudgesGradeForm.grade.$invalid ? 'simpleInvalidInput' : 'wrap-input100-black'">
                                 <input class="input100" style="padding: 0px; text-align: center; height: auto"
                                        type="text" name="grade" ng-model="sportsman.judgeGrades[judge.idJudge]"
-                                       ng-pattern="regex.regexForCompetitionGrade">
+                                       ng-change="reCalcFinalGrade(sportsmanQueue[currentCategoryIndex-1].category, sportsman)"
+                                       ng-pattern="regex.regexForCompetitionGrade" ng-required="true">
                                 <span class="focus-input100"></span>
                             </div>
                         </td>
                         <td class="tdInItemList">
-                            <div ng-form name="masterGradeForm" class="wrap-input100 validate-input"
-                                 style="width: 70px; border-bottom: 1px solid black; margin-bottom: 0px;"
-                                 ng-class="{'alert-validate' : gradeForm.grade.$invalid}"
-                                 data-validate="{{gradeForm.grade.$error.pattern ? 'ציון לא תקין' : ''}}">
+                            <div ng-form name="lastCategoryMasterGradeForm" class="validate-input"
+                                 style="width: 70px; margin-bottom: 0px;"
+                                 ng-class="lastCategoryMasterGradeForm.grade.$invalid ? 'simpleInvalidInput' : 'wrap-input100-black'">
                                 <input class="input100" style="padding: 0px; text-align: center; height: auto"
                                        type="text" name="grade" ng-model="sportsman.masterGrade"
-                                       ng-pattern="regex.regexForCompetitionGrade">
+                                       ng-change="reCalcFinalGrade(sportsmanQueue[currentCategoryIndex-1].category, sportsman)"
+                                       ng-pattern="regex.regexForCompetitionGrade" ng-required="true">
                                 <span class="focus-input100"></span>
                             </div>
                         </td>
-                        <td class="tdInItemList">{{avg}}</td>
+                        <td class="tdInItemList">{{sportsman.finalGrade | number:2}}</td>
                         <td class="tdInItemList">
                             <input type="submit"
-                                   ng-class="{'disabled' : masterGradeForm.$valid && judgesGradeForm.$valid}"
+                                   ng-class="{'disabled' : isDisableSaveButton(sportsmanQueue[currentCategoryIndex-1].category, sportsman)}"
                                    ng-click="saveGrades()" style="padding: 9px 10px;"
-                                   ng-disabled="masterGradeForm.$valid && judgesGradeForm.$valid"
+                                   ng-disabled="isDisableSaveButton(sportsmanQueue[currentCategoryIndex-1].category, sportsman)"
                                    value="אשר"/>
                         </td>
                     </tr>
@@ -115,33 +115,33 @@
                         <td class="tdInItemList">{{sportsman.id}}</td>
                         <td class="tdInItemList">{{sportsman.firstname}} {{sportsman.lastname}}</td>
                         <td class="tdInItemList" ng-repeat="judge in judges">
-                            <div ng-form name="judgesGradeForm" class="wrap-input100 validate-input"
-                                 style="width: 70px; border-bottom: 1px solid black; margin-bottom: 0px;"
-                                 ng-class="{'alert-validate' : gradeForm.grade.$invalid}"
-                                 data-validate="{{gradeForm.grade.$error.pattern ? 'ציון לא תקין' : ''}}">
+                            <div ng-form name="judgesGradeForm" class="validate-input"
+                                 style="width: 70px; margin-bottom: 0px;"
+                                 ng-class="judgesGradeForm.grade.$invalid ? 'simpleInvalidInput' : 'wrap-input100-black'">
                                 <input class="input100" style="padding: 0px; text-align: center; height: auto"
                                        type="text" name="grade" ng-model="sportsman.judgeGrades[judge.idJudge]"
-                                       ng-pattern="regex.regexForCompetitionGrade">
+                                       ng-change="reCalcFinalGrade(currentCategory, sportsman)"
+                                       ng-pattern="regex.regexForCompetitionGrade" ng-required="true">
                                 <span class="focus-input100"></span>
                             </div>
                         </td>
                         <td class="tdInItemList">
-                            <div ng-form name="masterGradeForm" class="wrap-input100 validate-input"
-                                 style="width: 70px; border-bottom: 1px solid black; margin-bottom: 0px;"
-                                 ng-class="{'alert-validate' : gradeForm.grade.$invalid}"
-                                 data-validate="{{gradeForm.grade.$error.pattern ? 'ציון לא תקין' : ''}}">
+                            <div ng-form name="masterGradeForm" class="validate-input"
+                                 style="width: 70px; margin-bottom: 0px;"
+                                 ng-class="masterGradeForm.grade.$invalid ? 'simpleInvalidInput' : 'wrap-input100-black'">
                                 <input class="input100" style="padding: 0px; text-align: center; height: auto"
                                        type="text" name="grade" ng-model="sportsman.masterGrade"
-                                       ng-pattern="regex.regexForCompetitionGrade">
+                                       ng-change="reCalcFinalGrade(currentCategory, sportsman)"
+                                       ng-pattern="regex.regexForCompetitionGrade" ng-required="true">
                                 <span class="focus-input100"></span>
                             </div>
                         </td>
                         <td class="tdInItemList">{{sportsman.finalGrade ? (sportsman.finalGrade | number : 2) : '-'}}</td>
                         <td class="tdInItemList">
                             <input type="submit"
-                                   ng-class="{'disabled' : masterGradeForm.$valid && judgesGradeForm.$valid}"
+                                   ng-class="{'disabled' : isDisableSaveButton(currentCategory, sportsman)}"
                                    ng-click="saveGrades()" style="padding: 9px 10px;"
-                                   ng-disabled="masterGradeForm.$valid && judgesGradeForm.$valid"
+                                   ng-disabled="isDisableSaveButton(currentCategory, sportsman)"
                                    value="אשר"/>
                         </td>
                     </tr>

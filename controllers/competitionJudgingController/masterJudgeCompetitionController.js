@@ -1,4 +1,4 @@
-app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams, $window, $location, $timeout, constants, SocketService, competitionService, categoryService) {
+app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams, $window, $location, constants, SocketService, competitionService, categoryService) {
     $scope.regex = constants.regex;
     $scope.disableButtonNext = $scope.judges ? $scope.judges.some(j => !j.isGraded) : true;;
 
@@ -62,11 +62,7 @@ app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams,
     })
     $scope.nextSportsman=function(){
         $scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id).masterGrade = $scope.grade;
-        $scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id).finalGrade = competitionService.calcAverageGrade($scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id).judgeGrades , $scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id).masterGrade);
-        console.log($scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id).finalGrade);
-        $timeout(function () {
-            $scope.$apply();
-        }, 0)
+        $scope.reCalcFinalGrade($scope.currentCategory, $scope.currentSportsman);
 
         $scope.currentSportsmanIndex++
         if(!$scope.sportsmanQueue[$scope.currentCategoryIndex].users[$scope.currentSportsmanIndex]) {
@@ -83,6 +79,22 @@ app.controller("judgingCompetitionMaster", function ($scope, $http,$routeParams,
 
     $scope.getAgeRange = categoryService.getAgeRange;
     $scope.calcAverage = competitionService.calcAverageGrade;
+    $scope.reCalcFinalGrade = function (category, sportsman){
+        $scope.sportsmanGrade.get(category.id).get(sportsman.id).finalGrade = competitionService.calcAverageGrade($scope.sportsmanGrade.get(category.id).get(sportsman.id).judgeGrades , $scope.sportsmanGrade.get(category.id).get(sportsman.id).masterGrade);
+        console.log($scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id).finalGrade)
+    };
+    $scope.isDisableSaveButton = function (category, sportsman){
+      let masterGrade = $scope.sportsmanGrade.get(category.id).get(sportsman.id).masterGrade;
+      let isMasterValid = masterGrade && masterGrade != '' && $scope.regex.regexForCompetitionGrade.test(masterGrade);
+
+      let isJudgesGradeValid = true;
+      let judgeGrades = $scope.sportsmanGrade.get(category.id).get(sportsman.id).judgeGrades;
+      for(var key in judgeGrades){
+          isJudgesGradeValid = isJudgesGradeValid && judgeGrades[key] && judgeGrades[key] != '' && $scope.regex.regexForCompetitionGrade.test(judgeGrades[key])
+      }
+
+      return !(isMasterValid && isJudgesGradeValid);
+    };
 
     $scope.saveGrades = function () {
         // let data = [];
