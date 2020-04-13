@@ -132,7 +132,7 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
         competitionService.saveSportsmanGrade(data)
             .then((res)=>{
                 sportsman.isSaved = true;
-                SocketService.emit("masterJudgeSaveGrade",{userId :$window.sessionStorage.getItem('id'),idComp : $routeParams.idComp,idSportsman:sportsman.id, grade :sportsman.finalGrade})
+                SocketService.emit("masterJudgeSaveGrade",{userId :$window.sessionStorage.getItem('id'),idComp : $routeParams.idComp,idSportsman:sportsman.id, grade :sportsman.finalGrade ,idCategory :category.id})
             })
     }
 
