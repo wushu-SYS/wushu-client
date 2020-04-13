@@ -21,19 +21,30 @@
         <br>
 
         <table cellspacing="0">
-            <tr>
-                <th></th>
-                <th class="thInItemList">ת.ז.</th>
-                <th class="thInItemList">שם מלא</th>
-                <th class="thInItemList">מין</th>
-                <th class="thInItemList">גיל</th>
-            </tr>
-            <tr ng-repeat="">
-                <td class="tdInItemList">{{user.id}}</td>
-                <td class="tdInItemList">{{user.firstname}} {{user.lastname}}</td>
-                <td class="tdInItemList">{{user.sex}}</td>
-                <td class="tdInItemList">{{user.age}}</td>
-            </tr>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="thInItemList">מקום</th>
+                    <th class="thInItemList">ת.ז.</th>
+                    <th class="thInItemList">שם מלא</th>
+                    <th class="thInItemList">מין</th>
+                    <th class="thInItemList">גיל</th>
+                    <th class="thInItemList">ציון</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="sportsmanCategory in compResults">
+                <tr colspan="6">
+                    <td>{{sportsmanCategory.category.name}} {{getAgeRange(sportsmanCategory.category)}} ({{sportsmanCategory.category.sex}})</td>
+                </tr>
+                <tr ng-repeat="sportsman in sportsmanCategory.sportsmans">
+                    <td class="tdInItemList">{{$index+1}}</td>
+                    <td class="tdInItemList">{{sportsman.id}}</td>
+                    <td class="tdInItemList">{{sportsman.firstname}} {{sportsman.lastname}}</td>
+                    <td class="tdInItemList">{{sportsman.sex}}</td>
+                    <td class="tdInItemList">{{sportsman.age}}</td>
+                    <td class="tdInItemList">{{sportsman.finalGrade}}</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 
@@ -44,7 +55,8 @@
         </h1>
         <div class="downloadLink">
             <i class="fa fa-arrow-down" style="text-decoration: underline" aria-hidden="true"></i>
-            <a id="downExcelResultCompetition" ng-click="downloadExcelResultCompetition()" class="linkDark" href="" download>
+            <a id="downExcelResultCompetition" ng-click="downloadExcelResultCompetition()" class="linkDark" href=""
+               download>
                 הורד פורמט קובץ אקסל להעלאת תוצאות תחרות</a>
         </div>
 

@@ -206,6 +206,9 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         };
         return $http(req);
     };
+    this.getResultCompetition = function (idComp) {
+        return [];
+    };
 
     /**
      * open modal for adding new category
