@@ -8,4 +8,14 @@ app.controller("competitionResultsTaulloController", function ($scope, $http, $r
         //         console.log(error);
         //     })
     }
+
+
+    let downloadExcelLinkCoachAsJudge = document.getElementById("downExcelResultCompetition");
+
+    $scope.downloadExcelResultCompetition = function () {
+        let token = $window.sessionStorage.getItem('token')
+        let url = constants.serverUrl + '/downloadExcelFormatUpdateCompetitionResults/' + token+"/"+$routeParams.idComp;
+        downloadExcelLinkCoachAsJudge.setAttribute('href', url);
+        downloadExcelLinkCoachAsJudge.click();
+    };
 });

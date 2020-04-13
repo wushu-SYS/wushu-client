@@ -3,7 +3,7 @@ app.controller("checkInJudgesModalController", function($scope, $uibModalInstanc
     function getDisplayData() {
         competitionService.getRegisteredJudges(getId)
             .then(function (result) {
-                $scope.registeredJudges = result.data;
+                $scope.registeredJudges = result.data.filter((judge)=>judge.isMaster ==0);
                 $scope.registeredJudges.forEach(judge => judge.isSelected = true);
             }, function (error) {
                 toastNotificationService.errorNotification("ארעה שגיאה. אנא פנה לתמיכה טכנית");
