@@ -377,4 +377,19 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         };
         return $http(req);
     }
+    this.manualCloseCompetition =function (compId) {
+        let data = {
+            idComp:compId
+        }
+        var req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/judge/manualCloseCompetition',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: data
+        };
+        return $http(req);
+
+    }
 });
