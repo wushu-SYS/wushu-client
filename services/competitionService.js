@@ -206,6 +206,9 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         };
         return $http(req);
     };
+    this.getResultCompetition = function (idComp) {
+        return [];
+    };
 
     /**
      * open modal for adding new category
@@ -260,6 +263,14 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
             }
         }).result.catch(function () {
         });
+    };
+    this.watchResults = function (competition) {
+        if(competition.sportStyle == constants.sportStyleEnum[constants.sportStyleType.TAULLO].name)
+            $location.path('/competitionResults/taullo/' + competition.id);
+        else if(competition.sportStyle == constants.sportStyleEnum[constants.sportStyleType.SANDA].name)
+            $location.path('/competitionResults/sanda/' + competition.id);
+        //else
+            //TODO
     };
     this.openCheckInJudgesModal = function (idCompetition, onCloseModal) {
         $uibModal.open({

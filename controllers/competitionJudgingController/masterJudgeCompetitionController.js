@@ -113,7 +113,6 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
 
         let judgeGrades = $scope.sportsmanGrade.get(category.id).get(sportsman.id).judgeGrades;
         let isJudgesGradeValid = Object.keys(judgeGrades).length != 0;
-        console.log(isJudgesGradeValid)
         for (var key in judgeGrades) {
             isJudgesGradeValid = isJudgesGradeValid && judgeGrades[key] && judgeGrades[key] != '' && $scope.regex.regexForCompetitionGrade.test(judgeGrades[key])
         }

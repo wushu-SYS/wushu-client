@@ -56,7 +56,7 @@
             </td>
             <td class="tableTd tdLast" >
                 <button ng-show="competition.status == compStatus[compStatusType.OPEN].name" class="linkDark" ng-click="regSportsman(competition.idCompetition)">רישום</button>
-                <button ng-show="competition.status == compStatus[compStatusType.CLOSE].name" class="linkDark" ng-click="">תוצאות</button>
+                <button ng-show="competition.status == compStatus[compStatusType.CLOSE].name" class="linkDark" ng-click="watchResults(competition)">תוצאות</button>
             </td>
             <td class="tableTd tdLast" >
                 <button ng-show="competition.status != compStatus[compStatusType.CLOSE].name" class="linkDark" ng-click="registrationState(competition)">מצב הרישום</button>

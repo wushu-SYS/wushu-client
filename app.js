@@ -132,13 +132,17 @@ app.config(function($routeProvider) {
             templateUrl: 'views/tablesView/competitionsToJudgeTable.html',
             controller: 'competitionsToJudgeController as competitionsToJudgeController'
         })
-        .when('/competitions/addResults', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
-        })
         .when('/competitions/results', {
             templateUrl: 'views/tablesView/competitionTable.html',
-            controller: 'competitionResultsController as compResCtrl'
+            controller: 'competitionResultsTableController as compResTableCtrl'
+        })
+        .when('/competitionResults/taullo/:idComp', {
+            templateUrl: 'views/competitionResults/competitionResultsTaullo.html',
+            controller: 'competitionResultsTaulloController as compResultsTaulloCtrl'
+        })
+        .when('/competitionResults/sanda/:idComp', {
+            templateUrl: 'views/competitionResults/competitionResultsSanda.html',
+            controller: 'competitionResultsSandaController as compResultsSandaCtrl'
         })
         .when('/competitions/getCompetitions', {
             templateUrl: 'views/tablesView/competitionTable.html',
