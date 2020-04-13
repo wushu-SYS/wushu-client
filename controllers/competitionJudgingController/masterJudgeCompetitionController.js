@@ -116,8 +116,28 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
         return !(isMasterValid && isJudgesGradeValid);
     };
 
-    $scope.saveGrades = function (sportsman) {
-        // let data = [];
-        sportsman.isSaved = true;
+    $scope.saveGrades = function (sportsman,category) {
+         let judeges = []
+        for (let i  in sportsman.judgeGrades){
+            judeges.push({idJudge :i ,grade : parseFloat(sportsman.judgeGrades[i])})
+        }
+        judeges.push({idJudge :[$window.sessionStorage.getItem('id')] ,grade :parseFloat(sportsman.masterGrade)})
+         let data = {
+             idComp :$routeParams.idComp,
+             idSportsman : sportsman.id,
+             idCategory : category.id,
+             judges :judeges,
+             avgGrade :sportsman.finalGrade
+
+         };
+
+        competitionService.saveSportsmanGrade(data)
+            .then((res)=>{
+                sportsman.isSaved = true;
+            })
+
+
     }
+
+
 });

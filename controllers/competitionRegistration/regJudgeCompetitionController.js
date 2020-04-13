@@ -55,7 +55,7 @@ app.controller("regJudgeCompetitionController", function ($scope, $rootScope, $r
 
     $scope.register = function () {
 
-        console.log($scope.toRegisterUsers)
+    console.log($scope.toRegisterUsers)
         /*
 
         competitionService.registerJudgeToCompetition($routeParams.idComp, $scope.toRegisterUsers, $scope.toUnRegisterUsers)
