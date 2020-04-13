@@ -2,17 +2,13 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
     $scope.regex = constants.regex;
     $scope.disableButtonNext = false;
     $scope.isMaster = false;
+    $scope.lastSportsman = false
 
     $scope.sportsmanGrade = new Map();
     $scope.currentCategoryIndex = 0;
     $scope.currentSportsmanIndex = 0;
 
-    SocketService.on("masterJudgeSendFinalGrade",function (data) {
-        let grade = data.grade
-        let idSportsman = data.idSportsman
-        let idCategory = data.idCategory
-        $scope.sportsmanGrade.get(idCategory).get(idSportsman).finalGrade=grade;
-    })
+
     getDisplayDitails()
     async function getDisplayDitails() {
         competitionService.getRegistrationState($routeParams.idComp)
@@ -27,9 +23,8 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
                             lastname: sportsman.lastname
                         }));
                     $scope.sportsmanGrade.set(categorySportsman.category.id, sportsmans)
-                });
 
-                console.log($scope.sportsmanGrade)
+                });
             }, function (error) {
                 console.log(error)
             });
@@ -64,8 +59,13 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
     get()
     $scope.getAgeRange = categoryService.getAgeRange;
 
-    $scope.nextSportsman = function () {
+    $scope.sendGrade = function(finish){
         SocketService.emit("judgeGiveGrade",{ userId:$window.sessionStorage.getItem('id'),idComp:$routeParams.idComp ,grade :$scope.grade})
+        if(finish)
+            $location.path("/home");
+    }
+    $scope.nextSportsman = function () {
+        $scope.sendGrade(false);
         let preSportsman = $scope.currentSportsman.id
         get()
         if (preSportsman== $scope.currentSportsman.id)
@@ -74,3 +74,4 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
     }
 
 });
+

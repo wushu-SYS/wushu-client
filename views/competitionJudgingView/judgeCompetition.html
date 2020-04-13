@@ -19,7 +19,10 @@
         <div class="verticalLine threePartsScreenDiv">
             <h5>הזן ציון לספורטאי</h5>
             <br>
-            <div class="centerButTextRight">
+            <div ng-show="lastSportsman">
+                התחרות הסתיימה
+            </div>
+            <div class="centerButTextRight" ng-show="!lastSportsman">
                 <h6>
                     <b>קטגוריה:</b>
                     {{currentCategory.name}} {{getAgeRange(currentCategory)}}
@@ -123,7 +126,7 @@
                         <th class="thInItemList" ng-show="isMaster"></th>
                     </tr>
                     <tr
-                            ng-repeat="(key, sportsman) in sportsmanGrade.get(currentCategory.id) | fromMap">
+                            ng-repeat="(key, sportsman) in sportsmanGrade.get(currentCategory.id) | fromMap track by $index">
                         <td class="tdInItemList">{{sportsman.id}}</td>
                         <td class="tdInItemList">{{sportsman.firstname}} {{sportsman.lastname}}</td>
                         <td class="tdInItemList" ng-repeat="judge in judges" ng-show="isMaster">
@@ -139,6 +142,7 @@
                                        ng-pattern="regex.regexForCompetitionGrade" ng-required="true">
                                 <span class="focus-input100"></span>
                             </div>
+                            {{$index}}
                             <div ng-show="!sportsman.isSaved && $index >= currentSportsmanIndex">-</div>
                         </td>
                         <td class="tdInItemList" ng-show="isMaster">
@@ -178,9 +182,20 @@
 
     <div style="margin-top: 10px">
         <input type="submit" ng-class="{'disabled' : disableButtonNext || !grade}"
+               ng-show="currentCategoryIndex < sportsmanQueue.length-1 || currentSportsmanIndex < sportsmanQueue[currentCategoryIndex].users.length-1"
                ng-click="nextSportsman()"
                ng-disabled="disableButtonNext || !grade"
                value="לספורטאי הבא"/>
+        <input type="submit" ng-class="{'disabled' : disableButtonNext || !grade}"
+               ng-show="currentCategoryIndex == sportsmanQueue.length-1 && currentSportsmanIndex == sportsmanQueue[currentCategoryIndex].users.length-1 && !lastSportsman"
+               ng-click="sendGrade(true); lastSportsman = true"
+               ng-disabled="disableButtonNext || !grade"
+               value="שלח ציון"/>
+        <input type="submit" ng-class="{'disabled' : !isAllGradesApproved()}"
+               ng-show="lastSportsman && isMaster"
+               ng-click="closeCompetition()"
+               ng-disabled="!isAllGradesApproved()"
+               value="סגור תחרות"/>
 
         <i class="fa fa-male" aria-hidden="true" ng-repeat="judge in judges" style="font-size: x-large; padding: 5px;"
            ng-style="{'color': judge.isGraded ? 'green' : 'lightGray'}" data-toggle="tooltip" data-placement="right"
