@@ -53,16 +53,16 @@
                     <tr>
                         <th class="thInItemList">ת.ז.</th>
                         <th class="thInItemList">שם מלא</th>
-                        <th class="thInItemList" ng-repeat="judge in judges">ציון-{{judge.firstname}}</th>
-                        <th class="thInItemList">ציון שופט ראשי</th>
+                        <th class="thInItemList" ng-repeat="judge in judges" ng-show="isMaster">ציון-{{judge.firstname}}</th>
+                        <th class="thInItemList" ng-show="isMaster">ציון שופט ראשי</th>
                         <th class="thInItemList">ציון סופי</th>
-                        <th class="thInItemList"></th>
+                        <th class="thInItemList" ng-show="isMaster"></th>
                     </tr>
                     <tr
                         ng-repeat="(key, sportsman) in sportsmanGrade.get(sportsmanQueue[currentCategoryIndex-1].category.id) | fromMap">
                     <td class="tdInItemList">{{sportsman.id}}</td>
                     <td class="tdInItemList">{{sportsman.firstname}} {{sportsman.lastname}}</td>
-                        <td class="tdInItemList" ng-repeat="judge in judges">
+                        <td class="tdInItemList" ng-repeat="judge in judges" ng-show="isMaster">
                             <div ng-show="sportsman.isSaved">
                                 {{sportsman.judgeGrades[judge.idJudge]}}
                             </div>
@@ -76,7 +76,7 @@
                                 <span class="focus-input100"></span>
                             </div>
                         </td>
-                        <td class="tdInItemList">
+                        <td class="tdInItemList" ng-show="isMaster">
                             <div ng-show="sportsman.isSaved">
                                 {{sportsman.masterGrade}}
                             </div>
@@ -90,8 +90,8 @@
                                 <span class="focus-input100"></span>
                             </div>
                         </td>
-                        <td class="tdInItemList">{{sportsman.finalGrade | number:2}}</td>
-                        <td class="tdInItemList">
+                        <td class="tdInItemList">{{sportsman.finalGrade ? (sportsman.finalGrade | number : 2) : '-'}}</td>
+                        <td class="tdInItemList" ng-show="isMaster">
                             <div ng-show="sportsman.isSaved" style="color: green">
                                 נשמר
                                 <i class="fa fa-check-circle-o" aria-hidden="true"></i>
@@ -117,16 +117,16 @@
                     <tr>
                         <th class="thInItemList">ת.ז.</th>
                         <th class="thInItemList">שם מלא</th>
-                        <th class="thInItemList" ng-repeat="judge in judges">ציון-{{judge.firstname}}</th>
-                        <th class="thInItemList">ציון שופט ראשי</th>
+                        <th class="thInItemList" ng-repeat="judge in judges" ng-show="isMaster">ציון-{{judge.firstname}}</th>
+                        <th class="thInItemList" ng-show="isMaster">ציון שופט ראשי</th>
                         <th class="thInItemList">ציון סופי</th>
-                        <th class="thInItemList"></th>
+                        <th class="thInItemList" ng-show="isMaster"></th>
                     </tr>
                     <tr
                             ng-repeat="(key, sportsman) in sportsmanGrade.get(currentCategory.id) | fromMap">
                         <td class="tdInItemList">{{sportsman.id}}</td>
                         <td class="tdInItemList">{{sportsman.firstname}} {{sportsman.lastname}}</td>
-                        <td class="tdInItemList" ng-repeat="judge in judges">
+                        <td class="tdInItemList" ng-repeat="judge in judges" ng-show="isMaster">
                             <div ng-show="sportsman.isSaved">
                                 {{sportsman.judgeGrades[judge.idJudge]}}
                             </div>
@@ -141,7 +141,7 @@
                             </div>
                             <div ng-show="!sportsman.isSaved && $index >= currentSportsmanIndex">-</div>
                         </td>
-                        <td class="tdInItemList">
+                        <td class="tdInItemList" ng-show="isMaster">
                             <div ng-show="sportsman.isSaved">
                                 {{sportsman.masterGrade}}
                             </div>
@@ -157,7 +157,7 @@
                             <div ng-show="!sportsman.isSaved && $index >= currentSportsmanIndex">-</div>
                         </td>
                         <td class="tdInItemList">{{sportsman.finalGrade ? (sportsman.finalGrade | number : 2) : '-'}}</td>
-                        <td class="tdInItemList">
+                        <td class="tdInItemList" ng-show="isMaster">
                             <div ng-show="sportsman.isSaved" style="color: green">
                                 נשמר
                                 <i class="fa fa-check-circle-o" aria-hidden="true"></i>
