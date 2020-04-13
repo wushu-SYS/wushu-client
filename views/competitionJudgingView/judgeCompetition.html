@@ -130,7 +130,7 @@
                             <div ng-show="sportsman.isSaved">
                                 {{sportsman.judgeGrades[judge.idJudge]}}
                             </div>
-                            <div ng-form name="judgesGradeForm" class="validate-input" ng-show="!sportsman.isSaved && $index < currentSportsmanIndex"
+                            <div ng-form name="judgesGradeForm" class="validate-input" ng-show="!sportsman.isSaved && $index <= currentSportsmanIndex && sportsman.judgeGrades[judge.idJudge]"
                                  style="width: 70px; margin-bottom: 0px;"
                                  ng-class="judgesGradeForm.grade.$invalid ? 'simpleInvalidInput' : 'wrap-input100-black'">
                                 <input class="input100" style="padding: 0px; text-align: center; height: auto"
@@ -139,7 +139,7 @@
                                        ng-pattern="regex.regexForCompetitionGrade" ng-required="true">
                                 <span class="focus-input100"></span>
                             </div>
-                            <div ng-show="!sportsman.isSaved && $index >= currentSportsmanIndex">-</div>
+                            <div ng-show="!sportsman.isSaved && $index >= currentSportsmanIndex && !sportsman.judgeGrades[judge.idJudge]">-</div>
                         </td>
                         <td class="tdInItemList" ng-show="isMaster">
                             <div ng-show="sportsman.isSaved">
