@@ -207,7 +207,17 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         return $http(req);
     };
     this.getResultCompetition = function (idComp) {
-        return [];
+        var req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/commonCoachManager/competitionResults',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: {
+                idComp: idComp
+            }
+        };
+        return $http(req);
     };
 
     /**

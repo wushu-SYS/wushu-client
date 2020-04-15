@@ -2,12 +2,12 @@ app.controller("competitionResultsTaulloController", function ($scope, $http, $r
     console.log("heree")
     getDisplayData()
     function getDisplayData() {
-        // competitionService.getResultCompetition($routeParams.idComp)
-        //     .then(function (result) {
-        //         $scope.compResults = result.data;
-        //     }, function (error) {
-        //         console.log(error);
-        //     })
+        competitionService.getResultCompetition($routeParams.idComp)
+            .then(function (result) {
+                $scope.compResults = result.data;
+            }, function (error) {
+                console.log(error);
+            })
     }
 
 

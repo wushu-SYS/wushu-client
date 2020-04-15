@@ -46,11 +46,11 @@
         <div class="threePartsScreenDiv">
             <h5>ציונים סופיים</h5>
             <br>
-            <div ng-if="currentCategoryIndex != 0">
+            <div ng-repeat="sportsmanCategory in sportsmanQueue" ng-if="currentCategoryIndex != 0 && $index < currentCategoryIndex && categoryHasUnSavedSportsman(sportsmanCategory.users)">
                 <h6>
                     <b>קטגוריה:</b>
-                    {{sportsmanQueue[currentCategoryIndex-1].category.name}}
-                    {{getAgeRange(sportsmanQueue[currentCategoryIndex-1].category)}}
+                    {{sportsmanCategory.category.name}}
+                    {{getAgeRange(sportsmanCategory.category)}}
                 </h6>
                 <table class="tableUser" cellspacing="0">
                     <tr>
@@ -62,7 +62,7 @@
                         <th class="thInItemList" ng-show="isMaster"></th>
                     </tr>
                     <tr
-                        ng-repeat="(key, sportsman) in sportsmanGrade.get(sportsmanQueue[currentCategoryIndex-1].category.id) | fromMap">
+                        ng-repeat="(key, sportsman) in sportsmanGrade.get(sportsmanCategory.category.id) | fromMap">
                     <td class="tdInItemList">{{sportsman.id}}</td>
                     <td class="tdInItemList">{{sportsman.firstname}} {{sportsman.lastname}}</td>
                         <td class="tdInItemList" ng-repeat="judge in judges" ng-show="isMaster">
@@ -74,7 +74,7 @@
                                  ng-class="ladtCategoryJudgesGradeForm.grade.$invalid ? 'simpleInvalidInput' : 'wrap-input100-black'">
                                 <input class="input100" style="padding: 0px; text-align: center; height: auto"
                                        type="text" name="grade" ng-model="sportsman.judgeGrades[judge.idJudge]"
-                                       ng-change="reCalcFinalGrade(sportsmanQueue[currentCategoryIndex-1].category, sportsman)"
+                                       ng-change="reCalcFinalGrade(category, sportsman)"
                                        ng-pattern="regex.regexForCompetitionGrade" ng-required="true">
                                 <span class="focus-input100"></span>
                             </div>
@@ -88,7 +88,7 @@
                                  ng-class="lastCategoryMasterGradeForm.grade.$invalid ? 'simpleInvalidInput' : 'wrap-input100-black'">
                                 <input class="input100" style="padding: 0px; text-align: center; height: auto"
                                        type="text" name="grade" ng-model="sportsman.masterGrade"
-                                       ng-change="reCalcFinalGrade(sportsmanQueue[currentCategoryIndex-1].category, sportsman)"
+                                       ng-change="reCalcFinalGrade(scategory, sportsman)"
                                        ng-pattern="regex.regexForCompetitionGrade" ng-required="true">
                                 <span class="focus-input100"></span>
                             </div>
@@ -101,9 +101,9 @@
                             </div>
                             <div ng-show="!sportsman.isSaved">
                                 <input type="submit"
-                                       ng-class="{'disabled' : isDisableSaveButton(sportsmanQueue[currentCategoryIndex-1].category, sportsman)}"
-                                       ng-click="saveGrades(sportsman,sportsmanQueue[currentCategoryIndex-1].category)" style="padding: 9px 10px;"
-                                       ng-disabled="isDisableSaveButton(sportsmanQueue[currentCategoryIndex-1].category, sportsman)"
+                                       ng-class="{'disabled' : isDisableSaveButton(category, sportsman)}"
+                                       ng-click="saveGrades(sportsman,category)" style="padding: 9px 10px;"
+                                       ng-disabled="isDisableSaveButton(category, sportsman)"
                                        value="אשר"/>
                             </div>
                         </td>
@@ -180,15 +180,15 @@
     </div>
 
     <div style="margin-top: 10px">
-        <input type="submit" ng-class="{'disabled' : disableButtonNext || !grade}"
+        <input type="submit" ng-class="{'disabled' : isDisableNextSportsmanButton() || !grade}"
                ng-show="currentCategoryIndex < sportsmanQueue.length-1 || currentSportsmanIndex < sportsmanQueue[currentCategoryIndex].users.length-1"
                ng-click="nextSportsman()"
-               ng-disabled="disableButtonNext || !grade"
+               ng-disabled="isDisableNextSportsmanButton() || !grade"
                value="לספורטאי הבא"/>
-        <input type="submit" ng-class="{'disabled' : disableButtonNext || !grade}"
+        <input type="submit" ng-class="{'disabled' : isDisableNextSportsmanButton() || !grade}"
                ng-show="currentCategoryIndex == sportsmanQueue.length-1 && currentSportsmanIndex == sportsmanQueue[currentCategoryIndex].users.length-1 && !lastSportsman"
                ng-click="sendGrade(true); lastSportsman = true"
-               ng-disabled="disableButtonNext || !grade"
+               ng-disabled="isDisableNextSportsmanButton() || !grade"
                value="שלח ציון"/>
         <input type="submit" ng-class="{'disabled' : !isAllGradesApproved()}"
                ng-show="lastSportsman && isMaster"

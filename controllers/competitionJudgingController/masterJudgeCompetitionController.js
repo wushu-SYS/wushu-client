@@ -1,6 +1,5 @@
 app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams, $window, $location, constants, SocketService, competitionService, categoryService) {
     $scope.regex = constants.regex;
-    $scope.disableButtonNext = $scope.judges ? $scope.judges.some(j => !j.isGraded) : true;
     $scope.isMaster = true;
     $scope.lastSportsman = false
 
@@ -31,7 +30,7 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
                     $scope.sportsmanGrade.set(categorySportsman.category.id, sportsmans)
                 });
 
-                //$scope.sportsmanGrade.get(20).get(217418712).judgeGrades[305077911] = 10;
+                // $scope.sportsmanGrade.get(38).get(333456416).judgeGrades[305077911] = 10;
 
 
                 $scope.currentCategory = $scope.sportsmanQueue[$scope.currentCategoryIndex].category;
@@ -56,9 +55,8 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
 
         competitionService.getRegisteredJudges($routeParams.idComp)
             .then(function (result) {
-                $scope.judges = result.data
-                //$scope.judges.forEach((judge) => judge.isGraded = true)
-                //$scope.disableButtonNext = $scope.judges ? $scope.judges.some(j => !j.isGraded) : true;
+                $scope.judges = result.data.filter((judge)=>judge.isMaster ==0);
+                // $scope.judges.forEach((judge) => judge.isGraded = true)
             }, function (error) {
                 toastNotificationService.errorNotification("ארעה שגיאה. אנא פנה לתמיכה טכנית");
                 console.log(error)
@@ -71,7 +69,6 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
         let judge = $scope.judges.find((judge) => judge.idJudge == data.userId)
         judge.isGraded = true;
         $scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id).judgeGrades[judge.idJudge] = data.grade;
-        $scope.disableButtonNext = $scope.judges ? $scope.judges.some(j => !j.isGraded) : true;
     })
     $scope.sendGrade = function(finish){
         $scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id).masterGrade = $scope.grade;
@@ -84,7 +81,6 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
         $scope.sendGrade();
 
         $scope.currentSportsmanIndex++
-        console.log($scope.currentSportsmanIndex)
         if (!$scope.sportsmanQueue[$scope.currentCategoryIndex].users[$scope.currentSportsmanIndex]) {
             $scope.currentSportsmanIndex = 0
             $scope.currentCategoryIndex++
@@ -104,7 +100,6 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
     $scope.calcAverage = competitionService.calcAverageGrade;
     $scope.reCalcFinalGrade = function (category, sportsman) {
         $scope.sportsmanGrade.get(category.id).get(sportsman.id).finalGrade = competitionService.calcAverageGrade($scope.sportsmanGrade.get(category.id).get(sportsman.id).judgeGrades, $scope.sportsmanGrade.get(category.id).get(sportsman.id).masterGrade);
-        console.log($scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id).finalGrade)
     };
     $scope.isDisableSaveButton = function (category, sportsman) {
         let masterGrade = $scope.sportsmanGrade.get(category.id).get(sportsman.id).masterGrade;
@@ -124,7 +119,18 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
             category.forEach(s => allSaved = allSaved && s.isSaved);
         })
         return allSaved;
-    }
+    };
+    $scope.categoryHasUnSavedSportsman = function(category){
+        let isAllSaved = true;
+        category.forEach(sportsman => {
+            if (!sportsman.isSaved)
+                isAllSaved = false;
+        });
+        return !isAllSaved;
+    };
+    $scope.isDisableNextSportsmanButton = function(){
+        return $scope.judges ? $scope.judges.some(j => !j.isGraded) : true;
+    };
 
     $scope.saveGrades = function (sportsman,category) {
          let judeges = []
