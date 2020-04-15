@@ -392,4 +392,16 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         return $http(req);
 
     }
+
+    this.updateGradeCompetition = function (data) {
+        let req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/judge/excelUpdateTaulloCompetitionGrade',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: data
+        };
+        return $http(req);
+    }
 });
