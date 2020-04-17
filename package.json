@@ -20,10 +20,14 @@
   "dependencies": {
     "angular-animate": "^1.7.8",
     "angular-loading-bar": "^0.9.0",
+    "angular-local-storage": "^0.7.1",
     "angular-route": "^1.7.8",
     "angular-sanitize": "^1.7.8",
+    "angular-socket-io": "^0.7.0",
     "angularjs-toast": "^2.0.3",
     "fs": "0.0.1-security",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0",
     "util": "^0.12.1",
     "xlsx": "^0.15.4"
   }

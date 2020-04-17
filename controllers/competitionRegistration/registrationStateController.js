@@ -128,7 +128,8 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
                     id: user.id,
                     category: user.selectedCategory.id,
                     oldCategory: parseInt(oldCategory),
-                    isDeleted: user.isDeleted
+                    isDeleted: user.isDeleted,
+                    indx: user.indx
                 }
             );
         }
@@ -188,6 +189,32 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
         // });
     };
 
+    $scope.changeOrder = function(){
+        let indx = 0;
+        $scope.usersCategories.forEach(userCategory => userCategory.users.forEach(user => {
+            if(user.indx !== indx) {
+                user.indx = indx;
+                let categorySportsman = $scope.categoryForSportsman.find(item => {
+                    return item.id == user.id;
+                });
+                if (categorySportsman) {
+                    categorySportsman.indx = user.indx;
+                } else {
+                    $scope.categoryForSportsman.push(
+                        {
+                            id: user.id,
+                            category: user.selectedCategory.id,
+                            oldCategory: user.selectedCategory.id,
+                            isDeleted: user.isDeleted,
+                            indx: user.indx
+                        }
+                    );
+                }
+            }
+            indx += 1;
+        }));
+        $scope.$apply();
+    };
     $scope.closeRegistration = function() {
         confirmDialogService.askQuestion("האם אתה בטוח שברצונך לסגור את הרישום לתחרות?", function () {
             competitionService.closeRegistration($scope.currentCompetition.idCompetition)
@@ -347,6 +374,8 @@ app.directive("dragDrop", ["$parse",
                     //clearing the source
                     sourceParent = "";
                     sourceIndex = -1;
+
+                    $scope.changeOrder();
                 }
 
             }

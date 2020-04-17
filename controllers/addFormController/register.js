@@ -183,8 +183,12 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
         let fileinput = document.getElementById("fileSportsman");
         fileinput.click();
         fileinput.onchange = function (event) {
-            $scope.ExcelExport(event)
-            changeDropZone(event.target.value.toString());
+            excelService.uploadExcel(event,function (res) {
+                changeDropZone(event.target.value.toString());
+                res.shift();
+                registerExcelUsers(res, $scope.userType)
+            })
+
         }
     };
     $scope.uploadNewFile = function () {
@@ -195,7 +199,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
     };
 //----------------------------------------------------------------------------------------------------------------------
 
-    fillDataTmpFunction();
+   // fillDataTmpFunction();
     function fillDataTmpFunction() {
         $scope.id = 222222222;
         $scope.firstname = "ניסיון";

@@ -1,0 +1,91 @@
+<div id="box" style="height: 1000px; width: 97%;">
+    <div class="right">
+        <div style="width: 550px">
+            <h1>
+                תוצאות תחרות
+            </h1>
+
+            <div class="center">
+                <div ng-init="searchClicked=false" ng-keydown="$event.keyCode === 13 && setPage(1); searchClicked=true">
+                    <input class="searchInput" type="text" placeholder="חפש..." ng-model="searchText"
+                           ng-change="searchClicked=false">
+                    <button ng-click="setPage(1); searchClicked=true" ng-show="searchClicked==false">
+                        <i class="fa fa-search clickableSearch" style="left: 45px" aria-hidden="true"></i>
+                    </button>
+                    <button ng-click="searchText=''; setPage(1); searchClicked=false" ng-show="searchClicked==true">
+                        <i class="fa fa-times clickableSearch" style="left: 45px" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <table cellspacing="0">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="thInItemList">מקום</th>
+                    <th class="thInItemList">ת.ז.</th>
+                    <th class="thInItemList">שם מלא</th>
+                    <th class="thInItemList">מין</th>
+                    <th class="thInItemList">גיל</th>
+                    <th class="thInItemList">ציון</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="sportsmanCategory in compResults">
+                <tr colspan="6">
+                    <td>{{sportsmanCategory.category.name}} {{getAgeRange(sportsmanCategory.category)}} ({{sportsmanCategory.category.sex}})</td>
+                </tr>
+                <tr ng-repeat="sportsman in sportsmanCategory.users">
+                    <td class="tdInItemList"></td>
+                    <td class="tdInItemList">{{$index+1}}</td>
+                    <td class="tdInItemList">{{sportsman.id}}</td>
+                    <td class="tdInItemList">{{sportsman.firstname}} {{sportsman.lastname}}</td>
+                    <td class="tdInItemList">{{sportsman.sex}}</td>
+                    <td class="tdInItemList">{{sportsman.age}}</td>
+                    <td class="tdInItemList">{{sportsman.finalGrade}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="left">
+        <h1>
+            העלאת תוצאות תחרות<br>באמצעות
+            קובץ אקסל
+        </h1>
+        <div class="downloadLink">
+            <i class="fa fa-arrow-down" style="text-decoration: underline" aria-hidden="true"></i>
+            <a id="downExcelResultCompetition" ng-click="downloadExcelResultCompetition()" class="linkDark" href=""
+               download>
+                הורד פורמט קובץ אקסל להעלאת תוצאות תחרות</a>
+        </div>
+
+        <div class="center">
+            <div class="dropzone" id="dropZoneUploadCompetitionGrades">
+                <label id="dropText">{{isDropped ? filename : "גרור קובץ או לחץ על העלאת קובץ"}}</label>
+            </div>
+        </div>
+
+        <div class="uploadBtn" ng-show="!isDropped">
+            <input type="file" id="fileCompetitionUploadGrade" ng-model="csvFile"
+                   onchange="angular.element(this).scope().ExcelExport(event)"
+                   style="display:block;margin-top: 5%"/>
+            <label for="fileCompetitionUploadGrade"> העלאת קובץ</label><br>
+        </div>
+        <div class="uploadResultsPanel">
+            <div class="error" ng-show="isDropped && excelErrors.length > 0">
+                העלאה לא הצליחה, הקובץ מכיל שגיאות
+                <div ng-repeat="error in excelErrors" style="text-align: right">
+                    <br>
+                    <div ng-show="errorSportsman.id">
+                        בשורה {{error.line}}:
+                    </div>
+                    {{error.error}}
+                </div>
+            </div>
+            <a class="linkDark" id="changeExcel" ng-show="isDropped" href="" ng-click="uploadNewFile()"> העלה קובץ
+                חדש </a>
+        </div>
+    </div>
+</div>

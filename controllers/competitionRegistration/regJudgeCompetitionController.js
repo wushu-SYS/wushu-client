@@ -3,6 +3,7 @@ app.controller("regJudgeCompetitionController", function ($scope, $rootScope, $r
     $scope.selectedRegisteredUsers = [];
     $scope.toRegisterUsers = [];
     $scope.toUnRegisterUsers = [];
+    $scope.master;
     getData();
 
     function getData(){
@@ -10,9 +11,14 @@ app.controller("regJudgeCompetitionController", function ($scope, $rootScope, $r
             .then(function (result) {
                 $scope.registeredUsers = result.data.registeredJudges;
                 $scope.notRegisteredUsers = result.data.unRegisteredJudges;
+                $scope.notRegisteredUsers.forEach(j => j.isMaster = false)
             }, function (error) {
                 console.log(error)
             });
+    }
+
+    $scope.setMaster = function (user){
+        $scope.master = user;
     }
 
     $scope.selectNotRegistered = function (user) {
@@ -54,13 +60,20 @@ app.controller("regJudgeCompetitionController", function ($scope, $rootScope, $r
     };
 
     $scope.register = function () {
-        competitionService.registerJudgeToCompetition($routeParams.idComp, $scope.toRegisterUsers, $scope.toUnRegisterUsers)
-            .then(function (result) {
-                toastNotificationService.successNotification("הרישום בוצע בהצלחה")
-            }, function (error) {
-                console.log(error);
-                toastNotificationService.successNotification("ארעה שגיאה בעת ביצוע הרישום")
-            });
+        let countMaster = $scope.toRegisterUsers.filter(u => u.isMaster).length
+        if(countMaster == 0)
+            toastNotificationService.errorNotification("לא ניתן לבצע שמירה. יש לבחור שופט ראשי")
+        else if (countMaster > 1)
+            toastNotificationService.errorNotification("לא ניתן לבצע שמירה. יש לבחור שופט ראשי אחד")
+        else {
+            competitionService.registerJudgeToCompetition($routeParams.idComp, $scope.toRegisterUsers, $scope.toUnRegisterUsers, $scope.master)
+                .then(function (result) {
+                    toastNotificationService.successNotification("הרישום בוצע בהצלחה")
+                }, function (error) {
+                    console.log(error);
+                    toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע הרישום")
+                });
+        }
     }
 
     $rootScope.isChangingLocationFirstTime = true;

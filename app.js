@@ -1,4 +1,4 @@
-let app = angular.module('myApp', ["ngRoute", 'ui.bootstrap', 'ngPatternRestrict', 'cp.ngConfirm', 'angularjsToast', 'angular-loading-bar', 'ngAnimate'])
+let app = angular.module('myApp', ["ngRoute", 'ui.bootstrap', 'ngPatternRestrict', 'cp.ngConfirm', 'angularjsToast', 'angular-loading-bar', 'ngAnimate','btford.socket-io'])
     .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
         cfpLoadingBarProvider.includeSpinner = true;
         cfpLoadingBarProvider.includeBar = true;
@@ -8,6 +8,13 @@ let app = angular.module('myApp', ["ngRoute", 'ui.bootstrap', 'ngPatternRestrict
                                                 '<span>אנא המתן...</span>' +
                                                 '</div>';
     }]);
+
+app.service('SocketService', ['socketFactory', function SocketService(socketFactory) {
+    return socketFactory({
+        ioSocket: io.connect('http://localhost:3000')
+    });
+}]);
+
 app.controller("mainController", function ($scope, $location, $window, $rootScope) {
     if($window.sessionStorage.getItem('name') != null && $window.sessionStorage.getItem('name')!=='')
         $rootScope.name = $window.sessionStorage.getItem('name');
@@ -83,7 +90,7 @@ app.config(function($routeProvider) {
         })
         .when('/refereeProfile/:id?', {
             templateUrl: 'views/profileView/profilePage.html',
-            controller: 'refereeProfileController as coachProfileCtrl'
+            controller: 'refereeProfileController as refereeProfileCtrl'
         })
         .when('/sportClubs/addSportClub', {
             templateUrl: 'views/addFormsView/addNewClub.html',
@@ -121,13 +128,21 @@ app.config(function($routeProvider) {
             templateUrl: 'views/tablesView/competitionTable.html',
             controller: 'registerToCompetitionController as regCompCtrl'
         })
-        .when('/competitions/addResults', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
+        .when('/competitions/startCompetition', {
+            templateUrl: 'views/tablesView/competitionsToJudgeTable.html',
+            controller: 'competitionsToJudgeController as competitionsToJudgeController'
         })
         .when('/competitions/results', {
             templateUrl: 'views/tablesView/competitionTable.html',
-            controller: 'competitionResultsController as compResCtrl'
+            controller: 'competitionResultsTableController as compResTableCtrl'
+        })
+        .when('/competitionResults/taullo/:idComp', {
+            templateUrl: 'views/competitionResults/competitionResultsTaullo.html',
+            controller: 'competitionResultsTaulloController as compResultsTaulloCtrl'
+        })
+        .when('/competitionResults/sanda/:idComp', {
+            templateUrl: 'views/competitionResults/competitionResultsSanda.html',
+            controller: 'competitionResultsSandaController as compResultsSandaCtrl'
         })
         .when('/competitions/getCompetitions', {
             templateUrl: 'views/tablesView/competitionTable.html',
@@ -160,6 +175,22 @@ app.config(function($routeProvider) {
         .when('/judgeCompetitionRegistration/:idComp', {
             templateUrl: 'views/competitionRegistrationView/regJudgeCompetition.html',
             controller: 'regJudgeCompetitionController as jCompetitionRegCtrl'
+        })
+        .when('/judgingCompetitionMaster/:idComp', {
+            templateUrl: 'views/competitionJudgingView/judgeCompetition.html',
+            controller: 'judgingCompetitionMaster as jCompetitionMaster'
+        })
+        .when('/judgingCompetitionSimple/:idComp', {
+            templateUrl: 'views/competitionJudgingView/judgeCompetition.html',
+            controller: 'judgingCompetitionSimple as jCompetitionSimple'
+        })
+        .when('/waitingForCompetitionHost/:idComp', {
+            templateUrl: 'views/loadingView/loading.html',
+            controller: 'waitingForCompetitionHost as waitingForCompetitionHost'
+        })
+        .when('/waitingForTheNextSportsman/:idComp/:preSportsman', {
+            templateUrl: 'views/loadingView/loading.html',
+            controller: 'waitingForTheNextSportsman as waitingForTheNextSportsman'
         })
         .otherwise({redirectTo: '/login'});
 });

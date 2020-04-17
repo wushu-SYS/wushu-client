@@ -5,6 +5,7 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
     $scope.isEditModeOn = false;
     $scope.currentDate = new Date();
     $scope.sexEnum = constants.sexEnum;
+    $scope.sportStyleEnum = constants.sportStyleEnum;
     $scope.regex = constants.regex;
 
     let medicalScanIframe = document.getElementById("medicalScanIframe");
@@ -107,7 +108,8 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
                 birthDate: $filter('date')($scope.user.birthdate, "MM/dd/yyyy"),
                 address: $scope.user.address,
                 sex: $scope.user.sex,
-                oldId: oldId
+                oldId: oldId,
+                sportStyle: $scope.user.sportStyle
             }
             sportsmanService.updateProfile(data)
                 .then(function (result) {

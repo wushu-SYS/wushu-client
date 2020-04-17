@@ -1,0 +1,18 @@
+<head>
+    <link data-require="bootstrap-css@3.*" data-semver="3.3.7" rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"/>
+</head>
+<div class="modal-body">
+    <h3>שופטים רשומים לתחרות</h3>
+    <h5>אנא וודא נוכחות שופטים:</h5>
+    <div class="center" style="text-align: right; display: inline-grid;">
+        <div ng-repeat="judge in registeredJudges">
+            <input type="checkbox" ng-model="judge.isSelected">
+            {{judge.firstname}} {{judge.lastname}}
+        </div>
+    </div>
+    <br><br>
+    <div style="text-align: center">
+        <input type="submit" class="" ng-click="checkInCompetitionJudges()" value="אישור"/>
+    </div>
+</div>

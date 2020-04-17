@@ -10,4 +10,5 @@ app.controller("homeController", function ($scope, $uibModal, $window, constants
 
     if($window.sessionStorage.getItem('isFirstLogin') == 1)
         $scope.changePassword();
+
 });
