@@ -12,4 +12,8 @@ app.controller("waitingForTheNextSportsman", function ($scope,$window, $route, S
         })
     }
     let askForNextSportsman =setInterval(waitForChange, 1000);
+
+    $scope.$on('$routeChangeStart', function(event, newRoute, oldRoute) {
+        clearInterval(askForNextSportsman)
+    });
 });

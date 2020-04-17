@@ -51,10 +51,13 @@ app.controller("competitionResultsTaulloController", function ($scope, $http, $r
         let fileinput = document.getElementById("fileCompetitionUploadGrade");
         fileinput.click();
         fileinput.onchange = function (event) {
-            $scope.ExcelExport(event)
-            changeDropZone(event.target.value.toString());
-        }
-    };
+            excelService.uploadExcel(event, function (res) {
+                changeDropZone(event.target.value.toString());
+                res.shift();
+                uploadCompetitionGrades(res)
+            })
+        };
+    }
 
     function uploadCompetitionGrades(data) {
         let uploadData = {
@@ -63,7 +66,6 @@ app.controller("competitionResultsTaulloController", function ($scope, $http, $r
         }
         competitionService.updateGradeCompetition(uploadData)
             .then((results) => {
-                console.log("hhhh")
                 toastNotificationService.successNotification("ציונים הועלו בהצלחה");
                 $route.reload();
             })
