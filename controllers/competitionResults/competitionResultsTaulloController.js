@@ -1,4 +1,4 @@
-app.controller("competitionResultsTaulloController", function ($scope, $http, $routeParams, $window, $location, excelService,constants, SocketService, competitionService, categoryService) {
+app.controller("competitionResultsTaulloController", function ($scope, $http, $routeParams, $route, $window, $location, excelService,constants, SocketService, competitionService, toastNotificationService) {
     console.log("heree")
     getDisplayData()
     function getDisplayData() {
@@ -57,12 +57,18 @@ app.controller("competitionResultsTaulloController", function ($scope, $http, $r
     };
 
     function uploadCompetitionGrades(data) {
-        competitionService.updateGradeCompetition(data)
+        let uploadData = {
+            sportsman :data,
+            idComp : $routeParams.idComp
+        }
+        competitionService.updateGradeCompetition(uploadData)
             .then((results) => {
+                console.log("hhhh")
                 toastNotificationService.successNotification("ציונים הועלו בהצלחה");
-                $location.path("/home");
+                $route.reload();
             })
             .catch((err) => {
+                toastNotificationService.errorNotification("ארעה שגיאה בעת העלאת הציונים")
                 console.log(err);
                 if (!err.data.message)
                     $scope.excelErrors = err.data;
