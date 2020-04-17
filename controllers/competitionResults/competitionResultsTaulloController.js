@@ -72,15 +72,6 @@ app.controller("competitionResultsTaulloController", function ($scope, $http, $r
                 console.log(err);
                 if (!err.data.message)
                     $scope.excelErrors = err.data;
-                else {
-                    let serverErrors = [];
-                    if (err.data.number === 547)
-                        serverErrors.push("ת.ז מאמן לא קיימת במערכת");
-                    if (err.data.number === 2627)
-                        serverErrors.push("ת.ז " + getIdFromErrorMessage(err.data.message) + " קיימת כבר במערכת.");
-                    if (serverErrors.length > 0)
-                        $scope.excelErrors = [{errors: serverErrors}]
-                }
             })
     }
     $scope.uploadNewFile = function () {
