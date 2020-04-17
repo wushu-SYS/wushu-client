@@ -45,5 +45,7 @@ app.controller("competitionsToJudgeController", function ($scope, $window, $http
     }
 
     let updateCompState =setInterval(askForStartedCompetitions,1000);
-
+    $scope.$on('$routeChangeStart', function(event, newRoute, oldRoute) {
+        clearInterval(updateCompState)
+    });
 });
