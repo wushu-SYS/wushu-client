@@ -111,7 +111,7 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         };
         return $http(req);
     };
-    this.registerJudgeToCompetition = function (compId, registerJusges, unregisterJudges) {
+    this.registerJudgeToCompetition = function (compId, registerJusges, unregisterJudges, master) {
         var req = {
             method: 'POST',
             url: constants.serverUrl + '/private/manager/competitionJudge',
@@ -121,7 +121,8 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
             data: {
                 compId: compId,
                 insertJudges: registerJusges,
-                deleteJudges: unregisterJudges
+                deleteJudges: unregisterJudges,
+                masterJudge: master.id
             }
         };
         return $http(req);

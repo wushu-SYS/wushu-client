@@ -58,16 +58,18 @@
                             ng-click="selectRegistered(user)">
                             <td class="tdInItemList">{{user.id}}</td>
                             <td class="tdInItemList">{{user.firstname}} {{user.lastname}}</td>
-                            <td class="tdInItemList"><input type="radio" name="selectedMaster" ng-model="user.isMaster"> </td>
+                            <td class="tdInItemList">
+                                <input type="checkbox" ng-model="user.isMaster" ng-change="setMaster(user)">
+<!--                                <input type="radio" name="selectedMaster" ng-model="user.isMaster" ng-change="setMaster(user)"> </td>-->
                         </tr>
                     </table>
                 </div>
             </div>
         </div>
         <div class="center" style="margin-top: 10px">
-            <input type="submit" ng-class="{'disabled' : toRegisterUsers.length==0 && toUnRegisterUsers.length==0}"
+            <input type="submit" ng-class="{'disabled' : toRegisterUsers.length==0 && toUnRegisterUsers.length==0 && !master}"
                    ng-click="register()"
-                   ng-disabled="toRegisterUsers.length==0 && toUnRegisterUsers.length==0"
+                   ng-disabled="toRegisterUsers.length==0 && toUnRegisterUsers.length==0 && !master"
                    value="שמור"/>
         </div>
     </div>
