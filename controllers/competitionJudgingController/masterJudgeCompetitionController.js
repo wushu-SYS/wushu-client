@@ -126,7 +126,6 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
             if (!sportsman.isSaved)
                 isAllSaved = false;
         });
-        console.log(!isAllSaved)
         return !isAllSaved;
     };
     $scope.isDisableNextSportsmanButton = function () {
