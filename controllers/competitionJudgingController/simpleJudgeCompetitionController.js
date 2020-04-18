@@ -9,8 +9,11 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
     $scope.currentSportsmanIndex = 0;
 
 
-    getDisplayDitails()
-    async function getDisplayDitails() {
+    getDisplayDetails()
+        .then(()=>{})
+
+
+    async function getDisplayDetails() {
         competitionService.getRegistrationState($routeParams.idComp)
             .then(function (result) {
                 $scope.sportsmanQueue = result.data;
@@ -34,7 +37,10 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
                 $scope.currentCompetition = result.data;
             }).catch(function (error) {console.log(error)})
     }
-    function get() {
+
+
+
+    function getNextSportsman() {
         SocketService.emit('whoIsNextSportsman', {userId :$window.sessionStorage.getItem('id'),idComp: $routeParams.idComp});
     }
 
@@ -56,7 +62,7 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
 
     })
 
-    get()
+    getNextSportsman()
     $scope.getAgeRange = categoryService.getAgeRange;
 
     $scope.sendGrade = function(finish){
@@ -72,6 +78,14 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
             competitionService.waitsForNextSportsman($routeParams.idComp,preSportsman)
         $scope.grade= ''
     }
+
+    function getFinalsGrades() {
+        SocketService.emit("competitionFinalsGrades",{idComp:$routeParams.idComp,userId:$window.sessionStorage.getItem('id')})
+        SocketService.on("competitionFinalsGradesResults",function (data) {
+            console.log(data)
+        })
+    }
+    setInterval(getFinalsGrades,5000)
 
 });
 

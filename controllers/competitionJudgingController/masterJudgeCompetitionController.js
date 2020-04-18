@@ -30,7 +30,7 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
                     $scope.sportsmanGrade.set(categorySportsman.category.id, sportsmans)
                 });
 
-                // $scope.sportsmanGrade.get(38).get(333456416).judgeGrades[305077911] = 10;
+                $scope.sportsmanGrade.get(38).get(333456416).judgeGrades[305077911] = 10;
 
 
                 $scope.currentCategory = $scope.sportsmanQueue[$scope.currentCategoryIndex].category;
@@ -55,8 +55,8 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
 
         competitionService.getRegisteredJudges($routeParams.idComp)
             .then(function (result) {
-                $scope.judges = result.data.filter((judge)=>judge.isMaster ==0);
-                // $scope.judges.forEach((judge) => judge.isGraded = true)
+                $scope.judges = result.data.filter((judge) => judge.isMaster == 0);
+                 $scope.judges.forEach((judge) => judge.isGraded = true)
             }, function (error) {
                 toastNotificationService.errorNotification("ארעה שגיאה. אנא פנה לתמיכה טכנית");
                 console.log(error)
@@ -70,7 +70,7 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
         judge.isGraded = true;
         $scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id).judgeGrades[judge.idJudge] = data.grade;
     })
-    $scope.sendGrade = function(finish){
+    $scope.sendGrade = function (finish) {
         $scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id).masterGrade = $scope.grade;
         $scope.reCalcFinalGrade($scope.currentCategory, $scope.currentSportsman);
 
@@ -113,14 +113,14 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
 
         return !(isMasterValid && isJudgesGradeValid);
     };
-    $scope.isAllGradesApproved = function(){
+    $scope.isAllGradesApproved = function () {
         let allSaved = true;
-        $scope.sportsmanGrade.forEach(category =>{
+        $scope.sportsmanGrade.forEach(category => {
             category.forEach(s => allSaved = allSaved && s.isSaved);
         })
         return allSaved;
     };
-    $scope.categoryHasUnSavedSportsman = function(category){
+    $scope.categoryHasUnSavedSportsman = function (category) {
         let isAllSaved = true;
         category.forEach(sportsman => {
             if (!sportsman.isSaved)
@@ -128,35 +128,44 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
         });
         return !isAllSaved;
     };
-    $scope.isDisableNextSportsmanButton = function(){
+    $scope.isDisableNextSportsmanButton = function () {
         return $scope.judges ? $scope.judges.some(j => !j.isGraded) : true;
     };
 
-    $scope.saveGrades = function (sportsman,category) {
-         let judeges = []
-        for (let i  in sportsman.judgeGrades){
-            judeges.push({idJudge :i ,grade : parseFloat(sportsman.judgeGrades[i])})
+    $scope.saveGrades = function (sportsman, category) {
+        let judeges = []
+        for (let i in sportsman.judgeGrades) {
+            judeges.push({idJudge: i, grade: parseFloat(sportsman.judgeGrades[i])})
         }
-        judeges.push({idJudge :[$window.sessionStorage.getItem('id')] ,grade :parseFloat(sportsman.masterGrade)})
-         let data = {
-             idComp :$routeParams.idComp,
-             idSportsman : sportsman.id,
-             idCategory : category.id,
-             judges :judeges,
-             avgGrade :sportsman.finalGrade
+        judeges.push({idJudge: [$window.sessionStorage.getItem('id')], grade: parseFloat(sportsman.masterGrade)})
+        let data = {
+            idComp: $routeParams.idComp,
+            idSportsman: sportsman.id,
+            idCategory: category.id,
+            judges: judeges,
+            avgGrade: sportsman.finalGrade
 
-         };
+        };
         competitionService.saveSportsmanGrade(data)
-            .then((res)=>{
+            .then((res) => {
+                SocketService.emit("masterJudgeSaveGrade", {
+                    userId: $window.sessionStorage.getItem('id'), sportsman: {
+                        idComp: $routeParams.idComp,
+                        idSportsman: sportsman.id,
+                        idCategory: category.id,
+                        avgGrade: sportsman.finalGrade
+                    },idComp :$routeParams.idComp
+                })
+
                 sportsman.isSaved = true;
             })
     }
     $scope.closeCompetition = function () {
         competitionService.manualCloseCompetition($routeParams.idComp)
-            .then((res)=>{
+            .then((res) => {
                 $location.path("/home")
             })
-            .catch((err)=>{
+            .catch((err) => {
                 console.log(err)
             })
     }

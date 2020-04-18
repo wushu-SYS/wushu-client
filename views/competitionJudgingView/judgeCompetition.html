@@ -101,9 +101,9 @@
                             </div>
                             <div ng-show="!sportsman.isSaved">
                                 <input type="submit"
-                                       ng-class="{'disabled' : isDisableSaveButton(category, sportsman)}"
-                                       ng-click="saveGrades(sportsman,category)" style="padding: 9px 10px;"
-                                       ng-disabled="isDisableSaveButton(category, sportsman)"
+                                       ng-class="{'disabled' : isDisableSaveButton(sportsmanCategory.category, sportsman)}"
+                                       ng-click="saveGrades(sportsman,sportsmanCategory.category)" style="padding: 9px 10px;"
+                                       ng-disabled="isDisableSaveButton(sportsmanCategory.category, sportsman)"
                                        value="אשר"/>
                             </div>
                         </td>
