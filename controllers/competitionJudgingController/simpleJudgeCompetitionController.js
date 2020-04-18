@@ -98,6 +98,10 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
         })
     }
 
+    $scope.categoryHasUnSavedSportsman = function(category){
+        return true;
+    }
+
     $scope.$on('$routeChangeStart', function(event, newRoute, oldRoute) {
         clearInterval(getFinalsGrades);
         });
