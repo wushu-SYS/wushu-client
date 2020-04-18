@@ -29,7 +29,7 @@ app.controller("competitionResultsTaulloController", function ($scope, $http, $r
     }
     $scope.editSportsmanGrades = function () {
         let data = {
-            idComp: $routeParams.idComp,
+            idComp: parseInt($routeParams.idComp),
             grades: $scope.editedGrades
         }
         console.log(data)
