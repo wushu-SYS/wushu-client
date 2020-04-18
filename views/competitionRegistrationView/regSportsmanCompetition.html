@@ -1,11 +1,10 @@
 <div ng-repeat="pass in [{'userType':'sportsman'}]" ng-include="'views/competitionRegistrationView/regCompetition.html'"></div>
-<div id="box" style="height: 1000px; width: 97%;">
-    <div class="right">
+<div id="box" style="width: 97%;" class="flexBox">
+    <div class="right" style="width: 100%">
+        <h1>
+            רישום ספורטאיים לתחרות
+        </h1>
         <div style="width: 550px">
-            <h1>
-                רישום ספורטאיים לתחרות
-            </h1>
-
             <div class="center">
                 <div ng-init="searchClicked=false" ng-keydown="$event.keyCode === 13 && setPage(1); searchClicked=true">
                     <input class="searchInput" type="text" placeholder="חפש..." ng-model="searchText"
@@ -105,7 +104,7 @@
         </div>
     </div>
     <!--    <div class="or">או</div>-->
-    <div class="left">
+    <div class="left" style="width: 550px">
         <h1>
             רישום ספורטאיים לתחרות<br>באמצעות
             קובץ אקסל
@@ -144,5 +143,5 @@
         </div>
 
 
-    </div>
+    </div wid>
 </div>

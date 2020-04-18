@@ -10,7 +10,7 @@
 </div>
 
 
-<div id="box" style="height: 1250px">
+<div id="box" class="flexBox">
     <div class="right">
         <h1 ng-show="userType=='sportsman'">רישום ספורטאי חדש למערכת</h1>
         <h1 ng-show="userType=='coach'">רישום מאמן חדש למערכת</h1>
@@ -111,7 +111,8 @@
                 <label class="label-input100">ענף</label>
                 <div class="radioDiv">
                     <span ng-repeat="style in sportStyleEnum" class="radioInput">
-                        <input type="radio" name="sportStyle" ng-model="$parent.sportStyle" ng-required="!sportStyle && userType =='sportsman'"
+                        <input type="radio" name="sportStyle" ng-model="$parent.sportStyle"
+                               ng-required="!sportStyle && userType =='sportsman'"
                                ng-value="style.name"><label
                             class="radio_label"> {{style.name}} </label></input>
                     </span>
@@ -146,6 +147,9 @@
             <input type="submit" name="signup_submit" ng-click="isClicked=true" value="הירשם"/>
         </form>
     </div>
+    <div class="orWrapper">
+        <div class="or">או</div>
+    </div>
     <div class="left" style="min-width: 450px">
         <h1 ng-show="userType=='sportsman'">רישום ספורטאיים חדשים למערכת<br>באמצעות קובץ אקסל</h1>
         <h1 ng-show="userType=='coach'">רישום מאמנים חדשים למערכת<br>באמצעות קובץ אקסל</h1>
@@ -171,7 +175,8 @@
             <div class="validate-input downloadLink">
                 <span class="focus-input100" data-symbol="&#xf220"></span>
                 <a id="downExcelNewJudge" class="linkDark" style="padding-right: 15px"
-                   href="" ng-click="downloadExcelRegisterJudge()" download> הורד פורמט קובץ אקסל לרישום שופטים חדשים</a>
+                   href="" ng-click="downloadExcelRegisterJudge()" download> הורד פורמט קובץ אקסל לרישום שופטים
+                    חדשים</a>
             </div>
         </div>
         <div class="center" ng-show="userType=='judge'">
@@ -216,7 +221,5 @@
         </div>
 
     </div>
-</div>
-<div class="or">או</div>
 </div>
 </body>

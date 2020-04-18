@@ -75,6 +75,9 @@ button:hover {
     border-radius: 2px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
+.flexBox{
+    display: flex;
+}
 
 .scrollablePanel{
     direction: ltr;
@@ -85,7 +88,7 @@ button:hover {
 }
 
 .left {
-    position: absolute;
+    /*position: absolute;*/
     top: 0;
     left: 0;
     box-sizing: border-box;
@@ -94,12 +97,12 @@ button:hover {
     height: 400px;
 }
 .right {
-    position: absolute;
+    /*position: absolute;*/
     top: 0;
     right: 0;
     box-sizing: border-box;
     padding: 40px;
-    /*width: 350px;*/
+    width: 900px;
     /*height: 400px;*/
     /*background: url('https://goo.gl/YbktSj');*/
     background-size: cover;

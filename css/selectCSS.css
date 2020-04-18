@@ -16,7 +16,7 @@ select:focus, select:active {
     border-bottom-color: #599bb3;
 }
 .littleSelect{
-    /*width: 150px;*/
+    width: 150px;
     /*padding: 0px 10px 0px 5px;*/
     padding: 0px;
 }

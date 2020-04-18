@@ -1,11 +1,11 @@
-<div id="box" style="height: 1000px; width: 97%;">
-    <div class="right" style=" overflow: auto">
-        <div style="width: 550px">
+<div id="box" style="width: 97%;">
+    <div class="right">
+        <div>
             <h1>
                 תוצאות תחרות
             </h1>
 
-            <div class="center">
+            <div>
                 <div ng-init="searchClicked=false" ng-keydown="$event.keyCode === 13 && setPage(1); searchClicked=true">
                     <input class="searchInput" type="text" placeholder="חפש..." ng-model="searchText"
                            ng-change="searchClicked=false">

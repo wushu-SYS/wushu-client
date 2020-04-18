@@ -1,5 +1,5 @@
 app.constant('constants', {
-    serverUrl: "http://10.0.0.6:3000",
+    serverUrl: "http://localhost:3000",
     // serverUrl: "https://app-wushu.herokuapp.com",
     regex:{
         regexOnlyNumbers : new RegExp("^(\\d)*$"),
