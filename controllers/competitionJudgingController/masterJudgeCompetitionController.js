@@ -126,7 +126,6 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
             if (!sportsman.isSaved)
                 isAllSaved = false;
         });
-        console.log(!isAllSaved)
         return !isAllSaved;
     };
     $scope.isDisableNextSportsmanButton = function () {
@@ -164,6 +163,7 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
     $scope.closeCompetition = function () {
         competitionService.manualCloseCompetition($routeParams.idComp)
             .then((res) => {
+                SocketService.emit("judgeMasterCloseCompetition",{userId:$window.sessionStorage.getItem('id'),idComp:$routeParams.idComp})
                 $location.path("/home")
             })
             .catch((err) => {
