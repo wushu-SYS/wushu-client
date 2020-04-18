@@ -404,10 +404,21 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
 
     }
 
-    this.updateGradeCompetition = function (data) {
+    this.uploadGradeCompetition = function (data) {
         let req = {
             method: 'POST',
             url: constants.serverUrl + '/private/judge/excelUpdateTaulloCompetitionGrade',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: data
+        };
+        return $http(req);
+    }
+    this.updateCompetitionResults = function (data) {
+        let req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/manager/updateCompetitionGrades',
             headers: {
                 'x-auth-token': $window.sessionStorage.getItem('token')
             },

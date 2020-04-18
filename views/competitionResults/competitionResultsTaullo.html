@@ -1,5 +1,5 @@
 <div id="box" style="height: 1000px; width: 97%;">
-    <div class="right">
+    <div class="right" style=" overflow: auto">
         <div style="width: 550px">
             <h1>
                 תוצאות תחרות
@@ -20,6 +20,10 @@
         </div>
         <br>
 
+        <div>
+            <i class="fa fa-pencil iColored" aria-hidden="true"></i>
+            <a class="linkDark iLink" href="" ng-click="isEditModeOn = !isEditModeOn">{{isEditModeOn ? 'ביטול עריכה' : 'ערוך ציונים סופיים'}}</a>
+        </div>
         <table cellspacing="0">
             <thead>
                 <tr>
@@ -43,13 +47,29 @@
                     <td class="tdInItemList">{{sportsman.firstname}} {{sportsman.lastname}}</td>
                     <td class="tdInItemList">{{sportsman.sex}}</td>
                     <td class="tdInItemList">{{sportsman.age}}</td>
-                    <td class="tdInItemList">{{sportsman.finalGrade}}</td>
+                    <td class="tdInItemList" ng-show="!isEditModeOn">{{sportsman.finalGrade}}</td>
+                    <td  class="tdInItemList" ng-show="isEditModeOn">
+                        <div ng-form name="gradeForm" class="wrap-input100-black validate-input"
+                             style="width: 200px;"
+                             ng-class="{'alert-validate' : gradeForm.grade.$invalid}"
+                             data-validate="{{gradeForm.grade.$error.pattern || gradeForm.$error.required ? 'ציון לא תקין' : ''}}">
+                            <input class="input100" type="text" name="grade" ng-model="sportsman.finalGrade" ng-change="gradeChanged(sportsman)"
+                                   ng-pattern="regex.regexForCompetitionGrade" ng-required="true">
+                            <span class="focus-input100"></span>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
+        <div class="center">
+            <input type="submit" ng-show="isEditModeOn" ng-class="{'disabled' : editedGrades.length == 0 || isNotValidGrades()}"
+                   ng-click="editSportsmanGrades()"
+                   ng-disabled="editedGrades.length == 0 || isNotValidGrades()"
+                   value="שמור"/>
+        </div>
     </div>
 
-    <div class="left">
+    <div class="left" ng-show="compResults.length == 0">
         <h1>
             העלאת תוצאות תחרות<br>באמצעות
             קובץ אקסל

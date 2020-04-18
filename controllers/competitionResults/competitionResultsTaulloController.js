@@ -1,6 +1,9 @@
-app.controller("competitionResultsTaulloController", function ($scope, $http, $routeParams, $route, $window, $location, excelService,constants, SocketService, competitionService, toastNotificationService) {
-    console.log("heree")
+app.controller("competitionResultsTaulloController", function ($scope, $http, $routeParams, $route, $window, $location, excelService, constants, SocketService, competitionService, toastNotificationService) {
+    $scope.regex = constants.regex;
+    $scope.editedGrades = [];
+
     getDisplayData()
+
     function getDisplayData() {
         competitionService.getResultCompetition($routeParams.idComp)
             .then(function (result) {
@@ -10,15 +13,45 @@ app.controller("competitionResultsTaulloController", function ($scope, $http, $r
             })
     }
 
+    $scope.isNotValidGrades = function () {
+        return $scope.editedGrades.some(sportsman => sportsman.grade == undefined || sportsman.grade == '')
+    }
+    $scope.gradeChanged = function (sportsman) {
+        let edited = $scope.editedGrades.find(s => s.sportsmanId == sportsman.id)
+        if (edited)
+            edited.grade = sportsman.finalGrade;
+        else
+            $scope.editedGrades.push({
+                sportsmanId: sportsman.id,
+                categoryId: sportsman.category,
+                grade: parseFloat(sportsman.finalGrade)
+            })
+    }
+    $scope.editSportsmanGrades = function () {
+        let data = {
+            idComp: $routeParams.idComp,
+            grades: $scope.editedGrades
+        }
+        console.log(data)
+        competitionService.updateCompetitionResults(data)
+            .then(function (result) {
+                toastNotificationService.successNotification("העדכון בוצע בהצלחה")
+                $route.reload();
+            }).catch(function (error) {
+                toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע העדכון")
+            console.log(error)
+        })
+    }
 
- //Excel section -------------------------------------------------------------------------------------------------------
+
+    //Excel section -------------------------------------------------------------------------------------------------------
 
     let downloadExcelLinkCoachAsJudge = document.getElementById("downExcelResultCompetition");
     let dropZoneUploadCompetitionGrades = document.getElementById("dropZoneUploadCompetitionGrades");
 
     $scope.downloadExcelResultCompetition = function () {
         let token = $window.sessionStorage.getItem('token')
-        let url = constants.serverUrl + '/downloadExcelFormatUpdateCompetitionResults/' + token+"/"+$routeParams.idComp;
+        let url = constants.serverUrl + '/downloadExcelFormatUpdateCompetitionResults/' + token + "/" + $routeParams.idComp;
         downloadExcelLinkCoachAsJudge.setAttribute('href', url);
         downloadExcelLinkCoachAsJudge.click();
     };
@@ -61,10 +94,10 @@ app.controller("competitionResultsTaulloController", function ($scope, $http, $r
 
     function uploadCompetitionGrades(data) {
         let uploadData = {
-            sportsman :data,
-            idComp : $routeParams.idComp
+            sportsman: data,
+            idComp: $routeParams.idComp
         }
-        competitionService.updateGradeCompetition(uploadData)
+        competitionService.uploadGradeCompetition(uploadData)
             .then((results) => {
                 toastNotificationService.successNotification("ציונים הועלו בהצלחה");
                 $route.reload();
@@ -76,6 +109,7 @@ app.controller("competitionResultsTaulloController", function ($scope, $http, $r
                     $scope.excelErrors = err.data;
             })
     }
+
     $scope.uploadNewFile = function () {
         $scope.excelErrors = [];
         $scope.isDropped = false;
