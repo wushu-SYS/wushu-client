@@ -155,7 +155,7 @@ app.service('sportsmanService', function($window, $http, constants, $location) {
      * @param selectedId - the sportsman id
      */
     this.watchProfile = function (selectedId) {
-        $location.path("/sportsmanProfile/" + selectedId);
+        $location.path("/profile/sportsmanProfile/" + selectedId);
     }
 
 });

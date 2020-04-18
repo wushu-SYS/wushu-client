@@ -69,26 +69,26 @@ app.config(function($routeProvider) {
                 "check": function ($rootScope, $location, $window) {
                     let id = $window.sessionStorage.getItem("id");
                     if($rootScope.access == $rootScope.userTypes.COACH){
-                        $location.path("/coachProfile/" + id);
+                        $location.path("/profile/coachProfile/" + id);
                     }
                     else if($rootScope.access == $rootScope.userTypes.SPORTSMAN){
-                        $location.path("/sportsmanProfile/" + id);
+                        $location.path("/profile/sportsmanProfile/" + id);
                     }
                     else if($rootScope.access == $rootScope.userTypes.Judge){
-                        $location.path("/refereeProfile/" + id)
+                        $location.path("/profile/refereeProfile/" + id)
                     }
                 }
             }
         })
-        .when('/sportsmanProfile/:id?', {
+        .when('/profile/sportsmanProfile/:id?', {
             templateUrl: 'views/profileView/profilePage.html',
             controller: 'sportsmanProfileController as sportsmanProfileCtrl'
         })
-        .when('/coachProfile/:id?', {
+        .when('/profile/coachProfile/:id?', {
             templateUrl: 'views/profileView/profilePage.html',
             controller: 'coachProfileController as coachProfileCtrl'
         })
-        .when('/refereeProfile/:id?', {
+        .when('/profile/refereeProfile/:id?', {
             templateUrl: 'views/profileView/profilePage.html',
             controller: 'refereeProfileController as refereeProfileCtrl'
         })
@@ -128,7 +128,7 @@ app.config(function($routeProvider) {
             templateUrl: 'views/tablesView/competitionTable.html',
             controller: 'registerToCompetitionController as regCompCtrl'
         })
-        .when('/competitions/startCompetition', {
+        .when('/startJudging', {
             templateUrl: 'views/tablesView/competitionsToJudgeTable.html',
             controller: 'competitionsToJudgeController as competitionsToJudgeController'
         })

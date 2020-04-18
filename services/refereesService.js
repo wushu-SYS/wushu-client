@@ -54,7 +54,7 @@ app.service('refereesService', function ($window, $http, constants, $location) {
      * @param selectedId - referee id
      */
     this.watchProfile = function (selectedId) {
-        $location.path("/refereeProfile/" + selectedId);
+        $location.path("/profile/refereeProfile/" + selectedId);
     }
 
     /**

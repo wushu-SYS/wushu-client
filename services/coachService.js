@@ -57,7 +57,7 @@ app.service('coachService', function ($window, $http, constants, $location) {
      * @param selectedId - coach id
      */
     this.watchProfile = function (selectedId) {
-        $location.path("/coachProfile/" + selectedId);
+        $location.path("/profile/coachProfile/" + selectedId);
     }
 
 });
