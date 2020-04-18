@@ -3,6 +3,19 @@
  * and common function based on sportsman entity
  */
 app.service('sportsmanService', function($window, $http, constants, $location) {
+
+    this.getSportsmanRank =function (data) {
+        var req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/commonCoachManager/sportsmanRank',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: data
+        };
+        return $http(req);
+    };
+
     this.getSportsmanProfile = function (data) {
         var req = {
             method: 'POST',
