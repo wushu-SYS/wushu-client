@@ -82,14 +82,14 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
 
     function getFinalsGrades() {
         SocketService.emit("competitionFinalsGrades",{idComp:$routeParams.idComp,userId:$window.sessionStorage.getItem('id')})
-        SocketService.on("competitionFinalsGradesResults",function (data) {
-            if(sportsmanFinalGrades.length!=data.length) {
-                sportsmanFinalGrades = data;
-                console.log(sportsmanFinalGrades)
-            }
-        })
     }
-    setInterval(getFinalsGrades,5000)
 
+    setInterval(getFinalsGrades,10000)
+    SocketService.on("competitionFinalsGradesResults",function (data) {
+        if(sportsmanFinalGrades.length!=data.length) {
+            sportsmanFinalGrades = data;
+            console.log(sportsmanFinalGrades)
+        }
+    })
 });
 
