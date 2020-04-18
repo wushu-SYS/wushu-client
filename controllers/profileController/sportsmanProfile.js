@@ -134,7 +134,6 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
 
     sportsmanService.getSportsmanProfile({id: parseInt($routeParams.id)})
         .then(function (result) {
-            console.log("reload page")
             $scope.user = result.data;
             //$scope.user.photo = $scope.user.photo + '?' + new Date().getTime();
             $scope.user.birthdate = new Date($scope.user.birthdate);
@@ -143,9 +142,21 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
             medicalScanIframe.src = $scope.user.medicalScan ? $scope.user.medicalScan : "";
             insuranceIframe.src = $scope.user.insurance ? $scope.user.insurance : "";
             oldId = $scope.user.id;
+            getSportsmanRank();
         }, function (error) {
             console.log(error)
         });
+
+    function getSportsmanRank() {
+        if($rootScope.access!=$rootScope.userTypes.SPORTSMAN)
+            sportsmanService.getSportsmanRank({id: parseInt($routeParams.id)})
+                .then((function (result) {
+                    $scope.sportsmanRank = result.data[0].rank ? result.data[0].rank : "-"
+                }),function (err) {
+                    console.log(err)
+                })
+    }
+
 
     $scope.delProfile = function (id) {
         confirmDialogService.askQuestion("האם אתה בטוח שברצונך למחוק את פרופיל המשתמש?", function () {
