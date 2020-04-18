@@ -89,8 +89,14 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
         if(sportsmanFinalGrades.length!=data.length) {
             sportsmanFinalGrades = data;
             console.log(sportsmanFinalGrades)
+            updateSportsmanFinalGrades();
         }
     })
+    function updateSportsmanFinalGrades(){
+        sportsmanFinalGrades.forEach(grade =>{
+            $scope.sportsmanGrade.get(grade.idCategory).get(grade.idSportsman).finalGrade = grade.avgGrade;
+        })
+    }
 
     $scope.$on('$routeChangeStart', function(event, newRoute, oldRoute) {
         clearInterval(getFinalsGrades);
