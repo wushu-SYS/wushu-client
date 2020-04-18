@@ -84,7 +84,7 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
         SocketService.emit("competitionFinalsGrades",{idComp:$routeParams.idComp,userId:$window.sessionStorage.getItem('id')})
     }
 
-    let getFinalsGrades = setInterval(getSportsmanFinalsGrades,10000)
+    let getFinalsGrades = setInterval(getSportsmanFinalsGrades,1000)
     SocketService.on("competitionFinalsGradesResults",function (data) {
         if(sportsmanFinalGrades.length!=data.length) {
             sportsmanFinalGrades = data;
@@ -96,6 +96,10 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
         sportsmanFinalGrades.forEach(grade =>{
             $scope.sportsmanGrade.get(grade.idCategory).get(grade.idSportsman).finalGrade = grade.avgGrade;
         })
+    }
+
+    $scope.categoryHasUnSavedSportsman = function(category){
+        return true;
     }
 
     $scope.$on('$routeChangeStart', function(event, newRoute, oldRoute) {
