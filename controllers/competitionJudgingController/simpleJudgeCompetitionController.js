@@ -8,6 +8,7 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
     $scope.currentCategoryIndex = 0;
     $scope.currentSportsmanIndex = 0;
 
+    let sportsmanFinalGrades=[];
 
     getDisplayDetails()
         .then(()=>{})
@@ -73,7 +74,7 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
     $scope.nextSportsman = function () {
         $scope.sendGrade(false);
         let preSportsman = $scope.currentSportsman.id
-        get()
+        getNextSportsman()
         if (preSportsman== $scope.currentSportsman.id)
             competitionService.waitsForNextSportsman($routeParams.idComp,preSportsman)
         $scope.grade= ''
@@ -82,7 +83,10 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
     function getFinalsGrades() {
         SocketService.emit("competitionFinalsGrades",{idComp:$routeParams.idComp,userId:$window.sessionStorage.getItem('id')})
         SocketService.on("competitionFinalsGradesResults",function (data) {
-            console.log(data)
+            if(sportsmanFinalGrades.length!=data.length) {
+                sportsmanFinalGrades = data;
+                console.log(sportsmanFinalGrades)
+            }
         })
     }
     setInterval(getFinalsGrades,5000)

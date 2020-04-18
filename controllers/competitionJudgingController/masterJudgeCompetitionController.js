@@ -30,7 +30,7 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
                     $scope.sportsmanGrade.set(categorySportsman.category.id, sportsmans)
                 });
 
-                $scope.sportsmanGrade.get(38).get(333456416).judgeGrades[305077911] = 10;
+              //  $scope.sportsmanGrade.get(38).get(333456416).judgeGrades[305077911] = 10;
 
 
                 $scope.currentCategory = $scope.sportsmanQueue[$scope.currentCategoryIndex].category;
@@ -56,7 +56,7 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
         competitionService.getRegisteredJudges($routeParams.idComp)
             .then(function (result) {
                 $scope.judges = result.data.filter((judge) => judge.isMaster == 0);
-                 $scope.judges.forEach((judge) => judge.isGraded = true)
+             //    $scope.judges.forEach((judge) => judge.isGraded = true)
             }, function (error) {
                 toastNotificationService.errorNotification("ארעה שגיאה. אנא פנה לתמיכה טכנית");
                 console.log(error)
