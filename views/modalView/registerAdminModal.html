@@ -1,0 +1,48 @@
+<head>
+    <link data-require="bootstrap-css@3.*" data-semver="3.3.7" rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"/>
+</head>
+
+<div class="modal-body">
+    <h1>הוספת מנהל</h1>
+    <form class="centered-form validate-form" name="registreAdminForm" ng-submit="submit(registreAdminForm.$valid)" novalidate>
+        <div class="wrap-input100 validate-input"
+             ng-class="{'alert-validate' : registreAdminForm.id.$invalid && (registreAdminForm.id.$touched || isClicked)}"
+             data-validate="{{registreAdminForm.id.$error.required ? 'הכנס ת.ז.' : (registreAdminForm.id.$error.minlength || registreAdminForm.id.$error.maxlength || registreAdminForm.id.$error.pattern ? 'ת.ז. לא תקינה' : '')}}">
+            <span class="label-input100">ת.ז.</span>
+            <input class="input100" type="text" name="id" ng-model="id"
+                   ng-minlength="9" ng-maxlength="9" ng-required="true" ng-pattern="regex.regexOnlyNumbers"
+                   ng-pattern-restrict>
+            <span class="focus-input100" data-symbol="&#xf207;"></span>
+        </div>
+        <div class="wrap-input100 validate-input"
+             ng-class="{'alert-validate' : registreAdminForm.firstname.$invalid && (registreAdminForm.firstname.$touched || isClicked)}"
+             data-validate="{{registreAdminForm.firstname.$error.required ? 'הכנס שם פרטי' : registeregistreAdminFormrForm.firstname.$error.pattern ? 'שם פרטי לא תקין' : ''}}">
+            <span class="label-input100">שם פרטי</span>
+            <input class="input100" type="text" name="firstname" ng-model="firstname"
+                   ng-required="true" ng-pattern="regex.regexHeb" ng-pattern-restrict>
+            <span class="focus-input100" data-symbol="&#xf207;"></span>
+        </div>
+        <div class="wrap-input100 validate-input"
+             ng-class="{'alert-validate' : registreAdminForm.lastname.$invalid && (registreAdminForm.lastname.$touched || isClicked)}"
+             data-validate="{{registreAdminForm.lastname.$error.required ? 'הכנס שם משפחה' : registreAdminForm.lastname.$error.pattern ? 'שם משפחה לא תקין' : ''}}">
+            <span class="label-input100">שם משפחה</span>
+            <input class="input100" type="text" name="lastname" ng-model="lastname"
+                   ng-required="true" ng-pattern="regex.regexHeb" ng-pattern-restrict>
+            <span class="focus-input100" data-symbol="&#xf207;"></span>
+        </div>
+        <div class="wrap-input100 validate-input"
+             ng-class="{'alert-validate' : registreAdminForm.email.$invalid && (registreAdminForm.email.$touched || isClicked)}"
+             data-validate="{{registreAdminForm.email.$error.required ? 'הכנס אימייל' : registreAdminForm.email.$error.pattern ? 'אימייל לא תקין' : ''}}">
+            <span class="label-input100">אימייל</span>
+            <input class="input100" type="email" name="email" ng-model="email"
+                   ng-pattern="regex.regexEmail">
+            <span class="focus-input100" data-symbol="&#xf159;"></span>
+        </div>
+
+        <div style="text-align: center">
+            <input type="submit" ng-click="isClicked=true" value="הוסף"/>
+            <input class="btnSubmit" type="button" ng-click="closeModal()" value="ביטול"/>
+        </div>
+    </form>
+</div>

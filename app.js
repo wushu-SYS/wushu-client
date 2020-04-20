@@ -15,7 +15,7 @@ app.service('SocketService', ['socketFactory', function SocketService(socketFact
     });
 }]);
 
-app.controller("mainController", function ($scope, $location, $window, $rootScope) {
+app.controller("mainController", function ($scope, $location, $window, $rootScope, $uibModal) {
     if($window.sessionStorage.getItem('name') != null && $window.sessionStorage.getItem('name')!=='')
         $rootScope.name = $window.sessionStorage.getItem('name');
     if($window.sessionStorage.getItem('access') != null && $window.sessionStorage.getItem('access') != '')
@@ -42,6 +42,14 @@ app.controller("mainController", function ($scope, $location, $window, $rootScop
         $rootScope.name = '';
         $rootScope.access = '';
         $location.path('/login');
+    }
+
+    $scope.openModalRegisterAdmin = function () {
+        $uibModal.open({
+            templateUrl: "views/modalView/registerAdminModal.html",
+            controller: "registerAdminModalController as rAdminModalCtrl"
+        }).result.catch(function () {
+        });
     }
 });
 
@@ -109,8 +117,8 @@ app.config(function($routeProvider) {
             controller: 'coachController as coachCtrl'
         })
         .when('/users/admins', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
+            templateUrl: 'views/tablesView/adminTable.html',
+            controller: 'adminsTableController as adminsCtrl'
         })
         .when('/users/sportsmen', {
             templateUrl: 'views/tablesView/userTable.html',

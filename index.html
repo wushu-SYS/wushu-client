@@ -119,6 +119,8 @@
 <script src="controllers/modalController/checkInJudgesModalController.js"></script>
 <script src="controllers/competitionResults/competitionResultsTaulloController.js"></script>
 <script src="controllers/competitionResults/competitionResultsSandaController.js"></script>
+<script src="controllers/modalController/registerAdminModalController.js"></script>
+<script src="controllers/tablesController/adminsTableController.js"></script>
 
 <!-- Load Services -->
 <script src="services/moment.js"></script>
@@ -135,6 +137,7 @@
 <script src="services/confirmDialogsService.js"></script>
 <script src="services/toastNotificationService.js"></script>
 <script src="services/refereesService.js"></script>
+<script src="services/adminService.js"></script>
 
 <!-- Load Filters -->
 <script src="filters/categoryBySportsmanFilter.js"></script>
@@ -212,14 +215,14 @@
                         <i class="fa fa-plus-square" aria-hidden="true"></i>
                         רישום משתמשים
                     </a>
+                    <a href="" ng-click="openModalRegisterAdmin()">
+                        <i class="fa fa-plus-square" aria-hidden="true"></i>
+                        רישום מנהלים
+                    </a>
                     <a href="#!users/couches">
                         <i class="fa fa-th-list" aria-hidden="true"></i>
                         רשימת מאמנים
                     </a>
-                    <!--                    <a href="#!users/admins">-->
-                    <!--                        <i class="fa fa-th-list" aria-hidden="true"></i>-->
-                    <!--                        רשימת מנהלים-->
-                    <!--                    </a>-->
                     <a href="#!users/sportsmen">
                         <i class="fa fa-th-list" aria-hidden="true"></i>
                         רשימת ספורטאיים
@@ -227,6 +230,10 @@
                     <a href="#!users/referees">
                         <i class="fa fa-th-list" aria-hidden="true"></i>
                         רשימת שופטים
+                    </a>
+                    <a href="#!users/admins">
+                        <i class="fa fa-th-list" aria-hidden="true"></i>
+                        רשימת מנהלים
                     </a>
                 </div>
             </div>

@@ -179,7 +179,7 @@
                                      data-validate="{{updateProfile.email.$error.required ? 'הכנס אימייל' : updateProfile.email.$error.pattern ? 'אימייל לא תקין' : ''}}">
                                     <input class="update-input100" type="email" name="email" ng-model="user.email"
                                            placeholder="איימיל"
-                                           required ng-pattern="regex.regexEmail">
+                                           ng-pattern="regex.regexEmail">
                                 </div>
                             </div>
                         </div>
