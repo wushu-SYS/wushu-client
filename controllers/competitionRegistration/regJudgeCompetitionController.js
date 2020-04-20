@@ -11,7 +11,8 @@ app.controller("regJudgeCompetitionController", function ($scope, $rootScope, $r
             .then(function (result) {
                 $scope.registeredUsers = result.data.registeredJudges;
                 $scope.notRegisteredUsers = result.data.unRegisteredJudges;
-                $scope.notRegisteredUsers.forEach(j => j.isMaster = false)
+                $scope.notRegisteredUsers.forEach(j => j.isMaster = false);
+                $scope.master = $scope.registeredUsers.find(u => u.isMaster)
             }, function (error) {
                 console.log(error)
             });
@@ -19,6 +20,8 @@ app.controller("regJudgeCompetitionController", function ($scope, $rootScope, $r
 
     $scope.setMaster = function (user){
         $scope.master = user;
+        let oldMaster = $scope.registeredUsers.find(u => u.isMaster && u.id !== user.id)
+        oldMaster.isMaster = false;
     }
 
     $scope.selectNotRegistered = function (user) {
@@ -60,7 +63,7 @@ app.controller("regJudgeCompetitionController", function ($scope, $rootScope, $r
     };
 
     $scope.register = function () {
-        let countMaster = $scope.toRegisterUsers.filter(u => u.isMaster).length
+        let countMaster = $scope.registeredUsers.filter(u => u.isMaster).length
         if(countMaster == 0)
             toastNotificationService.errorNotification("לא ניתן לבצע שמירה. יש לבחור שופט ראשי")
         else if (countMaster > 1)
