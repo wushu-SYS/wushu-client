@@ -11,6 +11,7 @@ app.controller("competitionTableController", function ($scope, $window, $http, c
     $scope.regSportsman = competitionService.regSportsman;
     $scope.registrationState = competitionService.registrationState;
     $scope.editCompetitionDetails = competitionService.editCompetitionDetails;
+    $scope.watchResults = competitionService.watchResults;
 
     $scope.setPage = function (page) {
         setPage(page);
