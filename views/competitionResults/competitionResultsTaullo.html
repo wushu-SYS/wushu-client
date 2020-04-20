@@ -36,11 +36,11 @@
                     <th class="thInItemList">ציון</th>
                 </tr>
             </thead>
-            <tbody ng-repeat="sportsmanCategory in compResults">
+            <tbody ng-repeat="sportsmanCategory in compResults | filter: (searchClicked || '') && searchText">
                 <tr colspan="6">
                     <td>{{sportsmanCategory.category.name}} {{getAgeRange(sportsmanCategory.category)}} ({{sportsmanCategory.category.sex}})</td>
                 </tr>
-                <tr ng-repeat="sportsman in sportsmanCategory.users">
+                <tr ng-repeat="sportsman in sportsmanCategory.users | filter: (searchClicked || '') && searchText">
                     <td class="tdInItemList"></td>
                     <td class="tdInItemList">{{$index+1}}</td>
                     <td class="tdInItemList">{{sportsman.id}}</td>
