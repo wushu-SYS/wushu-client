@@ -69,7 +69,7 @@
         </div>
     </div>
 
-    <div class="left" ng-show="compResults.length == 0">
+    <div class="left" ng-show="compResults.length == 0" style="min-width: 400px">
         <h1>
             העלאת תוצאות תחרות<br>באמצעות
             קובץ אקסל
@@ -96,12 +96,14 @@
         <div class="uploadResultsPanel">
             <div class="error" ng-show="isDropped && excelErrors.length > 0">
                 העלאה לא הצליחה, הקובץ מכיל שגיאות
-                <div ng-repeat="error in excelErrors" style="text-align: right">
+                <div ng-repeat="errorSportsman in excelErrors" style="text-align: right">
                     <br>
-                    <div ng-show="errorSportsman.id">
-                        בשורה {{error.line}}:
+                    <div ng-show="errorSportsman.line">
+                        בשורה מס' {{errorSportsman.line}}:
                     </div>
-                    {{error.error}}
+                    <div ng-repeat="error in errorSportsman.errors track by $index">
+                        {{$index+1}}. {{error}}
+                    </div>
                 </div>
             </div>
             <a class="linkDark" id="changeExcel" ng-show="isDropped" href="" ng-click="uploadNewFile()"> העלה קובץ
