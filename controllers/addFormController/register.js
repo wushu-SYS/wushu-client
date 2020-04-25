@@ -11,7 +11,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
      * the function bring from the server all the needed data to this screen
      */
     function getDisplayData() {
-        coachService.getCoaches()
+        coachService.getCoachesNotRegisterAsJudges()
             .then(function (result) {
                 $scope.coaches = result.data;
             }, function (error) {
