@@ -24,9 +24,9 @@
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='attachments'" ng-class="{'active' : activeTag==='attachments'}" ng-show="userType == userTypes.SPORTSMAN || userType == userTypes.Judge">קבצים מצורפים</a>
                         </li>
-<!--                        <li class="nav-item">-->
-<!--                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='compData'" ng-class="{'active' : activeTag==='compData'}">מידע תחרויות</a>-->
-<!--                        </li>-->
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='compData'" ng-class="{'active' : activeTag==='compData'}">מידע תחרויות</a>
+                        </li>
 <!--                        <li class="nav-item" ng-show="false">-->
 <!--                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='judgeStat'" ng-class="{'active' : activeTag==='judgeStat'}">סטטיסטיקות שיפוט</a>-->
 <!--                        </li>-->
@@ -273,20 +273,16 @@
                     <div class="tab-pane fade"
                          ng-class="{'show' : activeTag==='compData' , 'active' : activeTag==='compData'}" id="compData"
                          role="tabpanel" aria-labelledby="compData">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label>גרף התקדמות</label>
-                            </div>
-                            <div class="col-md-6">
-                            </div>
+                       <!-- <div class="row">
+                            <nvd3 options='participateCompetitionsOptions' data='participateCompetitionsData'></nvd3>
                         </div>
+                       -->
+
                         <div class="row">
-                            <div class="col-md-3">
-                                <label>ניצחונות אחרונים</label>
-                            </div>
-                            <div class="col-md-6">
-                            </div>
+                            <nvd3 options='options' data='data'></nvd3>
                         </div>
+
+
                     </div>
                 </div>
             </div>

@@ -31,28 +31,6 @@ app.controller("loginController", function ($scope, $http, $window, $location, $
                     console.log(err)
                 });
 
-
-            // $http.post(constants.serverUrl + '/login', user)
-            //     .then(function (response) {
-            //             confirmDialogService.chooseUserType(response.data.access, (userType) => {
-            //                 $window.sessionStorage.setItem('name', response.data.firstname);
-            //                 $window.sessionStorage.setItem('id', response.data.id);
-            //                 $rootScope.name = $window.sessionStorage.getItem('name');
-            //
-            //                 $window.sessionStorage.setItem('access', userType);
-            //                 $rootScope.access = $window.sessionStorage.getItem('access');
-            //                 $window.sessionStorage.setItem('isFirstLogin', response.data.isFirstTime);
-            //                 $window.sessionStorage.setItem('token', response.data.token);
-            //                 SocketService.emit('login', {userId: user.userID});
-            //                 $location.path('/home');
-            //                 $scope.$apply()
-            //             });
-            //
-            //         },
-            //         function (error) {
-            //             $scope.isError = true;
-            //             console.log(error.data);
-            //         });
         }
     };
 });

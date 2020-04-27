@@ -55,7 +55,7 @@
       href="css/confirm/angular-confirm.css"/>
 <script type="text/javascript"
         src="css/confirm/angular-confirm.js"></script>
-<link rel='stylesheet' href='node_modules/angular-loading-bar/build/loading-bar.min.css' type='text/css' media='all' />
+<link rel='stylesheet' href='node_modules/angular-loading-bar/build/loading-bar.min.css' type='text/css' media='all'/>
 <script type='text/javascript' src='node_modules/angular-loading-bar/build/loading-bar.min.js'></script>
 
 <!--<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/angularjs-toast@latest/angularjs-toast.min.css">-->
@@ -79,9 +79,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js">
 </script>
 
-<script src="node_modules/socket.io-client/dist/socket.io.js"> </script>
-<script src="node_modules/angular-socket-io/socket.min.js"> </script>
+<script src="node_modules/socket.io-client/dist/socket.io.js"></script>
+<script src="node_modules/angular-socket-io/socket.min.js"></script>
 <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+
+
+<!-- charts -->
+<script src="node_modules/d3/d3.js"></script>
+<script src="node_modules/nvd3/build/nv.d3.js"></script>
+<script src="node_modules/angular-nvd3/dist/angular-nvd3.js"></script>
+<link rel="stylesheet" href="node_modules/nvd3/build/nv.d3.css">
 
 <!-- load app -->
 <script src="app.js"></script>
@@ -138,6 +145,8 @@
 <script src="services/toastNotificationService.js"></script>
 <script src="services/refereesService.js"></script>
 <script src="services/adminService.js"></script>
+<script src="services/chartsDataService.js"></script>
+<script src="services/chartsService.js"></script>
 
 <!-- Load Filters -->
 <script src="filters/categoryBySportsmanFilter.js"></script>
@@ -161,19 +170,19 @@
                 </a>
             </li>
             <li ng-if="access!=userTypes.MANAGER">
-                <a href="#!profile" ng-class="getClass('/profile')" class="menuItem" >
+                <a href="#!profile" ng-class="getClass('/profile')" class="menuItem">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     הפרופיל שלי
                 </a>
             </li>
-             <li>
-                 <a href="#!calendar" ng-class="getClass('/calendar')" class="menuItem">
-                     <i class="fa fa-calendar" aria-hidden="true"></i>
-                     לוח אירועים
-                 </a>
-             </li>
+            <li>
+                <a href="#!calendar" ng-class="getClass('/calendar')" class="menuItem">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    לוח אירועים
+                </a>
+            </li>
             <li ng-if="access==userTypes.Judge">
-                <a href="#!/startJudging" ng-class="getClass('/startJudging')" class="menuItem" >
+                <a href="#!/startJudging" ng-class="getClass('/startJudging')" class="menuItem">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     התחל לשפוט
                 </a>
