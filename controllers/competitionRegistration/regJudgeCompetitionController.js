@@ -10,6 +10,7 @@ app.controller("regJudgeCompetitionController", function ($scope, $rootScope, $r
         competitionService.getJudgeRegistrationState($routeParams.idComp)
             .then(function (result) {
                 $scope.registeredUsers = result.data.registeredJudges;
+                $scope.registeredUsers.forEach(u => u.isMaster ? u.isMaster = true : u.isMaster = false)
                 $scope.notRegisteredUsers = result.data.unRegisteredJudges;
                 $scope.notRegisteredUsers.forEach(j => j.isMaster = false);
                 $scope.master = $scope.registeredUsers.find(u => u.isMaster)
@@ -20,8 +21,12 @@ app.controller("regJudgeCompetitionController", function ($scope, $rootScope, $r
 
     $scope.setMaster = function (user){
         $scope.master = user;
+        user.isMaster = true;
         let oldMaster = $scope.registeredUsers.find(u => u.isMaster && u.id !== user.id)
-        oldMaster.isMaster = false;
+        if(oldMaster) {
+            oldMaster.isMaster = false;
+            $scope.isSaved = false;
+        }
     }
 
     $scope.selectNotRegistered = function (user) {
@@ -72,6 +77,9 @@ app.controller("regJudgeCompetitionController", function ($scope, $rootScope, $r
             competitionService.registerJudgeToCompetition($routeParams.idComp, $scope.toRegisterUsers, $scope.toUnRegisterUsers, $scope.master)
                 .then(function (result) {
                     toastNotificationService.successNotification("הרישום בוצע בהצלחה")
+                    $scope.toRegisterUsers = [];
+                    $scope.toUnRegisterUsers = [];
+                    $scope.isSaved = true;
                 }, function (error) {
                     console.log(error);
                     toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע הרישום")
@@ -79,9 +87,10 @@ app.controller("regJudgeCompetitionController", function ($scope, $rootScope, $r
         }
     }
 
+    $scope.isSaved = true;
     $rootScope.isChangingLocationFirstTime = true;
     $scope.$on('$routeChangeStart', function (event, newRoute, oldRoute) {
-        if (($scope.toRegisterUsers.length > 0 || $scope.toUnRegisterUsers.length > 0) && !$scope.isSaved && $rootScope.isChangingLocationFirstTime)
+        if (($scope.toRegisterUsers.length > 0 || $scope.toUnRegisterUsers.length > 0 || !$scope.isSaved) && $rootScope.isChangingLocationFirstTime)
             confirmDialogService.notSavedItems(event, $location.path(), $scope.register);
     });
 });
