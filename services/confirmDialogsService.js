@@ -70,4 +70,66 @@ app.service('confirmDialogService', function ($ngConfirm, $location, $route, $ro
             }
         })
     }
+
+    this.showMessage = function (message, callbackFunction, messageTitle = '') {
+        $ngConfirm({
+            title: messageTitle,
+            type: 'blue',
+            content: message,
+            buttons: {
+                המשך: function () {
+                    if(callbackFunction)
+                        callbackFunction();
+                }
+            }
+        })
+    }
+
+    this.chooseUserType = function (buttonValues, collbackfunc) {
+        if(buttonValues.length == 1){
+            collbackfunc(buttonValues[0]);
+            return;
+        }
+        $ngConfirm({
+            title: "המערכת מצאה מספר הרשאות לת.ז. שהוזנה",
+            content: "אם איזה הרשאה תרצה להתחבר?",
+            columnClass: 'col-md-4',
+            type: 'blue',
+            typeAnimated: true,
+            buttons: {
+                sportsmanType: {
+                    show: buttonValues.includes($rootScope.userTypes.SPORTSMAN),
+                    text: 'ספורטאי',
+                    action: function(){
+                        collbackfunc($rootScope.userTypes.SPORTSMAN);
+                        return;
+                    }
+                },
+                coachType: {
+                    show: buttonValues.includes($rootScope.userTypes.COACH),
+                    text: 'מאמן',
+                    action: function(){
+                        collbackfunc($rootScope.userTypes.COACH);
+                        return;
+                    }
+                },
+                adminType: {
+                    show: buttonValues.includes($rootScope.userTypes.MANAGER),
+                    text: 'מנהל',
+                    action: function(){
+                        collbackfunc($rootScope.userTypes.MANAGER);
+                        return;
+                    }
+                },
+                judgeType: {
+                    show: buttonValues.includes($rootScope.userTypes.Judge),
+                    text: 'שופט',
+                    action: function(){
+                        collbackfunc($rootScope.userTypes.Judge);
+                        return;
+                    }
+                },
+            }
+        });
+    }
 });

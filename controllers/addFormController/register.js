@@ -90,7 +90,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
                     if (err.data.number === 2627)
                         toastNotificationService.errorNotification("ת.ז " + getIdFromErrorMessage(err.data.message) + " קיימת כבר במערכת.");
                     else{
-                        confirmDialogService.showErrors(err.data[0].errors);
+                        toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע הרישום. אנא פנה לתמיכה טכנית");
                     }
                 }
                 else

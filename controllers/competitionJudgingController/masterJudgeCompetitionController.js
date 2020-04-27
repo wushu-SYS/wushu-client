@@ -1,4 +1,4 @@
-app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams, $window, $location, constants, SocketService, competitionService, categoryService) {
+app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams, $window, $location, constants, SocketService, competitionService, categoryService, confirmDialogService) {
     $scope.regex = constants.regex;
     $scope.isMaster = true;
     $scope.lastSportsman = false
@@ -164,7 +164,7 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
         competitionService.manualCloseCompetition($routeParams.idComp)
             .then((res) => {
                 SocketService.emit("judgeMasterCloseCompetition",{userId:$window.sessionStorage.getItem('id'),idComp:$routeParams.idComp})
-                $location.path("/home")
+                confirmDialogService.showMessage("תודה רבה!", $location.path("/home"), "התחרות הסתיימה");
             })
             .catch((err) => {
                 console.log(err)

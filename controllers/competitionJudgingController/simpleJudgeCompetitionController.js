@@ -1,4 +1,4 @@
-app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$routeParams ,$location, constants, SocketService,categoryService,competitionService) {
+app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$routeParams ,$location, constants, SocketService,categoryService,competitionService, confirmDialogService) {
     $scope.regex = constants.regex;
     $scope.disableButtonNext = false;
     $scope.isMaster = false;
@@ -69,7 +69,7 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
     $scope.sendGrade = function(finish){
         SocketService.emit("judgeGiveGrade",{ userId:$window.sessionStorage.getItem('id'),idComp:$routeParams.idComp ,grade :$scope.grade})
         if(finish)
-            $location.path("/home");
+            confirmDialogService.showMessage("תודה רבה!", $location.path("/home"), "התחרות הסתיימה");
     }
     $scope.nextSportsman = function () {
         $scope.sendGrade(false);
