@@ -13,5 +13,19 @@ app.service('chartsDataService', function ($window, $http, constants) {
         return $http(req);
     };
 
+    this.sportsmanCompetitionsGrades =function (sportsmanId) {
+        let req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/allUsers/sportsmanRecords',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: {
+                sportsmanId: sportsmanId
+            }
+        };
+        return $http(req);
+    };
+
 
 });
