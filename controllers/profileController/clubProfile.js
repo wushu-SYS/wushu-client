@@ -1,4 +1,5 @@
-app.controller("clubProfileController", function ($scope, $http, $route,$filter, $window, $location, $rootScope, $routeParams, clubService, constants, coachService, userService, confirmDialogService, toastNotificationService, commonFunctionsService) {
+app.controller("clubProfileController", function ($scope, $http, $route, $filter, $window, $location, $rootScope, $routeParams, $uibModal, clubService, constants, coachService, userService, confirmDialogService, toastNotificationService, chartsService, chartsDataService) {
+
     $scope.whoAmI = "מועדון";
     $scope.regex = constants.regex;
 
@@ -8,7 +9,7 @@ app.controller("clubProfileController", function ($scope, $http, $route,$filter,
         clubService.getClubProfile($routeParams.id)
             .then(function (result) {
                 $scope.club = result.data;
-                console.log($scope.club)
+                getCharts();
             }, function (error) {
                 console.log(error)
             });
@@ -35,6 +36,71 @@ app.controller("clubProfileController", function ($scope, $http, $route,$filter,
             });
     }
 
+    function getCharts() {
+        getTreeClubChart();
+    }
+
+    function getTreeClubChart() {
+        chartsDataService.clubTreeData($routeParams.id)
+            .then((res) => {
+                console.log(res)
+                let childrenLastLevel = [];
+                let children = [];
+                res.data.forEach(record => {
+                    record.sportsman.forEach(sportsman =>{
+                        childrenLastLevel.push({
+                            text: {
+                                name: sportsman.sportsmanFirstName + " " + sportsman.sportsmanLastName,
+                                title: "ספורטאי",
+                                contact: {
+                                    val: "צפה בפרופיל",
+                                    href: "#!/profile/sportsmanProfile/" + sportsman.sportsmanId,
+                                    target: "_self"
+                                }
+                            }
+                            //     image: "../headshots/8.jpg"
+                        })
+                    })
+                    children.push({
+                        text: {
+                            name: record.coach.firstName + " " + record.coach.lastName,
+                            title: "מאמן",
+                            contact: {
+                                val: "צפה בפרופיל",
+                                href: "#!/profile/coachProfile/" + record.coach.id,
+                                target: "_self",
+                            }
+                        },
+                        //image: "../headshots/1.jpg",
+                        stackChildren: true,
+                        children: childrenLastLevel
+                    })
+                });
+                $scope.chart_config = {
+                    chart: {
+                        container: "#basic-example",
+                        connectors: {
+                            type: 'step'
+                        },
+                        node: {
+                            HTMLclass: 'nodeExample1'
+                        }
+                    },
+                    nodeStructure: {
+                        text: {
+                            name: $scope.club.name,
+                            title: "מועדון",
+                            mes: "kmkmk"
+                        },
+                        image: "././resources/images/symbol.jpg",
+                        children: children
+                    }
+                }
+                new Treant($scope.chart_config)
+            }).catch((err)=>{console.log(err)})
+    }
+
+
     $scope.submit = function (isValid) {
         if (isValid) {
             clubService.updateClub($scope.club)
@@ -51,8 +117,8 @@ app.controller("clubProfileController", function ($scope, $http, $route,$filter,
     };
 
     $rootScope.isChangingLocationFirstTime = true;
-    $scope.$on('$routeChangeStart', function(event, newRoute, oldRoute) {
-        if($scope.updateProfile.$dirty && !$scope.isSaved && $rootScope.isChangingLocationFirstTime) {
+    $scope.$on('$routeChangeStart', function (event, newRoute, oldRoute) {
+        if ($scope.updateProfile.$dirty && !$scope.isSaved && $rootScope.isChangingLocationFirstTime) {
             if (!$scope.updateProfile.$valid) $scope.isClicked = true
             confirmDialogService.notSavedItems(event, $location.path(), $scope.submit, $scope.updateProfile.$valid);
         }

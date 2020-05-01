@@ -26,6 +26,18 @@ app.service('chartsDataService', function ($window, $http, constants) {
         };
         return $http(req);
     };
-
+    this.clubTreeData =function (clubId) {
+        let req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/commonCoachManager/clubTree',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: {
+                clubId:clubId
+            }
+        };
+        return $http(req);
+    };
 
 });
