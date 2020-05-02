@@ -200,5 +200,9 @@ app.config(function($routeProvider) {
             templateUrl: 'views/loadingView/loading.html',
             controller: 'waitingForTheNextSportsman as waitingForTheNextSportsman'
         })
+        .when('/wushuTree', {
+            templateUrl: 'views/wushuTree.html',
+            controller: 'wushuTree as wushuTreeController'
+        })
         .otherwise({redirectTo: '/login'});
 });

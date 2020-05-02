@@ -197,6 +197,12 @@
                     התחל לשפוט
                 </a>
             </li>
+            <li ng-if="access==userTypes.MANAGER">
+                <a href="#!/wushuTree" ng-class="getClass('/wushuTree')" class="menuItem">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    עץ התאחדות
+                </a>
+            </li>
         </ul>
 
         <div id="greeting">
