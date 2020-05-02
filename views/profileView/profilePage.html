@@ -24,7 +24,7 @@
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='attachments'" ng-class="{'active' : activeTag==='attachments'}" ng-show="userType == userTypes.SPORTSMAN || userType == userTypes.Judge">קבצים מצורפים</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" ng-show="userType == userTypes.SPORTSMAN">
                             <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='compData'" ng-class="{'active' : activeTag==='compData'}">מידע תחרויות</a>
                         </li>
 <!--                        <li class="nav-item" ng-show="false">-->
@@ -273,17 +273,28 @@
                     <div class="tab-pane fade"
                          ng-class="{'show' : activeTag==='compData' , 'active' : activeTag==='compData'}" id="compData"
                          role="tabpanel" aria-labelledby="compData">
-                      <!--
-                       <div class="row">
-                            <nvd3 options='participateCompetitionsOptions' data='participateCompetitionsData'></nvd3>
-                        </div>
-
-
-                        <div class="row">
-                            <nvd3 options='sportsmanCompetitionsGradesOptions' data='sportsmanCompetitionsGradesData'></nvd3>
-                        </div>
-                    -->
-
+                        <v-accordion class="vAccordion--default" multiple>
+                            <v-pane>
+                                <v-pane-header>
+                                    אחוזי השתתפות בתחרויות
+                                </v-pane-header>
+                                <v-pane-content>
+                                    <div class="row">
+                                        <nvd3 options='participateCompetitionsOptions' data='participateCompetitionsData'></nvd3>
+                                    </div>
+                                </v-pane-content>
+                            </v-pane>
+                            <v-pane>
+                                <v-pane-header>
+                                    גרף ציונים לעונה
+                                </v-pane-header>
+                                <v-pane-content>
+                                    <div class="row">
+                                        <nvd3 options='sportsmanCompetitionsGradesOptions' data='sportsmanCompetitionsGradesData'></nvd3>
+                                    </div>
+                                </v-pane-content>
+                            </v-pane>
+                        </v-accordion>
                     </div>
                 </div>
             </div>
