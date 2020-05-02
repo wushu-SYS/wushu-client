@@ -38,6 +38,23 @@ app.controller("clubProfileController", function ($scope, $http, $route, $filter
 
     function getCharts() {
         getTreeClubChart();
+        getParticipateChart()
+    }
+
+    function getParticipateChart() {
+        chartsDataService.clubsParticipateSportsmanCompetitions($routeParams.id)
+            .then((res)=>{
+                $scope.clubSportsmanParticipateCompData = []
+                res.data.forEach((row)=>{
+                    $scope.clubSportsmanParticipateCompData.push({
+                        key: "ב-" +" "+ row.numComps + " "+ "תחרויות",
+                        y :  row.count
+                    })
+                })
+            })
+
+
+        $scope.clubSportsmanParticipateCompOptions = chartsService.pieCharts("אחוזי השתתפות ספורטאים בתחרויות")
     }
 
     function getTreeClubChart() {
@@ -47,7 +64,8 @@ app.controller("clubProfileController", function ($scope, $http, $route, $filter
                 let childrenLastLevel = [];
                 let children = [];
                 res.data.forEach(record => {
-                    record.sportsman.forEach(sportsman =>{
+                    console.log(record.coach.photo)
+                    record.sportsman.forEach(sportsman => {
                         childrenLastLevel.push({
                             text: {
                                 name: sportsman.sportsmanFirstName + " " + sportsman.sportsmanLastName,
@@ -57,8 +75,8 @@ app.controller("clubProfileController", function ($scope, $http, $route, $filter
                                     href: "#!/profile/sportsmanProfile/" + sportsman.sportsmanId,
                                     target: "_self"
                                 }
-                            }
-                            //     image: "../headshots/8.jpg"
+                            },
+                            image: sportsman.sportsmanPhoto
                         })
                     })
                     children.push({
@@ -71,7 +89,7 @@ app.controller("clubProfileController", function ($scope, $http, $route, $filter
                                 target: "_self",
                             }
                         },
-                        //image: "../headshots/1.jpg",
+                        image: record.coach.photo,
                         stackChildren: true,
                         children: childrenLastLevel
                     })
@@ -89,15 +107,16 @@ app.controller("clubProfileController", function ($scope, $http, $route, $filter
                     nodeStructure: {
                         text: {
                             name: $scope.club.name,
-                            title: "מועדון",
-                            mes: "kmkmk"
+                            title: "מועדון"
                         },
                         image: "././resources/images/symbol.jpg",
                         children: children
                     }
                 }
                 new Treant($scope.chart_config)
-            }).catch((err)=>{console.log(err)})
+            }).catch((err) => {
+            console.log(err)
+        })
     }
 
 

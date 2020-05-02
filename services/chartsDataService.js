@@ -40,4 +40,19 @@ app.service('chartsDataService', function ($window, $http, constants) {
         return $http(req);
     };
 
+
+    this.clubsParticipateSportsmanCompetitions = function (clubId) {
+        let req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/commonCoachManager/clubsParticipateSportsmanCompetitions',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: {
+                clubId:clubId
+            }
+        };
+        return $http(req);
+    };
+
 });
