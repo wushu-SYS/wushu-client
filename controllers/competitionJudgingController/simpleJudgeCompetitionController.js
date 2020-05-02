@@ -69,7 +69,7 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
     $scope.sendGrade = function(finish){
         SocketService.emit("judgeGiveGrade",{ userId:$window.sessionStorage.getItem('id'),idComp:$routeParams.idComp ,grade :$scope.grade})
         if(finish)
-            confirmDialogService.showMessage("תודה רבה!", $location.path("/home"), "התחרות הסתיימה");
+            confirmDialogService.showMessage("תודה רבה!", function () { $location.path("/home") }, "התחרות הסתיימה");
     }
     $scope.nextSportsman = function () {
         $scope.sendGrade(false);
