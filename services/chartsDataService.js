@@ -40,6 +40,16 @@ app.service('chartsDataService', function ($window, $http, constants) {
         return $http(req);
     };
 
+    this.wushuTreeData = function () {
+        let req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/manager/wushuTree',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            }
+        };
+        return $http(req);
+    }
 
     this.clubsParticipateSportsmanCompetitions = function (clubId) {
         let req = {
