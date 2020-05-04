@@ -133,6 +133,10 @@ app.service('chartsService', function ($window, $http, constants) {
             title: {
                 enable: true,
                 text: title
+            },
+            subtitle: {
+                enable: true,
+                text: subTitle
             }
         };
 

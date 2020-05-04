@@ -296,13 +296,15 @@
                                     גרף ציוני שופטים בעונה
                                 </v-pane-header>
                                 <v-pane-content>
-                                    <div class="row">
-                                        <select ng-model="selectedCategoryForJudgeGradesChart"
-                                                ng-options="x.name
-                                                 for
-                                                  x in categoriesForJudgeGradesChart" ng-change="setSportsmanJudgeGradesChartData(selectedCategoryForJudgeGradesChart)"></select>
+                                        עבור הקטגוריה:
+                                        <div class="wrap-input100" style="width: 300px">
+                                            <select ng-model="selectedCategoryForJudgeGradesChart" style="padding: 0px"
+                                                    ng-options="x.name
+                                                     for
+                                                      x in categoriesForJudgeGradesChart" ng-change="setSportsmanJudgeGradesChartData(selectedCategoryForJudgeGradesChart)"></select>
+                                        </div>
+                                        <br>
                                         <nvd3 options='sportsmanJudgesGradesOptions' data='sportsmanJudgesGradesData'></nvd3>
-                                    </div>
                                 </v-pane-content>
                             </v-pane>
                         </v-accordion>
