@@ -11,4 +11,13 @@ app.service('commonFunctionsService', function(constants) {
         });
     }
 
+    this.getSessionYear = function getSessionYear() {
+        let year = new Date().getFullYear();
+        if (new Date().getMonth() < constants.monthDateFromZERO.SEPTEMBER)
+            year = year - 1;
+
+        return year
+    }
+
+
 });

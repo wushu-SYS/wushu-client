@@ -1,4 +1,4 @@
-app.controller("sportsmanProfileController", function ($scope, $http, $filter, $window, $location, $rootScope, $route, $routeParams, constants, sportsmanService, userService, confirmDialogService, toastNotificationService,chartsDataService,chartsService) {
+app.controller("sportsmanProfileController", function ($scope, $http, $filter, $window, $location, $rootScope, $route, $routeParams, constants, sportsmanService, userService, confirmDialogService, toastNotificationService,chartsDataService,chartsService,commonFunctionsService) {
     var oldId;
     $scope.whoAmI = "ספורטאי";
     $scope.userType = $rootScope.userTypes.SPORTSMAN;
@@ -150,6 +150,7 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
     function getCharts() {
         getParticipateChart()
         getSportsmanGradeChart()
+        getJudgeGradeStaticChart()
     }
     function getParticipateChart() {
         chartsDataService.participateSportsmanCompetitions($routeParams.id)
@@ -170,6 +171,7 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
                 console.log(err)
         })
     }
+
     function getSportsmanGradeChart() {
         chartsDataService.sportsmanCompetitionsGrades($routeParams.id)
             .then((res)=>{
@@ -180,8 +182,11 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
                     let gradesValues=[]
                     console.log(grades)
                     grades.forEach((grade)=>{
+                        let date = new Date(grade.date)
+                        console.log(date)
+                        console.log(date.getTime())
                         gradesValues.push({
-                            x: grade.compId,
+                            x: date.getTime(),
                             y: grade.grade,
                             size: Math.random(),
                             shape: shape
@@ -193,12 +198,21 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
                     })
 
                 }
-                $scope.sportsmanCompetitionsGradesOptions = chartsService.scatterChart("גרף ציונים לעונה","לפי קטגוריה","מספר תחרות","ציון")
+                //Array month start from 0 - september : 8
+                let startDate = new Date(commonFunctionsService.getSessionYear(),8,1)
+                let endDate =new Date(commonFunctionsService.getSessionYear()+1,8,1)
+                $scope.sportsmanCompetitionsGradesOptions = chartsService.scatterChart("גרף ציונים לעונה","לפי קטגוריה","תאריך תחרות","ציון",startDate.getTime(),endDate.getTime())
 
             }).catch((err)=>{
             console.log(err)
         })
     }
+
+    function getJudgeGradeStaticChart() {
+
+
+    }
+
     function getSportsmanRank() {
         if($rootScope.access!=$rootScope.userTypes.SPORTSMAN)
             sportsmanService.getSportsmanRank({id: parseInt($routeParams.id)})

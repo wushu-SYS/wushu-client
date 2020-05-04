@@ -5,6 +5,9 @@ app.service('chartsService', function ($window, $http, constants) {
                 type: 'pieChart',
                 width: 450,
                 height: 450,
+                margin: {
+                    right: 100
+                },
                 x: function(d){return d.key;},
                 y: function(d){return d.y;},
                 showLabels: true,
@@ -23,12 +26,15 @@ app.service('chartsService', function ($window, $http, constants) {
             }
         };
     }
-    this.scatterChart =function (title,subTitle,xLabel,yLabel) {
+    this.scatterChart =function (title,subTitle,xLabel,yLabel,forceX1,forceX2) {
         return {
             chart: {
                 type: 'scatterChart',
-                width: 450,
+                width: 550,
                 height: 350,
+                margin: {
+                    right: 100
+                },
                 color: d3.scale.category10().range(),
                 scatter: {
                     onlyCircles: false
@@ -36,30 +42,34 @@ app.service('chartsService', function ($window, $http, constants) {
                 showDistX: true,
                 showDistY: true,
                 tooltip :{
-                    headerEnabled:false
+                    headerEnabled:true
                 },
                 tooltipContent: function(key) {
                     return '<h3>' + key + '</h3>';
                 },
-                forceX: [0, 10],
+                forceX: [forceX1, forceX2],
                 forceY: [0, 10],
                 duration: 350,
+                pointRange:[100,100],
+                showValues: true,
                 xAxis: {
                     axisLabel: xLabel,
-                    tickFormat: function(d){
-                        return (d);
+                    tickFormat: function(d) {
+                         d = new Date(d)
+                        return d.toLocaleString("he-IL", {dateStyle :"short"})
                     },
-                    showMaxMin:false,
-                    ticks:10
+                    showMaxMin: true
+
                 },
                 yAxis: {
-                    axisLabel: yLabel,
+                    axisLabel:  yLabel,
+                    axisLabelDistance: -10,
                     tickFormat: function(d){
                         return d3.format('.02f')(d);
                     },
-                    axisLabelDistance: -5,
                     showMaxMin:false,
-                    ticks :10
+                    ticks: 10,
+                    axisLabelDistance :-5
                 },
                 zoom: {
                     //NOTE: All attributes below are optional
@@ -83,4 +93,6 @@ app.service('chartsService', function ($window, $http, constants) {
         }
 
     }
+
+
 });
