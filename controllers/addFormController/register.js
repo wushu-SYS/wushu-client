@@ -212,7 +212,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
         $scope.birthdate = new Date(1990, 3, 3);
     }
     $scope.fillData = function (coach) {
-        if (coach !== undefined) {
+         if (coach!==null) {
             $scope.judgeFill = true;
             $scope.id = coach.id;
             $scope.firstname = coach.firstname;
