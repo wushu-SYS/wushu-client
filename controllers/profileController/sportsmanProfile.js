@@ -215,6 +215,7 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
     }
 
     $scope.setSportsmanJudgeGradesChartData = function (selectedCategory) {
+        $scope.updateProfile.$dirty = false;
         $scope.sportsmanJudgesGradesData = []
         let containedJudgeIds = [...new Set($scope.allSportsmanJudgeGrades.map(record => record.judgeId))];
         let filteredBySelectedCategory = $scope.allSportsmanJudgeGrades.filter(record => record.categoryId == selectedCategory.id);
