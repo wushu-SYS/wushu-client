@@ -286,11 +286,25 @@
                             </v-pane>
                             <v-pane>
                                 <v-pane-header>
-                                    גרף ציונים לעונה
+                                    גרף ציונים סופיים לעונה
                                 </v-pane-header>
                                 <v-pane-content>
                                     <div class="row">
                                         <nvd3 options='sportsmanCompetitionsGradesOptions' data='sportsmanCompetitionsGradesData'></nvd3>
+                                    </div>
+                                </v-pane-content>
+                            </v-pane>
+                            <v-pane>
+                                <v-pane-header>
+                                    גרף ציוני שופטים בעונה
+                                </v-pane-header>
+                                <v-pane-content>
+                                    <div class="row">
+                                        <select ng-model="selectedCategoryForJudgeGradesChart"
+                                                ng-options="x.name
+                                                 for
+                                                  x in categoriesForJudgeGradesChart" ng-change="setSportsmanJudgeGradesChartData(selectedCategoryForJudgeGradesChart)"></select>
+                                        <nvd3 options='sportsmanJudgesGradesOptions' data='sportsmanJudgesGradesData'></nvd3>
                                     </div>
                                 </v-pane-content>
                             </v-pane>

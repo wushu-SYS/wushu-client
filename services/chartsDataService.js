@@ -65,4 +65,18 @@ app.service('chartsDataService', function ($window, $http, constants) {
         return $http(req);
     };
 
+    this.sportsmanJudgeGrades = function (sportsmanId) {
+        let req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/allUsers/sportsmanJudgeGrades',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: {
+                sportsmanId: sportsmanId
+            }
+        };
+        return $http(req);
+    }
+
 });

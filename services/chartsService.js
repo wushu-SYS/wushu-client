@@ -8,16 +8,20 @@ app.service('chartsService', function ($window, $http, constants) {
                 margin: {
                     right: 100
                 },
-                x: function(d){return d.key;},
-                y: function(d){return d.y;},
+                x: function (d) {
+                    return d.key;
+                },
+                y: function (d) {
+                    return d.y;
+                },
                 showLabels: true,
                 duration: 400,
                 labelThreshold: 0.01,
                 labelSunbeamLayout: true,
                 legend: {
-                    updateState:false
+                    updateState: false
                 },
-                legendPosition:'bottom'
+                legendPosition: 'bottom'
 
             },
             title: {
@@ -26,7 +30,7 @@ app.service('chartsService', function ($window, $http, constants) {
             }
         };
     }
-    this.scatterChart =function (title,subTitle,xLabel,yLabel,forceX1,forceX2) {
+    this.scatterChart = function (title, subTitle, xLabel, yLabel, forceX1, forceX2) {
         return {
             chart: {
                 type: 'scatterChart',
@@ -41,35 +45,35 @@ app.service('chartsService', function ($window, $http, constants) {
                 },
                 showDistX: true,
                 showDistY: true,
-                tooltip :{
-                    headerEnabled:true
+                tooltip: {
+                    headerEnabled: true
                 },
-                tooltipContent: function(key) {
+                tooltipContent: function (key) {
                     return '<h3>' + key + '</h3>';
                 },
                 forceX: [forceX1, forceX2],
                 forceY: [0, 10],
                 duration: 350,
-                pointRange:[100,100],
+                pointRange: [100, 100],
                 showValues: true,
                 xAxis: {
                     axisLabel: xLabel,
-                    tickFormat: function(d) {
-                         d = new Date(d)
-                        return d.toLocaleString("he-IL", {dateStyle :"short"})
+                    tickFormat: function (d) {
+                        d = new Date(d)
+                        return d.toLocaleString("he-IL", {dateStyle: "short"})
                     },
                     showMaxMin: true
 
                 },
                 yAxis: {
-                    axisLabel:  yLabel,
+                    axisLabel: yLabel,
                     axisLabelDistance: -10,
-                    tickFormat: function(d){
+                    tickFormat: function (d) {
                         return d3.format('.02f')(d);
                     },
-                    showMaxMin:false,
+                    showMaxMin: false,
                     ticks: 10,
-                    axisLabelDistance :-5
+                    axisLabelDistance: -5
                 },
                 zoom: {
                     //NOTE: All attributes below are optional
@@ -82,11 +86,11 @@ app.service('chartsService', function ($window, $http, constants) {
                     unzoomEventType: 'dblclick.zoom'
                 }
             },
-            title:{
+            title: {
                 enable: true,
                 text: title
             },
-            subtitle:{
+            subtitle: {
                 enable: true,
                 text: subTitle
             }
@@ -94,5 +98,43 @@ app.service('chartsService', function ($window, $http, constants) {
 
     }
 
+    this.barChart = function (title, subTitle, xLabel, yLabel,forceX1,forceX2) {
+        return {
+            chart: {
+                type: 'multiBarChart',
+                height: 450,
+                width :550,
+                margin: {
+                    right: 100,
+                },
+                clipEdge: true,
+                duration: 500,
+                stacked: false,
+                showControls: false,
+                forceY:[0,10],
+                forceX: [forceX1, forceX2],
+                xAxis: {
+                    axisLabel: xLabel,
+                    tickFormat: function (d) {
+                        d = new Date(d)
+                        return d.toLocaleString("he-IL", {dateStyle: "short"})
+                    },
+                    showMaxMin: true
 
+                },
+                yAxis: {
+                    axisLabel: yLabel,
+                    axisLabelDistance: -20,
+                    tickFormat: function (d) {
+                        return d3.format(',.1f')(d);
+                    }
+                }
+            },
+            title: {
+                enable: true,
+                text: title
+            }
+        };
+
+    }
 });
