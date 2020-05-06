@@ -13,13 +13,22 @@ body {
     padding: 0;
     background: #DDD !important;
 }
+footer{
+    text-align: center;
+    background: dimgray;
+    color: white;
+}
+footer button a  i.clickableSearch{
+    font-size: 20px;
+    width: 42px;
+}
 h1,h2,h3,h4,h5,h6 {
     margin: 0px;
 }
 h1 {
     margin: 0 0 20px 0;
-    font-weight: 300;
-    font-size: 28px;
+    font-weight: 300 !important;
+    font-size: 28px !important;
     text-align: center;
 }
 p {
@@ -70,7 +79,7 @@ button:hover {
     margin: 0px auto 5%;
     width: 80%; /*950px;*/
     height: 100%;
-    padding: 40px;
+    /*padding: 40px;*/
     background: #FFF;
     border-radius: 2px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
