@@ -1,8 +1,17 @@
 <div>
-    <h1 style="font-size: 50px">
-        ברוכים הבאים
-    </h1>
     <div class="center">
         <img src="./resources/images/icon.png">
+    </div>
+    <div>
+        <ul ticker timing="3000" class="ulTicker">
+            <li ng-repeat="item in myTickerItems" class="liTicker">
+                <div class="textTickerDiv">
+                    {{item.text}}
+                </div>
+                <div class="dateTickerDiv">
+                    {{item.creationDate}}
+                </div>
+            </li>
+        </ul>
     </div>
 </div>

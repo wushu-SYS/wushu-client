@@ -11,4 +11,26 @@ app.controller("homeController", function ($scope, $uibModal, $window, constants
     if($window.sessionStorage.getItem('isFirstLogin') == 1)
         $scope.changePassword();
 
+    getDisplayData();
+    function getDisplayData(){
+        $scope.myTickerItems = [
+            {
+                text: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                creationDate: '02/02/2020'
+            },
+            {
+                text: 'אלינה דרור',
+                creationDate: '02/02/2020'
+            },
+            {
+                text: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\nbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+                creationDate: '02/02/2020'
+            },
+            {
+                text: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\nbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+                creationDate: '02/02/2020'
+            }
+        ]
+    }
+
 });

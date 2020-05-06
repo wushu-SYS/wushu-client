@@ -1,0 +1,25 @@
+[ticker].active {
+    height:265px !important;
+}
+[ticker] .minus-margin-top {
+    margin-top:-130px !important;
+}
+.ulTicker{
+    overflow: hidden;
+    width: 300px;
+}
+
+.liTicker{
+    border: 1px solid black;
+    list-style-position: inside;
+    border-radius: 5px;
+    margin: 5px;
+    word-break: break-all;
+    background: white;
+}
+.textTickerDiv{
+    height: 80px;
+}
+.dateTickerDiv{
+    text-align: end;
+}
