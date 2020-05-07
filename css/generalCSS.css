@@ -13,6 +13,13 @@ body {
     padding: 0;
     background: #DDD !important;
 }
+#page-container {
+    position: relative;
+    min-height: 100vh;
+}
+#content-wrap {
+    padding-bottom: 60px;
+}
 footer{
     bottom: 0;
     text-align: center;

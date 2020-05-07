@@ -23,7 +23,7 @@
             <th class="tableTh"><i class="fa fa-trash-o iColored" aria-hidden="true"></i></th>
         </tr>
         <tr class="tableTr" ng-repeat="msg in msgs | filter: (searchClicked || '') && searchText">
-            <td class="tableTd">{{msg.msg | limitTo: 10 }}{{msg.msg.length > 10 ? '...' : ''}}</td>
+            <td class="tableTd">{{msg.msg | limitTo: 25 }}{{msg.msg.length > 25 ? '...' : ''}}</td>
             <td class="tableTd">{{msg.createDate| date: "dd.MM.yyyy" }}</td>
             <td class="tableTd">
                 <button class="linkDark" ng-click="watchMsgDetails(msg.id)"> צפה בהודעה </button>

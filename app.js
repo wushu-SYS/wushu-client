@@ -24,7 +24,7 @@ app.controller("mainController", function ($scope, $location, $window, $rootScop
     $scope.getClass = function (path) {
         return ("/" + $location.path().split("/")[1] === path) ? 'active' : '';
     };
-    $scope.isShowMenu = function(){
+    $scope.isShowMenuOrFooter = function(){
         return $location.path() !== '/login';
     };
 

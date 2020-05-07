@@ -12,6 +12,7 @@
 }
 .textTickerDiv{
     height: 80px;
+    white-space: pre-line;
 }
 .dateTickerDiv{
     text-align: end;

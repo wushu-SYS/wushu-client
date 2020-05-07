@@ -43,7 +43,7 @@
 
 </head>
 
-<body ng-app="myApp" ng-controller="mainController">
+<body ng-app="myApp" ng-controller="mainController" id="page-container">
 <!-- load angular -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
@@ -194,176 +194,178 @@
 
 
 <!-- the website -->
-<div style="margin-bottom: 1em" ng-show="isShowMenu()">
-    <div id="menuRow">
-        <!-- menu -->
-        <ul class="menu">
-            <li>
-                <a href="#!home" ng-class="getClass('/home')" class="menuItem">
-                    <i class="fa fa-home" aria-hidden="true"></i>
-                    דף הבית
-                </a>
-            </li>
-            <li ng-if="access!=userTypes.MANAGER">
-                <a href="#!profile" ng-class="getClass('/profile')" class="menuItem">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    הפרופיל שלי
-                </a>
-            </li>
-<!--            <li>-->
-<!--                <a href="#!calendar" ng-class="getClass('/calendar')" class="menuItem">-->
-<!--                    <i class="fa fa-calendar" aria-hidden="true"></i>-->
-<!--                    לוח אירועים-->
-<!--                </a>-->
-<!--            </li>-->
-            <li ng-if="access==userTypes.Judge">
-                <a href="#!/startJudging" ng-class="getClass('/startJudging')" class="menuItem">
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    התחל לשפוט
-                </a>
-            </li>
-            <li ng-if="access==userTypes.MANAGER">
-                <a href="#!/wushuTree" ng-class="getClass('/wushuTree')" class="menuItem">
-                    <i class="fa fa-sitemap" aria-hidden="true"></i>
-                    עץ התאחדות
-                </a>
-            </li>
-        </ul>
+<div id="content-wrap" ng-style="{'padding-bottom': isShowMenuOrFooter() ? '60px' : '0px'}">
+    <div style="margin-bottom: 1em" ng-show="isShowMenuOrFooter()">
+        <div id="menuRow">
+            <!-- menu -->
+            <ul class="menu">
+                <li>
+                    <a href="#!home" ng-class="getClass('/home')" class="menuItem">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                        דף הבית
+                    </a>
+                </li>
+                <li ng-if="access!=userTypes.MANAGER">
+                    <a href="#!profile" ng-class="getClass('/profile')" class="menuItem">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        הפרופיל שלי
+                    </a>
+                </li>
+    <!--            <li>-->
+    <!--                <a href="#!calendar" ng-class="getClass('/calendar')" class="menuItem">-->
+    <!--                    <i class="fa fa-calendar" aria-hidden="true"></i>-->
+    <!--                    לוח אירועים-->
+    <!--                </a>-->
+    <!--            </li>-->
+                <li ng-if="access==userTypes.Judge">
+                    <a href="#!/startJudging" ng-class="getClass('/startJudging')" class="menuItem">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        התחל לשפוט
+                    </a>
+                </li>
+                <li ng-if="access==userTypes.MANAGER">
+                    <a href="#!/wushuTree" ng-class="getClass('/wushuTree')" class="menuItem">
+                        <i class="fa fa-sitemap" aria-hidden="true"></i>
+                        עץ התאחדות
+                    </a>
+                </li>
+            </ul>
 
-        <div id="greeting">
-            <label ng-model="name">שלום {{name}}</label>
-            <div ng-model="name">
-                <a class="linkLight" href="" ng-click="logout()">
-                    התנתק
-                </a>
+            <div id="greeting">
+                <label ng-model="name">שלום {{name}}</label>
+                <div ng-model="name">
+                    <a class="linkLight" href="" ng-click="logout()">
+                        התנתק
+                    </a>
+                </div>
             </div>
         </div>
+        <div id="managerMenu" ng-show="access==userTypes.MANAGER || access==userTypes.COACH">
+            <ul class="menu">
+                <div class="dropdown">
+                    <div ng-class="getClass('/sportClubs')" class="menuItem">ניהול מועדונים
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="#!sportClubs/addSportClub">
+                            <i class="fa fa-plus-square" aria-hidden="true"></i>
+                            הוספת מועדונים
+                        </a>
+                        <a href="#!sportClubs/sportClubs">
+                            <i class="fa fa-th-list" aria-hidden="true"></i>
+                            רשימת מועדונים
+                        </a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <div ng-class="getClass('/users')" class="menuItem">ניהול משתמשים
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="#!users/register">
+                            <i class="fa fa-plus-square" aria-hidden="true"></i>
+                            רישום משתמשים
+                        </a>
+                        <a href="" ng-click="openModalRegisterAdmin()">
+                            <i class="fa fa-plus-square" aria-hidden="true"></i>
+                            רישום מנהלים
+                        </a>
+                        <a href="#!users/couches">
+                            <i class="fa fa-th-list" aria-hidden="true"></i>
+                            רשימת מאמנים
+                        </a>
+                        <a href="#!users/sportsmen">
+                            <i class="fa fa-th-list" aria-hidden="true"></i>
+                            רשימת ספורטאיים
+                        </a>
+                        <a href="#!users/referees">
+                            <i class="fa fa-th-list" aria-hidden="true"></i>
+                            רשימת שופטים
+                        </a>
+                        <a href="#!users/admins">
+                            <i class="fa fa-th-list" aria-hidden="true"></i>
+                            רשימת מנהלים
+                        </a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <div ng-class="getClass('/competitions')" class="menuItem">ניהול תחרויות
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="#!competitions/addCompetition" ng-show="access==userTypes.MANAGER">
+                            <i class="fa fa-plus-square" aria-hidden="true"></i>
+                            הוספת תחרות
+                        </a>
+                        <a href="#!competitions/registerToCompetition">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            רישום לתחרות
+                        </a>
+                        <a href="#!competitions/results">
+                            <i class="fa fa-trophy" aria-hidden="true"></i>
+                            תוצאות תחרות
+                        </a>
+                        <a href="#!competitions/getCompetitions">
+                            <i class="fa fa-th-list" aria-hidden="true"></i>
+                            כלל התחרויות
+                        </a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <div ng-class="getClass('/events')" class="menuItem">ניהול אירועים
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="#!events/addEvent">
+                            <i class="fa fa-plus-square" aria-hidden="true"></i>
+                            הוספת אירוע
+                        </a>
+                        <a href="#!events/events">
+                            <i class="fa fa-th-list" aria-hidden="true"></i>
+                            רשימת אירועים
+                        </a>
+                        <a href="#!events/messages">
+                            <i class="fa fa-th-list" aria-hidden="true"></i>
+                            רשימת הודעות
+                        </a>
+                    </div>
+                </div>
+                <!--            <div class="dropdown">-->
+                <!--                <div ng-class="getClass('/exports')" class="menuItem">ייצוא דוחות-->
+                <!--                    <i class="fa fa-caret-down" aria-hidden="true"></i>-->
+                <!--                </div>-->
+                <!--                <div class="dropdown-content">-->
+                <!--                    <a href="">-->
+                <!--                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>-->
+                <!--                        דו"ח מאמנים-->
+                <!--                    </a>-->
+                <!--                    <a href="">-->
+                <!--                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>-->
+                <!--                        דו"ח מועדונים-->
+                <!--                    </a>-->
+                <!--                    <a href="">-->
+                <!--                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>-->
+                <!--                        דו"ח מנהלים-->
+                <!--                    </a>-->
+                <!--                    <a href="">-->
+                <!--                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>-->
+                <!--                        דו"ח ספורטאיים-->
+                <!--                    </a>-->
+                <!--                    <a href="">-->
+                <!--                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>-->
+                <!--                        דו"ח שופטים-->
+                <!--                    </a>-->
+                <!--                </div>-->
+                <!--            </div>-->
+            </ul>
+        </div>
     </div>
-    <div id="managerMenu" ng-show="access==userTypes.MANAGER || access==userTypes.COACH">
-        <ul class="menu">
-            <div class="dropdown">
-                <div ng-class="getClass('/sportClubs')" class="menuItem">ניהול מועדונים
-                    <i class="fa fa-caret-down" aria-hidden="true"></i>
-                </div>
-                <div class="dropdown-content">
-                    <a href="#!sportClubs/addSportClub">
-                        <i class="fa fa-plus-square" aria-hidden="true"></i>
-                        הוספת מועדונים
-                    </a>
-                    <a href="#!sportClubs/sportClubs">
-                        <i class="fa fa-th-list" aria-hidden="true"></i>
-                        רשימת מועדונים
-                    </a>
-                </div>
-            </div>
-            <div class="dropdown">
-                <div ng-class="getClass('/users')" class="menuItem">ניהול משתמשים
-                    <i class="fa fa-caret-down" aria-hidden="true"></i>
-                </div>
-                <div class="dropdown-content">
-                    <a href="#!users/register">
-                        <i class="fa fa-plus-square" aria-hidden="true"></i>
-                        רישום משתמשים
-                    </a>
-                    <a href="" ng-click="openModalRegisterAdmin()">
-                        <i class="fa fa-plus-square" aria-hidden="true"></i>
-                        רישום מנהלים
-                    </a>
-                    <a href="#!users/couches">
-                        <i class="fa fa-th-list" aria-hidden="true"></i>
-                        רשימת מאמנים
-                    </a>
-                    <a href="#!users/sportsmen">
-                        <i class="fa fa-th-list" aria-hidden="true"></i>
-                        רשימת ספורטאיים
-                    </a>
-                    <a href="#!users/referees">
-                        <i class="fa fa-th-list" aria-hidden="true"></i>
-                        רשימת שופטים
-                    </a>
-                    <a href="#!users/admins">
-                        <i class="fa fa-th-list" aria-hidden="true"></i>
-                        רשימת מנהלים
-                    </a>
-                </div>
-            </div>
-            <div class="dropdown">
-                <div ng-class="getClass('/competitions')" class="menuItem">ניהול תחרויות
-                    <i class="fa fa-caret-down" aria-hidden="true"></i>
-                </div>
-                <div class="dropdown-content">
-                    <a href="#!competitions/addCompetition" ng-show="access==userTypes.MANAGER">
-                        <i class="fa fa-plus-square" aria-hidden="true"></i>
-                        הוספת תחרות
-                    </a>
-                    <a href="#!competitions/registerToCompetition">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                        רישום לתחרות
-                    </a>
-                    <a href="#!competitions/results">
-                        <i class="fa fa-trophy" aria-hidden="true"></i>
-                        תוצאות תחרות
-                    </a>
-                    <a href="#!competitions/getCompetitions">
-                        <i class="fa fa-th-list" aria-hidden="true"></i>
-                        כלל התחרויות
-                    </a>
-                </div>
-            </div>
-            <div class="dropdown">
-                <div ng-class="getClass('/events')" class="menuItem">ניהול אירועים
-                    <i class="fa fa-caret-down" aria-hidden="true"></i>
-                </div>
-                <div class="dropdown-content">
-                    <a href="#!events/addEvent">
-                        <i class="fa fa-plus-square" aria-hidden="true"></i>
-                        הוספת אירוע
-                    </a>
-                    <a href="#!events/events">
-                        <i class="fa fa-th-list" aria-hidden="true"></i>
-                        רשימת אירועים
-                    </a>
-                    <a href="#!events/messages">
-                        <i class="fa fa-th-list" aria-hidden="true"></i>
-                        רשימת הודעות
-                    </a>
-                </div>
-            </div>
-            <!--            <div class="dropdown">-->
-            <!--                <div ng-class="getClass('/exports')" class="menuItem">ייצוא דוחות-->
-            <!--                    <i class="fa fa-caret-down" aria-hidden="true"></i>-->
-            <!--                </div>-->
-            <!--                <div class="dropdown-content">-->
-            <!--                    <a href="">-->
-            <!--                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>-->
-            <!--                        דו"ח מאמנים-->
-            <!--                    </a>-->
-            <!--                    <a href="">-->
-            <!--                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>-->
-            <!--                        דו"ח מועדונים-->
-            <!--                    </a>-->
-            <!--                    <a href="">-->
-            <!--                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>-->
-            <!--                        דו"ח מנהלים-->
-            <!--                    </a>-->
-            <!--                    <a href="">-->
-            <!--                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>-->
-            <!--                        דו"ח ספורטאיים-->
-            <!--                    </a>-->
-            <!--                    <a href="">-->
-            <!--                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>-->
-            <!--                        דו"ח שופטים-->
-            <!--                    </a>-->
-            <!--                </div>-->
-            <!--            </div>-->
-        </ul>
-    </div>
+    <div id="loading-bar-container"></div>
+
+    <div ng-view></div>
 </div>
-<div id="loading-bar-container"></div>
 
-<div ng-view></div>
-
-<footer>
+<footer ng-show="isShowMenuOrFooter()">
     קישורים נוספים:
     <br>
     <button style="height: 55px;">

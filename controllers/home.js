@@ -1,4 +1,6 @@
 app.controller("homeController", function ($scope, $uibModal, $window, constants, $interval, $timeout, $filter, msgService) {
+    $scope.showMessage = msgService.watchMsgDetails;
+
     $scope.changePassword = function () {
         $uibModal.open({
             templateUrl: "views/modalView/changePasswordModal.html",
@@ -18,6 +20,7 @@ app.controller("homeController", function ($scope, $uibModal, $window, constants
                 $scope.myTickerItems = [];
                 result.data.forEach(msg  => {
                     $scope.myTickerItems.push({
+                        id: msg.id,
                         text: msg.msg,
                         creationDate: $filter('date')(new Date(msg.createDate), "dd/MM/yyyy")
                     })
@@ -37,7 +40,7 @@ app.controller("homeController", function ($scope, $uibModal, $window, constants
         $scope.moving = false;
         $scope.$apply();
     };
-    $interval($scope.moveLeft, 2000);
+    // $interval($scope.moveLeft, 2000);
 
     $scope.addNewMessage = function (){
         msgService.addNewMessageModal(addNewMessageToBoard)

@@ -9,9 +9,7 @@
         <div class="ticker">
             <div class="viewport" ng-class="{moving:moving}">
                 <div class="itemTicker" ng-repeat="item in myTickerItems">
-                    <div class="textTickerDiv">
-                        {{item.text}}
-                    </div>
+                    <div class="textTickerDiv">{{item.text | limitTo: 40 }}{{item.text.length > 40 ? '...' : ''}}<button class="linkDark" style="line-height: 0" ng-show="item.text.length > 40" ng-click="showMessage(item.id)">המשך לקרא</button></div>
                     <div class="dateTickerDiv">
                         {{item.creationDate}}
                     </div>
