@@ -40,7 +40,7 @@ app.controller("homeController", function ($scope, $uibModal, $window, constants
         $scope.moving = false;
         $scope.$apply();
     };
-    // $interval($scope.moveLeft, 2000);
+    $interval($scope.moveLeft, 2000);
 
     $scope.addNewMessage = function (){
         msgService.addNewMessageModal(addNewMessageToBoard)
