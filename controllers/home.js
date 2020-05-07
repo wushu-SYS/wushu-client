@@ -82,21 +82,24 @@ app.controller("homeController", function ($scope, $uibModal, $window, constants
     }
 
     function showSlides(n) {
-        var i;
-        // var slides = document.getElementsByClassName("mySlides");
-        // var dots = document.getElementsByClassName("demo");
-        // var captionText = document.getElementById("caption");
         if (n > $scope.images.length) {$scope.slideIndex = 1}
         if (n < 1) {$scope.slideIndex = $scope.images.length}
-        // for (i = 0; i < slides.length; i++) {
-        //     slides[i].style.display = "none";
-        // }
-        // for (i = 0; i < dots.length; i++) {
-        //     dots[i].className = dots[i].className.replace(" active", "");
-        // }
-        // slides[slideIndex-1].style.display = "block";
-        // dots[slideIndex-1].className += " active";
-        // captionText.innerHTML = dots[slideIndex-1].alt;
+
     }
 
+
+
+    //
+    // let slideIndex2 = 0;
+    // $scope.image =$scope.images[slideIndex2].src
+    // showSlides2();
+    // let autoSlide = setInterval(showSlides2,2000)
+    //
+    // function showSlides2() {
+    //     $scope.image =$scope.images[slideIndex2].src
+    //     console.log($scope.image)
+    //     slideIndex2 ++;
+    //     if (slideIndex2 ==$scope.images.length)
+    //         slideIndex2=0;
+    // }
 });
