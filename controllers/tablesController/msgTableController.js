@@ -23,4 +23,11 @@ app.controller("msgTableController", function ($scope, $http, $filter, $window, 
         });
     }
 
+
+    function editMessageToBoard() {
+        getDataForDisplay()
+    }
+    $scope.editMsgDetails = function (msgId) {
+        msgService.editMessageModal(msgId, editMessageToBoard)
+    }
 });
