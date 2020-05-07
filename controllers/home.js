@@ -22,7 +22,6 @@ app.controller("homeController", function ($scope, $uibModal, $window, constants
                         creationDate: $filter('date')(new Date(msg.createDate), "dd/MM/yyyy")
                     })
                 })
-                $scope.myTickerItems = result
             });
     }
 
@@ -33,7 +32,8 @@ app.controller("homeController", function ($scope, $uibModal, $window, constants
         $timeout($scope.switchFirst, 1000);
     };
     $scope.switchFirst = function() {
-        $scope.myTickerItems.push($scope.myTickerItems.shift());
+        if($scope.myTickerItems && $scope.myTickerItems.length > 0)
+            $scope.myTickerItems.push($scope.myTickerItems.shift());
         $scope.moving = false;
         $scope.$apply();
     };
