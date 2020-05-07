@@ -17,4 +17,25 @@
             </div>
         </div>
     </div>
+
+    <!-- Container for the image gallery -->
+    <div class="container">
+
+        <!-- Full-width images with number text -->
+        <div class="mySlides" ng-repeat="image in images track by $index" ng-style="{'display': $index + 1 == slideIndex ? 'block' : 'none'}">
+            <div class="numbertext">{{$index +1}} / {{images.length}}</div>
+            <img ng-src="{{image.src}}" style="height: 600px" >
+        </div>
+
+        <!-- Next and previous buttons -->
+        <a class="prev" ng-click="plusSlides(-1)">&#10094;</a>
+        <a class="next" ng-click="plusSlides(1)">&#10095;</a>
+
+        <!-- Thumbnail images -->
+        <div class="row">
+            <div class="column" ng-repeat="image in images track by $index" ng-class="{'active': $index + 1 == slideIndex }">
+                <img class="demo cursor" ng-src="{{image.src}}" style="width:150px; height: 150px" ng-click="currentSlide($index+1)">
+            </div>
+        </div>
+    </div>
 </div>
