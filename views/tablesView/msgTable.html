@@ -1,0 +1,41 @@
+<body class="bodyTable">
+
+<div class="center">
+    <div ng-init="searchClicked=false">
+        <input class="searchInput" type="text" placeholder="חפש..." ng-model="searchText" ng-change="searchClicked=false" ng-keydown="$event.keyCode === 13 && setPage(1); searchClicked=true">
+        <button ng-click="searchClicked=true" ng-show="searchClicked==false">
+            <i class="fa fa-search clickableSearch" style="left: 45px" aria-hidden="true"></i>
+        </button>
+        <button ng-click="searchText=''; searchClicked=false" ng-show="searchClicked==true">
+            <i class="fa fa-times clickableSearch" style="left: 45px" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
+
+<div class="tableDiv narrowTableDiv">
+    <div class="headerTable">הודעות</div>
+    <table class="tableUser" cellspacing="0">
+        <tr class="tableTr">
+            <th class="tableTh">הודעה</th>
+            <th class="tableTh">תאריך יצירה</th>
+            <th class="tableTh"><i class="fa fa-eye" aria-hidden="true"></i></th>
+            <th class="tableTh"><i class="fa fa-pencil" aria-hidden="true"></i></th>
+            <th class="tableTh"><i class="fa fa-trash-o iColored" aria-hidden="true"></i></th>
+        </tr>
+        <tr class="tableTr" ng-repeat="msg in msgs | filter: (searchClicked || '') && searchText">
+            <td class="tableTd">{{msg.msg | limitTo: 10 }}{{msg.msg.length > 10 ? '...' : ''}}</td>
+            <td class="tableTd">{{msg.createDate| date: "dd.MM.yyyy" }}</td>
+            <td class="tableTd">
+                <button class="linkDark" ng-click="watchMsgDetails(msg.id)"> צפה בהודעה </button>
+            </td>
+            <td class="tableTd">
+                <button class="linkDark" ng-click="editMsgDetails(msg.id)"> ערוך בהודעה </button>
+            </td>
+            <td class="tableTd">
+                <button class="linkDark" ng-click="deleteMessage(msg.id)"> מחק בהודעה </button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
