@@ -1,4 +1,4 @@
-app.controller("msgTableController", function ($scope, $http, $filter, $window, $location, constants,msgService ) {
+app.controller("msgTableController", function ($scope, $http, $filter, $window, $location, constants,msgService, confirmDialogService,toastNotificationService) {
     getDataForDisplay();
     function getDataForDisplay() {
         msgService.getMessages()
@@ -12,9 +12,15 @@ app.controller("msgTableController", function ($scope, $http, $filter, $window, 
     $scope.watchMsgDetails = msgService.watchMsgDetails;
 
     $scope.deleteMessage = function (msgId) {
-        msgService.deleteMessage(msgId);
-        getDataForDisplay()
-
+        confirmDialogService.askQuestion("האם אתה בטוח שברצונך למחוק את ההודעה?", function () {
+            msgService.deleteMessage(msgId)
+                .then(function (result) {
+                    toastNotificationService.successNotification("ההודעה נמחקה בהצלחה");
+                    getDataForDisplay()
+                }, function (error) {
+                    console.log(error);
+                })
+        });
     }
 
 });

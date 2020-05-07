@@ -65,13 +65,15 @@ app.service('msgService', function($window, $http, constants,$uibModal, $locatio
         return $http(req);
     }
 
-    this.addNewMessageModal = function () {
+    this.addNewMessageModal = function (addNewMessageToBoard) {
         $uibModal.open({
             templateUrl: "views/modalView/addNewMessage.html",
             controller: "addMessageModalController as addMsgCtrl",
             backdrop: true,
             keyboard: false,
-        }).result.catch(function () {
+        }).result.then(function () {
+            addNewMessageToBoard();
+        }).catch(function () {
         });
     }
 });

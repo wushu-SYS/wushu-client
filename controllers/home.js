@@ -7,9 +7,9 @@ app.controller("homeController", function ($scope, $uibModal, $window, constants
             keyboard: false
         });
     };
-
     if ($window.sessionStorage.getItem('isFirstLogin') == 1)
         $scope.changePassword();
+
 
     getDisplayData();
     function getDisplayData(){
@@ -39,6 +39,11 @@ app.controller("homeController", function ($scope, $uibModal, $window, constants
     };
     $interval($scope.moveLeft, 2000);
 
-    $scope.addNewMessage = msgService.addNewMessageModal
+    $scope.addNewMessage = function (){
+        msgService.addNewMessageModal(addNewMessageToBoard)
+    }
+    function addNewMessageToBoard() {
+            getDisplayData()
+    }
 
 });

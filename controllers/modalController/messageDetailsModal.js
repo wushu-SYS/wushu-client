@@ -8,7 +8,7 @@ app.controller("messageDetailsModal", function($scope, $uibModalInstance, $windo
             console.log(result)
             $scope.msgId = result.data[0].id;
             $scope.msgText = result.data[0].msg;
-            $scope.msgDate = result.data[0].createDate;
+            $scope.msgDate =$filter('date')(new Date( result.data[0].createDate),"dd/MM/yyyy");
 
         })
 

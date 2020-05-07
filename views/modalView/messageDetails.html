@@ -1,10 +1,11 @@
 <link data-require="bootstrap-css@3.*" data-semver="3.3.7" rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"/>
-<div class="modal-body" style="width: auto;height: 550px" >
+<div class="modal-body" style="width: auto;height: 250px" >
     <div>
-        <h2>{{msgId}}</h2>
-        <h3>{{msgText}}</h3>
-        <h3>{{msgDate}}</h3>
+        <h2>הודעה מספר : {{msgId}}</h2>
+        <h3>טקסט : </h3>
+        <h3> {{msgText}} </h3>
+        <h3>נוצרה בתאריך : {{msgDate}} </h3>
     </div>
 </div>
 <button class="btn btn-primary" ng-click="close()">סגור חלון</button>
