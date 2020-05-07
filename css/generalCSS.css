@@ -14,9 +14,12 @@ body {
     background: #DDD !important;
 }
 footer{
+    bottom: 0;
     text-align: center;
     background: dimgray;
     color: white;
+    position: absolute;
+    width: 100%;
 }
 footer button a  i.clickableSearch{
     font-size: 20px;
@@ -79,7 +82,7 @@ button:hover {
     margin: 0px auto 5%;
     width: 80%; /*950px;*/
     height: 100%;
-    /*padding: 40px;*/
+    padding: 40px;
     background: #FFF;
     border-radius: 2px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
@@ -211,4 +214,10 @@ form {
     justify-content: center;
     display: grid;
 }
+
+/*@media screen and (max-width: 700px) {*/
+/*    * {*/
+/*        flex-direction: column;*/
+/*    }*/
+/*}*/
 
