@@ -146,7 +146,6 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
             //$scope.user.photo = $scope.user.photo + '?' + new Date().getTime();
             $scope.user.birthdate = new Date($scope.user.birthdate);
             // $scope.user.medicalScan = "https://drive.google.com/file/d/1h0JO7_izq_nYBLvmfQRtSvABKvpQCkgM/preview";
-            console.log($scope.user);
             medicalScanIframe.src = $scope.user.medicalScan ? $scope.user.medicalScan : "";
             insuranceIframe.src = $scope.user.insurance ? $scope.user.insurance : "";
             oldId = $scope.user.id;
@@ -193,7 +192,6 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
                 for (let i = 0; i < res.data.categories.length; i++) {
                     let grades = res.data.resultes.filter(grade => grade.name == res.data.categories[i])
                     let gradesValues = []
-                    console.log(grades)
                     grades.forEach((grade) => {
                         let date = new Date(grade.date)
                         gradesValues.push({
@@ -217,7 +215,7 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
     }
 
     $scope.setSportsmanJudgeGradesChartData = function (selectedCategory) {
-        console.log(selectedCategory)
+        $scope.updateProfile.$dirty = false;
         $scope.sportsmanJudgesGradesData = []
         let containedJudgeIds = [...new Set($scope.allSportsmanJudgeGrades.map(record => record.judgeId))];
         let filteredBySelectedCategory = $scope.allSportsmanJudgeGrades.filter(record => record.categoryId == selectedCategory.id);
