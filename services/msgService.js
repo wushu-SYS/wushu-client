@@ -51,7 +51,7 @@ app.service('msgService', function($window, $http, constants,$uibModal, $locatio
         return $http(req);
     }
 
-    this.addMessage = function (msg) {
+    this.addNewMessage = function (msg) {
         var req = {
             method: 'POST',
             url: constants.serverUrl + '/private/manager/addMessage',
@@ -65,5 +65,14 @@ app.service('msgService', function($window, $http, constants,$uibModal, $locatio
         return $http(req);
     }
 
+    this.addNewMessageModal = function () {
+        $uibModal.open({
+            templateUrl: "views/modalView/addNewMessage.html",
+            controller: "addMessageModalController as addMsgCtrl",
+            backdrop: true,
+            keyboard: false,
+        }).result.catch(function () {
+        });
+    }
 });
 

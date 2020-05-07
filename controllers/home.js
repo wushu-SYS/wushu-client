@@ -1,38 +1,28 @@
-app.controller("homeController", function ($scope, $uibModal, $window, constants, $interval, $timeout, clubService) {
+app.controller("homeController", function ($scope, $uibModal, $window, constants, $interval, $timeout, $filter, msgService) {
     $scope.changePassword = function () {
-            $uibModal.open({
-                templateUrl: "views/modalView/changePasswordModal.html",
-                controller: "changePasswordController as changePassCtrl",
-                backdrop  : 'static',
-                keyboard  : false
-            });
+        $uibModal.open({
+            templateUrl: "views/modalView/changePasswordModal.html",
+            controller: "changePasswordController as changePassCtrl",
+            backdrop: 'static',
+            keyboard: false
+        });
     };
 
-    if($window.sessionStorage.getItem('isFirstLogin') == 1)
+    if ($window.sessionStorage.getItem('isFirstLogin') == 1)
         $scope.changePassword();
 
     getDisplayData();
     function getDisplayData(){
-        clubService.getClubs()
+        msgService.getMessages()
             .then(function (result) {
-                $scope.myTickerItems = [
-                    {
-                        text: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                        creationDate: '02/02/2020'
-                    },
-                    {
-                        text: 'אלינה דרור',
-                        creationDate: '02/02/2020'
-                    },
-                    {
-                        text: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\nbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
-                        creationDate: '02/02/2020'
-                    },
-                    {
-                        text: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\nbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
-                        creationDate: '02/02/2020'
-                    }
-                ]
+                $scope.myTickerItems = [];
+                result.data.forEach(msg  => {
+                    $scope.myTickerItems.push({
+                        text: msg.msg,
+                        creationDate: $filter('date')(new Date(msg.createDate), "dd/MM/yyyy")
+                    })
+                })
+                $scope.myTickerItems = result
             });
     }
 
@@ -49,5 +39,6 @@ app.controller("homeController", function ($scope, $uibModal, $window, constants
     };
     $interval($scope.moveLeft, 2000);
 
+    $scope.addNewMessage = msgService.addNewMessageModal
 
 });
