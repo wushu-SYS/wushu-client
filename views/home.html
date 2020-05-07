@@ -1,7 +1,10 @@
+
 <div>
     <div class="center">
         <img src="./resources/images/icon.png">
     </div>
+    <button class="linkDark" ng-click="addNewMessage()" ng-show="access==userTypes.MANAGER"> הוסף הודעה</button>
+
     <div>
         <ul ticker timing="3000" class="ulTicker">
             <li ng-repeat="item in myTickerItems" class="liTicker">
