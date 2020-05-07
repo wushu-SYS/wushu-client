@@ -90,6 +90,13 @@ button:hover {
 .flexBox{
     display: flex;
 }
+.modal-dialog{
+    margin: 0 !important;
+    top: 50%;
+    position: absolute !important;
+    left: 50%;
+    transform: translate(-50%,-50%) !important;
+}
 
 .scrollablePanel{
     direction: ltr;
