@@ -1,25 +1,56 @@
-[ticker].active {
-    height:265px !important;
-}
-[ticker] .minus-margin-top {
-    margin-top:-130px !important;
-}
-.ulTicker{
-    overflow: hidden;
-    width: 300px;
-}
-
-.liTicker{
+/* from https://codepen.io/omadoyeabraham/pen/gLEwqQ*/
+.itemTicker{
     border: 1px solid black;
     list-style-position: inside;
     border-radius: 5px;
     margin: 5px;
     word-break: break-all;
     background: white;
+    padding: 5px;
+    overflow: hidden;
+    width: 300px;
 }
 .textTickerDiv{
     height: 80px;
 }
 .dateTickerDiv{
     text-align: end;
+}
+
+
+.main-wrapper{
+    max-width: 600px;
+    margin: 0 auto;
+}
+.ticker{
+    width: 30%;
+    height: 245px;
+    overflow: hidden;
+    position: relative;
+    padding: 5px 5px;
+    /*background: #555;*/
+}
+.viewport{
+    position: absolute;
+    height: 200px;
+    /*border: 1px solid #666;*/
+    /*white-space: nowrap;*/
+}
+.box{
+    /*   display: inline-block; */
+    width: 100px;
+    height: 100%;
+    border-left: 1px solid #eee;
+    text-align: center;
+    /*color: #ddd;*/
+}
+.viewport.moving{
+    /*   animation: moveLeft  1s infinite; */
+}
+
+@keyframes moveLeft {
+    0% { transform: translateX(0) }
+
+    100% { transform: translateX(-110px) }
+
 }

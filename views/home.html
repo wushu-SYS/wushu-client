@@ -3,15 +3,17 @@
         <img src="./resources/images/icon.png">
     </div>
     <div>
-        <ul ticker timing="3000" class="ulTicker">
-            <li ng-repeat="item in myTickerItems" class="liTicker">
-                <div class="textTickerDiv">
-                    {{item.text}}
+        <div class="ticker">
+            <div class="viewport" ng-class="{moving:moving}">
+                <div class="itemTicker" ng-repeat="item in myTickerItems">
+                    <div class="textTickerDiv">
+                        {{item.text}}
+                    </div>
+                    <div class="dateTickerDiv">
+                        {{item.creationDate}}
+                    </div>
                 </div>
-                <div class="dateTickerDiv">
-                    {{item.creationDate}}
-                </div>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
 </div>
