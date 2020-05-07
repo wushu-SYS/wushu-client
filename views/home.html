@@ -4,11 +4,7 @@
 
 
 <div>
-    <div class="center">
-        <img src="./resources/images/icon.png">
-    </div>
     <button class="linkDark" ng-click="addNewMessage()" ng-show="access==userTypes.MANAGER"> הוסף הודעה</button>
-
     <div>
         <div class="ticker">
             <div class="viewport" ng-class="{moving:moving}">
@@ -37,8 +33,8 @@
 
         <!-- Thumbnail images -->
         <div class="row">
-            <div class="column" ng-repeat="image in images track by $index" ng-class="{'active': $index + 1 == slideIndex }">
-                <img class="demo cursor" ng-src="{{image.src}}" style="width:150px; height: 150px" ng-click="currentSlide($index+1)">
+            <div class="column" ng-repeat="image in images track by $index">
+                <img class="demo cursor" ng-src="{{image.src}}" style="width:100%; height: 100%" ng-click="currentSlide($index+1)" ng-class="{'active': $index + 1 == slideIndex }">
             </div>
         </div>
     </div>
