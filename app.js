@@ -164,17 +164,13 @@ app.config(function($routeProvider) {
             templateUrl: 'views/home.html',
             controller: 'homeController as hCtrl'
         })
-        .when('/events/addMessage', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
-        })
         .when('/events/events', {
             templateUrl: 'views/home.html',
             controller: 'homeController as hCtrl'
         })
         .when('/events/messages', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
+            templateUrl: 'views/tablesView/msgTable.html',
+            controller: 'msgTableController as msgtCtrl'
         })
         .when('/sportsmanCompetitionRegistration/:idComp', {
             templateUrl: 'views/competitionRegistrationView/regSportsmanCompetition.html',

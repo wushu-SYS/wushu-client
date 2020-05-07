@@ -142,6 +142,8 @@
 <script src="controllers/modalController/registerAdminModalController.js"></script>
 <script src="controllers/tablesController/adminsTableController.js"></script>
 <script src="controllers/wushuTree.js"></script>
+<script src="controllers/tablesController/msgTableController.js"></script>
+<script src="controllers/modalController/messageDetailsModal.js"></script>
 
 <!-- Load Services -->
 <script src="services/moment.js"></script>
@@ -161,6 +163,7 @@
 <script src="services/adminService.js"></script>
 <script src="services/chartsDataService.js"></script>
 <script src="services/chartsService.js"></script>
+<script src="services/msgService.js"></script>
 
 <!-- Load Filters -->
 <script src="filters/categoryBySportsmanFilter.js"></script>
@@ -289,29 +292,29 @@
                     </a>
                 </div>
             </div>
-            <!--            <div class="dropdown">-->
-            <!--                <div ng-class="getClass('/events')" class="menuItem">ניהול אירועים-->
-            <!--                    <i class="fa fa-caret-down" aria-hidden="true"></i>-->
-            <!--                </div>-->
-            <!--                <div class="dropdown-content">-->
-            <!--                    <a href="#!events/addEvent">-->
-            <!--                        <i class="fa fa-plus-square" aria-hidden="true"></i>-->
-            <!--                        הוספת אירוע-->
-            <!--                    </a>-->
-            <!--                    <a href="#!events/addMessage">-->
-            <!--                        <i class="fa fa-plus-square" aria-hidden="true"></i>-->
-            <!--                        הוספת הודעה-->
-            <!--                    </a>-->
-            <!--                    <a href="#!events/events">-->
-            <!--                        <i class="fa fa-th-list" aria-hidden="true"></i>-->
-            <!--                        רשימת אירועים-->
-            <!--                    </a>-->
-            <!--                    <a href="#!events/messages">-->
-            <!--                        <i class="fa fa-th-list" aria-hidden="true"></i>-->
-            <!--                        רשימת הודעות-->
-            <!--                    </a>-->
-            <!--                </div>-->
-            <!--            </div>-->
+            <div class="dropdown">
+                <div ng-class="getClass('/events')" class="menuItem">ניהול אירועים
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </div>
+                <div class="dropdown-content">
+                    <a href="#!events/addEvent">
+                        <i class="fa fa-plus-square" aria-hidden="true"></i>
+                        הוספת אירוע
+                    </a>
+                    <a href="#!events/addMessage">
+                        <i class="fa fa-plus-square" aria-hidden="true"></i>
+                        הוספת הודעה
+                    </a>
+                    <a href="#!events/events">
+                        <i class="fa fa-th-list" aria-hidden="true"></i>
+                        רשימת אירועים
+                    </a>
+                    <a href="#!events/messages">
+                        <i class="fa fa-th-list" aria-hidden="true"></i>
+                        רשימת הודעות
+                    </a>
+                </div>
+            </div>
             <!--            <div class="dropdown">-->
             <!--                <div ng-class="getClass('/exports')" class="menuItem">ייצוא דוחות-->
             <!--                    <i class="fa fa-caret-down" aria-hidden="true"></i>-->
