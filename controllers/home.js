@@ -66,6 +66,10 @@ app.controller("homeController", function ($scope, $uibModal, $window, constants
         {src: "./resources/images/gallery/img14.jpg"},
         {src: "./resources/images/gallery/img15.jpg"},
         {src: "./resources/images/gallery/img16.jpg"},
+        {src: "./resources/images/gallery/img17.jpg"},
+        {src: "./resources/images/gallery/img18.jpg"},
+        {src: "./resources/images/gallery/img19.jpg"},
+        {src: "./resources/images/icon.png"},
         ];
 
     $scope.slideIndex = 1;
