@@ -1,6 +1,6 @@
 
 /* Position the image container (needed to position the left and right arrows) */
-.container {
+.photoGallery {
     box-sizing: border-box;
     position: relative;
     width: auto;
