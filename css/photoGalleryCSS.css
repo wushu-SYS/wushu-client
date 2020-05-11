@@ -81,9 +81,14 @@
 /* Add a transparency effect for thumnbail images */
 .demo {
     opacity: 0.6;
+    object-fit: cover;
 }
 
 .demo.active,
 .demo:hover {
     opacity: 1;
+}
+
+.demoRow{
+    margin: 0px;
 }

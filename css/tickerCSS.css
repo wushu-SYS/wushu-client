@@ -28,7 +28,7 @@
     height: 248px;
     overflow: hidden;
     position: relative;
-    padding: 5px 5px;
+    padding: 5px 0px;
     /*background: #555;*/
 }
 .viewport{

@@ -1,5 +1,8 @@
 app.controller("homeController", function ($scope, $uibModal, $window, constants, $interval, $timeout, $filter, msgService) {
-    $scope.showMessage = msgService.watchMsgDetails;
+    $scope.showMessage = function (messageId) {
+        stopInterval();
+        msgService.watchMsgDetails(messageId, startInterval);
+    };
 
     $scope.changePassword = function () {
         $uibModal.open({
@@ -40,7 +43,15 @@ app.controller("homeController", function ($scope, $uibModal, $window, constants
         $scope.moving = false;
         $scope.$apply();
     };
-    $interval($scope.moveLeft, 2000);
+    let interval;
+    startInterval();
+    function startInterval() {
+        interval = $interval($scope.moveLeft, 2000);
+    }
+    function stopInterval(){
+        $interval.cancel(interval);
+        interval = null;
+    }
 
     $scope.addNewMessage = function (){
         msgService.addNewMessageModal(addNewMessageToBoard)

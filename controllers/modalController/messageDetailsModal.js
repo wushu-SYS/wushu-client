@@ -5,11 +5,9 @@ app.controller("messageDetailsModal", function($scope, $uibModalInstance, $windo
 
     msgService.getMessageDetails(getId)
         .then(function (result) {
-            console.log(result)
             $scope.msgId = result.data[0].id;
             $scope.msgText = result.data[0].msg;
             $scope.msgDate =$filter('date')(new Date( result.data[0].createDate),"dd/MM/yyyy");
-            console.log($scope.msgDate)
         })
 
 

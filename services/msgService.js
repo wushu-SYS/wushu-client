@@ -10,7 +10,7 @@ app.service('msgService', function ($window, $http, constants, $uibModal, $locat
             };
             return $http(req);
         };
-        this.watchMsgDetails = function (msgId) {
+        this.watchMsgDetails = function (msgId, callbackFunc) {
             $uibModal.open({
                 templateUrl: "views/modalView/messageDetails.html",
                 controller: "messageDetailsModal as msgDetailsCtrl",
@@ -21,7 +21,10 @@ app.service('msgService', function ($window, $http, constants, $uibModal, $locat
                         return msgId;
                     }
                 }
-            }).result.catch(function () {
+            }).result.then(function () {
+                callbackFunc();
+            }).catch(function () {
+                callbackFunc();
             });
         };
         this.getMessageDetails = function (msgId) {
