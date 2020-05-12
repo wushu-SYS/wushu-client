@@ -1,0 +1,63 @@
+<body class="bodyTable">
+
+<div class="center">
+    <div ng-init="searchClicked=false">
+        <input class="searchInput" type="text" placeholder="חפש לפי מיקום..." ng-model="searchText" ng-change="searchClicked=false" ng-keydown="$event.keyCode === 13 && setPage(1); searchClicked=true">
+        <button ng-click="setPage(1); searchClicked=true" ng-show="searchClicked==false">
+            <i class="fa fa-search clickableSearch" style="left: 45px" aria-hidden="true"></i>
+        </button>
+        <button ng-click="searchText=''; setPage(1); searchClicked=false" ng-show="searchClicked==true">
+            <i class="fa fa-times clickableSearch" style="left: 45px" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
+
+<div class="tableDiv narrowTableDiv">
+    <div class="headerTable">אירועים</div>
+    <table class="tableUser" cellspacing="0">
+        <tr class="tableTr">
+            <th class="tableTh">סוג</th>
+            <th class="tableTh">תאריך</th>
+            <th class="tableTh">שעה</th>
+            <th class="tableTh"><i class="fa fa-eye" aria-hidden="true"></i></th>
+            <th class="tableTh"><i class="fa fa-pencil" aria-hidden="true"></i></th>
+            <th class="tableTh"><i class="fa fa-trash-o iColored" aria-hidden="true"></i></th>
+        </tr>
+        <tr class="tableTr" ng-repeat="event in events">
+            <td class="tableTd">{{event.type}}</td>
+            <td class="tableTd">{{event.date| date: "dd.MM.yyyy" }}</td>
+            <td class="tableTd">{{event.startHour | date: "HH:mm"}}</td>
+            <td class="tableTd">
+                <button class="linkDark" ng-click="watchEventDetails(event.id)"> פרטי אירוע </button>
+            </td>
+            <td class="tableTd">
+                <button class="linkDark" ng-click="editEventDetails(event.id)"> ערוך אירוע </button>
+            </td>
+            <td class="tableTd">
+                <button class="linkDark" ng-click="deleteEvent(event.id)"> מחק אירוע </button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="center" ng-show="pager.totalPages>1">
+    <!-- pager -->
+    <ul ng-if="pager.pages.length" class="pagination">
+        <li ng-class="{'disabled':pager.currentPage === 1}">
+            <a ng-click="setPage(1)">ראשון</a>
+        </li>
+        <li ng-class="{'disabled':pager.currentPage === 1}">
+            <a ng-click="setPage(pager.currentPage - 1)">הקודם</a>
+        </li>
+        <li ng-repeat="page in pager.pages" ng-class="{'numberBtn' : true, 'active' : pager.currentPage===page}" ng-click="setPage(page)">
+            {{page}}
+        </li>
+        <li ng-class="{'disabled':pager.currentPage === pager.totalPages}">
+            <a ng-click="setPage(pager.currentPage + 1)">הבא</a>
+        </li>
+        <li ng-class="{'disabled':pager.currentPage === pager.totalPages}">
+            <a ng-click="setPage(pager.totalPages)">אחרון</a>
+        </li>
+    </ul>
+</div>
+</body>

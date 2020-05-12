@@ -1,36 +1,28 @@
-app.service('msgService', function ($window, $http, constants, $uibModal, $location) {
+app.service('eventService', function ($window, $http, constants, $uibModal, $location) {
 
-        this.getMessages = function () {
+        this.getEvents = function () {
             var req = {
                 method: 'POST',
-                url: constants.serverUrl + '/private/allUsers/getAllMessages',
+                url: constants.serverUrl + '/private/allUsers/getAllEvents',
                 headers: {
                     'x-auth-token': $window.sessionStorage.getItem('token')
                 },
             };
             return $http(req);
         };
-        this.watchMsgDetails = function (msgId, callbackFunc) {
-            $uibModal.open({
-                templateUrl: "views/modalView/messageDetails.html",
-                controller: "messageDetailsModal as msgDetailsCtrl",
-                backdrop: true,
-                keyboard: false,
-                resolve: {
-                    getId: function () {
-                        return msgId;
-                    }
-                }
-            }).result.then(function () {
-                callbackFunc();
-            }).catch(function () {
-                callbackFunc();
-            });
+
+        /**
+         * open modal for showing full event details
+         * @param eventId
+         * @param callbackFunc
+         */
+        this.watchEventDetails = function (eventId, callbackFunc) {
+
         };
-        this.getMessageDetails = function (msgId) {
+        this.getEventDetails = function (msgId) {
             var req = {
                 method: 'POST',
-                url: constants.serverUrl + '/private/allUsers/getMessageById',
+                url: constants.serverUrl + '/private/allUsers/getEventById',
                 headers: {
                     'x-auth-token': $window.sessionStorage.getItem('token')
                 },
@@ -40,10 +32,10 @@ app.service('msgService', function ($window, $http, constants, $uibModal, $locat
             };
             return $http(req);
         }
-        this.deleteMessage = function (msgId) {
+        this.deleteEvent = function (msgId) {
             var req = {
                 method: 'POST',
-                url: constants.serverUrl + '/private/manager/deleteMessage',
+                url: constants.serverUrl + '/private/manager/deleteEvent',
                 headers: {
                     'x-auth-token': $window.sessionStorage.getItem('token')
                 },
@@ -54,47 +46,56 @@ app.service('msgService', function ($window, $http, constants, $uibModal, $locat
             return $http(req);
         }
 
-        this.addNewMessage = function (msg) {
+        this.addNewEvent = function (event) {
             var req = {
                 method: 'POST',
-                url: constants.serverUrl + '/private/manager/addMessage',
+                url: constants.serverUrl + '/private/manager/addEvent',
                 headers: {
                     'x-auth-token': $window.sessionStorage.getItem('token')
                 },
                 data: {
-                    msg: msg
+                    event: event
                 }
             };
             return $http(req);
         }
-        this.editMessage = function (msg,msgId) {
+        this.editEvent = function (event, eventId) {
             var req = {
                 method: 'POST',
-                url: constants.serverUrl + '/private/manager/editMessage',
+                url: constants.serverUrl + '/private/manager/editEvent',
                 headers: {
                     'x-auth-token': $window.sessionStorage.getItem('token')
                 },
                 data: {
-                    msg: msg,
-                    msgId :msgId
+                    event: event,
+                    eventId: eventId
                 }
             };
             return $http(req);
         }
 
-        this.addNewMessageModal = function (addNewMessageToBoard) {
-            $uibModal.open({
-                templateUrl: "views/modalView/addNewMessage.html",
-                controller: "addMessageModalController as addMsgCtrl",
-                backdrop: true,
-                keyboard: false,
-            }).result.then(function () {
-                addNewMessageToBoard();
-            }).catch(function () {
-            });
+        /**
+         * open modal for adding new message
+         * @param addNewMessageToBoard
+         */
+        this.addNewEventModal = function (callbackFunc) {
+            // $uibModal.open({
+            //     templateUrl: "views/modalView/addNewMessage.html",
+            //     controller: "addMessageModalController as addMsgCtrl",
+            //     backdrop: true,
+            //     keyboard: false,
+            // }).result.then(function () {
+            //     callbackFunc();
+            // }).catch(function () {
+            // });
         }
 
-        this.editMessageModal = function (msgId,editMessageBoard) {
+        /**
+         * open modal for editing existing message
+         * @param msgId
+         * @param editMessageBoard
+         */
+        this.editMessageModal = function (msgId, editMessageBoard) {
             $uibModal.open({
                 templateUrl: "views/modalView/editMessage.html",
                 controller: "editMessageModalController as editMsgCtrl",
