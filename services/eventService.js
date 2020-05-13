@@ -32,7 +32,7 @@ app.service('eventService', function ($window, $http, constants, $uibModal, $loc
             };
             return $http(req);
         }
-        this.deleteEvent = function (msgId) {
+        this.deleteEvent = function (eventId) {
             var req = {
                 method: 'POST',
                 url: constants.serverUrl + '/private/manager/deleteEvent',
@@ -40,7 +40,7 @@ app.service('eventService', function ($window, $http, constants, $uibModal, $loc
                     'x-auth-token': $window.sessionStorage.getItem('token')
                 },
                 data: {
-                    msgId: msgId
+                    eventId: eventId
                 }
             };
             return $http(req);

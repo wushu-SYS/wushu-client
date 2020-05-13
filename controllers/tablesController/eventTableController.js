@@ -1,9 +1,6 @@
 app.controller("eventTableController", function ($scope, $http, $filter, $window, $location, constants,eventService, confirmDialogService,toastNotificationService) {
-    setPage(1);
-    $scope.setPage = function (page) {
-        setPage(page);
-    };
-    function setPage(page) {
+    getDisplayData()
+    function getDisplayData() {
         eventService.getEvents()
             .then(function (result) {
                 $scope.events = result.data;
@@ -18,17 +15,14 @@ app.controller("eventTableController", function ($scope, $http, $filter, $window
             eventService.deleteEvent(eventId)
                 .then(function (result) {
                     toastNotificationService.successNotification("האירוע נמחקה בהצלחה");
-                    setPage(1)
+                    getDisplayData();
                 }, function (error) {
                     console.log(error);
                 })
         });
     }
 
-    function editEventToBoard() {
-        setPage(1)
-    }
     $scope.editEventDetails = function (eventId) {
-        eventService.editedGrades(eventId, editEventToBoard)
+        eventService.editedGrades(eventId, getDisplayData)
     }
 });
