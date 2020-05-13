@@ -1,4 +1,4 @@
-app.controller("eventTableController", function ($scope, $http, $filter, $window, $location, constants,eventService, confirmDialogService,toastNotificationService) {
+app.controller("eventTableController", function ($scope, $http, $filter, $window, $location, constants,eventService, competitionService, confirmDialogService,toastNotificationService) {
     getDisplayData()
     function getDisplayData() {
         eventService.getEvents()
@@ -22,7 +22,10 @@ app.controller("eventTableController", function ($scope, $http, $filter, $window
         });
     }
 
-    $scope.editEventDetails = function (eventId) {
-        eventService.editedGrades(eventId, getDisplayData)
+    $scope.editEventDetails = function (event) {
+        if(event.idCompetition)
+            competitionService.editCompetitionDetails(event.idCompetition)
+        else
+            eventService.editEventModal(event.idEvent, getDisplayData)
     }
 });

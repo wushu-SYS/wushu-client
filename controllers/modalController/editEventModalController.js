@@ -1,4 +1,4 @@
-app.controller("editCompetitionDetailsModal", function($scope, $rootScope, $location, $uibModalInstance, $window, $http,$filter,getId,competitionService, constants, confirmDialogService, toastNotificationService) {
+app.controller("editEventModalController", function($scope, $rootScope, $location, $uibModalInstance, $window, $http,$filter,getId,eventService, constants, confirmDialogService, toastNotificationService) {
     $scope.sportStyleEnum = constants.sportStyleEnum;
     $scope.regex = constants.regex;
 
@@ -11,41 +11,36 @@ app.controller("editCompetitionDetailsModal", function($scope, $rootScope, $loca
         else
             $uibModalInstance.close()
     };
-    competitionService.getCompetitionDetails(getId)
+    eventService.getEventDetails(getId)
         .then(function (result) {
-            $scope.idCompetition = result.data.idCompetition;
-            $scope.description=result.data.description;
+            $scope.type = result.data.type;
             $scope.location = result.data.location
             $scope.city = result.data.city;
             $scope.eventDate = new Date(result.data.date);
-            $scope.sportStyle =result.data.sportStyle
             $scope.evetTime =new Date(result.data.startHour.substring(0, result.data.startHour.length-1))
-            $scope.closeRegDate =new Date(result.data.closeRegDate)
-            $scope.closeRegTime =new Date(result.data.closeRegTime.substring(0, result.data.startHour.length-1))
-
         }).catch(function (error) {console.log(error)})
 
     $scope.submit=function (isValid) {
+        console.log(isValid)
         if (isValid) {
             let data = {
-                competitionId :getId,
-                description: $scope.description,
                 location: $scope.location,
                 city: $scope.city,
-                eventDate: $filter('date')($scope.eventDate, "MM/dd/yyyy"),
-                sportStyle: $scope.sportStyle,
-                evetTime: $filter('date')($scope.evetTime,"HH:mm"),
-                closeRegDate: $filter('date')($scope.closeRegDate, "MM/dd/yyyy"),
-                closeRegTime: $filter('date')($scope.closeRegTime,"HH:mm")
+                type: $scope.type,
+                date: $filter('date')($scope.eventDate, "MM/dd/yyyy"),
+                startHour: $filter('date')($scope.evetTime,"HH:mm")
             }
-            competitionService.updateCompetitionDetails(data)
+            eventService.editEvent(data, getId)
                 .then(function (result) {
                     $scope.isSaved = true;
                     $uibModalInstance.close();
                     parent.location.reload();
-                    toastNotificationService.successNotification("פרטי התחרות עודכנו בהצלחה");
+                    toastNotificationService.successNotification("פרטי האירוע עודכנו בהצלחה");
 
-                },function (error) {console.log(error)})
+                },function (error) {
+                    toastNotificationService.errorNotification("ארעה שגיאה בעת עדכון פרטי האירוע");
+                    console.log(error)
+                })
         }
     }
 })

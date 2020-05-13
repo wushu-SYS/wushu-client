@@ -84,40 +84,25 @@ app.service('eventService', function ($window, $http, constants, $uibModal, $loc
             return $http(req);
         }
 
-        /**
-         * open modal for adding new message
-         * @param addNewMessageToBoard
-         */
-        this.addNewEventModal = function (callbackFunc) {
-            // $uibModal.open({
-            //     templateUrl: "views/modalView/addNewMessage.html",
-            //     controller: "addMessageModalController as addMsgCtrl",
-            //     backdrop: true,
-            //     keyboard: false,
-            // }).result.then(function () {
-            //     callbackFunc();
-            // }).catch(function () {
-            // });
-        }
 
         /**
-         * open modal for editing existing message
-         * @param msgId
-         * @param editMessageBoard
+         * open modal for editing existing event
+         * @param eventId
+         * @param callbackFunction
          */
-        this.editMessageModal = function (msgId, editMessageBoard) {
+        this.editEventModal = function (eventId, callbackFunction) {
             $uibModal.open({
-                templateUrl: "views/modalView/editMessage.html",
-                controller: "editMessageModalController as editMsgCtrl",
-                backdrop: true,
+                templateUrl: "views/modalView/editCompetitionDetails.html",
+                controller: "editEventModalController as editMsgCtrl",
+                backdrop: 'static',
                 keyboard: false,
                 resolve: {
                     getId: function () {
-                        return msgId;
+                        return eventId;
                     }
                 }
             }).result.then(function () {
-                editMessageBoard();
+                callbackFunction();
             }).catch(function () {
             });
         }

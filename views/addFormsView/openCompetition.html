@@ -2,6 +2,10 @@
 
 <div id="box">
     <h1>{{title}}</h1>
+    <div ng-show="isEvent" class="center">
+        <h6>אם ברצונך לפתוח אירוע תחרות אנא לחץ
+        <a class="linkDark iLink"  href="#!competitions/addCompetition" >כאן</a></h6>
+    </div>
     <form class="centered-form validate-form" name="openCompetitionForm" ng-submit="submit(openCompetitionForm.$valid)"
           novalidate>
         <div class="wrap-input100 validate-input" ng-show="!isEvent"
