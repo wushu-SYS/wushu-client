@@ -39,6 +39,7 @@ tr.deletedItem td:not(:first-child):before {
     max-width: calc(100% - 2em);
     margin: 1em auto;
     overflow: hidden;
+    margin-bottom: 30px;
 }
 .wideTableDiv{
     width: 1000px;

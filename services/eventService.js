@@ -93,7 +93,7 @@ app.service('eventService', function ($window, $http, constants, $uibModal, $loc
         this.editEventModal = function (eventId, callbackFunction) {
             $uibModal.open({
                 templateUrl: "views/modalView/editCompetitionDetails.html",
-                controller: "editEventModalController as editMsgCtrl",
+                controller: "editEventModalController as editEventCtrl",
                 backdrop: 'static',
                 keyboard: false,
                 resolve: {

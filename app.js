@@ -27,6 +27,9 @@ app.controller("mainController", function ($scope, $location, $window, $rootScop
     $scope.isShowMenuOrFooter = function(){
         return $location.path() !== '/login';
     };
+    $scope.isShowLoadingBar = function(){
+      return $location.path() !== '/home';
+    };
 
     $rootScope.userTypes = {
         MANAGER: 1,

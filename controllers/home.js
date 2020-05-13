@@ -1,4 +1,4 @@
-app.controller("homeController", function ($scope, $uibModal, $window, constants, $interval, $timeout, $filter, msgService) {
+app.controller("homeController", function ($scope, $uibModal, $window, constants, $interval, $timeout, $filter, $location, msgService) {
     $scope.showMessage = function (messageId) {
         stopInterval();
         msgService.watchMsgDetails(messageId, startInterval);
@@ -53,6 +53,9 @@ app.controller("homeController", function ($scope, $uibModal, $window, constants
         interval = null;
     }
 
+    $scope.addNewEvent = function(){
+        $location.path("/events/addEvent");
+    }
     $scope.addNewMessage = function (){
         msgService.addNewMessageModal(addNewMessageToBoard)
     }

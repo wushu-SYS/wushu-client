@@ -24,7 +24,7 @@
     margin: 0 auto;
 }
 .ticker{
-    width: 30%;
+    /*width: 30%;*/
     height: 248px;
     overflow: hidden;
     position: relative;

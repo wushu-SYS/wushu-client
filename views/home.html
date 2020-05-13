@@ -8,8 +8,8 @@
     </div>
     <div class="mainTitle">ברוכים הבאים<br> לאתר התאחדות או-שו</div>
 
-    <div style="background-color: #e3f2fd; padding: 10px;">
-        <div>
+    <div style="background-color: #e3f2fd; padding: 10px; display: flex">
+        <div style="width: 30%">
             <h5 style="font-weight: bold;">לוח הודעות</h5>
             <div ng-show="access==userTypes.MANAGER">
                 <i class="fa  fa-plus-circle iColored" aria-hidden="true"></i>
@@ -30,26 +30,15 @@
                 </div>
             </div>
         </div>
-        <div>
-<!--            <h5 style="font-weight: bold;">לוח אירועים</h5>-->
-<!--            <div ng-show="access==userTypes.MANAGER">-->
-<!--                <i class="fa fa-plus-circle iColored" aria-hidden="true"></i>-->
-<!--                <button class="linkDark" ng-click="addNewEvent()" ng-show="access==userTypes.MANAGER">הוסף אירוע חדש</button>-->
-<!--            </div>-->
-<!--            <div class="ticker">-->
-<!--                <div class="viewport" ng-class="{moving:moving}">-->
-<!--                    <div class="itemTicker" ng-repeat="item in myTickerItems">-->
-<!--                        <div class="textTickerDiv">{{item.text | limitTo: 40 }}{{item.text.length > 40 ? '...' : ''}}-->
-<!--                            <button class="linkDark" style="line-height: 0" ng-show="item.text.length > 40"-->
-<!--                                    ng-click="showMessage(item.id)">המשך לקרא-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                        <div class="dateTickerDiv">-->
-<!--                            {{item.creationDate}}-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+        <div style="width: 70%">
+            <h5 style="font-weight: bold;">לוח אירועים</h5>
+            <div ng-show="access==userTypes.MANAGER">
+                <i class="fa fa-plus-circle iColored" aria-hidden="true"></i>
+                <button class="linkDark" ng-click="addNewEvent()" ng-show="access==userTypes.MANAGER">הוסף אירוע חדש</button>
+            </div>
+            <div ng-repeat="event in events">
+
+            </div>
         </div>
     </div>
 
