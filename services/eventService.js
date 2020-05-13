@@ -14,12 +14,22 @@ app.service('eventService', function ($window, $http, constants, $uibModal, $loc
         /**
          * open modal for showing full event details
          * @param eventId
-         * @param callbackFunc
          */
-        this.watchEventDetails = function (eventId, callbackFunc) {
-
+        this.watchEventDetails = function (eventId) {
+            $uibModal.open({
+                templateUrl: "views/modalView/competitonDetails.html",
+                controller: "eventDetailsModal as cDetailsCtrl",
+                backdrop: true,
+                keyboard: false,
+                resolve: {
+                    getId: function () {
+                        return eventId;
+                    }
+                }
+            }).result.catch(function () {
+            });
         };
-        this.getEventDetails = function (msgId) {
+        this.getEventDetails = function (eventId) {
             var req = {
                 method: 'POST',
                 url: constants.serverUrl + '/private/allUsers/getEventById',
@@ -27,7 +37,7 @@ app.service('eventService', function ($window, $http, constants, $uibModal, $loc
                     'x-auth-token': $window.sessionStorage.getItem('token')
                 },
                 data: {
-                    msgId: msgId
+                    eventId: eventId
                 }
             };
             return $http(req);
