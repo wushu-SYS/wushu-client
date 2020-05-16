@@ -75,7 +75,7 @@ button:hover {
 
 .mainTitle {
     position: absolute;
-    top: 17%;
+    top: 15%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 70px;
@@ -88,11 +88,11 @@ button:hover {
 .mainTitleDiv {
     overflow: hidden;
     margin-top: -1em;
-    height: 550px;
+    height: 570px;
     background-image: url('../resources/images/gallery/img6.jpg');
     background-attachment: fixed;
     background-position: center center;
-    opacity: 0.8;
+    opacity: 0.7;
 }
 
 .error {

@@ -1,19 +1,15 @@
-<!--<div class="center">-->
-<!--        <img ng-src="{{image}}" style="width:auto; height: 550px;text-align: center">-->
-<!--    </div>-->
-
 <div>
     <div class="mainTitleDiv">
 
     </div>
     <div class="mainTitle">ברוכים הבאים<br> לאתר התאחדות או-שו</div>
 
-    <div style="background-color: #e3f2fd; padding: 10px; display: flex">
+    <div style="background-color: #455a64; padding: 10px; display: flex; color: white">
         <div style="width: 30%">
             <h5 style="font-weight: bold;">לוח הודעות</h5>
             <div ng-show="access==userTypes.MANAGER">
-                <i class="fa  fa-plus-circle iColored" aria-hidden="true"></i>
-                <button class="linkDark" ng-click="addNewMessage()" ng-show="access==userTypes.MANAGER">הוסף הודעה חדשה</button>
+                <i class="fa  fa-plus-circle iColoredLight" aria-hidden="true"></i>
+                <button class="linkLight" ng-click="addNewMessage()" ng-show="access==userTypes.MANAGER">הוסף הודעה חדשה</button>
             </div>
             <div class="ticker">
                 <div class="viewport" ng-class="{moving:moving}">
@@ -33,12 +29,49 @@
         <div style="width: 70%">
             <h5 style="font-weight: bold;">לוח אירועים</h5>
             <div ng-show="access==userTypes.MANAGER">
-                <i class="fa fa-plus-circle iColored" aria-hidden="true"></i>
-                <button class="linkDark" ng-click="addNewEvent()" ng-show="access==userTypes.MANAGER">הוסף אירוע חדש</button>
+                <i class="fa fa-plus-circle iColoredLight" aria-hidden="true"></i>
+                <button class="linkLight" ng-click="addNewEvent()" ng-show="access==userTypes.MANAGER">הוסף אירוע חדש</button>
             </div>
-            <div ng-repeat="event in events">
-
+            <div class="wrap-input100" style="width: 300px">
+                <select ng-model="selectedMonth" class="whiteSelect"
+                        ng-options="x.name
+                                     for
+                                      x in months"
+                        ng-change="selectedMonthChanged()">
+                    <option value="" disabled="disabled">בחר חודש</option>
+                </select>
             </div>
+            <table cellspacing="0">
+                <thead>
+                    <tr>
+<!--                        <th></th>-->
+                        <th class="thInItemList">אירוע</th>
+                        <th class="thInItemList">מתי?</th>
+                        <th class="thInItemList">איפה?</th>
+                        <th class="thInItemList"><i class="fa fa-eye" aria-hidden="true"></i></th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="eventMonth in events">
+<!--                    <tr>-->
+<!--                        <td>חודש {{convertNumToMonth(eventMonth.month)}}</td>-->
+<!--                    </tr>-->
+                    <tr ng-repeat="event in eventMonth.events">
+<!--                        <td></td>-->
+                        <td class="tdInItemList">
+                            {{event.type}}
+                        </td>
+                        <td class="tdInItemList">
+                            {{event.date | date: "dd.MM.yyyy"}} {{event.startHour | date: "HH:mm"}}
+                        </td>
+                        <td class="tdInItemList">
+                            {{event.location}},{{event.city}}
+                        </td>
+                        <td class="tdInItemList">
+                            <button class="linkLight" ng-click="openEventDetailsModal(event.idEvent)"> צפה בפרטים</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 

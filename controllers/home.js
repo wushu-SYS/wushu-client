@@ -1,4 +1,7 @@
-app.controller("homeController", function ($scope, $uibModal, $window, constants, $interval, $timeout, $filter, $location, msgService) {
+app.controller("homeController", function ($scope, $uibModal, $window, constants, $interval, $timeout, $filter, $location, msgService, eventService, commonFunctionsService) {
+    $scope.convertNumToMonth = commonFunctionsService.convertNumToMonth;
+    $scope.months = commonFunctionsService.getMonthNames();
+
     $scope.showMessage = function (messageId) {
         stopInterval();
         msgService.watchMsgDetails(messageId, startInterval);
@@ -17,11 +20,12 @@ app.controller("homeController", function ($scope, $uibModal, $window, constants
 
 
     getDisplayData();
-    function getDisplayData(){
+
+    function getDisplayData() {
         msgService.getMessages()
             .then(function (result) {
                 $scope.myTickerItems = [];
-                result.data.forEach(msg  => {
+                result.data.forEach(msg => {
                     $scope.myTickerItems.push({
                         id: msg.id,
                         text: msg.msg,
@@ -29,38 +33,61 @@ app.controller("homeController", function ($scope, $uibModal, $window, constants
                     })
                 })
             });
+
+        $scope.selectedMonth = $scope.months[new Date().getMonth()];
+        $scope.selectedMonthChanged = function(){
+            $scope.events = $scope.allEvents.filter(eventMonth => eventMonth.month == $scope.selectedMonth.id);
+        }
+        eventService.getEvents()
+            .then(function (result) {
+                $scope.allEvents = [];
+                $scope.distinctMonthNumbers = new Set(result.data.map(e => new Date(e.date).getMonth()));
+                $scope.distinctMonthNumbers.forEach(monthNumber => {
+                    let eventsForDate = result.data.filter(e => new Date(e.date).getMonth() == monthNumber);
+                    $scope.allEvents.push({
+                        month: monthNumber,
+                        events: eventsForDate
+                    })
+                })
+                $scope.selectedMonthChanged();
+            })
     }
+
+    $scope.openEventDetailsModal = eventService.watchEventDetails;
 
 
     $scope.moving = false;
-    $scope.moveLeft = function() {
+    $scope.moveLeft = function () {
         $scope.moving = true;
         $timeout($scope.switchFirst, 1000);
     };
-    $scope.switchFirst = function() {
-        if($scope.myTickerItems && $scope.myTickerItems.length > 0)
+    $scope.switchFirst = function () {
+        if ($scope.myTickerItems && $scope.myTickerItems.length > 0)
             $scope.myTickerItems.push($scope.myTickerItems.shift());
         $scope.moving = false;
         $scope.$apply();
     };
     let interval;
     startInterval();
+
     function startInterval() {
         interval = $interval($scope.moveLeft, 2000);
     }
-    function stopInterval(){
+
+    function stopInterval() {
         $interval.cancel(interval);
         interval = null;
     }
 
-    $scope.addNewEvent = function(){
+    $scope.addNewEvent = function () {
         $location.path("/events/addEvent");
     }
-    $scope.addNewMessage = function (){
+    $scope.addNewMessage = function () {
         msgService.addNewMessageModal(addNewMessageToBoard)
     }
+
     function addNewMessageToBoard() {
-            getDisplayData()
+        getDisplayData()
     }
 
     $scope.images = [
@@ -84,7 +111,7 @@ app.controller("homeController", function ($scope, $uibModal, $window, constants
         {src: "./resources/images/gallery/img18.jpg"},
         {src: "./resources/images/gallery/img19.jpg"},
         {src: "./resources/images/icon.png"},
-        ];
+    ];
 
     $scope.slideIndex = 1;
     showSlides($scope.slideIndex);
@@ -100,11 +127,14 @@ app.controller("homeController", function ($scope, $uibModal, $window, constants
     }
 
     function showSlides(n) {
-        if (n > $scope.images.length) {$scope.slideIndex = 1}
-        if (n < 1) {$scope.slideIndex = $scope.images.length}
+        if (n > $scope.images.length) {
+            $scope.slideIndex = 1
+        }
+        if (n < 1) {
+            $scope.slideIndex = $scope.images.length
+        }
 
     }
-
 
 
     //
