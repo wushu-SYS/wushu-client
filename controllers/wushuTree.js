@@ -1,7 +1,6 @@
 app.controller("wushuTree", function ($scope, $http, constants, chartsService, chartsDataService) {
     chartsDataService.wushuTreeData()
         .then((res) => {
-            console.log(res)
             let childrenClubLevel = [];
             res.data.forEach((record) => {
                 let childrenCoachLevel = [];

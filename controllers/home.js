@@ -145,7 +145,6 @@ app.controller("homeController", function ($scope, $uibModal, $window, constants
     //
     // function showSlides2() {
     //     $scope.image =$scope.images[slideIndex2].src
-    //     console.log($scope.image)
     //     slideIndex2 ++;
     //     if (slideIndex2 ==$scope.images.length)
     //         slideIndex2=0;

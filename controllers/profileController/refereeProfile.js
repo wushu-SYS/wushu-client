@@ -9,7 +9,6 @@ app.controller("refereeProfileController", function ($scope, $http, $route,$filt
     refereesService.getRefereeProfile({id: parseInt($routeParams.id)})
         .then(function (result) {
             $scope.user = result.data;
-            console.log(result)
             criminalRecordIframe.src = $scope.user.criminalRecord ? $scope.user.criminalRecord : "";
             // $scope.user.photo = $scope.user.photo + '?' + new Date().getTime();
         }, function (error) {
@@ -108,7 +107,6 @@ app.controller("refereeProfileController", function ($scope, $http, $route,$filt
     };
 
     $scope.btnPressed =function() {
-        console.log("btn pressed")
         let file_input = document.getElementById("profilePicUpload");
         file_input.click();
     };

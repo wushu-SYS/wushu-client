@@ -21,7 +21,6 @@ app.controller("editEventModalController", function($scope, $rootScope, $locatio
         }).catch(function (error) {console.log(error)})
 
     $scope.submit=function (isValid) {
-        console.log(isValid)
         if (isValid) {
             let data = {
                 location: $scope.location,

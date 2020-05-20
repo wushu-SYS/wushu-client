@@ -27,7 +27,6 @@ app.service('excelService', function () {
             });
             //ans.result = XLSX.utils.sheet_to_json(worksheet);
 
-            console.log(ans.result)
 
             callback(ans);
         };
@@ -54,7 +53,6 @@ app.service('excelService', function () {
                 //defval: '',
                 range: new_range
             });
-            console.log(results)
             callback(results);
         };
         reader.readAsArrayBuffer(input.files[0]);

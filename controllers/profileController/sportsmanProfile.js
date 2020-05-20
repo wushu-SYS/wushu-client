@@ -54,7 +54,6 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
 
 
     $scope.uploadMedicalScanHealthInsurance = function (files, fileType) {
-        console.log(fileType)
         var fd = new FormData();
         fd.append("file", files[0]);
         $http.post(constants.serverUrl + '/private/uploadSportsmanFile/' + $scope.user.id + '/' + fileType, fd, {
@@ -99,7 +98,6 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
 
 
     $scope.btnPressed = function () {
-        console.log("btn pressed");
         let file_input = document.getElementById("profilePicUpload");
         file_input.click();
     };
@@ -240,7 +238,6 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
                 $scope.categoriesForJudgeGradesChart = res.data.categories;
                 if ($scope.categoriesForJudgeGradesChart.length > 0) {
                     $scope.selectedCategoryForJudgeGradesChart = $scope.categoriesForJudgeGradesChart[0]
-                    console.log("hhhh")
                     $scope.allSportsmanJudgeGrades = res.data.resultes;
                     $scope.setSportsmanJudgeGradesChartData($scope.selectedCategoryForJudgeGradesChart );
                 }

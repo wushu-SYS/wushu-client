@@ -32,7 +32,6 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
 
               //  $scope.sportsmanGrade.get(38).get(333456416).judgeGrades[305077911] = 10;
 
-
                 $scope.currentCategory = $scope.sportsmanQueue[$scope.currentCategoryIndex].category;
                 $scope.currentSportsman = $scope.sportsmanQueue[$scope.currentCategoryIndex].users[$scope.currentSportsmanIndex];
                 SocketService.emit('setNextSportsman', {
@@ -65,7 +64,6 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
     }
 
     SocketService.on('judgeGiveGrade', function (data) {
-        console.log("given grade")
         let judge = $scope.judges.find((judge) => judge.idJudge == data.userId)
         judge.isGraded = true;
         $scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id).judgeGrades[judge.idJudge] = data.grade;

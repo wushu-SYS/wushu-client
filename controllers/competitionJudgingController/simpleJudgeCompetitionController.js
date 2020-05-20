@@ -88,7 +88,6 @@ app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$rou
     SocketService.on("competitionFinalsGradesResults",function (data) {
         if(sportsmanFinalGrades.length!=data.length) {
             sportsmanFinalGrades = data;
-            console.log(sportsmanFinalGrades)
             updateSportsmanFinalGrades();
         }
     })

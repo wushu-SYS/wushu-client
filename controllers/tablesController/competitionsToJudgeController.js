@@ -23,8 +23,6 @@ app.controller("competitionsToJudgeController", function ($scope, $window, $http
     }
 
     SocketService.on('masterStartCompetition', function (data) {
-        console.log(`master start comp ${data.idComp}`)
-        console.log($scope.competitions)
         let comp = $scope.competitions.find((comp) => comp.idCompetition == data.idComp)
         comp.compOpen = true;
         clearInterval(updateCompState)

@@ -60,11 +60,9 @@ app.controller("clubProfileController", function ($scope, $http, $route, $filter
     function getTreeClubChart() {
         chartsDataService.clubTreeData($routeParams.id)
             .then((res) => {
-                console.log(res)
                 let childrenLastLevel = [];
                 let children = [];
                 res.data.forEach(record => {
-                    console.log(record.coach.photo)
                     record.sportsman.forEach(sportsman => {
                         childrenLastLevel.push({
                             text: {
