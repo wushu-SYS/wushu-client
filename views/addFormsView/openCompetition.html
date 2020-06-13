@@ -20,7 +20,7 @@
              ng-class="{'alert-validate' : openCompetitionForm.type.$invalid && (openCompetitionForm.type.$touched || isClicked)}"
              data-validate="{{openCompetitionForm.type.$error.required ? 'הכנס סוג אירוע' : openCompetitionForm.$error.pattern ? 'הכנס טקסט בשפה העברית' : ''}}">
             <span class="label-input100">סוג אירוע</span>
-            <input class="input100" type="text" name="type" ng-model="type" required="isEvent"
+            <input class="input100" type="text" name="type" ng-model="type" ng-required="isEvent"
                    ng-pattern="regex.regexHeb" ng-pattern-restrict>
             <span class="focus-input100" data-symbol="&#xf187;"></span>
         </div>

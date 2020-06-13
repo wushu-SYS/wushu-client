@@ -3,6 +3,7 @@ app.controller("openCompetitionController", function ($scope, $rootScope,$filter
     $scope.sportStyleEnum = constants.sportStyleEnum;
     $scope.regex = constants.regex;
     $scope.title = "פתיחת תחרות חדשה"
+    $scope.isEvent = false;
 
     $scope.submit = function (isValid) {
         if(isValid){
