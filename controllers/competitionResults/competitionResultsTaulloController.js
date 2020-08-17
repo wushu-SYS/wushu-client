@@ -32,7 +32,6 @@ app.controller("competitionResultsTaulloController", function ($scope, $http, $r
             idComp: parseInt($routeParams.idComp),
             grades: $scope.editedGrades
         }
-        console.log(data)
         competitionService.updateCompetitionResults(data)
             .then(function (result) {
                 toastNotificationService.successNotification("העדכון בוצע בהצלחה")

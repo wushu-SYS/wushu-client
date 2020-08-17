@@ -1,4 +1,4 @@
-let app = angular.module('myApp', ["ngRoute", 'ui.bootstrap', 'ngPatternRestrict', 'cp.ngConfirm', 'angularjsToast', 'angular-loading-bar', 'ngAnimate','btford.socket-io'])
+let app = angular.module('myApp', ["ngRoute", 'ui.bootstrap', 'ngPatternRestrict', 'cp.ngConfirm', 'angularjsToast', 'angular-loading-bar', 'ngAnimate','btford.socket-io','nvd3', 'vAccordion'])
     .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
         cfpLoadingBarProvider.includeSpinner = true;
         cfpLoadingBarProvider.includeBar = true;
@@ -24,8 +24,11 @@ app.controller("mainController", function ($scope, $location, $window, $rootScop
     $scope.getClass = function (path) {
         return ("/" + $location.path().split("/")[1] === path) ? 'active' : '';
     };
-    $scope.isShowMenu = function(){
+    $scope.isShowMenuOrFooter = function(){
         return $location.path() !== '/login';
+    };
+    $scope.isShowLoadingBar = function(){
+      return $location.path() !== '/home';
     };
 
     $rootScope.userTypes = {
@@ -68,10 +71,10 @@ app.config(function($routeProvider) {
             templateUrl :'views/addFormsView/registerUser.html',
             controller: 'registerController as chRegCtrl'
         })
-        .when('/calendar', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
-        })
+        // .when('/calendar', {
+        //     templateUrl: 'views/home.html',
+        //     controller: 'homeController as hCtrl'
+        // })
         .when('/profile', {
             resolve: {
                 "check": function ($rootScope, $location, $window) {
@@ -161,20 +164,16 @@ app.config(function($routeProvider) {
             controller: 'registrationStateController as regStateCtrl'
         })
         .when('/events/addEvent', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
-        })
-        .when('/events/addMessage', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
+            templateUrl: 'views/addFormsView/openCompetition.html',
+            controller: 'addEventController as addECtrl'
         })
         .when('/events/events', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
+            templateUrl: 'views/tablesView/eventTable.html',
+            controller: 'eventTableController as eventtCtrl'
         })
         .when('/events/messages', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
+            templateUrl: 'views/tablesView/msgTable.html',
+            controller: 'msgTableController as msgtCtrl'
         })
         .when('/sportsmanCompetitionRegistration/:idComp', {
             templateUrl: 'views/competitionRegistrationView/regSportsmanCompetition.html',
@@ -199,6 +198,10 @@ app.config(function($routeProvider) {
         .when('/waitingForTheNextSportsman/:idComp/:preSportsman', {
             templateUrl: 'views/loadingView/loading.html',
             controller: 'waitingForTheNextSportsman as waitingForTheNextSportsman'
+        })
+        .when('/wushuTree', {
+            templateUrl: 'views/wushuTree.html',
+            controller: 'wushuTree as wushuTreeController'
         })
         .otherwise({redirectTo: '/login'});
 });

@@ -32,7 +32,6 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
 
               //  $scope.sportsmanGrade.get(38).get(333456416).judgeGrades[305077911] = 10;
 
-
                 $scope.currentCategory = $scope.sportsmanQueue[$scope.currentCategoryIndex].category;
                 $scope.currentSportsman = $scope.sportsmanQueue[$scope.currentCategoryIndex].users[$scope.currentSportsmanIndex];
                 SocketService.emit('setNextSportsman', {
@@ -65,7 +64,6 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
     }
 
     SocketService.on('judgeGiveGrade', function (data) {
-        console.log("given grade")
         let judge = $scope.judges.find((judge) => judge.idJudge == data.userId)
         judge.isGraded = true;
         $scope.sportsmanGrade.get($scope.currentCategory.id).get($scope.currentSportsman.id).judgeGrades[judge.idJudge] = data.grade;
@@ -164,7 +162,7 @@ app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams
         competitionService.manualCloseCompetition($routeParams.idComp)
             .then((res) => {
                 SocketService.emit("judgeMasterCloseCompetition",{userId:$window.sessionStorage.getItem('id'),idComp:$routeParams.idComp})
-                confirmDialogService.showMessage("תודה רבה!", $location.path("/home"), "התחרות הסתיימה");
+                confirmDialogService.showMessage("תודה רבה!", function () { $location.path("/competitionResults/taullo/" + $routeParams.idComp) }, "התחרות הסתיימה");
             })
             .catch((err) => {
                 console.log(err)

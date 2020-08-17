@@ -24,12 +24,9 @@
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='attachments'" ng-class="{'active' : activeTag==='attachments'}" ng-show="userType == userTypes.SPORTSMAN || userType == userTypes.Judge">קבצים מצורפים</a>
                         </li>
-<!--                        <li class="nav-item">-->
-<!--                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='compData'" ng-class="{'active' : activeTag==='compData'}">מידע תחרויות</a>-->
-<!--                        </li>-->
-<!--                        <li class="nav-item" ng-show="false">-->
-<!--                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='judgeStat'" ng-class="{'active' : activeTag==='judgeStat'}">סטטיסטיקות שיפוט</a>-->
-<!--                        </li>-->
+                        <li class="nav-item" ng-show="userType == userTypes.SPORTSMAN">
+                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='compData'" ng-class="{'active' : activeTag==='compData'}">מידע תחרויות</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -273,20 +270,44 @@
                     <div class="tab-pane fade"
                          ng-class="{'show' : activeTag==='compData' , 'active' : activeTag==='compData'}" id="compData"
                          role="tabpanel" aria-labelledby="compData">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label>גרף התקדמות</label>
-                            </div>
-                            <div class="col-md-6">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label>ניצחונות אחרונים</label>
-                            </div>
-                            <div class="col-md-6">
-                            </div>
-                        </div>
+                        <v-accordion class="vAccordion--default" multiple>
+                            <v-pane>
+                                <v-pane-header>
+                                    אחוזי השתתפות בתחרויות
+                                </v-pane-header>
+                                <v-pane-content>
+                                    <div class="row">
+                                        <nvd3 options='participateCompetitionsOptions' data='participateCompetitionsData'></nvd3>
+                                    </div>
+                                </v-pane-content>
+                            </v-pane>
+                            <v-pane>
+                                <v-pane-header>
+                                    גרף ציונים סופיים לעונה
+                                </v-pane-header>
+                                <v-pane-content>
+                                    <div class="row">
+                                        <nvd3 options='sportsmanCompetitionsGradesOptions' data='sportsmanCompetitionsGradesData'></nvd3>
+                                    </div>
+                                </v-pane-content>
+                            </v-pane>
+                            <v-pane>
+                                <v-pane-header>
+                                    גרף ציוני שופטים בעונה
+                                </v-pane-header>
+                                <v-pane-content>
+                                        עבור הקטגוריה:
+                                        <div class="wrap-input100" style="width: 300px">
+                                            <select ng-model="selectedCategoryForJudgeGradesChart" style="padding: 0px"
+                                                    ng-options="x.name
+                                                     for
+                                                      x in categoriesForJudgeGradesChart" ng-change="setSportsmanJudgeGradesChartData(selectedCategoryForJudgeGradesChart)"></select>
+                                        </div>
+                                        <br>
+                                        <nvd3 options='sportsmanJudgesGradesOptions' data='sportsmanJudgesGradesData'></nvd3>
+                                </v-pane-content>
+                            </v-pane>
+                        </v-accordion>
                     </div>
                 </div>
             </div>

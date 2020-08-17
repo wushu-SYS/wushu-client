@@ -36,5 +36,9 @@ app.constant('constants', {
     },
     fileName :{
       coachAsJudge :'שיוך מאמנים כשופטים במערכת'
+    },
+
+    monthDateFromZERO:{
+        SEPTEMBER :8
     }
 });

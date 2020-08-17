@@ -1,38 +1,68 @@
-*{
+* {
     direction: rtl;
     font-family: Arial;
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
 }
+
 *:focus {
     outline: none;
 }
+
 body {
     margin: 0;
     padding: 0;
-    background: #DDD;
+    background: #DDD !important;
 }
-h1,h2,h3,h4,h5,h6 {
+
+#page-container {
+    position: relative;
+    min-height: 100vh;
+}
+
+#content-wrap {
+    padding-bottom: 60px;
+}
+
+footer {
+    bottom: 0;
+    text-align: center;
+    background: dimgray;
+    color: white;
+    position: absolute;
+    width: 100%;
+}
+
+footer button a i.clickableSearch {
+    font-size: 20px;
+    width: 42px;
+}
+
+h1, h2, h3, h4, h5, h6 {
     margin: 0px;
 }
+
 h1 {
     margin: 0 0 20px 0;
-    font-weight: 300;
-    font-size: 28px;
+    font-weight: 300 !important;
+    font-size: 28px !important;
     text-align: center;
 }
+
 p {
     font-size: 14px;
     line-height: 1.7;
     color: #666666;
     margin: 0px;
 }
+
 label {
     margin: 0;
     display: block;
     font-size: 16px
 }
+
 button {
     outline: none !important;
     border: none;
@@ -43,29 +73,50 @@ button:hover {
     cursor: pointer;
 }
 
+.mainTitle {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 70px;
+    text-align: center;
+    width: 100%;
+    color: black;
+    font-weight: 900;
+}
 
+.mainTitleDiv {
+    overflow: hidden;
+    margin-top: -1em;
+    height: 570px;
+    background-image: url('../resources/images/gallery/img6.jpg');
+    background-attachment: fixed;
+    background-position: center center;
+    opacity: 0.7;
+}
 
-.error{
+.error {
     color: red;
 }
-.center{
+
+.center {
     display: flex;
     justify-content: center;
 }
 
-.uploadResultsPanel{
+.uploadResultsPanel {
     text-align: center;
     padding-bottom: 10px;
 }
 
 /*MODAL*/
-.modal-body{
+.modal-body {
     text-align: center;
     width: auto;
     /*overflow-y: auto*/
 }
 
-#box{
+#box {
     position: relative;
     margin: 0px auto 5%;
     width: 80%; /*950px;*/
@@ -75,11 +126,20 @@ button:hover {
     border-radius: 2px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
-.flexBox{
+
+.flexBox {
     display: flex;
 }
 
-.scrollablePanel{
+.modal-dialog {
+    margin: 0 !important;
+    top: 50%;
+    position: absolute !important;
+    left: 50%;
+    transform: translate(-50%, -50%) !important;
+}
+
+.scrollablePanel {
     direction: ltr;
     /* overflow-y: scroll; */
     /* height: 400px; */
@@ -96,6 +156,7 @@ button:hover {
     /*width: 500px;*/
     /*height: 400px;*/
 }
+
 .right {
     /*position: absolute;*/
     top: 0;
@@ -110,17 +171,19 @@ button:hover {
     border-radius: 0 2px 2px 0;
 }
 
-.radioDiv{
+.radioDiv {
     height: 45px;
     padding: 10px 0px;
 }
-.radioInput{
+
+.radioInput {
     padding: 0px 35px 0px 20px;
     text-align: initial;
     float: right;
     width: 120px;
 }
-.timedateDiv{
+
+.timedateDiv {
     /*padding: 0px 35px 0px 0px;*/
     display: inline-flex;
 }
@@ -136,15 +199,18 @@ a {
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
 }
+
 a:focus {
     outline: none !important;
     text-decoration: none;
 }
+
 a:hover {
     text-decoration: none;
     color: #fff;
 }
-.radio_label{
+
+.radio_label {
     display: initial;
     font-weight: initial;
 }
@@ -156,6 +222,7 @@ form {
     font-size: 16px;
     text-align: right;
 }
+
 .centered-form {
     width: 390px;
     margin: auto;
@@ -163,28 +230,29 @@ form {
 }
 
 /***LABEL***/
-.labelForInput100{
+.labelForInput100 {
     padding: 10px 35px;
     width: 250px;
 }
 
-.flexCenteredDiv{
+.flexCenteredDiv {
     display: flex;
     position: relative;
     align-items: center;
 }
 
-#loading-bar-container{
+#loading-bar-container {
     text-align: center;
     color: #29d;
     font-size: 12px;
 }
+
 /*#loading-bar .bar {*/
 /*    background: red;*/
 /*    width:  50%;*/
 /*}*/
 
-.iframeFile{
+.iframeFile {
     width: 550px;
     height: 220px;
 }
@@ -192,14 +260,22 @@ form {
 .verticalLine {
     border-left: 1px solid lightgrey;
 }
-.threePartsScreenDiv{
+
+.threePartsScreenDiv {
     text-align: center;
     width: 33%;
     padding: 10px;
 }
-.centerButTextRight{
+
+.centerButTextRight {
     text-align: right;
     justify-content: center;
     display: grid;
 }
+
+/*@media screen and (max-width: 700px) {*/
+/*    * {*/
+/*        flex-direction: column;*/
+/*    }*/
+/*}*/
 

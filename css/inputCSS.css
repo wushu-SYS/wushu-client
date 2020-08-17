@@ -150,6 +150,9 @@ input[type=date]::-webkit-inner-spin-button {
     padding-left: 13px;
     padding-top: 3px;
 }
+.focus-input100-afterNotInCenter::after{
+    align-items: flex-start !important;
+}
 .input100:focus + .focus-input100::after {
     color: #599bb3;
 }

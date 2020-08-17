@@ -13,6 +13,7 @@ app.controller("editCompetitionDetailsModal", function($scope, $rootScope, $loca
     };
     competitionService.getCompetitionDetails(getId)
         .then(function (result) {
+            $scope.idCompetition = result.data.idCompetition;
             $scope.description=result.data.description;
             $scope.location = result.data.location
             $scope.city = result.data.city;

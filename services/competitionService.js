@@ -3,22 +3,6 @@
  * and common function for the competition module and screen
  */
 app.service('competitionService', function ($window, $http, $uibModal, $location, constants) {
-    this.checkExcel = function (data) {
-        if (isNaN(parseInt(data)) || data.toString().length != 9)
-            return false;
-        return true;
-    }
-    this.regSportsmanCompetition = function (data) {
-        var req = {
-            method: 'POST',
-            url: constants.serverUrl + '/private/commonCoachManager/competitionSportsmen',
-            headers: {
-                'x-auth-token': $window.sessionStorage.getItem('token')
-            },
-            data: data
-        };
-        return $http(req);
-    };
     this.regExcelSportsmanCompetition = function (data) {
         var req = {
             method: 'POST',
@@ -180,20 +164,6 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         };
         return $http(req);
     };
-    this.setCategoryRegistration = function (compId, categoryForSportsman) {
-        var req = {
-            method: 'POST',
-            url: constants.serverUrl + '/private/manager/setCategoryRegistration',
-            headers: {
-                'x-auth-token': $window.sessionStorage.getItem('token')
-            },
-            data: {
-                compId: compId,
-                categoryForSportsman: categoryForSportsman
-            }
-        };
-        return $http(req);
-    };
     this.closeRegistration = function (idComp) {
         var req = {
             method: 'POST',
@@ -275,6 +245,10 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         }).result.catch(function () {
         });
     };
+    /**
+     * move to result page according to the competition sport style
+     * @param competition - object of the desired competition
+     */
     this.watchResults = function (competition) {
         if(competition.sportStyle == constants.sportStyleEnum[constants.sportStyleType.TAULLO].name)
             $location.path('/competitionResults/taullo/' + competition.idCompetition);
@@ -283,6 +257,11 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         //else
             //TODO
     };
+    /**
+     * open modal for checking in judges to competition
+     * @param idCompetiton
+     * @param onCloseModal - callback function to call when close modal event triggered
+     */
     this.openCheckInJudgesModal = function (idCompetition, onCloseModal) {
         $uibModal.open({
             templateUrl: "views/modalView/checkInJudgesModal.html",
@@ -300,13 +279,27 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         //     .result.catch(function () {
         // });
     };
+    /**
+     * move to sportsman competition registration page according to the given competition id
+     * @param idCompetiton
+     */
     this.regSportsman = function (idCompetiton) {
         $location.path('/sportsmanCompetitionRegistration/' + idCompetiton);
     };
+    /**
+     * move to registration state page according to the given competition
+     * @param competition
+     */
     this.registrationState = function (competition) {
         $location.path('/competitions/RegistrationState/' + competition.idCompetition + '/' + competition.date + '/' + competition.status);
     };
 
+    /**
+     * move to page where the judges start to judge the competition
+     * @param idComp
+     * @param isMaster
+     * @param status
+     */
     this.startJudgingCompetition = function (idComp, isMaster, status) {
         if (isMaster)
             $location.path('/judgingCompetitionMaster/' + idComp);
@@ -318,7 +311,11 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
             }
         }
     };
-
+    /**
+     * move to loading page, where the judge waits for the next sportsman to start performing
+     * @param idComp
+     * @param preSportsman - previos sportsman
+     */
     this.waitsForNextSportsman = function (idComp, preSportsman) {
         $location.path('/waitingForTheNextSportsman/' + idComp + '/' + preSportsman);
 
@@ -368,13 +365,21 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         return conditions.length ? '?' + conditions.join('&') : '';
     }
 
+    /**
+     * calculate the final grade for the sportsman by average
+     * @param judgeGrades - list of grades that were given by simple judges
+     * @param masterGrade - the grade that was given by the master judge
+     * @return the average grade
+     */
     this.calcAverageGrade = function (judgeGrades, masterGrade) {
         let sum = 0, count = 0;
         for (var key in judgeGrades) {
             sum += parseFloat(judgeGrades[key]);
             count++;
         }
-        return (sum + parseFloat(masterGrade)) / (count + 1);
+        if (masterGrade)
+            return (sum + parseFloat(masterGrade)) / (count + 1);
+        return 0;
     }
 
     this.saveSportsmanGrade = function (data) {

@@ -7,8 +7,8 @@
     text-decoration: underline;
 }
 .linkLight:hover{
-    color: #CFD8DC;
-    font-weight: bold;
+    color: white;
+    /*font-weight: bold;*/
     text-decoration: underline;
 }
 
@@ -42,6 +42,9 @@
 }
 .iColored{
     color: #276873;
+}
+.iColoredLight{
+    color: #DDD;
 }
 
 .stickyLink{

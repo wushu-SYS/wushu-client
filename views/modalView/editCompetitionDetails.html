@@ -8,13 +8,21 @@
     <div>
         <form class="centered-form validate-form" name="editCompetitionForm"
               ng-submit="submit(editCompetitionForm.$valid)" novalidate>
-            <div class="wrap-input100 validate-input"
+            <div class="wrap-input100 validate-input" ng-show="idCompetition"
                  ng-class="{'alert-validate' : editCompetitionForm.description.$invalid && (editCompetitionForm.description.$touched || isClicked)}"
                  data-validate="{{editCompetitionForm.description.$error.required ? 'הכנס תיאור.' : editCompetitionForm.$error.pattern ? 'הכנס תיאור בשפה העברית' : ''}}">
                 <span class="label-input100">תיאור</span>
                 <input class="input100" type="text" name="description" ng-model="description" placeholder="תיאור"
-                       ng-required="true" ng-pattern="regex.regexHebrewAndNumbers" ng-pattern-restrict>
+                       ng-required="idCompetition" ng-pattern="regex.regexHebrewAndNumbers" ng-pattern-restrict>
                 <span class="focus-input100" data-symbol="&#xf207;"></span>
+            </div>
+            <div class="wrap-input100 validate-input" ng-show="!idCompetition"
+                 ng-class="{'alert-validate' : editCompetitionForm.type.$invalid && (editCompetitionForm.type.$touched || isClicked)}"
+                 data-validate="{{editCompetitionForm.type.$error.required ? 'הכנס סוג אירוע' : editCompetitionForm.$error.pattern ? 'הכנס טקסט בשפה העברית' : ''}}">
+                <span class="label-input100">סוג אירוע</span>
+                <input class="input100" type="text" name="type" ng-model="type" ng-required="!idCompetition"
+                       ng-pattern="regex.regexHeb" ng-pattern-restrict>
+                <span class="focus-input100" data-symbol="&#xf187;"></span>
             </div>
             <div class="wrap-input100 validate-input"
                  ng-class="{'alert-validate' : editCompetitionForm.location.$invalid && (editCompetitionForm.location.$touched || isClicked)}"
@@ -32,13 +40,13 @@
                        ng-pattern="regex.regexHeb" ng-pattern-restrict>
                 <span class="focus-input100" data-symbol="&#xf175;"></span>
             </div>
-            <div class="wrap-input100 validate-input" id="sportStyle"
+            <div class="wrap-input100 validate-input" id="sportStyle" ng-show="idCompetition"
                  ng-class="{'alert-validate' : editCompetitionForm.sportStyle.$invalid && (editCompetitionForm.sportStyle.$touched || isClicked)}"
                  data-validate="בחר ענף">
                 <span class="label-input100">ענף</span>
                 <div class="radioDiv">
                     <span ng-repeat="style in sportStyleEnum" class="radioInput">
-                        <input type="radio" name="sportStyle" ng-model="$parent.sportStyle" ng-required="!sportStyle"
+                        <input type="radio" name="sportStyle" ng-model="$parent.sportStyle" ng-required="idCompetition"
                                ng-value="style.name"><label
                             class="radio_label"> {{style.name}} </label></input>
                     </span>
@@ -66,7 +74,7 @@
                            placeholder="שעת האירוע" required>
                 </div>
             </div>
-            <div class="timedateDiv">
+            <div class="timedateDiv" ng-show="idCompetition">
                 <div class="wrap-input100 validate-input control-group input-append"
                      ng-class="{'alert-validate' : editCompetitionForm.closeRegDate.$invalid && (editCompetitionForm.closeRegDate.$touched || isClicked)}"
                      data-validate="{{editCompetitionForm.closeRegDate.$error.required ? 'הכנס תאריך סגירת הרישום' : editCompetitionForm.closeRegDate.$error.min ? 'הוזן תאריך עבר' : editCompetitionForm.closeRegDate.$error.max ? 'סגירת הרישום לא יכולה להתבצע לאחר תאריך התחרות' : ''}}"
@@ -74,7 +82,7 @@
                     <div>
                         <span class="label-input100">תאריך סגירת הרישום</span>
                         <input class="input100" type="date" name="closeRegDate" ng-model="closeRegDate"
-                               placeholder="תאריך סגירת הרישום" ng-min="currentDate" ng-max="eventDate" required>
+                               placeholder="תאריך סגירת הרישום" ng-min="currentDate" ng-max="eventDate" ng-required="idCompetition">
                         <span class="focus-input100" data-symbol="&#xf332;"></span>
                     </div>
                 </div>
@@ -85,7 +93,7 @@
                     <div>
                         <span class="label-input100">שעת סגירת הרישום</span>
                         <input class="input100" type="time" name="closeRegTime" ng-model="closeRegTime"
-                               placeholder="שעת סגירת הרישום" required>
+                               placeholder="שעת סגירת הרישום" ng-required="idCompetition">
                     </div>
                 </div>
             </div>

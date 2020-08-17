@@ -82,7 +82,6 @@ app.controller("coachProfileController", function ($scope, $http, $route,$filter
     };
 
     $scope.btnPressed =function() {
-        console.log("btn pressed")
         let file_input = document.getElementById("profilePicUpload");
         file_input.click();
     };

@@ -1,12 +1,12 @@
 <div id="box">
     <form name="updateProfile" class="login100-form validate-form" ng-submit="submit(updateProfile.$valid)" novalidate>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="profile-img">
                     <img src="././resources/images/symbol.jpg" alt=""/>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-9">
                 <div class="profile-head">
                     <h5>
                         {{::club.name}}
@@ -21,20 +21,17 @@
                                 </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='clubCoaches'" ng-class="{'active' : activeTag==='clubCoaches'}">מאמני המועדון</a>
+                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='clubStat'" ng-class="{'active' : activeTag==='clubStat'}">מידע תחרויות</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='clubSportsman'" ng-class="{'active' : activeTag==='clubSportsman'}">ספורטאי המועדון</a>
+                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='clubTree'" ng-class="{'active' : activeTag==='clubTree'}">עץ מועדון</a>
                         </li>
-<!--                        <li class="nav-item" ng-show="false">-->
-<!--                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='stat'" ng-class="{'active' : activeTag==='stat'}">סטטיסטיקות</a>-->
-<!--                        </li>-->
                     </ul>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div>
                     <i class="fa fa-pencil iColored" aria-hidden="true"></i>
                     <a class="linkDark iLink" href="" ng-click="isEditModeOn = !isEditModeOn">{{isEditModeOn ? 'ביטול עריכה' : 'ערוך מועדון'}}</a>
@@ -44,7 +41,7 @@
 <!--                    <a class="linkDark iLink" href="" ng-click="delProfile(club.id)">מחק מועדון</a>-->
 <!--                </div>-->
             </div>
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <div class="tab-content profile-tab" id="myTabContent">
                     <div class="tab-pane fade"
                          ng-class="{'show' : activeTag==='basicData' || activeTag===undefined , 'active' : activeTag==='basicData' || activeTag===undefined}"
@@ -156,34 +153,17 @@
 
                     </div>
                     <div class="tab-pane fade"
-                         ng-class="{'show' : activeTag==='clubCoaches' , 'active' : activeTag==='clubCoaches'}" id="clubCoaches"
+                         ng-class="{'show' : activeTag==='clubStat' , 'active' : activeTag==='clubStat'}" id="clubStat"
                          role="tabpanel" aria-labelledby="compData">
-                        <div class="row" ng-show="club.coaches.length==0">אין מאמנים רשומים למועדון</div>
-                        <div class="row" ng-repeat="coach in club.coaches track by $index">
-                            <label style="line-height: 2.7;">{{$index+1}}. </label>
-                            <a class="linkDark" ng-href="#!/profile/coachProfile/{{coach.id}}">{{coach.firstname}} {{coach.lastname}}</a>
-                        </div>
+                        <nvd3 options='clubSportsmanParticipateCompOptions' data='clubSportsmanParticipateCompData'></nvd3>
                     </div>
-                    <div class="tab-pane fade"
-                        ng-class="{'show' :activeTag==='clubSportsman' , 'active' : activeTag==='clubSportsman'}" id="clubSportsman"
-                         role="tabpanel" aria-labelledby="compData">
-                        <div class="row" ng-show="club.sportsmen.length==0">אין ספורטאיים רשומים למועדון</div>
-                        <div class="row" ng-repeat="sportsman in club.sportsmen track by $index">
-                            <label style="line-height: 2.7;">{{$index+1}}. </label>
-                            <a class="linkDark" ng-href="#!/profile/sportsmanProfile/{{sportsman.id}}">{{sportsman.firstname}} {{sportsman.lastname}}</a>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade"
-                         ng-class="{'show' : activeTag==='attachments' , 'active' : activeTag==='attachments'}"
-                         id="attachments" role="tabpanel" aria-labelledby="attachments">
-                        <div class="row" ng-repeat="file in files">
-                            <div class="col-md-3">
-                                <label>{{file.name}}</label>
-                            </div>
-                            <div class="col-md-6">
-                                <!--                            mabey put a preview for the attachment and the expite date, coler red when expired-->
-                                <!--                            popup when entering the profile that the file expired-->
-                            </div>
+
+<!--                    ng-style="{'display' : activeTag==='clubTree' ? 'block' : 'none'}"     , 'active' : activeTag==='clubTree'-->
+                    <div class="fade"
+                         ng-class="{'show' : activeTag==='clubTree'}"
+                         id="clubTree" role="tabpanel" aria-labelledby="clubTree">
+                        <div class="row">
+                            <div class="chart" id="basic-example" style="overflow: auto"></div>
                         </div>
                     </div>
 

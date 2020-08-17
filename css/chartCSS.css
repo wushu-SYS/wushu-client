@@ -1,0 +1,29 @@
+.nv-force-node text {
+    direction: initial;
+}
+
+section{
+    width: 100%;
+}
+text{
+    direction: initial;
+}
+.nodeExample1 a{
+    color: #276873;
+    text-decoration-line: underline;
+
+}
+.nodeExample1 a:hover{
+    color: #408c99;
+    text-decoration-line: underline;
+
+}
+
+.nodeExample1 img{
+    width: 30%;
+    height: 30%;
+}
+
+v-pane-header > div {
+    padding-right: 20px;
+}
