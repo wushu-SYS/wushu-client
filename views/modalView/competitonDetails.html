@@ -1,0 +1,17 @@
+<link data-require="bootstrap-css@3.*" data-semver="3.3.7" rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"/>
+<div class="modal-body">
+        <div>
+                <h2>{{competitionNumber}}</h2>
+                <h3>{{competitionName}}</h3>
+                <h3>{{competitionType}}</h3>
+        </div>
+        <div id="mapid" style="height: 250px"></div>
+        <div><h4>{{location}}</h4></div>
+        <div>
+                <h4>תאריך: {{compDate | date: "dd.MM.yyyy"}}</h4>
+                <h4>שעה: {{compHour | date :"HH:mm"}}</h4>
+        </div>
+</div>
+<button class="btn btn-primary" ng-click="close()">סגור חלון</button>
+

@@ -1,0 +1,24 @@
+<body class="bodyTable">
+
+<div class="tableDiv narrowTableDiv">
+    <div class="headerTable">מנהלים</div>
+    <table class="tableUser" cellspacing="0">
+        <tr class="tableTr">
+            <th class="tableTh">ת.ז.</th>
+            <th class="tableTh">שם פרטי</th>
+            <th class="tableTh">שם משפחה</th>
+            <th class="tableTh">אימייל</th>
+            <th class="tableTh"><i class="fa fa-trash-o" aria-hidden="true"></i></th>
+        </tr>
+        <tr class="tableTr" ng-repeat="admin in admins">
+            <td class="tableTd">{{admin.id}}</td>
+            <td class="tableTd">{{admin.firstname}}</td>
+            <td class="tableTd">{{admin.lastname}}</td>
+            <td class="tableTd">{{admin.email ? admin.email : '-'}}</td>
+            <td class="tableTd">
+                <button class="linkDark" ng-click="deleteAdmin(admin.id)" ng-show="admin.id != currentAdminId">מחק</button>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>

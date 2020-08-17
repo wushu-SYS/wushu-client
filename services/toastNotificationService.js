@@ -1,7 +1,9 @@
+/**
+ * toastNotificationService - provides the toast notification for succes, errors etc
+ * used the documentation from https://sibiraj.dev/angularjs-toast/
+ */
 app.service('toastNotificationService', function (toast) {
-    /* className -> accepted values are alert-(success|danger|primary|info)
-    documentation -> https://sibiraj.dev/angularjs-toast/
-     */
+    /* className -> accepted values are alert-(success|danger|primary|info)*/
     this.successNotification = function (message) {
         toast({
             duration  : 3000,

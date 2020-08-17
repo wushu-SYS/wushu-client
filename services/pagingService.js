@@ -1,4 +1,14 @@
+/**
+ * pagingService - provides the bottom row of page numbers
+ */
 app.service('pagingService', function() {
+    /**
+     *
+     * @param totalItems - number of total records
+     * @param currentPage - the number of the current page
+     * @param pageSize - define the number of record in page, default value is 10
+     * @return the pager "object", use it in gui, the object defines how to build the number pages row on the screen
+     */
     this.GetPager = GetPager;
 
     function GetPager(totalItems, currentPage, pageSize = 10) {
@@ -51,7 +61,4 @@ app.service('pagingService', function() {
         };
     }
 
-    this.sliceData = function (data, startIndex, endIndex) {
-        return data.slice(startIndex, endIndex + 1);
-    }
-})
+});

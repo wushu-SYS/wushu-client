@@ -120,6 +120,7 @@ div.menuItem{
     position: initial;
     background-color: #f1f1f1;
     width: max-content;
+    overflow: scroll;
 }
 .arrowDiv{
     height: fit-content;

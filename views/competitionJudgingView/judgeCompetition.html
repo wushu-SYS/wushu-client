@@ -1,0 +1,203 @@
+<div id="box" style="width: 90%">
+    <h1>תחרות - {{currentCompetition.description}}</h1>
+
+    <div class="center">
+        <div class="verticalLine threePartsScreenDiv">
+            <h5>סדר התחרות</h5>
+            <br>
+            <div class="centerButTextRight">
+                <h6 ng-repeat="categorySportsman in sportsmanQueue" ng-if="$index >= currentCategoryIndex">
+                    <b>קטגוריה: {{getAgeRange(categorySportsman.category)}} {{categorySportsman.category.name}}</b>
+                    <div ng-repeat="sportsman in categorySportsman.users" ng-if="$index >= currentSportsmanIndex">
+                        {{sportsman.firstname}} {{sportsman.lastname}}
+                    </div>
+                    <br>
+                </h6>
+            </div>
+        </div>
+
+        <div class="verticalLine threePartsScreenDiv">
+            <h5>הזן ציון לספורטאי</h5>
+            <br>
+            <div ng-show="lastSportsman">
+                התחרות הסתיימה
+            </div>
+            <div class="centerButTextRight" ng-show="!lastSportsman">
+                <h6>
+                    <b>קטגוריה:</b>
+                    {{currentCategory.name}} {{getAgeRange(currentCategory)}}
+                </h6>
+                <h6>
+                    <b>ספורטאי:</b>
+                    {{currentSportsman.firstname}} {{currentSportsman.lastname}}
+                </h6>
+                <div ng-form name="gradeForm" class="wrap-input100-black validate-input"
+                     style="width: 200px;"
+                     ng-class="{'alert-validate' : gradeForm.grade.$invalid}"
+                     data-validate="{{gradeForm.grade.$error.pattern ? 'ציון לא תקין' : ''}}">
+                    <span class="label-input100">ציון: </span>
+                    <input class="input100" type="text" name="grade" ng-model="grade"
+                           ng-pattern="regex.regexForCompetitionGrade">
+                    <span class="focus-input100"></span>
+                </div>
+            </div>
+
+            <div class="center" style="margin-top: 10px;display: contents">
+                <input type="submit" ng-class="{'disabled' : isDisableNextSportsmanButton() || !grade}"
+                       ng-show="currentCategoryIndex < sportsmanQueue.length-1 || currentSportsmanIndex < sportsmanQueue[currentCategoryIndex].users.length-1"
+                       ng-click="nextSportsman()"
+                       ng-disabled="isDisableNextSportsmanButton() || !grade"
+                       value="לספורטאי הבא"/>
+                <input type="submit" ng-class="{'disabled' : isDisableNextSportsmanButton() || !grade}"
+                       ng-show="currentCategoryIndex == sportsmanQueue.length-1 && currentSportsmanIndex == sportsmanQueue[currentCategoryIndex].users.length-1 && !lastSportsman"
+                       ng-click="sendGrade(true); lastSportsman = true"
+                       ng-disabled="isDisableNextSportsmanButton() || !grade"
+                       value="שלח ציון"/>
+                <input type="submit" ng-class="{'disabled' : !isAllGradesApproved()}"
+                       ng-show="lastSportsman && isMaster"
+                       ng-click="closeCompetition()"
+                       ng-disabled="!isAllGradesApproved()"
+                       value="סגור תחרות"/>
+
+                <i class="fa fa-male" aria-hidden="true" ng-repeat="judge in judges" style="font-size: x-large; padding: 5px;"
+                   ng-style="{'color': judge.isGraded ? 'green' : 'lightGray'}" data-toggle="tooltip" data-placement="right"
+                   title="{{judge.firstname}} {{judge.lastname}}"></i>
+            </div>
+        </div>
+
+        <div class="threePartsScreenDiv" style="overflow: auto; width: 50%">
+            <h5>ציונים סופיים</h5>
+            <br>
+            <div ng-repeat="sportsmanCategory in sportsmanQueue" ng-if="currentCategoryIndex != 0 && $index < currentCategoryIndex && categoryHasUnSavedSportsman(sportsmanCategory.users)">
+                <h6>
+                    <b>קטגוריה:</b>
+                    {{sportsmanCategory.category.name}}
+                    {{getAgeRange(sportsmanCategory.category)}}
+                </h6>
+                <table class="tableUser" cellspacing="0">
+                    <tr>
+                        <th class="thInItemList">ת.ז.</th>
+                        <th class="thInItemList">שם מלא</th>
+                        <th class="thInItemList" ng-repeat="judge in judges" ng-show="isMaster">ציון-{{judge.firstname}}</th>
+                        <th class="thInItemList" ng-show="isMaster">ציון שופט ראשי</th>
+                        <th class="thInItemList">ציון סופי</th>
+                        <th class="thInItemList" ng-show="isMaster"></th>
+                    </tr>
+                    <tr
+                        ng-repeat="(key, sportsman) in sportsmanGrade.get(sportsmanCategory.category.id) | fromMap | orderBy: ['!finalGrade', 'finalGrade']:true">
+                    <td class="tdInItemList">{{sportsman.id}}</td>
+                    <td class="tdInItemList">{{sportsman.firstname}} {{sportsman.lastname}}</td>
+                        <td class="tdInItemList" ng-repeat="judge in judges" ng-show="isMaster">
+                            <div ng-show="sportsman.isSaved">
+                                {{sportsman.judgeGrades[judge.idJudge]}}
+                            </div>
+                            <div ng-form name="ladtCategoryJudgesGradeForm" class="validate-input" ng-show="!sportsman.isSaved"
+                                 style="width: 70px; margin-bottom: 0px;"
+                                 ng-class="ladtCategoryJudgesGradeForm.grade.$invalid ? 'simpleInvalidInput' : 'wrap-input100-black'">
+                                <input class="input100" style="padding: 0px; text-align: center; height: auto"
+                                       type="text" name="grade" ng-model="sportsman.judgeGrades[judge.idJudge]"
+                                       ng-change="reCalcFinalGrade(category, sportsman)"
+                                       ng-pattern="regex.regexForCompetitionGrade" ng-required="true">
+                                <span class="focus-input100"></span>
+                            </div>
+                        </td>
+                        <td class="tdInItemList" ng-show="isMaster">
+                            <div ng-show="sportsman.isSaved">
+                                {{sportsman.masterGrade}}
+                            </div>
+                            <div ng-form name="lastCategoryMasterGradeForm" class="validate-input" ng-show="!sportsman.isSaved"
+                                 style="width: 70px; margin-bottom: 0px;"
+                                 ng-class="lastCategoryMasterGradeForm.grade.$invalid ? 'simpleInvalidInput' : 'wrap-input100-black'">
+                                <input class="input100" style="padding: 0px; text-align: center; height: auto"
+                                       type="text" name="grade" ng-model="sportsman.masterGrade"
+                                       ng-change="reCalcFinalGrade(scategory, sportsman)"
+                                       ng-pattern="regex.regexForCompetitionGrade" ng-required="true">
+                                <span class="focus-input100"></span>
+                            </div>
+                        </td>
+                        <td class="tdInItemList">{{sportsman.finalGrade ? (sportsman.finalGrade | number : 2) : '-'}}</td>
+                        <td class="tdInItemList" ng-show="isMaster">
+                            <div ng-show="sportsman.isSaved" style="color: green">
+                                נשמר
+                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                            </div>
+                            <div ng-show="!sportsman.isSaved">
+                                <input type="submit"
+                                       ng-class="{'disabled' : isDisableSaveButton(sportsmanCategory.category, sportsman)}"
+                                       ng-click="saveGrades(sportsman,sportsmanCategory.category)" style="padding: 9px 10px;"
+                                       ng-disabled="isDisableSaveButton(sportsmanCategory.category, sportsman)"
+                                       value="אשר"/>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+            </div>
+            <div ng-if="currentCategoryIndex < sportsmanQueue.length">
+                <h6>
+                    <b>קטגוריה:</b>
+                    {{currentCategory.name}} {{getAgeRange(currentCategory)}}
+                </h6>
+                <table class="tableUser" cellspacing="0">
+                    <tr>
+                        <th class="thInItemList">ת.ז.</th>
+                        <th class="thInItemList">שם מלא</th>
+                        <th class="thInItemList" ng-repeat="judge in judges" ng-show="isMaster">ציון-{{judge.firstname}}</th>
+                        <th class="thInItemList" ng-show="isMaster">ציון שופט ראשי</th>
+                        <th class="thInItemList">ציון סופי</th>
+                        <th class="thInItemList" ng-show="isMaster"></th>
+                    </tr>
+                    <tr
+                            ng-repeat="(key, sportsman) in sportsmanGrade.get(currentCategory.id) | fromMap | orderBy: ['!finalGrade', 'finalGrade']:true track by $index">
+                        <td class="tdInItemList">{{sportsman.id}}</td>
+                        <td class="tdInItemList">{{sportsman.firstname}} {{sportsman.lastname}}</td>
+                        <td class="tdInItemList" ng-repeat="judge in judges" ng-show="isMaster">
+                            <div ng-show="sportsman.isSaved">
+                                {{sportsman.judgeGrades[judge.idJudge]}}
+                            </div>
+                            <div ng-form name="judgesGradeForm" class="validate-input" ng-show="!sportsman.isSaved && $parent.$index <= currentSportsmanIndex && judge.isGraded"
+                                 style="width: 70px; margin-bottom: 0px;"
+                                 ng-class="judgesGradeForm.grade.$invalid ? 'simpleInvalidInput' : 'wrap-input100-black'">
+                                <input class="input100" style="padding: 0px; text-align: center; height: auto"
+                                       type="text" name="grade" ng-model="sportsman.judgeGrades[judge.idJudge]"
+                                       ng-change="reCalcFinalGrade(currentCategory, sportsman)"
+                                       ng-pattern="regex.regexForCompetitionGrade" ng-required="true">
+                                <span class="focus-input100"></span>
+                            </div>
+                            <div ng-show="!sportsman.isSaved && $parent.$index >= currentSportsmanIndex && !judge.isGraded">-</div>
+                        </td>
+                        <td class="tdInItemList" ng-show="isMaster">
+                            <div ng-show="sportsman.isSaved">
+                                {{sportsman.masterGrade}}
+                            </div>
+                            <div ng-form name="masterGradeForm" class="validate-input" ng-show="!sportsman.isSaved && $index <= currentSportsmanIndex && sportsman.masterGrade"
+                                 style="width: 70px; margin-bottom: 0px;"
+                                 ng-class="masterGradeForm.grade.$invalid ? 'simpleInvalidInput' : 'wrap-input100-black'">
+                                <input class="input100" style="padding: 0px; text-align: center; height: auto"
+                                       type="text" name="grade" ng-model="sportsman.masterGrade"
+                                       ng-change="reCalcFinalGrade(currentCategory, sportsman)"
+                                       ng-pattern="regex.regexForCompetitionGrade" ng-required="true">
+                                <span class="focus-input100"></span>
+                            </div>
+                            <div ng-show="!sportsman.isSaved && $index >= currentSportsmanIndex && !sportsman.masterGrade">-</div>
+                        </td>
+                        <td class="tdInItemList">{{sportsman.finalGrade ? (sportsman.finalGrade | number : 2) : '-'}}</td>
+                        <td class="tdInItemList" ng-show="isMaster">
+                            <div ng-show="sportsman.isSaved" style="color: green">
+                                נשמר
+                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                            </div>
+                            <div ng-show="!sportsman.isSaved">
+                                <input type="submit"
+                                       ng-class="{'disabled' : isDisableSaveButton(currentCategory, sportsman)}"
+                                       ng-click="saveGrades(sportsman,currentCategory)" style="padding: 9px 10px;"
+                                       ng-disabled="isDisableSaveButton(currentCategory, sportsman)"
+                                       value="אשר"/>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

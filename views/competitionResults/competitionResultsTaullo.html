@@ -1,0 +1,113 @@
+<div id="box" class="flexBox">
+    <div class="right">
+        <div>
+            <h1>
+                תוצאות תחרות
+            </h1>
+
+            <div>
+                <div ng-init="searchClicked=false" ng-keydown="$event.keyCode === 13 && setPage(1); searchClicked=true">
+                    <input class="searchInput" type="text" placeholder="חפש..." ng-model="searchText"
+                           ng-change="searchClicked=false">
+                    <button ng-click="setPage(1); searchClicked=true" ng-show="searchClicked==false">
+                        <i class="fa fa-search clickableSearch" style="left: 45px" aria-hidden="true"></i>
+                    </button>
+                    <button ng-click="searchText=''; setPage(1); searchClicked=false" ng-show="searchClicked==true">
+                        <i class="fa fa-times clickableSearch" style="left: 45px" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div ng-show="compResults.length > 0">
+            <i class="fa fa-pencil iColored" aria-hidden="true"></i>
+            <a class="linkDark iLink" href="" ng-click="isEditModeOn = !isEditModeOn">{{isEditModeOn ? 'ביטול עריכה' : 'ערוך ציונים סופיים'}}</a>
+        </div>
+        <table cellspacing="0">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="thInItemList">מקום</th>
+                    <th class="thInItemList">ת.ז.</th>
+                    <th class="thInItemList">שם מלא</th>
+                    <th class="thInItemList">מין</th>
+                    <th class="thInItemList">גיל</th>
+                    <th class="thInItemList">ציון</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="sportsmanCategory in compResults | filter: (searchClicked || '') && searchText">
+                <tr colspan="6">
+                    <td>{{sportsmanCategory.category.name}} {{getAgeRange(sportsmanCategory.category)}} ({{sportsmanCategory.category.sex}})</td>
+                </tr>
+                <tr ng-repeat="sportsman in sportsmanCategory.users | filter: (searchClicked || '') && searchText">
+                    <td class="tdInItemList"></td>
+                    <td class="tdInItemList">{{$index+1}}</td>
+                    <td class="tdInItemList">{{sportsman.id}}</td>
+                    <td class="tdInItemList">{{sportsman.firstname}} {{sportsman.lastname}}</td>
+                    <td class="tdInItemList">{{sportsman.sex}}</td>
+                    <td class="tdInItemList">{{sportsman.age}}</td>
+                    <td class="tdInItemList" ng-show="!isEditModeOn">{{sportsman.finalGrade}}</td>
+                    <td  class="tdInItemList" ng-show="isEditModeOn">
+                        <div ng-form name="gradeForm" class="wrap-input100-black validate-input"
+                             style="width: 200px;"
+                             ng-class="{'alert-validate' : gradeForm.grade.$invalid}"
+                             data-validate="{{gradeForm.grade.$error.pattern || gradeForm.$error.required ? 'ציון לא תקין' : ''}}">
+                            <input class="input100" type="text" name="grade" ng-model="sportsman.finalGrade" ng-change="gradeChanged(sportsman)"
+                                   ng-pattern="regex.regexForCompetitionGrade" ng-required="true">
+                            <span class="focus-input100"></span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="center">
+            <input type="submit" ng-show="isEditModeOn" ng-class="{'disabled' : editedGrades.length == 0 || isNotValidGrades()}"
+                   ng-click="editSportsmanGrades()"
+                   ng-disabled="editedGrades.length == 0 || isNotValidGrades()"
+                   value="שמור"/>
+        </div>
+    </div>
+
+    <div class="left" ng-show="compResults.length == 0" style="min-width: 400px">
+        <h1>
+            העלאת תוצאות תחרות<br>באמצעות
+            קובץ אקסל
+        </h1>
+        <div class="downloadLink">
+            <i class="fa fa-arrow-down" style="text-decoration: underline" aria-hidden="true"></i>
+            <a id="downExcelResultCompetition" ng-click="downloadExcelResultCompetition()" class="linkDark" href=""
+               download>
+                הורד פורמט קובץ אקסל להעלאת תוצאות תחרות</a>
+        </div>
+
+        <div class="center">
+            <div class="dropzone" id="dropZoneUploadCompetitionGrades">
+                <label id="dropText">{{isDropped ? filename : "גרור קובץ או לחץ על העלאת קובץ"}}</label>
+            </div>
+        </div>
+
+        <div class="uploadBtn" ng-show="!isDropped">
+            <input type="file" id="fileCompetitionUploadGrade" ng-model="csvFile"
+                   onchange="angular.element(this).scope().ExcelExport(event)"
+                   style="display:block;margin-top: 5%"/>
+            <label for="fileCompetitionUploadGrade"> העלאת קובץ</label><br>
+        </div>
+        <div class="uploadResultsPanel">
+            <div class="error" ng-show="isDropped && excelErrors.length > 0">
+                העלאה לא הצליחה, הקובץ מכיל שגיאות
+                <div ng-repeat="errorSportsman in excelErrors" style="text-align: right">
+                    <br>
+                    <div ng-show="errorSportsman.line">
+                        בשורה מס' {{errorSportsman.line}}:
+                    </div>
+                    <div ng-repeat="error in errorSportsman.errors track by $index">
+                        {{$index+1}}. {{error}}
+                    </div>
+                </div>
+            </div>
+            <a class="linkDark" id="changeExcel" ng-show="isDropped" href="" ng-click="uploadNewFile()"> העלה קובץ
+                חדש </a>
+        </div>
+    </div>
+</div>

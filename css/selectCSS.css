@@ -9,14 +9,21 @@ select {
     width: 100%;
     font-size: 16px;
     height: 45px;
-
+}
+select.whiteSelect{
+    padding: 0px;
+    background: transparent;
+    color: white;
+}
+select.whiteSelect option{
+    background-color: black;
 }
 select:focus, select:active {
     outline: 0;
     border-bottom-color: #599bb3;
 }
 .littleSelect{
-    /*width: 150px;*/
+    width: 150px;
     /*padding: 0px 10px 0px 5px;*/
     padding: 0px;
 }

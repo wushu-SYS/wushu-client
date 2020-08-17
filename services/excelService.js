@@ -1,4 +1,12 @@
+/**
+ * for excel upload gui components
+ */
 app.service('excelService', function () {
+    /**
+     * acivate the drop zone of drag & drop files
+     * @param e - the drop event
+     * @param callback - callback functino to call when finish upload
+     */
     this.dropZoneDropFile = function (e, callback) {
         e.stopPropagation();
         e.preventDefault();
@@ -26,13 +34,17 @@ app.service('excelService', function () {
             });
             //ans.result = XLSX.utils.sheet_to_json(worksheet);
 
-            console.log(ans.result)
 
             callback(ans);
         };
         reader.readAsArrayBuffer(f);
     }
 
+    /**
+     * activates the regular upload by opening file system
+     * @param e - the click event
+     * @param callback - callback function to call when finish upload
+     */
     this.uploadExcel = function (e, callback) {
         let input = e.target;
         let reader = new FileReader();
@@ -53,7 +65,6 @@ app.service('excelService', function () {
                 //defval: '',
                 range: new_range
             });
-            console.log(results)
             callback(results);
         };
         reader.readAsArrayBuffer(input.files[0]);

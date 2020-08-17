@@ -1,4 +1,4 @@
-let app = angular.module('myApp', ["ngRoute", 'ui.bootstrap', 'ngPatternRestrict', 'cp.ngConfirm', 'angularjsToast', 'angular-loading-bar', 'ngAnimate'])
+let app = angular.module('myApp', ["ngRoute", 'ui.bootstrap', 'ngPatternRestrict', 'cp.ngConfirm', 'angularjsToast', 'angular-loading-bar', 'ngAnimate','btford.socket-io','nvd3', 'vAccordion'])
     .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
         cfpLoadingBarProvider.includeSpinner = true;
         cfpLoadingBarProvider.includeBar = true;
@@ -8,7 +8,14 @@ let app = angular.module('myApp', ["ngRoute", 'ui.bootstrap', 'ngPatternRestrict
                                                 '<span>אנא המתן...</span>' +
                                                 '</div>';
     }]);
-app.controller("mainController", function ($scope, $location, $window, $rootScope) {
+
+app.service('SocketService', ['socketFactory', function SocketService(socketFactory) {
+    return socketFactory({
+        ioSocket: io.connect('http://localhost:3000')
+    });
+}]);
+
+app.controller("mainController", function ($scope, $location, $window, $rootScope, $uibModal) {
     if($window.sessionStorage.getItem('name') != null && $window.sessionStorage.getItem('name')!=='')
         $rootScope.name = $window.sessionStorage.getItem('name');
     if($window.sessionStorage.getItem('access') != null && $window.sessionStorage.getItem('access') != '')
@@ -17,14 +24,18 @@ app.controller("mainController", function ($scope, $location, $window, $rootScop
     $scope.getClass = function (path) {
         return ("/" + $location.path().split("/")[1] === path) ? 'active' : '';
     };
-    $scope.isShowMenu = function(){
+    $scope.isShowMenuOrFooter = function(){
         return $location.path() !== '/login';
+    };
+    $scope.isShowLoadingBar = function(){
+      return $location.path() !== '/home';
     };
 
     $rootScope.userTypes = {
         MANAGER: 1,
         COACH: 2,
-        SPORTSMAN: 3
+        SPORTSMAN: 3,
+        Judge :4
     };
 
     $scope.logout = function () {
@@ -34,6 +45,14 @@ app.controller("mainController", function ($scope, $location, $window, $rootScop
         $rootScope.name = '';
         $rootScope.access = '';
         $location.path('/login');
+    }
+
+    $scope.openModalRegisterAdmin = function () {
+        $uibModal.open({
+            templateUrl: "views/modalView/registerAdminModal.html",
+            controller: "registerAdminModalController as rAdminModalCtrl"
+        }).result.catch(function () {
+        });
     }
 });
 
@@ -49,97 +68,140 @@ app.config(function($routeProvider) {
             controller: 'loginController as loginCtrl'
         })
         .when('/users/register',{
-            templateUrl :'views/registerUser.html',
+            templateUrl :'views/addFormsView/registerUser.html',
             controller: 'registerController as chRegCtrl'
         })
-        .when('/calendar', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
-        })
+        // .when('/calendar', {
+        //     templateUrl: 'views/home.html',
+        //     controller: 'homeController as hCtrl'
+        // })
         .when('/profile', {
             resolve: {
                 "check": function ($rootScope, $location, $window) {
-                    if ($rootScope.access == $rootScope.userTypes.MANAGER) {
-                    }
-                    else if($rootScope.access == $rootScope.userTypes.COACH){
+                    let id = $window.sessionStorage.getItem("id");
+                    if($rootScope.access == $rootScope.userTypes.COACH){
+                        $location.path("/profile/coachProfile/" + id);
                     }
                     else if($rootScope.access == $rootScope.userTypes.SPORTSMAN){
-                        $location.path("/sportsmanProfile/");
+                        $location.path("/profile/sportsmanProfile/" + id);
+                    }
+                    else if($rootScope.access == $rootScope.userTypes.Judge){
+                        $location.path("/profile/refereeProfile/" + id)
                     }
                 }
             }
         })
-        .when('/sportsmanProfile/:id?', {
-            templateUrl: 'views/profilePage.html',
+        .when('/profile/sportsmanProfile/:id?', {
+            templateUrl: 'views/profileView/profilePage.html',
             controller: 'sportsmanProfileController as sportsmanProfileCtrl'
         })
+        .when('/profile/coachProfile/:id?', {
+            templateUrl: 'views/profileView/profilePage.html',
+            controller: 'coachProfileController as coachProfileCtrl'
+        })
+        .when('/profile/refereeProfile/:id?', {
+            templateUrl: 'views/profileView/profilePage.html',
+            controller: 'refereeProfileController as refereeProfileCtrl'
+        })
         .when('/sportClubs/addSportClub', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
+            templateUrl: 'views/addFormsView/addNewClub.html',
+            controller: 'addNewClubController as addClubCtrl'
         })
         .when('/sportClubs/sportClubs', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
+            templateUrl: 'views/tablesView/clubTable.html',
+            controller: 'clubController as clubCtrl'
+        })
+        .when('/sportClubs/clubProfile/:id?', {
+            templateUrl: 'views/profileView/clubProfile.html',
+            controller: 'clubProfileController as clubProfileCtrl'
         })
         .when('/users/couches', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
+            templateUrl: 'views/tablesView/userTable.html',
+            controller: 'coachController as coachCtrl'
         })
         .when('/users/admins', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
+            templateUrl: 'views/tablesView/adminTable.html',
+            controller: 'adminsTableController as adminsCtrl'
         })
         .when('/users/sportsmen', {
-            templateUrl: 'views/userTable.html',
+            templateUrl: 'views/tablesView/userTable.html',
             controller: 'sportsmenController as sportsmenCtrl'
         })
         .when('/users/referees', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
+            templateUrl: 'views/tablesView/userTable.html',
+            controller: 'refereesTableController as hCtrl'
         })
         .when('/competitions/addCompetition', {
-            templateUrl: 'views/openCompetition.html',
+            templateUrl: 'views/addFormsView/openCompetition.html',
             controller: 'openCompetitionController as hCtrl'
         })
         .when('/competitions/registerToCompetition', {
-            templateUrl: 'views/competitionTable.html',
+            templateUrl: 'views/tablesView/competitionTable.html',
             controller: 'registerToCompetitionController as regCompCtrl'
         })
-        .when('/competitions/addResults', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
+        .when('/startJudging', {
+            templateUrl: 'views/tablesView/competitionsToJudgeTable.html',
+            controller: 'competitionsToJudgeController as competitionsToJudgeController'
         })
         .when('/competitions/results', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
+            templateUrl: 'views/tablesView/competitionTable.html',
+            controller: 'competitionResultsTableController as compResTableCtrl'
+        })
+        .when('/competitionResults/taullo/:idComp', {
+            templateUrl: 'views/competitionResults/competitionResultsTaullo.html',
+            controller: 'competitionResultsTaulloController as compResultsTaulloCtrl'
+        })
+        .when('/competitionResults/sanda/:idComp', {
+            templateUrl: 'views/competitionResults/competitionResultsSanda.html',
+            controller: 'competitionResultsSandaController as compResultsSandaCtrl'
         })
         .when('/competitions/getCompetitions', {
-            templateUrl: 'views/competitionTable.html',
+            templateUrl: 'views/tablesView/competitionTable.html',
             controller: 'competitionTableController as cTCtrl'
         })
-        .when('/competitions/RegistrationState/:idCompetition/:date', {
-            templateUrl: 'views/registrationState.html',
+        .when('/competitions/RegistrationState/:idCompetition/:date/:status', {
+            templateUrl: 'views/competitionRegistrationView/registrationState.html',
             controller: 'registrationStateController as regStateCtrl'
         })
         .when('/events/addEvent', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
-        })
-        .when('/events/addMessage', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
+            templateUrl: 'views/addFormsView/openCompetition.html',
+            controller: 'addEventController as addECtrl'
         })
         .when('/events/events', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
+            templateUrl: 'views/tablesView/eventTable.html',
+            controller: 'eventTableController as eventtCtrl'
         })
         .when('/events/messages', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController as hCtrl'
+            templateUrl: 'views/tablesView/msgTable.html',
+            controller: 'msgTableController as msgtCtrl'
         })
-        .when('/competitionRegistration/:idComp', {
-            templateUrl: 'views/regSportsmanCompetition.html',
-            controller: 'competitionRegisterModal as cRegCtrl'
+        .when('/sportsmanCompetitionRegistration/:idComp', {
+            templateUrl: 'views/competitionRegistrationView/regSportsmanCompetition.html',
+            controller: 'regSportsmanCompetitionController as sCompetitionRegCtrl'
+        })
+        .when('/judgeCompetitionRegistration/:idComp', {
+            templateUrl: 'views/competitionRegistrationView/regJudgeCompetition.html',
+            controller: 'regJudgeCompetitionController as jCompetitionRegCtrl'
+        })
+        .when('/judgingCompetitionMaster/:idComp', {
+            templateUrl: 'views/competitionJudgingView/judgeCompetition.html',
+            controller: 'judgingCompetitionMaster as jCompetitionMaster'
+        })
+        .when('/judgingCompetitionSimple/:idComp', {
+            templateUrl: 'views/competitionJudgingView/judgeCompetition.html',
+            controller: 'judgingCompetitionSimple as jCompetitionSimple'
+        })
+        .when('/waitingForCompetitionHost/:idComp', {
+            templateUrl: 'views/loadingView/loading.html',
+            controller: 'waitingForCompetitionHost as waitingForCompetitionHost'
+        })
+        .when('/waitingForTheNextSportsman/:idComp/:preSportsman', {
+            templateUrl: 'views/loadingView/loading.html',
+            controller: 'waitingForTheNextSportsman as waitingForTheNextSportsman'
+        })
+        .when('/wushuTree', {
+            templateUrl: 'views/wushuTree.html',
+            controller: 'wushuTree as wushuTreeController'
         })
         .otherwise({redirectTo: '/login'});
 });

@@ -1,0 +1,21 @@
+<head>
+    <link data-require="bootstrap-css@3.*" data-semver="3.3.7" rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"/>
+</head>
+<div class="modal-body">
+    <h1>עריכת הודעה </h1>
+    <form class="centered-form validate-form" name="editMessageForm" ng-submit="submit(editMessageForm.$valid)"    novalidate>
+        <div class="wrap-input100 validate-input">
+            <span class="label-input100">טקסט הודעה</span>
+            <span class="focus-input100" data-symbol="&#xf25d;"></span>
+            <textarea class="input100" type="text" name="msgText" ng-model="msgText" ng-required="true" style="height: 100px"
+                      ng-pattern="regex.regexHebrewAndNumbers" ng-pattern-restrict/>
+        </div>
+
+        <div style="text-align: center">
+            <input type="submit" name="editMessage_submit" ng-click="isClicked=true" value="ערוך"/>
+            <input class="btnSubmit" type="button" name="editCategory_cancel" ng-click="closeModal()" value="ביטול"/>
+        </div>
+
+    </form>
+</div>

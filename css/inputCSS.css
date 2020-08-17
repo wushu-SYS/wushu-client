@@ -36,6 +36,9 @@ textarea:-ms-input-placeholder { color: #fff;}
     width: 300px;
     margin-right: 100px;
 }
+.simpleInvalidInput{
+    border-bottom: 1px solid red;
+}
 
 input[type=date]{
     -webkit-appearance: none;
@@ -48,13 +51,19 @@ input[type=date]::-webkit-inner-spin-button {
 .wrap-input100 {
     /*width: 100%;*/
     position: relative;
-    border-bottom: 1px solid #e5ffff;
+    border-bottom: 1px solid lightgrey;
+    margin-bottom: 30px;
+}
+.wrap-input100-black {
+    /*width: 100%;*/
+    position: relative;
+    border-bottom: 1px solid black;
     margin-bottom: 30px;
 }
 
 .update-input{
     position: relative;
-    border-bottom: 1px solid #e5ffff;
+    border-bottom: 1px solid lightgrey;
 }
 .update-input100{
     font-size: 16px;
@@ -140,6 +149,9 @@ input[type=date]::-webkit-inner-spin-button {
     /*left: 0;*/
     padding-left: 13px;
     padding-top: 3px;
+}
+.focus-input100-afterNotInCenter::after{
+    align-items: flex-start !important;
 }
 .input100:focus + .focus-input100::after {
     color: #599bb3;

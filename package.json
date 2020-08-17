@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "ng build --prod"
   },
   "author": "",
   "license": "ISC",
@@ -18,12 +19,26 @@
     "karma-jasmine": "^2.0.1"
   },
   "dependencies": {
+    "@angular/cli": "^10.0.6",
     "angular-animate": "^1.7.8",
+    "@angular/compiler-cli": "^4.4.6",
     "angular-loading-bar": "^0.9.0",
+    "angular-local-storage": "^0.7.1",
+    "angular-nvd3": "^1.0.9",
     "angular-route": "^1.7.8",
     "angular-sanitize": "^1.7.8",
+    "angular-socket-io": "^0.7.0",
     "angularjs-toast": "^2.0.3",
+    "fs": "0.0.1-security",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0",
+    "treantjs": "git+https://github.com/fperucic/treant-js.git",
     "util": "^0.12.1",
+    "v-accordion": "^1.6.0",
     "xlsx": "^0.15.4"
+  },
+  "engines": {
+    "node": "6.11.0",
+    "npm": "3.10.10"
   }
 }
