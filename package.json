@@ -2,14 +2,14 @@
   "name": "client",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "ng build --prod"
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@angular/cli": "^10.0.6",
+    "@angular/compiler-cli": "^4.4.7",
     "angular": "^1.7.8",
     "angular-mocks": "^1.7.8",
     "angular-ui-router": "^1.0.23",
@@ -20,8 +20,8 @@
   },
   "dependencies": {
     "@angular/cli": "^10.0.6",
+    "@angular/compiler-cli": "^4.4.7",
     "angular-animate": "^1.7.8",
-    "@angular/compiler-cli": "^4.4.6",
     "angular-loading-bar": "^0.9.0",
     "angular-local-storage": "^0.7.1",
     "angular-nvd3": "^1.0.9",
@@ -29,7 +29,9 @@
     "angular-sanitize": "^1.7.8",
     "angular-socket-io": "^0.7.0",
     "angularjs-toast": "^2.0.3",
+    "express": "^4.17.1",
     "fs": "0.0.1-security",
+    "path": "^0.12.7",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
     "treantjs": "git+https://github.com/fperucic/treant-js.git",
@@ -38,7 +40,7 @@
     "xlsx": "^0.15.4"
   },
   "engines": {
-    "node": "6.11.0",
-    "npm": "3.10.10"
+    "node": "v12.18.3",
+    "npm": "6.14.6"
   }
 }
