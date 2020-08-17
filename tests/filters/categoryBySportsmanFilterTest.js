@@ -3,67 +3,67 @@ describe('category by sportsman filter test', function () {
     beforeEach(angular.mock.module('myApp'));
     beforeEach(inject(function (_$filter_) {
         $filter = _$filter_;
-        collection = [
-            {
-                "id": 10,
-                "name": "בוגרות",
-                "minAge": 18,
-                "maxAge": null,
-                "sex": "נקבה",
-                "count": 0
-            },
-            {
-                "id": 9,
-                "name": "בוגרים",
-                "minAge": 18,
-                "maxAge": null,
-                "sex": "זכר",
-                "count": 0
-            },
-            {
-                "id": 11,
-                "name": "בוגרים2",
-                "minAge": 21,
-                "maxAge": null,
-                "sex": "זכר",
-                "count": 0
-            },
-            {
-                "id": 4,
-                "name": "ילדות",
-                "minAge": 0,
-                "maxAge": 12,
-                "sex": "נקבה",
-                "count": 1
-            },
-            {
-                "id": 3,
-                "name": "ילדים",
-                "minAge": 0,
-                "maxAge": 12,
-                "sex": "זכר",
-                "count": 1
-            },
-            {
-                "id": 7,
-                "name": "נוער",
-                "minAge": 16,
-                "maxAge": 18,
-                "sex": "זכר",
-                "count": 0
-            },
-            {
-                "id": 8,
-                "name": "נערות",
-                "minAge": 16,
-                "maxAge": 18,
-                "sex": "נקבה",
-                "count": 0
-            }
-        ]
+            collection = [
+                {
+                    "id": 10,
+                    "name": "בוגרות",
+                    "minAge": 18,
+                    "maxAge": null,
+                    "sex": "נקבה",
+                    "count": 0
+                },
+                {
+                    "id": 9,
+                    "name": "בוגרים",
+                    "minAge": 18,
+                    "maxAge": null,
+                    "sex": "זכר",
+                    "count": 0
+                },
+                {
+                    "id": 11,
+                    "name": "בוגרים2",
+                    "minAge": 21,
+                    "maxAge": null,
+                    "sex": "זכר",
+                    "count": 0
+                },
+                {
+                    "id": 4,
+                    "name": "ילדות",
+                    "minAge": 0,
+                    "maxAge": 12,
+                    "sex": "נקבה",
+                    "count": 1
+                },
+                {
+                    "id": 3,
+                    "name": "ילדים",
+                    "minAge": 0,
+                    "maxAge": 12,
+                    "sex": "זכר",
+                    "count": 1
+                },
+                {
+                    "id": 7,
+                    "name": "נוער",
+                    "minAge": 16,
+                    "maxAge": 18,
+                    "sex": "זכר",
+                    "count": 0
+                },
+                {
+                    "id": 8,
+                    "name": "נערות",
+                    "minAge": 16,
+                    "maxAge": 18,
+                    "sex": "נקבה",
+                    "count": 0
+                }
+            ]
     }));
 
-    it('one filtered result', function () {
+    it('should return one filtered result', function () {
         let filtered = $filter('categoryBySportsmanFilter')(collection, {
             "id": 305568,
             "firstname": "לינור",
@@ -85,7 +85,7 @@ describe('category by sportsman filter test', function () {
         expect(filtered.length).toEqual(1);
         expect(filtered[0].id).toEqual(3);
     });
-    it('one filtered result with null max age', function () {
+    it('should return one filtered result with null max age', function () {
         let filtered = $filter('categoryBySportsmanFilter')(collection, {
             "id": 305568,
             "firstname": "לינור",
@@ -107,7 +107,7 @@ describe('category by sportsman filter test', function () {
         expect(filtered.length).toEqual(1);
         expect(filtered[0].id).toEqual(9);
     });
-    it('two filtered result', function () {
+    it('should return two filtered result', function () {
         let filtered = $filter('categoryBySportsmanFilter')(collection, {
             "id": 305568,
             "firstname": "לינור",
@@ -131,7 +131,7 @@ describe('category by sportsman filter test', function () {
         expect(categoryIds.includes(9)).toBeTrue();
         expect(categoryIds.includes(11)).toBeTrue();
     });
-    it('zero filtered result', function () {
+    it('should return zero filtered result', function () {
         let filtered = $filter('categoryBySportsmanFilter')(collection, {
             "id": 305568,
             "firstname": "לינור",
@@ -152,7 +152,7 @@ describe('category by sportsman filter test', function () {
         }, [], true);
         expect(filtered.length).toEqual(0);
     });
-    it('filtered results does not include minAge in the check', function () {
+    it('should return filtered results that does not include minAge in the check', function () {
         let filtered = $filter('categoryBySportsmanFilter')(collection, {
             "id": 305568,
             "firstname": "לינור",
@@ -176,7 +176,7 @@ describe('category by sportsman filter test', function () {
         expect(categoryIds.includes(9)).toBeTrue();
         expect(categoryIds.includes(11)).toBeTrue();
     });
-    it('filtered results does not include minAge in the check and exclude list is not empty', function () {
+    it('should return filtered results that does not include minAge in the check and exclude list is not empty', function () {
         let filtered = $filter('categoryBySportsmanFilter')(collection, {
             "id": 305568,
             "firstname": "לינור",
@@ -204,6 +204,7 @@ describe('category by sportsman filter test', function () {
         }], false);
         expect(filtered.length).toEqual(2);
         let categoryIds = filtered.map(c => c.id);
+        expect(categoryIds.includes(9)).toBeTrue();
         expect(categoryIds.includes(11)).toBeTrue();
     });
 });

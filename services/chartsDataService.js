@@ -1,3 +1,6 @@
+/**
+ * This service contains calls for endpoints that gets data for the graphs
+ */
 app.service('chartsDataService', function ($window, $http, constants) {
     this.participateSportsmanCompetitions = function (sportsmanId) {
         let req = {

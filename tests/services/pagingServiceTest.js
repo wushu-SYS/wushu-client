@@ -38,7 +38,7 @@ describe('paging service test', function () {
     ];
 
     describe('get pager', function () {
-        it('get the first two items', function () {
+        it('should get the first two items', function () {
             let pager = pagingService.GetPager(userList.length, 1, 2);
             expect(pager.currentPage).toEqual(1);
             expect(pager.pageSize).toEqual(2);
@@ -49,7 +49,7 @@ describe('paging service test', function () {
             expect(pager.endIndex).toEqual(1);
             expect(pager.pages).toEqual([1, 2]);
         });
-        it('get the last two items', function () {
+        it('should get the last two items', function () {
             let pager = pagingService.GetPager(userList.length, 2, 2);
             expect(pager.currentPage).toEqual(2);
             expect(pager.pageSize).toEqual(2);
@@ -60,7 +60,7 @@ describe('paging service test', function () {
             expect(pager.endIndex).toEqual(3);
             expect(pager.pages).toEqual([1, 2]);
         });
-        it('get one item from the middle', function () {
+        it('should get one item from the middle', function () {
             let pager = pagingService.GetPager(userList.length, 3, 1);
             expect(pager.currentPage).toEqual(3);
             expect(pager.pageSize).toEqual(1);

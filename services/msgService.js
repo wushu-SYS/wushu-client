@@ -10,6 +10,11 @@ app.service('msgService', function ($window, $http, constants, $uibModal, $locat
             };
             return $http(req);
         };
+        /**
+         * open modal for showing full message details
+         * @param msgId
+         * @param callbackFunc
+         */
         this.watchMsgDetails = function (msgId, callbackFunc) {
             $uibModal.open({
                 templateUrl: "views/modalView/messageDetails.html",
@@ -67,7 +72,7 @@ app.service('msgService', function ($window, $http, constants, $uibModal, $locat
             };
             return $http(req);
         }
-        this.editMessage = function (msg,msgId) {
+        this.editMessage = function (msg, msgId) {
             var req = {
                 method: 'POST',
                 url: constants.serverUrl + '/private/manager/editMessage',
@@ -76,12 +81,16 @@ app.service('msgService', function ($window, $http, constants, $uibModal, $locat
                 },
                 data: {
                     msg: msg,
-                    msgId :msgId
+                    msgId: msgId
                 }
             };
             return $http(req);
         }
 
+        /**
+         * open modal for adding new message
+         * @param addNewMessageToBoard
+         */
         this.addNewMessageModal = function (addNewMessageToBoard) {
             $uibModal.open({
                 templateUrl: "views/modalView/addNewMessage.html",
@@ -94,7 +103,12 @@ app.service('msgService', function ($window, $http, constants, $uibModal, $locat
             });
         }
 
-        this.editMessageModal = function (msgId,editMessageBoard) {
+        /**
+         * open modal for editing existing message
+         * @param msgId
+         * @param editMessageBoard
+         */
+        this.editMessageModal = function (msgId, editMessageBoard) {
             $uibModal.open({
                 templateUrl: "views/modalView/editMessage.html",
                 controller: "editMessageModalController as editMsgCtrl",

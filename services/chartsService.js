@@ -1,4 +1,12 @@
+/**
+ * This service builds the options charts parameter
+ */
 app.service('chartsService', function ($window, $http, constants) {
+    /**
+     * builds options for pie chart
+     * @param title - main title for the chart
+     * @return {{title: {enable: boolean, text: *}, chart: {duration: number, margin: {right: number}, showLabels: boolean, labelThreshold: number, legend: {updateState: boolean}, width: number, x: (function(*): *), y: (function(*): *), labelSunbeamLayout: boolean, legendPosition: string, type: string, height: number}}}
+     */
     this.pieCharts = function (title) {
         return {
             chart: {
@@ -30,6 +38,17 @@ app.service('chartsService', function ($window, $http, constants) {
             }
         };
     }
+
+    /**
+     * builds options for scatter chart
+     * @param title - main title of the chart
+     * @param subTitle - sub title of the chart
+     * @param xLabel - label name for x axis
+     * @param yLabel - label name for y axis
+     * @param forceX1 - value range for x axis
+     * @param forceX2 - value range for y axis
+     * @return {{subtitle: {enable: boolean, text: *}, title: {enable: boolean, text: *}, chart: {margin: {right: number}, showValues: boolean, xAxis: {axisLabel: *, tickFormat: (function(*=): string), showMaxMin: boolean}, color: (void|*), tooltip: {headerEnabled: boolean}, zoom: {scaleExtent: number[], verticalOff: boolean, unzoomEventType: string, useNiceScale: boolean, useFixedDomain: boolean, horizontalOff: boolean, enabled: boolean}, tooltipContent: (function(*): string), type: string, duration: number, forceY: number[], forceX: [*, *], yAxis: {axisLabel: *, ticks: number, tickFormat: (function(*=): *), axisLabelDistance: number, showMaxMin: boolean}, pointRange: number[], scatter: {onlyCircles: boolean}, width: number, showDistX: boolean, showDistY: boolean, height: number}}}
+     */
     this.scatterChart = function (title, subTitle, xLabel, yLabel, forceX1, forceX2) {
         return {
             chart: {
@@ -98,6 +117,16 @@ app.service('chartsService', function ($window, $http, constants) {
 
     }
 
+    /**
+     * buils options for bar chart
+     * @param title - main title of the chart
+     * @param subTitle - sub title of the chart
+     * @param xLabel - label name of x axis
+     * @param yLabel - label name of y axis
+     * @param forceX1 - value range for x axis
+     * @param forceX2 - value range for y axis
+     * @return {{subtitle: {enable: boolean, text: *}, title: {enable: boolean, text: *}, chart: {clipEdge: boolean, duration: number, forceY: number[], margin: {right: number}, forceX: [*, *], yAxis: {axisLabel: *, tickFormat: (function(*=): *), axisLabelDistance: number}, stacked: boolean, xAxis: {axisLabel: *, tickFormat: (function(*=): string), showMaxMin: boolean}, width: number, type: string, showControls: boolean, height: number}}}
+     */
     this.barChart = function (title, subTitle, xLabel, yLabel,forceX1,forceX2) {
         return {
             chart: {

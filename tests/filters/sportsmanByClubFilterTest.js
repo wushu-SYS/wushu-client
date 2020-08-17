@@ -26,14 +26,14 @@ describe('sportsman by club filter test', function () {
         ]
     }));
 
-    it('filter with results', function () {
+    it('should filter the data with results', function () {
         let filtered = $filter('sportsmenByClubFilter')(collection, {
             "id": 1,
             "name": "הפנתרים"
         });
         expect(filtered.length).toEqual(1);
     });
-    it('filter without results', function () {
+    it('should filter the data without results', function () {
         let filtered = $filter('sportsmenByClubFilter')(collection, {
             "id": 5,
             "name": "חדש"

@@ -7,7 +7,7 @@ describe('category service test', function () {
     }));
 
     describe('get age range', function () {
-        it('max and min age', function () {
+        it('should get category object with max and min age', function () {
             let range = categoryService.getAgeRange(
                 {
                     minAge: 6,
@@ -16,7 +16,7 @@ describe('category service test', function () {
             );
             expect(range).toEqual("6-10");
         });
-        it('only min age', function () {
+        it('should support category object with only min age', function () {
             let range = categoryService.getAgeRange(
                 {
                     minAge: 10
@@ -24,7 +24,7 @@ describe('category service test', function () {
             );
             expect(range).toEqual("10+");
         });
-        it('min age equal to zero and no max age', function () {
+        it('should support category object with min age equal to zero and no max age', function () {
             let range = categoryService.getAgeRange(
                 {
                     minAge: 0
@@ -32,7 +32,7 @@ describe('category service test', function () {
             );
             expect(range).toEqual("");
         });
-        it('max and min age when min age equal to zero', function () {
+        it('should support category object with max and min age when min age equal to zero', function () {
             let range = categoryService.getAgeRange(
                 {
                     minAge: 0,

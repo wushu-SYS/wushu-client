@@ -1,3 +1,6 @@
+/**
+ * This service contains calls for endpoints for the admin entity
+ */
 app.service('adminService', function($window, $http, constants) {
     this.insertAdmin =function (data) {
         var req = {

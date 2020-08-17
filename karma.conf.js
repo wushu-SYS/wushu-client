@@ -25,6 +25,9 @@ module.exports = function(config) {
         './node_modules/angular-sanitize/angular-sanitize.js',
         './node_modules/angularjs-toast/angularjs-toast.min.js',
         './node_modules/angular-loading-bar/build/loading-bar.min.js',
+        './node_modules/angular-socket-io/socket.min.js',
+        './node_modules/angular-nvd3/dist/angular-nvd3.js',
+        './node_modules/v-accordion/dist/v-accordion.js',
         'https://cdn.rawgit.com/angular-ui/bootstrap/gh-pages/ui-bootstrap-tpls-2.5.0.js',
         'https://cdn.rawgit.com/AlphaGit/ng-pattern-restrict/master/src/ng-pattern-restrict.min.js',
         './css/confirm/angular-confirm.js',
@@ -44,18 +47,20 @@ module.exports = function(config) {
         './filters/categoryBySportsmanFilter.js',
         './filters/coachByClubFilter.js',
         './filters/sportsmanByClubFilter.js',
+        './filters/fromMapFilter.js',
 
         //test files
-        './services/tests/sportsmanServiceTest.spec.js',
-        './services/tests/registerServiceTest.js',
-        './services/tests/pagingServiceTest.js',
-        './services/tests/competitionServiceTest.js',
-        './services/tests/commonFunctionsServiceTests.js',
-        './services/tests/categoryServiceTest.js',
+        'tests/services/sportsmanServiceTest.spec.js',
+        'tests/services/registerServiceTest.js',
+        'tests/services/pagingServiceTest.js',
+        'tests/services/competitionServiceTest.js',
+        'tests/services/commonFunctionsServiceTests.js',
+        'tests/services/categoryServiceTest.js',
         'controllers/competitionRegistration/tests/registrationStateControllerTest.js',
-        './filters/tests/categoryBySportsmanFilterTest.js',
-        './filters/tests/coachByClubFilterTest.js',
-        './filters/tests/sportsmanByClubFilterTest.js'
+        'tests/filters/categoryBySportsmanFilterTest.js',
+        'tests/filters/coachByClubFilterTest.js',
+        'tests/filters/sportsmanByClubFilterTest.js',
+        'tests/filters/fromMapFilterTest.js'
     ],
 
 

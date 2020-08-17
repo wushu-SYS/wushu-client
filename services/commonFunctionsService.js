@@ -11,6 +11,9 @@ app.service('commonFunctionsService', function(constants) {
         });
     }
 
+    /**
+     * @return the year of last september month
+     */
     this.getSessionYear = function getSessionYear() {
         let year = new Date().getFullYear();
         if (new Date().getMonth() < constants.monthDateFromZERO.SEPTEMBER)
@@ -42,7 +45,7 @@ app.service('commonFunctionsService', function(constants) {
      * @return {string}
      */
     this.convertNumToMonth = function (monthNum) {
-        if(monthNum < 1 || monthNum > 12 || !Number.isInteger(monthNum)) {
+        if(monthNum < 0 || monthNum > 11 || !Number.isInteger(monthNum)) {
             return ""
         }
         return monthNames[monthNum];
