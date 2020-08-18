@@ -50,7 +50,9 @@ app.controller("mainController", function ($scope, $location, $window, $rootScop
     $scope.openModalRegisterAdmin = function () {
         $uibModal.open({
             templateUrl: "views/modalView/registerAdminModal.html",
-            controller: "registerAdminModalController as rAdminModalCtrl"
+            controller: "registerAdminModalController as rAdminModalCtrl",
+            backdrop: 'static',
+            keyboard: false
         }).result.catch(function () {
         });
     }

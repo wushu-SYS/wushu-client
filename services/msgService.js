@@ -95,8 +95,8 @@ app.service('msgService', function ($window, $http, constants, $uibModal, $locat
             $uibModal.open({
                 templateUrl: "views/modalView/addNewMessage.html",
                 controller: "addMessageModalController as addMsgCtrl",
-                backdrop: true,
-                keyboard: false,
+                backdrop: 'static',
+                keyboard: false
             }).result.then(function () {
                 addNewMessageToBoard();
             }).catch(function () {
@@ -112,7 +112,7 @@ app.service('msgService', function ($window, $http, constants, $uibModal, $locat
             $uibModal.open({
                 templateUrl: "views/modalView/editMessage.html",
                 controller: "editMessageModalController as editMsgCtrl",
-                backdrop: true,
+                backdrop: 'static',
                 keyboard: false,
                 resolve: {
                     getId: function () {
