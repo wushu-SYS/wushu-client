@@ -17,6 +17,9 @@ app.controller("loginController", function ($scope, $http, $window, $location, $
                                     $window.sessionStorage.setItem('id', response.data.id);
                                     $rootScope.name = $window.sessionStorage.getItem('name');
 
+                                    $window.sessionStorage.setItem('sportclub', response.data.sportclub);
+                                    $rootScope.sportclub = $window.sessionStorage.getItem('sportclub');
+                                    console.log($rootScope.sportclub)
                                     $window.sessionStorage.setItem('access', userType);
                                     $rootScope.access = $window.sessionStorage.getItem('access');
                                     $window.sessionStorage.setItem('isFirstLogin', response.data.isFirstTime);

@@ -4,27 +4,44 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
     $scope.regex = constants.regex;
     $scope.currentDate = new Date();
     $scope.userType = 'sportsman';
+    let access = $window.sessionStorage.getItem('access');
 
     getDisplayData();
 
     /**
      * the function bring from the server all the needed data to this screen
      */
-    function getDisplayData() {
-        coachService.getCoachesNotRegisterAsJudges()
-            .then(function (result) {
-                $scope.coaches = result.data;
-            }, function (error) {
-                console.log(error)
-            });
 
-        clubService.getClubs()
+   async function getDisplayData() {
+        await getCoachesNotRegisterAsJudges();
+        await getClubs();
+        switch (parseInt(access)){
+            case $rootScope.userTypes.COACH:
+                $scope.sportclub = $filter('filter')($scope.clubs, function (obj) {
+                    return obj.id == $window.sessionStorage.getItem('sportclub');;
+                })[0];
+                document.getElementById("sportclub").disabled =true;
+                break;
+        }
+    }
+
+    async function getClubs(){
+        await clubService.getClubs()
             .then(function (result) {
                 $scope.clubs = result.data;
             }, function (error) {
                 console.log(error)
             });
     }
+    async function getCoachesNotRegisterAsJudges(){
+       await coachService.getCoachesNotRegisterAsJudges()
+            .then(function (result) {
+                $scope.coaches = result.data;
+            }, function (error) {
+                console.log(error)
+            });
+    }
+
     $scope.filterClub = function () {
         $scope.sportclub = $filter('filter')($scope.clubs, function (obj) {
             return obj.id === $scope.coach.sportclub;

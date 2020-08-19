@@ -123,7 +123,7 @@
                  ng-class="{'alert-validate' : registerForm.sportclub.$invalid && (registerForm.sportclub.$touched || isClicked)}"
                  data-validate="בחר מועדון ספורט">
                 <span class="label-input100">מועדון</span>
-                <select name="sportclub" ng-model="sportclub" ng-required="userType!='judge'" ng-disabled="judgeFill"
+                <select id="sportclub" name="sportclub" ng-model="sportclub" ng-required="userType!='judge'" ng-disabled="judgeFill"
                         ng-options="x.name
                             for
                             x in clubs">
