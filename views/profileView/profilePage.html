@@ -62,7 +62,7 @@
                                 <label>תעודת זהות</label>
                             </div>
                             <div class="col-md-6">
-                                <label ng-show="!isEditModeOn">{{user.id}}</label>
+                                <label ng-show="!isEditModeOn">{{getIdInLengthNine(user.id)}}</label>
                                 <div ng-show="isEditModeOn" class="update-input"
                                      ng-class="{'alert-validate' : updateProfile.id.$invalid && (updateProfile.id.$touched || isClicked)}"
                                      data-validate="{{updateProfile.id.$error.required ? 'הכנס ת.ז.' : (updateProfile.id.$error.minlength || updateProfile.id.$error.maxlength || updateProfile.id.$error.pattern ? 'ת.ז. לא תקינה' : '')}}">

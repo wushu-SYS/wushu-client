@@ -1,5 +1,6 @@
 app.controller("coachProfileController", function ($scope, $http, $route,$filter, $window, $location, $rootScope, $routeParams, constants, coachService, userService, confirmDialogService, toastNotificationService, commonFunctionsService) {
     var oldId;
+    $scope.getIdInLengthNine = commonFunctionsService.getIdInLengthNine;
     $scope.whoAmI = "מאמן";
     $scope.userType = $rootScope.userTypes.COACH;
     $scope.eWhoAmI = "coach";

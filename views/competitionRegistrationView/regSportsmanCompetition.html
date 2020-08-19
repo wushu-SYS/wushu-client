@@ -38,7 +38,7 @@
             </tr>
             <tr ng-repeat="user in users track by $index">
                 <td class="tdInItemList">{{pager.startIndex+$index+1}}.</td>
-                <td class="tdInItemList">{{user.id}}</td>
+                <td class="tdInItemList">{{getIdInLengthNine(user.id)}}</td>
                 <td class="tdInItemList">{{user.firstname}} {{user.lastname}}</td>
                 <td class="tdInItemList">{{user.sex}}</td>
                 <td class="tdInItemList">{{user.age}}</td>
@@ -133,7 +133,7 @@
                 <div ng-repeat="errorSportsman in excelErrors" style="text-align: right">
                     <br>
                     <div ng-show="errorSportsman.id">
-                    עבור ת.ז. {{errorSportsman.id}}:
+                    עבור ת.ז. {{getIdInLengthNine(errorSportsman.id)}}:
                     </div>
                     {{errorSportsman.error}}
                 </div>

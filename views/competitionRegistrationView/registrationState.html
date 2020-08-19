@@ -29,7 +29,7 @@
                             <input type="checkbox" ng-show="access==userTypes.MANAGER" ng-model="user.isChecked" ng-change="selectSportsman(user, userCategory.category.id)" ng-disabled="user.isDeleted" ng-hide="user.isDeleted">
                         </td>
                         <td class="tdInItemList">{{$index+1}}.</td>
-                        <td class="tdInItemList">{{user.id}}</td>
+                        <td class="tdInItemList">{{getIdInLengthNine(user.id)}}</td>
                         <td class="tdInItemList">{{user.firstname}} {{user.lastname}}</td>
                         <td class="tdInItemList">{{user.sex}}</td>
                         <td class="tdInItemList">{{user.age}}</td>

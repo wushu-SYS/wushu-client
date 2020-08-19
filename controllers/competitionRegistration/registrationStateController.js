@@ -1,4 +1,5 @@
 app.controller("registrationStateController",function($scope, $rootScope, $window, $http, $location, $filter, commonFunctionsService, sportsmanService, competitionService, $routeParams, categoryService, confirmDialogService, toastNotificationService,constants) {
+    $scope.getIdInLengthNine = commonFunctionsService.getIdInLengthNine;
     $scope.categoryForSportsman = [];
     $scope.toUnRegisterUsers = [];
     $scope.selectedSportsmenToMerge = [];

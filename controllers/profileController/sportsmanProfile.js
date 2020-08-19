@@ -7,6 +7,7 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
     $scope.sexEnum = constants.sexEnum;
     $scope.sportStyleEnum = constants.sportStyleEnum;
     $scope.regex = constants.regex;
+    $scope.getIdInLengthNine = commonFunctionsService.getIdInLengthNine;
 
     let medicalScanIframe = document.getElementById("medicalScanIframe");
     let insuranceIframe = document.getElementById("insuranceIframe");

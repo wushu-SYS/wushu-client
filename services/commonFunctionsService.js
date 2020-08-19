@@ -51,5 +51,8 @@ app.service('commonFunctionsService', function(constants) {
         return monthNames[monthNum];
     }
 
+    this.getIdInLengthNine = function (id){
+        return ("000000000" + id).slice(-9);
+    }
 
 });

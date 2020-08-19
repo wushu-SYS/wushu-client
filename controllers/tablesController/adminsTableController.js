@@ -1,5 +1,6 @@
-app.controller("adminsTableController", function($scope, $route, $window,adminService, toastNotificationService, confirmDialogService) {
+app.controller("adminsTableController", function($scope, $route, $window,adminService, toastNotificationService, confirmDialogService, commonFunctionsService) {
     $scope.currentAdminId = $window.sessionStorage.getItem("id")
+    $scope.getIdInLengthNine = commonFunctionsService.getIdInLengthNine
 
     adminService.getAdmins()
         .then(function (result) {

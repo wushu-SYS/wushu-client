@@ -85,7 +85,7 @@
                     </tr>
                     <tr
                         ng-repeat="(key, sportsman) in sportsmanGrade.get(sportsmanCategory.category.id) | fromMap | orderBy: ['!finalGrade', 'finalGrade']:true">
-                    <td class="tdInItemList">{{sportsman.id}}</td>
+                    <td class="tdInItemList">{{getIdInLengthNine(sportsman.id)}}</td>
                     <td class="tdInItemList">{{sportsman.firstname}} {{sportsman.lastname}}</td>
                         <td class="tdInItemList" ng-repeat="judge in judges" ng-show="isMaster">
                             <div ng-show="sportsman.isSaved">
@@ -149,7 +149,7 @@
                     </tr>
                     <tr
                             ng-repeat="(key, sportsman) in sportsmanGrade.get(currentCategory.id) | fromMap | orderBy: ['!finalGrade', 'finalGrade']:true track by $index">
-                        <td class="tdInItemList">{{sportsman.id}}</td>
+                        <td class="tdInItemList">{{getIdInLengthNine(sportsman.id)}}</td>
                         <td class="tdInItemList">{{sportsman.firstname}} {{sportsman.lastname}}</td>
                         <td class="tdInItemList" ng-repeat="judge in judges" ng-show="isMaster">
                             <div ng-show="sportsman.isSaved">
