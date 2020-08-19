@@ -221,14 +221,15 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
             $scope.email = coach.email;
         } else {
             $scope.judgeFill = false;
-            $scope.id = '';
-            $scope.firstname = '';
-            $scope.lastname = '';
-            $scope.phone = '';
-            $scope.email = '';
-            $scope.address = '';
-            $scope.birthdate = '';
-            $scope.sportclub = $scope.clubs.find(club => club.name === 'בחר מועדון ספורט');
+             $scope.emptyFields()
+            // $scope.id = '';
+            // $scope.firstname = '';
+            // $scope.lastname = '';
+            // $scope.phone = '';
+            // $scope.email = '';
+            // $scope.address = '';
+            // $scope.birthdate = '';
+            // $scope.sportclub = $scope.clubs.find(club => club.name === 'בחר מועדון ספורט');
         }
 
     }
@@ -237,7 +238,16 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
         let parts = error.split('(');
         return parts[parts.length - 1].substring(0, parts[parts.length - 1].length - 2)
     }
-
+    $scope.emptyFields =function (){
+        $scope.id = '';
+        $scope.firstname = '';
+        $scope.lastname = '';
+        $scope.phone = '';
+        $scope.email = '';
+        $scope.address = '';
+        $scope.birthdate = '';
+        $scope.sportclub = $scope.clubs.find(club => club.name === 'בחר מועדון ספורט');
+    }
     $rootScope.isChangingLocationFirstTime = true;
     $scope.$on('$routeChangeStart', function (event, newRoute, oldRoute) {
         if ($scope.registerForm.$dirty && !$scope.isSaved && $rootScope.isChangingLocationFirstTime) {

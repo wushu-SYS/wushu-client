@@ -2,10 +2,10 @@
 
 <div>
     <div id="chooseTypeUser" ng-show="access==userTypes.MANAGER">
-        <input type="radio" name="userType" ng-click="userType='sportsman';downloadClicked=false" checked="true">
+        <input type="radio" name="userType" ng-click="userType='sportsman';downloadClicked=false;emptyFields()" checked="true">
         רישום ספורטאי </input>
-        <input type="radio" name="userType" ng-click="userType='coach';downloadClicked=false"> רישום מאמן </input>
-        <input type="radio" name="userType" ng-click="userType='judge';downloadClicked=false"> רישום שופט </input>
+        <input type="radio" name="userType" ng-click="userType='coach';downloadClicked=false;judgeFill=false;emptyFields()"> רישום מאמן </input>
+        <input type="radio" name="userType" ng-click="userType='judge';downloadClicked=false;judgeFill=false; emptyFields()"> רישום שופט </input>
     </div>
 </div>
 
