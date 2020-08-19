@@ -21,7 +21,7 @@
                     </tr>
                     <tr ng-repeat="user in userCategory.users" ng-class="{'deletedItem':user.isDeleted}" drag-drop>
                         <td></td>
-                        <td class="tdInItemList">
+                        <td class="tdInItemList" ng-show="access==userTypes.MANAGER">
                             <div>
                                 <i class="fa fa-undo clickableSearch undo" ng-show="access==userTypes.MANAGER && user.isDeleted"
                                    ng-click="user.isDeleted = false; setIsDeletedSportsmanFromCategory(userCategory.category, user)" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="בטל מחיקה"></i>
