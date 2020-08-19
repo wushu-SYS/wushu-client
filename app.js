@@ -129,6 +129,15 @@ app.config(function ($routeProvider) {
                 controller: 'clubController as clubCtrl',
                 requireAuth: true
             })
+            .when('/sportClubs/clubProfile', {
+                resolve: {
+                    "check": function ($rootScope, $location, $window) {
+                        let sportClub = $window.sessionStorage.getItem("sportclub");
+                        $location.path("/sportClubs/clubProfile/" + sportClub);
+                    }
+                },
+                requireAuth: true
+            })
             .when('/sportClubs/clubProfile/:id?', {
                 templateUrl: 'views/profileView/clubProfile.html',
                 controller: 'clubProfileController as clubProfileCtrl',
