@@ -1,4 +1,4 @@
-app.controller("coachProfileController", function ($scope, $http, $route,$filter, $window, $location, $rootScope, $routeParams, constants, coachService, userService, confirmDialogService, toastNotificationService, commonFunctionsService) {
+app.controller("coachProfileController", function ($scope, $http, $route,$filter, $window, $location, $rootScope, $routeParams, constants, coachService, userService, confirmDialogService, toastNotificationService, commonFunctionsService,sportsmanService) {
     var oldId;
     $scope.getIdInLengthNine = commonFunctionsService.getIdInLengthNine;
     $scope.whoAmI = "מאמן";
@@ -7,10 +7,8 @@ app.controller("coachProfileController", function ($scope, $http, $route,$filter
     $scope.isEditModeOn = false;
     $scope.currentDate = new Date();
     $scope.regex = constants.regex;
-
-
+    let coachesSportsmen ;
     let delLink = document.getElementById("delLink");
-
 
     coachService.getCoachProfile({id: parseInt($routeParams.id)})
         .then(function (result) {
@@ -47,23 +45,6 @@ app.controller("coachProfileController", function ($scope, $http, $route,$filter
         }
     };
 
-
-    delLink.hidden=true;
-/*
-//TODO: OPEN MODAL FOR CHANGE SPORTSMAN COACH ==> THEN DELETE COACH
-    $scope.delProfile = function (id) {
-        coachService.deleteCoach(id)
-            .then(function (result) {
-                toastNotificationService.successNotification("המשתמש נמחק בהצלחה");
-                $location.path("/users/coaches");
-            }, function (error) {
-                toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע מחיקה");
-                console.log(error)
-            })
-    }
-
- */
-
     $scope.uploadFile = function(files) {
         var fd = new FormData();
         fd.append("file", files[0]);
@@ -87,5 +68,31 @@ app.controller("coachProfileController", function ($scope, $http, $route,$filter
         file_input.click();
     };
 
+//TODO: OPEN MODAL FOR CHANGE SPORTSMAN COACH ==> THEN DELETE COACH
+    $scope.delProfile = async function (id) {
+        console.log("delete coach")
+        /*coachService.deleteCoach(id)
+            .then(function (result) {
+                toastNotificationService.successNotification("המשתמש נמחק בהצלחה");
+                $location.path("/users/coaches");
+            }, function (error) {
+                toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע מחיקה");
+                console.log(error)
+            })
+
+         */
+    }
+
+    checkForSportsman()
+     function checkForSportsman() {
+         sportsmanService.getCoachSportsmen(parseInt($routeParams.id))
+            .then(function (result) {
+                coachesSportsmen = result.data
+                $scope.isDeletable = coachesSportsmen.length ==0
+                console.log($scope.isDeletable)
+            }, function (error) {
+                console.log(error)
+            });
+    }
 
 });
