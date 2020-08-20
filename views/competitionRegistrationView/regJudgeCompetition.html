@@ -28,7 +28,7 @@
                             ng-repeat="user in notRegisteredUsers | filter : searchText"
                             ng-class="{'active' : selectedNotRegisteredUsers.includes(user)}"
                             ng-click="selectNotRegistered(user)">
-                            <td class="tdInItemList">{{user.id}}</td>
+                            <td class="tdInItemList">{{getIdInLengthNine(user.id)}}</td>
                             <td class="tdInItemList">{{user.firstname}} {{user.lastname}}</td>
                         </tr>
                     </table>
@@ -56,7 +56,7 @@
                         <tr class="itemInItemList" ng-class="{'active' : selectedRegisteredUsers.includes(user)}"
                             ng-repeat="user in registeredUsers | filter : searchText"
                             ng-click="selectRegistered(user)">
-                            <td class="tdInItemList">{{user.id}}</td>
+                            <td class="tdInItemList">{{getIdInLengthNine(user.id)}}</td>
                             <td class="tdInItemList">{{user.firstname}} {{user.lastname}}</td>
                             <td class="tdInItemList">
                                 <input type="checkbox" ng-model="user.isMaster" ng-checked="user.isMaster" ng-change="setMaster(user)">

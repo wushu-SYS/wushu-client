@@ -1,4 +1,5 @@
 app.controller("registrationStateController",function($scope, $rootScope, $window, $http, $location, $filter, commonFunctionsService, sportsmanService, competitionService, $routeParams, categoryService, confirmDialogService, toastNotificationService,constants) {
+    $scope.getIdInLengthNine = commonFunctionsService.getIdInLengthNine;
     $scope.categoryForSportsman = [];
     $scope.toUnRegisterUsers = [];
     $scope.selectedSportsmenToMerge = [];
@@ -253,11 +254,12 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
 });
 
 //from: http://embed.plnkr.co/1qZcq3/
-app.directive("dragDrop", ["$parse",
-    function($parse) {
+app.directive("dragDrop", ["$parse", "$rootScope",
+    function($parse, $rootScope) {
         var sourceParent = "";
         var sourceIndex = -1;
-        return {
+        if ($rootScope.access == $rootScope.userTypes.MANAGER)
+            return {
             link: function($scope, elm, attr, ctrl) {
 
                 // #region Initialization
@@ -379,6 +381,9 @@ app.directive("dragDrop", ["$parse",
                 }
 
             }
+        }
+        else {
+            return {link: function($scope, elm, attr, ctrl) {}};
         }
     }
 ]);

@@ -20,7 +20,7 @@
         </div>
         <br>
 
-        <div ng-show="compResults.length > 0">
+        <div ng-show="compResults.length > 0 && access==userTypes.MANAGER">
             <i class="fa fa-pencil iColored" aria-hidden="true"></i>
             <a class="linkDark iLink" href="" ng-click="isEditModeOn = !isEditModeOn">{{isEditModeOn ? 'ביטול עריכה' : 'ערוך ציונים סופיים'}}</a>
         </div>
@@ -43,7 +43,7 @@
                 <tr ng-repeat="sportsman in sportsmanCategory.users | filter: (searchClicked || '') && searchText">
                     <td class="tdInItemList"></td>
                     <td class="tdInItemList">{{$index+1}}</td>
-                    <td class="tdInItemList">{{sportsman.id}}</td>
+                    <td class="tdInItemList">{{getIdInLengthNine(sportsman.id)}}</td>
                     <td class="tdInItemList">{{sportsman.firstname}} {{sportsman.lastname}}</td>
                     <td class="tdInItemList">{{sportsman.sex}}</td>
                     <td class="tdInItemList">{{sportsman.age}}</td>

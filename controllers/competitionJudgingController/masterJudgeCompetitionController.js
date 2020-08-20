@@ -1,4 +1,5 @@
-app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams, $window, $location, constants, SocketService, competitionService, categoryService, confirmDialogService) {
+app.controller("judgingCompetitionMaster", function ($scope, $http, $routeParams, $window, $location, constants, SocketService, competitionService, categoryService, confirmDialogService, commonFunctionsService) {
+    $scope.getIdInLengthNine = commonFunctionsService.getIdInLengthNine;
     $scope.regex = constants.regex;
     $scope.isMaster = true;
     $scope.lastSportsman = false

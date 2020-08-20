@@ -81,4 +81,18 @@ app.service('clubService', function($window, $http, constants) {
         };
         return $http(req);
     }
+
+    this.getCoaches = function (clubId) {
+        var req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/commonCoachManager/getClubCoaches',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: {
+                clubId :clubId
+            }
+        };
+        return $http(req);
+    }
 });

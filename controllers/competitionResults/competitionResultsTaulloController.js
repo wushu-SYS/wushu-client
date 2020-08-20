@@ -1,4 +1,5 @@
-app.controller("competitionResultsTaulloController", function ($scope, $http, $routeParams, $route, $window, $location, excelService, constants, SocketService, competitionService, toastNotificationService) {
+app.controller("competitionResultsTaulloController", function ($scope, $http, $routeParams, $route, $window, $location, excelService, constants, SocketService, competitionService, toastNotificationService, commonFunctionsService) {
+    $scope.getIdInLengthNine = commonFunctionsService.getIdInLengthNine;
     $scope.regex = constants.regex;
     $scope.editedGrades = [];
 

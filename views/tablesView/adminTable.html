@@ -11,7 +11,7 @@
             <th class="tableTh"><i class="fa fa-trash-o" aria-hidden="true"></i></th>
         </tr>
         <tr class="tableTr" ng-repeat="admin in admins">
-            <td class="tableTd">{{admin.id}}</td>
+            <td class="tableTd">{{getIdInLengthNine(admin.id)}}</td>
             <td class="tableTd">{{admin.firstname}}</td>
             <td class="tableTd">{{admin.lastname}}</td>
             <td class="tableTd">{{admin.email ? admin.email : '-'}}</td>

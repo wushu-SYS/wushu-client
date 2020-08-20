@@ -1,4 +1,4 @@
-<div id="box">
+<div id="box" ng-init="forbidenDelClicked =false ;changeCoach =false">
     <form name="updateProfile" class="login100-form validate-form" ng-submit="submit(updateProfile.$valid)" novalidate>
         <div class="row">
             <div class="col-md-4">
@@ -33,9 +33,13 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <div>
+                <div ng-show="!changeCoach">
                     <i class="fa fa-pencil iColored" aria-hidden="true"></i>
                     <a class="linkDark iLink" href="" ng-click="isEditModeOn = !isEditModeOn">{{isEditModeOn ? 'ביטול עריכת פרופיל' : 'ערוך פרופיל'}}</a>
+                </div>
+                <div id="chCoach" ng-show="(access==userTypes.MANAGER ||access==userTypes.COACH )&&!isEditModeOn && userType == userTypes.SPORTSMAN" >
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                    <a  class="linkDark iLink" href="" ng-click="getCoachData(user.clubId);changeCoach = !changeCoach" >{{changeCoach ? 'ביטול החלפת מאמן' : 'החלף מאמן'}}</a>
                 </div>
                 <!--            <div ng-show="access==userTypes.MANAGER || access==userTypes.COACH">-->
                 <!--                <i class="fa fa-chain-broken iColored" aria-hidden="true"></i>-->
@@ -46,10 +50,12 @@
                     <input class="linkDark iLink" aria-hidden="true" type="button" value="שנה תמונה" ng-click="btnPressed()" style="background: none"/>
                     <input type="file"  id="profilePicUpload" ngf-select  name="file" ngf-pattern="'image/'" accept="image/" ngf-max-size="20MB" onchange="angular.element(this).scope().uploadFile(this.files)"/>
                 </div>
-                <div id="delLink" ng-show="(access==userTypes.MANAGER || access==userTypes.COACH)">
+                <div id="delLink" ng-show="(access==userTypes.MANAGER || (access==userTypes.COACH && userType == userTypes.SPORTSMAN))&&!forbidenDelClicked" >
                     <i class="fa fa-trash-o iColored" aria-hidden="true"></i>
-                    <a  class="linkDark iLink" href="" ng-click="delProfile(user.id)">מחק פרופיל</a>
+                    <a  class="linkDark iLink" href="" ng-click="isDeletable ?delProfile(user.id):forbidenDelClicked=true" >מחק פרופיל</a>
+
                 </div>
+                <label class="error" ng-show="forbidenDelClicked">*לא ניתן למחוק מאמן כל עוד יש ספורטאים שמשוייכים אליו</label>
 
             </div>
             <div class="col-md-8">
@@ -62,7 +68,7 @@
                                 <label>תעודת זהות</label>
                             </div>
                             <div class="col-md-6">
-                                <label ng-show="!isEditModeOn">{{user.id}}</label>
+                                <label ng-show="!isEditModeOn">{{getIdInLengthNine(user.id)}}</label>
                                 <div ng-show="isEditModeOn" class="update-input"
                                      ng-class="{'alert-validate' : updateProfile.id.$invalid && (updateProfile.id.$touched || isClicked)}"
                                      data-validate="{{updateProfile.id.$error.required ? 'הכנס ת.ז.' : (updateProfile.id.$error.minlength || updateProfile.id.$error.maxlength || updateProfile.id.$error.pattern ? 'ת.ז. לא תקינה' : '')}}">
@@ -210,8 +216,14 @@
                             <div class="col-md-3">
                                 <label>מאמן</label>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" ng-show="!changeCoach">
                                 <label>{{user.cfirstname}} {{user.clastname}}</label>
+                            </div>
+                            <div class="col-md-6" ng-show="changeCoach && access != userTypes.SPORTSMAN ">
+                                <select name="coach" ng-model="coach" ng-options="x.firstname + ' ' + x.lastname + ' '
+                                for
+                                    x in coaches ">
+                                </select>
                             </div>
                         </div>
 
@@ -312,7 +324,7 @@
                 </div>
             </div>
         </div>
-        <input ng-show="isEditModeOn" type="submit" name="updateProfileBtn" ng-click="isClicked=true"
+        <input ng-show="isEditModeOn || changeCoach" type="submit" name="updateProfileBtn" ng-click="isClicked=true"
                value="עדכן פרופיל"/>
 
     </form>

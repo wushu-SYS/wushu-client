@@ -1,4 +1,5 @@
 app.controller("regJudgeCompetitionController", function ($scope, $rootScope, $routeParams, $location, competitionService, commonFunctionsService, confirmDialogService, toastNotificationService) {
+    $scope.getIdInLengthNine = commonFunctionsService.getIdInLengthNine;
     $scope.selectedNotRegisteredUsers = [];
     $scope.selectedRegisteredUsers = [];
     $scope.toRegisterUsers = [];

@@ -1,4 +1,5 @@
-app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$routeParams ,$location, constants, SocketService,categoryService,competitionService, confirmDialogService) {
+app.controller("judgingCompetitionSimple", function ($scope, $http, $window,$routeParams ,$location, constants, SocketService,categoryService,competitionService, confirmDialogService, commonFunctionsService) {
+    $scope.getIdInLengthNine = commonFunctionsService.getIdInLengthNine;
     $scope.regex = constants.regex;
     $scope.disableButtonNext = false;
     $scope.isMaster = false;

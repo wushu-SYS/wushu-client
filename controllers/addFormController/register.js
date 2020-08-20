@@ -4,27 +4,53 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
     $scope.regex = constants.regex;
     $scope.currentDate = new Date();
     $scope.userType = 'sportsman';
+    let access = $window.sessionStorage.getItem('access');
 
     getDisplayData();
 
     /**
      * the function bring from the server all the needed data to this screen
      */
-    function getDisplayData() {
-        coachService.getCoachesNotRegisterAsJudges()
-            .then(function (result) {
-                $scope.coaches = result.data;
-            }, function (error) {
-                console.log(error)
-            });
 
-        clubService.getClubs()
+   async function getDisplayData() {
+        await getCoachesNotRegisterAsJudges();
+        await getCoaches()
+        await getClubs();
+        switch (parseInt(access)){
+            case $rootScope.userTypes.COACH:
+                $scope.sportclub = $filter('filter')($scope.clubs, function (obj) {
+                    return obj.id == $window.sessionStorage.getItem('sportclub');;
+                })[0];
+                document.getElementById("sportclub").disabled =true;
+                break;
+        }
+    }
+
+    async function getClubs(){
+        await clubService.getClubs()
             .then(function (result) {
                 $scope.clubs = result.data;
             }, function (error) {
                 console.log(error)
             });
     }
+    async function getCoachesNotRegisterAsJudges(){
+       await coachService.getCoachesNotRegisterAsJudges()
+            .then(function (result) {
+                $scope.coaches = result.data;
+            }, function (error) {
+                console.log(error)
+            });
+    }
+    async function getCoaches(){
+        coachService.getCoaches()
+            .then(function (result) {
+                $scope.allcoaches=result.data;
+            }, function (error) {
+                console.log(error)
+            });
+    }
+
     $scope.filterClub = function () {
         $scope.sportclub = $filter('filter')($scope.clubs, function (obj) {
             return obj.id === $scope.coach.sportclub;
@@ -221,14 +247,15 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
             $scope.email = coach.email;
         } else {
             $scope.judgeFill = false;
-            $scope.id = '';
-            $scope.firstname = '';
-            $scope.lastname = '';
-            $scope.phone = '';
-            $scope.email = '';
-            $scope.address = '';
-            $scope.birthdate = '';
-            $scope.sportclub = $scope.clubs.find(club => club.name === 'בחר מועדון ספורט');
+             $scope.emptyFields()
+            // $scope.id = '';
+            // $scope.firstname = '';
+            // $scope.lastname = '';
+            // $scope.phone = '';
+            // $scope.email = '';
+            // $scope.address = '';
+            // $scope.birthdate = '';
+            // $scope.sportclub = $scope.clubs.find(club => club.name === 'בחר מועדון ספורט');
         }
 
     }
@@ -237,7 +264,16 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
         let parts = error.split('(');
         return parts[parts.length - 1].substring(0, parts[parts.length - 1].length - 2)
     }
-
+    $scope.emptyFields =function (){
+        $scope.id = '';
+        $scope.firstname = '';
+        $scope.lastname = '';
+        $scope.phone = '';
+        $scope.email = '';
+        $scope.address = '';
+        $scope.birthdate = '';
+        $scope.sportclub = $scope.clubs.find(club => club.name === 'בחר מועדון ספורט');
+    }
     $rootScope.isChangingLocationFirstTime = true;
     $scope.$on('$routeChangeStart', function (event, newRoute, oldRoute) {
         if ($scope.registerForm.$dirty && !$scope.isSaved && $rootScope.isChangingLocationFirstTime) {

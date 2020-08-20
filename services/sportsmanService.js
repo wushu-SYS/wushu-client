@@ -158,4 +158,33 @@ app.service('sportsmanService', function($window, $http, constants, $location) {
         $location.path("/profile/sportsmanProfile/" + selectedId);
     }
 
+    this.getCoachSportsmen =function (coachId){
+        var req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/manager/getCoachSportsmen',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: {
+                coachId :coachId
+            }
+        };
+        return $http(req);
+    }
+
+    this.changeCoach = function (coachId,sportsmanId){
+        var req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/commonCoachManager/changeSportsmanCoach',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: {
+                coachId :coachId,
+                sportsmanId :sportsmanId
+            }
+        };
+        return $http(req);
+    }
+
 });

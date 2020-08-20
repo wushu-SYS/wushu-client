@@ -86,7 +86,7 @@
 
 <script src="node_modules/socket.io-client/dist/socket.io.js"></script>
 <script src="node_modules/angular-socket-io/socket.min.js"></script>
-<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script src="https://app-wushu-server.herokuapp.com/socket.io/socket.io.js"></script>
 
 
 <!-- charts -->
@@ -217,12 +217,12 @@
                         הפרופיל שלי
                     </a>
                 </li>
-    <!--            <li>-->
-    <!--                <a href="#!calendar" ng-class="getClass('/calendar')" class="menuItem">-->
-    <!--                    <i class="fa fa-calendar" aria-hidden="true"></i>-->
-    <!--                    לוח אירועים-->
-    <!--                </a>-->
-    <!--            </li>-->
+                <li ng-if="access==userTypes.COACH">
+                    <a href="#!sportClubs/clubProfile" ng-class="getClass('/sportClubs')" class="menuItem">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        המועדון שלי
+                    </a>
+                </li>
                 <li ng-if="access==userTypes.Judge">
                     <a href="#!/startJudging" ng-class="getClass('/startJudging')" class="menuItem">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -248,7 +248,7 @@
         </div>
         <div id="managerMenu" ng-show="access==userTypes.MANAGER || access==userTypes.COACH">
             <ul class="menu">
-                <div class="dropdown">
+                <div class="dropdown" ng-show="access==userTypes.MANAGER">
                     <div ng-class="getClass('/sportClubs')" class="menuItem">ניהול מועדונים
                         <i class="fa fa-caret-down" aria-hidden="true"></i>
                     </div>
@@ -317,7 +317,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="dropdown">
+                <div class="dropdown" ng-show="access==userTypes.MANAGER">
                     <div ng-class="getClass('/events')" class="menuItem">ניהול אירועים
                         <i class="fa fa-caret-down" aria-hidden="true"></i>
                     </div>

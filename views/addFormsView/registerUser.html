@@ -2,10 +2,10 @@
 
 <div>
     <div id="chooseTypeUser" ng-show="access==userTypes.MANAGER">
-        <input type="radio" name="userType" ng-click="userType='sportsman';downloadClicked=false" checked="true">
+        <input type="radio" name="userType" ng-click="userType='sportsman';downloadClicked=false;emptyFields()" checked="true">
         רישום ספורטאי </input>
-        <input type="radio" name="userType" ng-click="userType='coach';downloadClicked=false"> רישום מאמן </input>
-        <input type="radio" name="userType" ng-click="userType='judge';downloadClicked=false"> רישום שופט </input>
+        <input type="radio" name="userType" ng-click="userType='coach';downloadClicked=false;judgeFill=false;emptyFields()"> רישום מאמן </input>
+        <input type="radio" name="userType" ng-click="userType='judge';downloadClicked=false;judgeFill=false; emptyFields()"> רישום שופט </input>
     </div>
 </div>
 
@@ -123,7 +123,7 @@
                  ng-class="{'alert-validate' : registerForm.sportclub.$invalid && (registerForm.sportclub.$touched || isClicked)}"
                  data-validate="בחר מועדון ספורט">
                 <span class="label-input100">מועדון</span>
-                <select name="sportclub" ng-model="sportclub" ng-required="userType!='judge'" ng-disabled="judgeFill"
+                <select id="sportclub" name="sportclub" ng-model="sportclub" ng-required="userType!='judge'" ng-disabled="judgeFill"
                         ng-options="x.name
                             for
                             x in clubs">
@@ -138,7 +138,7 @@
                 <select name="coach" ng-model="coach" ng-required="userType=='sportsman'"
                         ng-options="x.firstname + ' ' + x.lastname + ' '
                             for
-                            x in coaches | coachByClubFilter : sportclub" ng-change="filterClub()">
+                            x in allcoaches | coachByClubFilter : sportclub" ng-change="filterClub()">
                     <option value="" disabled="disabled"> בחר מאמן</option>
                 </select>
                 <span class="focus-input100" data-symbol="&#xf205"></span>

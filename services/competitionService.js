@@ -199,8 +199,8 @@ app.service('competitionService', function ($window, $http, $uibModal, $location
         $uibModal.open({
             templateUrl: "views/modalView/addNewCategoryModal.html",
             controller: "addCategoryModalController as aCMCCtrl",
-            backdrop: true,
-            keyboard: false,
+            backdrop: 'static',
+            keyboard: false
         }).result.then(function () {
             finishAddingNewCategory();
         }).catch(function () {

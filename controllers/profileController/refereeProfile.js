@@ -1,9 +1,11 @@
 app.controller("refereeProfileController", function ($scope, $http, $route,$filter, $window, $location, $rootScope, $routeParams, constants, refereesService, userService, confirmDialogService, toastNotificationService, commonFunctionsService) {
     $scope.whoAmI = "שופט";
     $scope.eWhoAmI = "referee";
+    $scope.getIdInLengthNine = commonFunctionsService.getIdInLengthNine;
     $scope.userType = $rootScope.userTypes.Judge;
     $scope.regex = constants.regex;
     let criminalRecordIframe = document.getElementById("criminalRecordIframe");
+    $scope.isDeletable =true
 
 
     refereesService.getRefereeProfile({id: parseInt($routeParams.id)})
