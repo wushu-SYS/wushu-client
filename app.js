@@ -10,9 +10,9 @@ let app = angular.module('myApp', ["ngRoute", 'ui.bootstrap', 'ngPatternRestrict
 
     }]);
 
-app.service('SocketService', ['socketFactory', function SocketService(socketFactory,constants) {
+app.service('SocketService', ['socketFactory', function SocketService(socketFactory) {
     return socketFactory({
-        ioSocket: io.connect(constants.serverUrl)
+        ioSocket: io.connect("https://app-wushu-server.herokuapp.com")
     });
 }]);
 
