@@ -10,9 +10,9 @@ let app = angular.module('myApp', ["ngRoute", 'ui.bootstrap', 'ngPatternRestrict
 
     }]);
 
-app.service('SocketService', ['socketFactory', function SocketService(socketFactory) {
+app.service('SocketService', ['socketFactory', function SocketService(socketFactory,constants) {
     return socketFactory({
-        ioSocket: io.connect('http://localhost:3000')
+        ioSocket: io.connect(constants.serverUrl)
     });
 }]);
 

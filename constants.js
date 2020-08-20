@@ -1,6 +1,6 @@
 app.constant('constants', {
-    serverUrl: "http://localhost:3000",
-    //serverUrl: "https://app-wushu-server.herokuapp.com",
+    //serverUrl: "http://localhost:3000",
+    serverUrl: "https://app-wushu-server.herokuapp.com",
     regex:{
         regexOnlyNumbers : new RegExp("^(\\d)*$"),
         regexForCompetitionGrade: new RegExp("^[0-9]\\.[0-9][0-9]?$|^10$|^[1-9]$"),
