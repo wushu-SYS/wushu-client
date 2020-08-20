@@ -307,7 +307,4 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
 
     }
 
-    $scope.changeSportsmanCoach = function (){
-
-    }
 });

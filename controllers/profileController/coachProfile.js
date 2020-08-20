@@ -1,4 +1,4 @@
-app.controller("coachProfileController", function ($scope, $http, $route,$filter, $window, $location, $rootScope, $routeParams, constants, coachService, userService, confirmDialogService, toastNotificationService, commonFunctionsService,sportsmanService) {
+app.controller("coachProfileController", function ($scope, $http, $route, $filter, $window, $location, $rootScope, $routeParams, constants, coachService, userService, confirmDialogService, toastNotificationService, commonFunctionsService, sportsmanService) {
     var oldId;
     $scope.getIdInLengthNine = commonFunctionsService.getIdInLengthNine;
     $scope.whoAmI = "מאמן";
@@ -7,7 +7,7 @@ app.controller("coachProfileController", function ($scope, $http, $route,$filter
     $scope.isEditModeOn = false;
     $scope.currentDate = new Date();
     $scope.regex = constants.regex;
-    let coachesSportsmen ;
+    let coachesSportsmen;
     let delLink = document.getElementById("delLink");
 
     coachService.getCoachProfile({id: parseInt($routeParams.id)})
@@ -38,57 +38,59 @@ app.controller("coachProfileController", function ($scope, $http, $route,$filter
                     $scope.isSaved = true;
                     $scope.isEditModeOn = false;
                     coachService.watchProfile($scope.user.id);
-                    }, function (error) {
+                }, function (error) {
                     toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע העדכון");
                     console.log(error)
                 })
         }
     };
 
-    $scope.uploadFile = function(files) {
+    $scope.uploadFile = function (files) {
         var fd = new FormData();
         fd.append("file", files[0]);
-        $http.post(constants.serverUrl + '/private/uploadUserProfileImage/'+$scope.user.id+'/coach', fd, {
-            method:'POST',
-            URL : constants.serverUrl + '/private/uploadUserProfileImage',
-            headers: {'Content-Type': undefined,
+        $http.post(constants.serverUrl + '/private/uploadUserProfileImage/' + $scope.user.id + '/coach', fd, {
+            method: 'POST',
+            URL: constants.serverUrl + '/private/uploadUserProfileImage',
+            headers: {
+                'Content-Type': undefined,
                 'x-auth-token': $window.sessionStorage.getItem('token'),
             },
             transformRequest: angular.identity
         })
-            .then(()=>{
+            .then(() => {
                 toastNotificationService.successNotification("התמונה נשמרה בהצלחה");
                 $route.reload();
-            }).catch(()=>{})
+            }).catch(() => {
+        })
 
     };
 
-    $scope.btnPressed =function() {
+    $scope.btnPressed = function () {
         let file_input = document.getElementById("profilePicUpload");
         file_input.click();
     };
 
 //TODO: OPEN MODAL FOR CHANGE SPORTSMAN COACH ==> THEN DELETE COACH
     $scope.delProfile = async function (id) {
-        console.log("delete coach")
-        /*coachService.deleteCoach(id)
-            .then(function (result) {
-                toastNotificationService.successNotification("המשתמש נמחק בהצלחה");
-                $location.path("/users/coaches");
-            }, function (error) {
-                toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע מחיקה");
-                console.log(error)
-            })
-
-         */
+        confirmDialogService.askQuestion("האם אתה בטוח שברצונך למחוק את פרופיל המשתמש?", function () {
+            coachService.deleteCoach(id)
+                .then(function (result) {
+                    toastNotificationService.successNotification("המשתמש נמחק בהצלחה");
+                    $location.path("/users/couches");
+                }, function (error) {
+                    toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע מחיקה");
+                    console.log(error)
+                })
+        })
     }
 
     checkForSportsman()
-     function checkForSportsman() {
-         sportsmanService.getCoachSportsmen(parseInt($routeParams.id))
+
+    function checkForSportsman() {
+        sportsmanService.getCoachSportsmen(parseInt($routeParams.id))
             .then(function (result) {
                 coachesSportsmen = result.data
-                $scope.isDeletable = coachesSportsmen.length ==0
+                $scope.isDeletable = coachesSportsmen.length == 0
                 console.log($scope.isDeletable)
             }, function (error) {
                 console.log(error)
