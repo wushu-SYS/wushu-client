@@ -5,6 +5,7 @@ app.controller("refereeProfileController", function ($scope, $http, $route,$filt
     $scope.userType = $rootScope.userTypes.Judge;
     $scope.regex = constants.regex;
     let criminalRecordIframe = document.getElementById("criminalRecordIframe");
+    $scope.isDeletable =true
 
 
     refereesService.getRefereeProfile({id: parseInt($routeParams.id)})

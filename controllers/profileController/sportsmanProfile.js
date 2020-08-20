@@ -1,4 +1,4 @@
-app.controller("sportsmanProfileController", function ($scope, $http, $filter, $window, $location, $rootScope, $route, $routeParams, constants, sportsmanService, userService, confirmDialogService, toastNotificationService, chartsDataService, chartsService, commonFunctionsService) {
+app.controller("sportsmanProfileController", function ($scope, $http, $filter, $window, $location, $rootScope, $route, $routeParams, constants, sportsmanService, userService,clubService, confirmDialogService, toastNotificationService, chartsDataService, chartsService, commonFunctionsService) {
     var oldId;
     $scope.whoAmI = "ספורטאי";
     $scope.userType = $rootScope.userTypes.SPORTSMAN;
@@ -8,6 +8,7 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
     $scope.sportStyleEnum = constants.sportStyleEnum;
     $scope.regex = constants.regex;
     $scope.getIdInLengthNine = commonFunctionsService.getIdInLengthNine;
+    $scope.isDeletable =true
 
     let medicalScanIframe = document.getElementById("medicalScanIframe");
     let insuranceIframe = document.getElementById("insuranceIframe");
@@ -105,29 +106,48 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
 
 
     $scope.submit = function (isValid) {
-        if (isValid) {
-            let data = {
-                id: $scope.user.id,
-                firstName: $scope.user.firstname,
-                lastName: $scope.user.lastname,
-                phone: $scope.user.phone,
-                email: $scope.user.email,
-                birthDate: $filter('date')($scope.user.birthdate, "MM/dd/yyyy"),
-                address: $scope.user.address,
-                sex: $scope.user.sex,
-                oldId: oldId,
-                sportStyle: $scope.user.sportStyle
+        if($scope.isEditModeOn) {
+            if (isValid) {
+                let data = {
+                    id: $scope.user.id,
+                    firstName: $scope.user.firstname,
+                    lastName: $scope.user.lastname,
+                    phone: $scope.user.phone,
+                    email: $scope.user.email,
+                    birthDate: $filter('date')($scope.user.birthdate, "MM/dd/yyyy"),
+                    address: $scope.user.address,
+                    sex: $scope.user.sex,
+                    oldId: oldId,
+                    sportStyle: $scope.user.sportStyle
+                }
+                sportsmanService.updateProfile(data)
+                    .then(function (result) {
+                        toastNotificationService.successNotification("המשתמש עודכן בהצלחה");
+                        $scope.isSaved = true;
+                        $scope.isEditModeOn = false;
+                        sportsmanService.watchProfile($scope.user.id);
+                    }, function (error) {
+                        toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע העדכון");
+                        console.log(error)
+                    })
             }
-            sportsmanService.updateProfile(data)
-                .then(function (result) {
-                    toastNotificationService.successNotification("המשתמש עודכן בהצלחה");
-                    $scope.isSaved = true;
-                    $scope.isEditModeOn = false;
-                    sportsmanService.watchProfile($scope.user.id);
-                }, function (error) {
-                    toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע העדכון");
-                    console.log(error)
-                })
+        }
+        if ($scope.changeCoach){
+            if($scope.user.coachId != $scope.coach.id)
+                sportsmanService.changeCoach($scope.coach.id,$scope.user.id)
+                    .then(function (result) {
+                        toastNotificationService.successNotification("המשתמש עודכן בהצלחה");
+                        $scope.isSaved = true;
+                        $scope.isEditModeOn = false;
+                        $scope.changeCoach =false;
+                        sportsmanService.watchProfile($scope.user.id);
+                        $scope.user.cfirstname = $scope.coach.firstname
+                        $scope.user.clastname = $scope.coach.lastname
+                        $scope.user.coachId = $scope.coach.id
+                    }, function (error) {
+                        toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע העדכון");
+                        console.log(error)
+                    })
         }
     };
 
@@ -274,4 +294,20 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
         });
     }
 
+    $scope.getCoachData = function (clubId){
+        console.log(clubId)
+        clubService.getCoaches(clubId)
+            .then((results)=>{
+               $scope.coaches =results.data
+                $scope.coach =$scope.coaches.find(coach => coach.id == $scope.user.coachId)
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+
+    }
+
+    $scope.changeSportsmanCoach = function (){
+
+    }
 });

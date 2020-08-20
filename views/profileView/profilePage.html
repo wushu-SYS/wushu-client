@@ -1,4 +1,4 @@
-<div id="box" ng-init="forbidenDelClicked =false">
+<div id="box" ng-init="forbidenDelClicked =false ;changeCoach =false">
     <form name="updateProfile" class="login100-form validate-form" ng-submit="submit(updateProfile.$valid)" novalidate>
         <div class="row">
             <div class="col-md-4">
@@ -33,9 +33,13 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <div>
+                <div ng-show="!changeCoach">
                     <i class="fa fa-pencil iColored" aria-hidden="true"></i>
                     <a class="linkDark iLink" href="" ng-click="isEditModeOn = !isEditModeOn">{{isEditModeOn ? 'ביטול עריכת פרופיל' : 'ערוך פרופיל'}}</a>
+                </div>
+                <div id="chCoach" ng-show="(access==userTypes.MANAGER ||access==userTypes.COACH )&&!isEditModeOn && userType == userTypes.SPORTSMAN" >
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                    <a  class="linkDark iLink" href="" ng-click="getCoachData(user.clubId);changeCoach = !changeCoach" >{{changeCoach ? 'ביטול החלפת מאמן' : 'החלף מאמן'}}</a>
                 </div>
                 <!--            <div ng-show="access==userTypes.MANAGER || access==userTypes.COACH">-->
                 <!--                <i class="fa fa-chain-broken iColored" aria-hidden="true"></i>-->
@@ -212,8 +216,14 @@
                             <div class="col-md-3">
                                 <label>מאמן</label>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" ng-show="!changeCoach">
                                 <label>{{user.cfirstname}} {{user.clastname}}</label>
+                            </div>
+                            <div class="col-md-6" ng-show="changeCoach && access != userTypes.SPORTSMAN ">
+                                <select name="coach" ng-model="coach" ng-options="x.firstname + ' ' + x.lastname + ' '
+                                for
+                                    x in coaches ">
+                                </select>
                             </div>
                         </div>
 
@@ -314,7 +324,7 @@
                 </div>
             </div>
         </div>
-        <input ng-show="isEditModeOn" type="submit" name="updateProfileBtn" ng-click="isClicked=true"
+        <input ng-show="isEditModeOn || changeCoach" type="submit" name="updateProfileBtn" ng-click="isClicked=true"
                value="עדכן פרופיל"/>
 
     </form>
