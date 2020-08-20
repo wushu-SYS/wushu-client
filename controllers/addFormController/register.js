@@ -14,6 +14,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
 
    async function getDisplayData() {
         await getCoachesNotRegisterAsJudges();
+        await getCoaches()
         await getClubs();
         switch (parseInt(access)){
             case $rootScope.userTypes.COACH:
@@ -37,6 +38,14 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
        await coachService.getCoachesNotRegisterAsJudges()
             .then(function (result) {
                 $scope.coaches = result.data;
+            }, function (error) {
+                console.log(error)
+            });
+    }
+    async function getCoaches(){
+        coachService.getCoaches()
+            .then(function (result) {
+                $scope.allcoaches=result.data;
             }, function (error) {
                 console.log(error)
             });
