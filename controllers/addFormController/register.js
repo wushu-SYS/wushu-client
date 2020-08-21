@@ -16,17 +16,18 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
         await getCoachesNotRegisterAsJudges();
         await getCoaches()
         await getClubs();
-        switch (parseInt(access)){
+        switch (parseInt(access)) {
             case $rootScope.userTypes.COACH:
                 $scope.sportclub = $filter('filter')($scope.clubs, function (obj) {
-                    return obj.id == $window.sessionStorage.getItem('sportclub');;
+                    return obj.id == $window.sessionStorage.getItem('sportclub');
+                    ;
                 })[0];
-                document.getElementById("sportclub").disabled =true;
+                document.getElementById("sportclub").disabled = true;
                 break;
         }
     }
 
-    async function getClubs(){
+    async function getClubs() {
         await clubService.getClubs()
             .then(function (result) {
                 $scope.clubs = result.data;
@@ -34,18 +35,20 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
                 console.log(error)
             });
     }
-    async function getCoachesNotRegisterAsJudges(){
-       await coachService.getCoachesNotRegisterAsJudges()
+
+    async function getCoachesNotRegisterAsJudges() {
+        await coachService.getCoachesNotRegisterAsJudges()
             .then(function (result) {
                 $scope.coaches = result.data;
             }, function (error) {
                 console.log(error)
             });
     }
-    async function getCoaches(){
+
+    async function getCoaches() {
         coachService.getCoaches()
             .then(function (result) {
-                $scope.allcoaches=result.data;
+                $scope.allcoaches = result.data;
             }, function (error) {
                 console.log(error)
             });
@@ -103,8 +106,9 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
             registerUsers(data, $scope.userType)
         }
     };
+
     function registerUsers(data, userType) {
-        registerService.registerUsers(data,userType)
+        registerService.registerUsers(data, userType)
             .then((results) => {
                 $scope.isSaved = true;
                 toastNotificationService.successNotification("הרישום בוצע בהצלחה");
@@ -112,14 +116,13 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
             })
             .catch((err) => {
                 console.log(err);
-                if(err.data) {
+                if (err.data) {
                     if (err.data.number === 2627)
                         toastNotificationService.errorNotification("ת.ז " + getIdFromErrorMessage(err.data.message) + " קיימת כבר במערכת.");
-                    else{
+                    else {
                         toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע הרישום. אנא פנה לתמיכה טכנית");
                     }
-                }
-                else
+                } else
                     toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע הרישום");
             })
     }
@@ -198,6 +201,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
             registerExcelUsers(res.result, $scope.userType)
         })
     };
+
     function changeDropZone(name) {
         let nameArray = name.toString().split("\\");
         $scope.filename = nameArray[nameArray.length - 1];
@@ -209,7 +213,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
         let fileinput = document.getElementById("fileSportsman");
         fileinput.click();
         fileinput.onchange = function (event) {
-            excelService.uploadExcel(event,function (res) {
+            excelService.uploadExcel(event, function (res) {
                 changeDropZone(event.target.value.toString());
                 res.shift();
                 registerExcelUsers(res, $scope.userType)
@@ -264,8 +268,9 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
         let parts = error.split('(');
         return parts[parts.length - 1].substring(0, parts[parts.length - 1].length - 2)
     }
-    $scope.emptyFields =function (){
-        $scope.id = '';
+
+    $scope.emptyFields = function () {
+        //$scope.id = '';
         $scope.firstname = '';
         $scope.lastname = '';
         $scope.phone = '';
