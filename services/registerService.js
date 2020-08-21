@@ -55,6 +55,20 @@ app.service('registerService', function ($window, $http, constants) {
                 return constants.serverUrl + '/private/manager/registerCoachExcel';
         }
     }
+
+    this.checkExistUser = function (userId ){
+        let req = {
+            method: 'POST',
+            url: constants.serverUrl +  "/private/allUsers/checkExistUser",
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: {
+                userId :userId
+            }
+        };
+        return $http(req);
+    }
 });
 
 
