@@ -31,7 +31,7 @@ app.service('sportsmanService', function($window, $http, constants, $location) {
     this.updateProfile =function (data) {
         var req = {
             method: 'POST',
-            url: constants.serverUrl + '/private/allUsers/updateSportsmanProfile',
+            url: constants.serverUrl + '/private/allUser/updateProfile',
             headers: {
                 'x-auth-token': $window.sessionStorage.getItem('token')
             },

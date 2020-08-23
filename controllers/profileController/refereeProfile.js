@@ -82,6 +82,7 @@ app.controller("refereeProfileController", function ($scope, $http, $route,$filt
                     $scope.isSaved = true;
                     $scope.isEditModeOn = false;
                     refereesService.watchProfile($scope.user.id);
+                    $scope.reload()
                 }, function (error) {
                     toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע העדכון");
                     console.log(error)

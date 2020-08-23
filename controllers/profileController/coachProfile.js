@@ -38,6 +38,7 @@ app.controller("coachProfileController", function ($scope, $http, $route, $filte
                     $scope.isSaved = true;
                     $scope.isEditModeOn = false;
                     coachService.watchProfile($scope.user.id);
+                    $scope.reload()
                 }, function (error) {
                     toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע העדכון");
                     console.log(error)
