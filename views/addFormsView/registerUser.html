@@ -44,10 +44,10 @@
                        ng-pattern-restrict>
                 <span class="focus-input100" data-symbol="&#xf207;"></span>
             </div>
-            <span>
-            <label> אנא וודא תעודת זהות לפני המשך רישום </label>
-             <a class="linkDark" style="" href="" ng-click="checkExistId()">בדוק ת.ז</a>
-            </span>
+            <div>
+                 אנא וודא תעודת זהות לפני המשך רישום
+                <a class="linkDark" href="" ng-click="checkExistId()" style="padding-right: 1%"> בדוק ת.ז </a>
+            </div>
             <div class="wrap-input100 validate-input"
                  ng-class="{'alert-validate' : registerForm.firstname.$invalid && (registerForm.firstname.$touched || isClicked)}"
                  data-validate="{{registerForm.firstname.$error.required ? 'הכנס שם פרטי' : registerForm.firstname.$error.pattern ? 'שם פרטי לא תקין' : ''}}">
