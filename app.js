@@ -17,7 +17,7 @@ app.service('SocketService', ['socketFactory', function SocketService(socketFact
     });
 }]);
 
-app.controller("mainController", function ($scope, $location, $window, $rootScope, $uibModal) {
+app.controller("mainController", function ($scope, $location, $window, $rootScope, $uibModal, constants) {
     if ($window.sessionStorage.getItem('name') != null && $window.sessionStorage.getItem('name') !== '')
         $rootScope.name = $window.sessionStorage.getItem('name');
     if ($window.sessionStorage.getItem('access') != null && $window.sessionStorage.getItem('access') != '')
@@ -33,6 +33,7 @@ app.controller("mainController", function ($scope, $location, $window, $rootScop
         return $location.path() !== '/home';
     };
 
+    $scope.userAccess = constants.userAccess;
     $rootScope.userTypes = {
         MANAGER: 1,
         COACH: 2,
