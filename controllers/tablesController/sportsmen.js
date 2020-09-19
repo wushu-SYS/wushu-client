@@ -64,4 +64,9 @@ app.controller("sportsmenController", function ($scope, $http, $window, $locatio
         exportList.click();
     }
 
+    $scope.moveEditUsers = function (){
+        $location.path("/editUsersByExcel/sportsman");
+
+    }
+
 });

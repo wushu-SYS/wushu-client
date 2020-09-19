@@ -153,13 +153,12 @@ select.searchInput:focus{
 }
 
 .actionsBar::before{
-    content:'| ';
+    content:' | ';
     font-size: 30px;
     white-space: pre;
 }
 .filtersBar::after{
-    content: " ";
-    white-space: pre;
+
 }
 
 /***PAGINATION***/

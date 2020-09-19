@@ -110,6 +110,11 @@ app.config(function ($routeProvider) {
                 controller: 'sportsmanProfileController as sportsmanProfileCtrl',
                 requireAuth: true
             })
+            .when('/editUsersByExcel/:userType?', {
+                templateUrl: 'views/addFormsView/editUsersByExcel.html',
+                controller: 'editUsersByExcelController as editUsersByExcelCtrl',
+                requireAuth: true
+            })
             .when('/profile/coachProfile/:id?', {
                 templateUrl: 'views/profileView/profilePage.html',
                 controller: 'coachProfileController as coachProfileCtrl',
