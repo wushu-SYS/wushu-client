@@ -8,6 +8,12 @@ app.constant('constants', {
         regexHeb : new RegExp("^[\u0590-\u05FF ,.'-]*$"),
         regexHebrewAndNumbers : new RegExp("^[\u0590-\u05FF\0-9 ,.'-]*$")
     },
+    userAccess:[
+        {id : 1, name : 'מנהל' },
+        {id : 2, name : 'מאמן' },
+        {id : 3, name : 'ספורטאי' },
+        {id : 4, name : 'שופט' },
+    ],
     sexEnum: [
         {id : 1, name : 'זכר' },
         {id : 2, name : 'נקבה' }
