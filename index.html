@@ -190,6 +190,7 @@
 <script src="services/chartsService.js"></script>
 <script src="services/msgService.js"></script>
 <script src="services/eventService.js"></script>
+<script src="services/cacheService.js"></script>
 
 <!-- Load Filters -->
 <script src="filters/categoryBySportsmanFilter.js"></script>
@@ -208,19 +209,19 @@
             <!-- menu -->
             <ul class="menu">
                 <li>
-                    <a href="#!home" ng-class="getClass('/home')" class="menuItem">
+                    <a href="#!home" ng-click="clickedMyProfile = false" ng-class="getClass('/home')" class="menuItem">
                         <i class="fa fa-home" aria-hidden="true"></i>
                         דף הבית
                     </a>
                 </li>
                 <li ng-if="access!=userTypes.MANAGER">
-                    <a href="#!profile" ng-class="getClass('/profile')" class="menuItem">
+                    <a href="#!profile" ng-click="clickedMyProfile = true" ng-class="{'active':clickedMyProfile == true}" class="menuItem">
                         <i class="fa fa-user" aria-hidden="true"></i>
                         הפרופיל שלי
                     </a>
                 </li>
                 <li ng-if="access==userTypes.COACH">
-                    <a href="#!sportClubs/clubProfile" ng-class="getClass('/sportClubs')" class="menuItem">
+                    <a href="#!sportClubs/clubProfile" ng-class="getClass('/sportClubs')" ng-click="clickedMyProfile = false" class="menuItem">
                         <i class="fa fa-user" aria-hidden="true"></i>
                         המועדון שלי
                     </a>
@@ -272,15 +273,15 @@
                         <i class="fa fa-caret-down" aria-hidden="true"></i>
                     </div>
                     <div class="dropdown-content">
-                        <a href="#!users/register">
+                        <a href="#!users/register" ng-click="clickedMyProfile = false">
                             <i class="fa fa-plus-square" aria-hidden="true"></i>
                             רישום משתמשים
                         </a>
-                        <a href="" ng-click="openModalRegisterAdmin()">
+                        <a href="" ng-click="openModalRegisterAdmin()" ng-show="access==userTypes.MANAGER">
                             <i class="fa fa-plus-square" aria-hidden="true"></i>
                             רישום מנהלים
                         </a>
-                        <a href="#!users/couches">
+                        <a href="#!users/couches" ng-show="access==userTypes.MANAGER">
                             <i class="fa fa-th-list" aria-hidden="true"></i>
                             רשימת מאמנים
                         </a>
@@ -288,11 +289,11 @@
                             <i class="fa fa-th-list" aria-hidden="true"></i>
                             רשימת ספורטאיים
                         </a>
-                        <a href="#!users/referees">
+                        <a href="#!users/referees" ng-show="access==userTypes.MANAGER">
                             <i class="fa fa-th-list" aria-hidden="true"></i>
                             רשימת שופטים
                         </a>
-                        <a href="#!users/admins">
+                        <a href="#!users/admins" ng-show="access==userTypes.MANAGER">
                             <i class="fa fa-th-list" aria-hidden="true"></i>
                             רשימת מנהלים
                         </a>

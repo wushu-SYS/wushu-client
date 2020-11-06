@@ -32,7 +32,7 @@
         </div>
         <div class="row">
             <div class="col-md-3">
-                <div>
+                <div ng-show="access==userTypes.MANAGER">
                     <i class="fa fa-pencil iColored" aria-hidden="true"></i>
                     <a class="linkDark iLink" href="" ng-click="isEditModeOn = !isEditModeOn">{{isEditModeOn ? 'ביטול עריכה' : 'ערוך מועדון'}}</a>
                 </div>

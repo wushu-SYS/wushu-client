@@ -63,6 +63,7 @@ app.controller("clubProfileController", function ($scope, $http, $route, $filter
                 let childrenLastLevel = [];
                 let children = [];
                 res.data.forEach(record => {
+                    childrenLastLevel = [];
                     record.sportsman.forEach(sportsman => {
                         childrenLastLevel.push({
                             text: {

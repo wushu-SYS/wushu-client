@@ -1,4 +1,4 @@
-app.service('commonFunctionsService', function(constants) {
+app.service('commonFunctionsService', function(constants, cacheService) {
     /**
      * remove the given value from the given array
      * @param arr
@@ -53,6 +53,17 @@ app.service('commonFunctionsService', function(constants) {
 
     this.getIdInLengthNine = function (id){
         return ("000000000" + id).slice(-9);
+    }
+
+    this.saveUserFiltersToCache = function (searchText, sportStyle, club, sex, isToDesc,startIndex, endIndex, isNumberToDesc){
+        cacheService.put('searchText', searchText);
+        cacheService.put('sportStyle', sportStyle);
+        cacheService.put('club', club);
+        cacheService.put('sex', sex);
+        cacheService.put('isToDesc', isToDesc);
+        cacheService.put('startIndex', startIndex);
+        cacheService.put('endIndex', endIndex);
+        cacheService.put('isNumberToDesc', isNumberToDesc);
     }
 
 });
