@@ -272,7 +272,7 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
         if ($rootScope.access != $rootScope.userTypes.SPORTSMAN)
             sportsmanService.getSportsmanRank({id: parseInt($routeParams.id)})
                 .then((function (result) {
-                    $scope.sportsmanRank = result.data[0].rank ? result.data[0].rank : "-"
+                    $scope.sportsmanRank = result.data[0].avg_rank ? result.data[0].avg_rank : "-"
                 }), function (err) {
                     console.log(err)
                 })

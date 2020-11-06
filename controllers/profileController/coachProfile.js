@@ -92,7 +92,6 @@ app.controller("coachProfileController", function ($scope, $http, $route, $filte
             .then(function (result) {
                 coachesSportsmen = result.data
                 $scope.isDeletable = coachesSportsmen.length == 0
-                console.log($scope.isDeletable)
             }, function (error) {
                 console.log(error)
             });

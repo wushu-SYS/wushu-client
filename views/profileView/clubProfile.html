@@ -57,7 +57,7 @@
                                      data-validate="{{updateProfile.clubName.$error.required ? 'הכנס שם מועדון' : updateProfile.clubName.$error.pattern ? 'שם מועדון לא תקין' : ''}}">
                                     <input class="update-input100" type="text" name="clubName"
                                            ng-model="club.name" placeholder="שם מועדון"
-                                           required ng-pattern="regex.regexHeb" ng-pattern-restrict>
+                                           required >
                                 </div>
                             </div>
                         </div>
