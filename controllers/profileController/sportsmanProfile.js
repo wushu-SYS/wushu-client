@@ -237,7 +237,7 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
         $scope.updateProfile.$dirty = false;
         $scope.sportsmanJudgesGradesData = []
         let containedJudgeIds = [...new Set($scope.allSportsmanJudgeGrades.map(record => record.judgeId))];
-        let filteredBySelectedCategory = $scope.allSportsmanJudgeGrades.filter(record => record.categoryId == selectedCategory.id);
+        let filteredBySelectedCategory = $scope.allSportsmanJudgeGrades.filter(record => record.categoryID == selectedCategory.id);
         containedJudgeIds.forEach(judgeId => {
             let values = [];
             let key = undefined;

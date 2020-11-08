@@ -198,6 +198,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
             })
             .catch((err) => {
                 console.log(err);
+                toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע הרישום")
                 if (!err.data.message)
                     $scope.excelErrors = err.data;
                 else {
