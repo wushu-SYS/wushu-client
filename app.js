@@ -24,6 +24,7 @@ app.controller("mainController", function ($scope, $location, $window, $rootScop
         $rootScope.access = $window.sessionStorage.getItem('access');
 
     $scope.getClass = function (path) {
+        // $scope.clickedMyProfile = false
         return ("/" + $location.path().split("/")[1] === path) ? 'active' : '';
     };
     $scope.isShowMenuOrFooter = function () {

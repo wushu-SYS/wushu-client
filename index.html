@@ -203,7 +203,7 @@
 
 
 <!-- the website -->
-<div id="content-wrap" ng-style="{'padding-bottom': isShowMenuOrFooter() ? '60px' : '0px'}">
+<div id="content-wrap" ng-style="{'padding-bottom': isShowMenuOrFooter() ? '60px' : '0px'}" ng-init="clickedMyProfile = false">
     <div style="margin-bottom: 1em" ng-show="isShowMenuOrFooter()">
         <div id="menuRow">
             <!-- menu -->
@@ -214,14 +214,15 @@
                         דף הבית
                     </a>
                 </li>
-                <li ng-if="access!=userTypes.MANAGER">
+
+                <li ng-show="access!=userTypes.MANAGER">
                     <a href="#!profile" ng-click="clickedMyProfile = true" ng-class="{'active':clickedMyProfile == true}" class="menuItem">
                         <i class="fa fa-user" aria-hidden="true"></i>
                         הפרופיל שלי
                     </a>
                 </li>
                 <li ng-if="access==userTypes.COACH">
-                    <a href="#!sportClubs/clubProfile" ng-class="getClass('/sportClubs')" ng-click="clickedMyProfile = false" class="menuItem">
+                    <a href="#!sportClubs/clubProfile" ng-class="getClass('/sportClubs')" class="menuItem">
                         <i class="fa fa-user" aria-hidden="true"></i>
                         המועדון שלי
                     </a>
@@ -273,7 +274,7 @@
                         <i class="fa fa-caret-down" aria-hidden="true"></i>
                     </div>
                     <div class="dropdown-content">
-                        <a href="#!users/register" ng-click="clickedMyProfile = false">
+                        <a href="#!users/register">
                             <i class="fa fa-plus-square" aria-hidden="true"></i>
                             רישום משתמשים
                         </a>
