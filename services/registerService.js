@@ -53,6 +53,8 @@ app.service('registerService', function ($window, $http, constants) {
                 return constants.serverUrl + '/private/commonCoachManager/registerSportsmenExcel';
             case "coach":
                 return constants.serverUrl + '/private/manager/registerCoachExcel';
+            case 'judge':
+                return constants.serverUrl + '/private/manager/regExcelJudge';
         }
     }
 
