@@ -13,8 +13,6 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
      */
 
     async function getDisplayData() {
-        //await getCoachesNotRegisterAsJudges();
-        await getCoaches()
         await getCoaches()
         await getClubs();
         switch (parseInt(access)) {
@@ -32,24 +30,6 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
         await clubService.getClubs()
             .then(function (result) {
                 $scope.clubs = result.data;
-            }, function (error) {
-                console.log(error)
-            });
-    }
-
-    async function getCoachesNotRegisterAsJudges() {
-        await coachService.getCoachesNotRegisterAsJudges()
-            .then(function (result) {
-                $scope.coaches = result.data;
-            }, function (error) {
-                console.log(error)
-            });
-    }
-
-    async function getCoaches() {
-        coachService.getCoaches()
-            .then(function (result) {
-                $scope.allcoaches = result.data;
             }, function (error) {
                 console.log(error)
             });
@@ -225,10 +205,13 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
         return false;
     };
     dropZoneRegisterUsers.ondrop = function (e) {
+        let user = $scope.userType
         excelService.dropZoneDropFile(e, function (res) {
             changeDropZone(res.fileName);
             res.result.shift();
-            registerExcelUsers(res.result, $scope.userType)
+            if (res.fileName.includes(constants.fileName.coachAsJudge))
+                user = 'coachAsJudge'
+            registerExcelUsers(res.result, user)
         })
     };
 
@@ -240,13 +223,16 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
     }
 
     $scope.BrowseFileClick = function () {
+        let user = $scope.userType
         let fileinput = document.getElementById("fileSportsman");
         fileinput.click();
         fileinput.onchange = function (event) {
             excelService.uploadExcel(event, function (res) {
                 changeDropZone(event.target.value.toString());
                 res.shift();
-                registerExcelUsers(res, $scope.userType)
+                if (event.target.value.toString().includes(constants.fileName.coachAsJudge))
+                    user = 'coachAsJudge'
+                registerExcelUsers(res, user)
             })
 
         }
