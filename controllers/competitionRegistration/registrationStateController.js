@@ -196,7 +196,7 @@ app.controller("registrationStateController",function($scope, $rootScope, $windo
             if(user.indx !== indx) {
                 user.indx = indx;
                 let categorySportsman = $scope.categoryForSportsman.find(item => {
-                    return item.id == user.id;
+                    return item.id == user.id && item.oldCategory == user.category;
                 });
                 if (categorySportsman) {
                     categorySportsman.indx = user.indx;

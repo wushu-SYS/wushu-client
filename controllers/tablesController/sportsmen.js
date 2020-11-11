@@ -1,4 +1,4 @@
-app.controller("sportsmenController", function ($scope, $http, $window, $location, constants, clubService, pagingService, sportsmanService, commonFunctionsService) {
+app.controller("sportsmenController", function ($scope, $http, $window, $location, $cacheFactory, constants, clubService, pagingService, sportsmanService, commonFunctionsService, cacheService) {
     $scope.sexEnum = constants.sexEnum;
     $scope.sportStyles = constants.sportStyleEnum;
     var allUsers;
@@ -11,6 +11,7 @@ app.controller("sportsmenController", function ($scope, $http, $window, $locatio
 
     setPage(1);
     getDataForDisplay();
+    setUserFiltersByCache();
 
     function getDataForDisplay() {
         clubService.getClubs()
@@ -19,6 +20,16 @@ app.controller("sportsmenController", function ($scope, $http, $window, $locatio
             }, function (error) {
                 console.log(error)
             });
+    }
+    function setUserFiltersByCache(){
+        $scope.searchText = cacheService.get('searchText');
+        $scope.selectedSportStyle = cacheService.get('sportStyle');
+        $scope.selectedClub = cacheService.get('club');
+        $scope.selectedSex = cacheService.get('sex');
+        $scope.isToDesc = cacheService.get('isToDesc');
+        $scope.startIndex = cacheService.get('startIndex');
+        $scope.endIndex = cacheService.get('endIndex');
+        $scope.isNumberToDesc = cacheService.get('isNumberToDesc');
     }
 
     $scope.setPage = function(page){
@@ -53,6 +64,7 @@ app.controller("sportsmenController", function ($scope, $http, $window, $locatio
     }
 
     $scope.watchProfile = function (selectedId) {
+        commonFunctionsService.saveUserFiltersToCache($scope.searchText, $scope.selectedsportStyle, $scope.selectedClub, $scope.selectedSex, $scope.isToDesc,$scope.pager.startIndex + 1, $scope.pager.endIndex + 1, $scope.isNumberToDesc);
         sportsmanService.watchProfile(selectedId);
     }
 
@@ -62,6 +74,11 @@ app.controller("sportsmenController", function ($scope, $http, $window, $locatio
         let url = constants.serverUrl + '/downloadSportsmanList/'+token + conditions;
         exportList.setAttribute('href', url);
         exportList.click();
+    }
+
+    $scope.moveEditUsers = function (){
+        $location.path("/editUsersByExcel/sportsman");
+
     }
 
 });

@@ -1,0 +1,73 @@
+<div id="box">
+<div class="left" style="min-width: 450px">
+    <h1 ng-show="userType=='sportsman'">ערוך ספורטאיים למערכת<br>באמצעות קובץ אקסל</h1>
+    <h1 ng-show="userType=='coach'">ערוך מאמנים למערכת<br>באמצעות קובץ אקסל</h1>
+    <h1 ng-show="userType=='judge'">ערוך שופטים למערכת<br>באמצעות קובץ אקסל</h1>
+
+    <div class="center" ng-show="userType=='sportsman'">
+        <div class="validate-input downloadLink">
+            <span class="focus-input100" data-symbol="&#xf220"></span>
+            <a id="downExcelEditSportsman" class="linkDark" style="padding-right: 15px"
+               href="" ng-click="downloadExcelEditSportsMan()" download>הורד פורמט קובץ אקסל לעריכת
+                ספורטאים</a>
+        </div>
+<!--    </div>-->
+<!--    <div class="center" ng-show="userType=='coach'">-->
+<!--        <div class="validate-input downloadLink">-->
+<!--            <span class="focus-input100" data-symbol="&#xf220"></span>-->
+<!--            <a id="downExcelCoach" class="linkDark" style="padding-right: 15px"-->
+<!--               href="" ng-click="downloadExcelRegisterCoaches()" download> הורד פורמט קובץ אקסל לרישום מאמן</a>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="center" ng-show="userType=='judge'">-->
+<!--        <div class="validate-input downloadLink">-->
+<!--            <span class="focus-input100" data-symbol="&#xf220"></span>-->
+<!--            <a id="downExcelNewJudge" class="linkDark" style="padding-right: 15px"-->
+<!--               href="" ng-click="downloadExcelRegisterJudge()" download> הורד פורמט קובץ אקסל לרישום שופטים-->
+<!--                חדשים</a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="center" ng-show="userType=='judge'">-->
+<!--        <div class="validate-input downloadLink">-->
+<!--            <span class="focus-input100" data-symbol="&#xf220"></span>-->
+<!--            <a id="downExcelCoachJudge" class="linkDark" style="padding-right: 15px"-->
+<!--               href="" ng-click="downloadExcelRegisterCoachAsJudge()" download> הורד פורמט קובץ אקסל לשיוך מאמנים-->
+<!--                כשופטים</a>-->
+<!--        </div>-->
+    </div>
+
+    <div class="center">
+        <div class="dropzone" id="dropZoneRegisterUsers">
+            <label id="dropText">{{isDropped ? filename : "גרור קובץ או לחץ על העלאת קובץ"}}</label>
+        </div>
+    </div>
+
+    <div class="uploadBtn" ng-show="!isDropped">
+        <input class="uploadBtnClass" type="button" value="העלה קובץ" ng-click="BrowseFileClick()"/>
+        <input type="file" ng-model="csvFile" id="fileSportsman" name="fileupload" style="display: none"/>
+
+    </div>
+    <div class="uploadResultsPanel">
+        <div class="error" ng-show="isDropped && excelErrors.length > 0">
+            הרישום לא הצליח, הקובץ מכיל שגיאות
+            <div ng-repeat="errorSportsman in excelErrors" style="text-align: right">
+                <br>
+                <div ng-show="errorSportsman.line">
+                    בשורה מס' {{errorSportsman.line}}:
+                </div>
+                <div ng-repeat="error in errorSportsman.errors track by $index">
+                    {{$index + 1}}. {{error}}
+                </div>
+            </div>
+        </div>
+        <a class="linkDark" id="changeExcel" ng-show="isDropped" href="" ng-click="uploadNewFile()"> העלה קובץ
+            חדש </a>
+    </div>
+
+    <div>
+        <input type="text" ng-model="errorText" disabled ng-show="resErr"></input>
+    </div>
+
+</div>
+</div>

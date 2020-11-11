@@ -5,9 +5,12 @@
         <div class="col-md-9">
             <table cellspacing="0">
                 <thead>
-                    <tr>
+                <tr>
                     <th></th>
-                    <th colspan="2" class="thInItemList stickyLink"><a class="linkDark th" ng-click="mergeSelected()" ng-show="selectedSportsmenToMerge.length>1">מזג לקטגוריה<br>אחת</a></th>
+                    <th colspan="2" class="thInItemList stickyLink">
+                        <a class="linkDark th" ng-click="mergeSelected()"
+                           ng-show="access==userTypes.MANAGER && selectedSportsmenToMerge.length>1">מזג לקטגוריה<br>אחת</a>
+                    </th>
                     <th class="thInItemList">ת.ז.</th>
                     <th class="thInItemList">שם מלא</th>
                     <th class="thInItemList">מין</th>
@@ -16,46 +19,59 @@
                 </tr>
                 </thead>
                 <tbody ng-repeat="userCategory in usersCategories" drag-drop>
-                    <tr colspan="6">
-                        <td>{{userCategory.category.name}} {{getAgeRange(userCategory.category)}} ({{userCategory.category.sex}})</td>
-                    </tr>
-                    <tr ng-repeat="user in userCategory.users" ng-class="{'deletedItem':user.isDeleted}" drag-drop>
-                        <td></td>
-                        <td class="tdInItemList" ng-show="access==userTypes.MANAGER">
+                <tr colspan="6">
+                    <td>{{userCategory.category.name}} {{getAgeRange(userCategory.category)}}
+                        ({{userCategory.category.sex}})
+                    </td>
+                </tr>
+                <tr ng-repeat="user in userCategory.users" ng-class="{'deletedItem':user.isDeleted}" drag-drop>
+                    <td></td>
+                    <td class="tdInItemList">
+                        <div ng-show="access==userTypes.MANAGER">
+                            <i class="fa fa-undo clickableSearch undo"
+                               ng-show="access==userTypes.MANAGER && user.isDeleted"
+                               ng-click="user.isDeleted = false; setIsDeletedSportsmanFromCategory(userCategory.category, user)"
+                               aria-hidden="true" data-toggle="tooltip" data-placement="right" title="בטל מחיקה"></i>
+                        </div>
+                        <div ng-show="access==userTypes.MANAGER">
+                            <input type="checkbox" ng-show="access==userTypes.MANAGER" ng-model="user.isChecked"
+                                   ng-change="selectSportsman(user, userCategory.category.id)"
+                                   ng-disabled="user.isDeleted"
+                                   ng-hide="user.isDeleted">
+                        </div>
+                    </td>
+                    <td class="tdInItemList">{{$index + 1}}.</td>
+                    <td class="tdInItemList">{{getIdInLengthNine(user.id)}}</td>
+                    <td class="tdInItemList">{{user.firstname}} {{user.lastname}}</td>
+                    <td class="tdInItemList">{{user.sex}}</td>
+                    <td class="tdInItemList">{{user.age}}</td>
+                    <td>
+                        <div ng-disable="access==userTypes.MANAGER" class="tdInItemList" style="display: flex">
                             <div>
-                                <i class="fa fa-undo clickableSearch undo" ng-show="access==userTypes.MANAGER && user.isDeleted"
-                                   ng-click="user.isDeleted = false; setIsDeletedSportsmanFromCategory(userCategory.category, user)" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="בטל מחיקה"></i>
+                                <i class="fa fa-minus clickableSearch little"
+                                   ng-show="access==userTypes.MANAGER && !user.isDeleted"
+                                   ng-click="user.isDeleted = true; setIsDeletedSportsmanFromCategory(userCategory.category, user)"
+                                   aria-hidden="true"></i>
                             </div>
-                            <input type="checkbox" ng-show="access==userTypes.MANAGER" ng-model="user.isChecked" ng-change="selectSportsman(user, userCategory.category.id)" ng-disabled="user.isDeleted" ng-hide="user.isDeleted">
-                        </td>
-                        <td class="tdInItemList">{{$index+1}}.</td>
-                        <td class="tdInItemList">{{getIdInLengthNine(user.id)}}</td>
-                        <td class="tdInItemList">{{user.firstname}} {{user.lastname}}</td>
-                        <td class="tdInItemList">{{user.sex}}</td>
-                        <td class="tdInItemList">{{user.age}}</td>
-                        <td>
-                            <div ng-disable="access==userTypes.MANAGER" class="tdInItemList" style="display: flex">
-                                <div>
-                                    <i class="fa fa-minus clickableSearch little" ng-show="access==userTypes.MANAGER && !user.isDeleted"
-                                       ng-click="user.isDeleted = true; setIsDeletedSportsmanFromCategory(userCategory.category, user)"
-                                       aria-hidden="true"></i>
-                                </div>
-                                <select name="selectedCategory" ng-model="user.selectedCategory" class="littleSelect"
-                                        ng-selected="{{categories[user.category]}}"
-                                        ng-change="changeCategory(user, '{{user.selectedCategory.id}}')"
-                                        ng-options="x.name + ' ' + getAgeRange(x)
+                            <select name="selectedCategory" ng-model="user.selectedCategory" class="littleSelect"
+                                    ng-selected="{{categories[user.category]}}"
+                                    ng-change="changeCategory(user, '{{user.selectedCategory.id}}')"
+                                    ng-options="x.name + ' ' + getAgeRange(x)
                                          for
                                          x in categories | categoryBySportsmanFilter : user : undefined : false"
-                                        ng-disabled="access!=userTypes.MANAGER || user.isDeleted">
-                                    <option value="" disabled="disabled">בחר קטגוריה</option>
-                                </select>
-                            </div>
-                        </td>
-                    </tr>
+                                    ng-disabled="access!=userTypes.MANAGER || user.isDeleted">
+                                <option value="" disabled="disabled">בחר קטגוריה</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
 
                 </tbody>
             </table>
-            <input type="submit" ng-show="access==userTypes.MANAGER" ng-class="{'disabled' : categoryForSportsman.length==0 && toUnRegisterUsers.length==0}" ng-disabled="categoryForSportsman.length == 0 && toUnRegisterUsers.length == 0" ng-click="isClicked=true" value="שמור"/>
+            <input type="submit" ng-show="access==userTypes.MANAGER"
+                   ng-class="{'disabled' : categoryForSportsman.length==0 && toUnRegisterUsers.length==0}"
+                   ng-disabled="categoryForSportsman.length == 0 && toUnRegisterUsers.length == 0"
+                   ng-click="isClicked=true" value="שמור"/>
         </div>
 
         <div class="col-md-3">
@@ -66,7 +82,8 @@
             </div>
             <div ng-show="access==userTypes.MANAGER">
                 <i class="fa fa-file-excel-o iColored" aria-hidden="true"></i>
-                <a id="downRegistrationCompState" class="linkDark" href="" ng-click="downloadExcelRegistrationState()">ייצא לאקסל</a>
+                <a id="downRegistrationCompState" class="linkDark" href="" ng-click="downloadExcelRegistrationState()">ייצא
+                    לאקסל</a>
             </div>
             <div class="stickyLink" ng-show="access==userTypes.MANAGER">
                 <i class="fa fa-plus-square-o iColored" aria-hidden="true"></i>

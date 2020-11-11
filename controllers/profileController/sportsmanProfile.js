@@ -237,7 +237,7 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
         $scope.updateProfile.$dirty = false;
         $scope.sportsmanJudgesGradesData = []
         let containedJudgeIds = [...new Set($scope.allSportsmanJudgeGrades.map(record => record.judgeId))];
-        let filteredBySelectedCategory = $scope.allSportsmanJudgeGrades.filter(record => record.categoryId == selectedCategory.id);
+        let filteredBySelectedCategory = $scope.allSportsmanJudgeGrades.filter(record => record.categoryID == selectedCategory.id);
         containedJudgeIds.forEach(judgeId => {
             let values = [];
             let key = undefined;
@@ -272,7 +272,7 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
         if ($rootScope.access != $rootScope.userTypes.SPORTSMAN)
             sportsmanService.getSportsmanRank({id: parseInt($routeParams.id)})
                 .then((function (result) {
-                    $scope.sportsmanRank = result.data[0].rank ? result.data[0].rank : "-"
+                    $scope.sportsmanRank = result.data[0].avg_rank ? result.data[0].avg_rank : "0"
                 }), function (err) {
                     console.log(err)
                 })

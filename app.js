@@ -12,18 +12,19 @@ let app = angular.module('myApp', ["ngRoute", 'ui.bootstrap', 'ngPatternRestrict
 
 app.service('SocketService', ['socketFactory', function SocketService(socketFactory) {
     return socketFactory({
-        ioSocket: io.connect("https://app-wushu-server.herokuapp.com")
-        //ioSocket: io.connect("http://localhost:3000")
+        //ioSocket: io.connect("https://app-wushu-server.herokuapp.com")
+        ioSocket: io.connect("http://localhost:3000")
     });
 }]);
 
-app.controller("mainController", function ($scope, $location, $window, $rootScope, $uibModal) {
+app.controller("mainController", function ($scope, $location, $window, $rootScope, $uibModal, constants) {
     if ($window.sessionStorage.getItem('name') != null && $window.sessionStorage.getItem('name') !== '')
         $rootScope.name = $window.sessionStorage.getItem('name');
     if ($window.sessionStorage.getItem('access') != null && $window.sessionStorage.getItem('access') != '')
         $rootScope.access = $window.sessionStorage.getItem('access');
 
     $scope.getClass = function (path) {
+        // $scope.clickedMyProfile = false
         return ("/" + $location.path().split("/")[1] === path) ? 'active' : '';
     };
     $scope.isShowMenuOrFooter = function () {
@@ -33,6 +34,7 @@ app.controller("mainController", function ($scope, $location, $window, $rootScop
         return $location.path() !== '/home';
     };
 
+    $scope.userAccess = constants.userAccess;
     $rootScope.userTypes = {
         MANAGER: 1,
         COACH: 2,
@@ -108,6 +110,11 @@ app.config(function ($routeProvider) {
             .when('/profile/sportsmanProfile/:id?', {
                 templateUrl: 'views/profileView/profilePage.html',
                 controller: 'sportsmanProfileController as sportsmanProfileCtrl',
+                requireAuth: true
+            })
+            .when('/editUsersByExcel/:userType?', {
+                templateUrl: 'views/addFormsView/editUsersByExcel.html',
+                controller: 'editUsersByExcelController as editUsersByExcelCtrl',
                 requireAuth: true
             })
             .when('/profile/coachProfile/:id?', {
