@@ -12,8 +12,8 @@ let app = angular.module('myApp', ["ngRoute", 'ui.bootstrap', 'ngPatternRestrict
 
 app.service('SocketService', ['socketFactory', function SocketService(socketFactory) {
     return socketFactory({
-        //ioSocket: io.connect("https://app-wushu-server.herokuapp.com")
-        ioSocket: io.connect("http://localhost:3000")
+        ioSocket: io.connect("https://wushu-server.herokuapp.com")
+        //ioSocket: io.connect("http://localhost:3000")
     });
 }]);
 
