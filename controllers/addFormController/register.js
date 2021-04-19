@@ -1,4 +1,4 @@
-app.controller("registerController", function ($scope, $rootScope, $http, $window, $location, $filter, clubService, excelService, coachService, registerService, constants, confirmDialogService, toastNotificationService) {
+app.controller("registerController", function ($scope, $rootScope, $http, $window, $location, $filter, commonFunctionsService, clubService, excelService, coachService, registerService, constants, confirmDialogService, toastNotificationService) {
     $scope.sexEnum = constants.sexEnum;
     $scope.sportStyleEnum = constants.sportStyleEnum;
     $scope.regex = constants.regex;
@@ -57,7 +57,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
             switch ($scope.userType) {
                 case "sportsman":
                     data.push({
-                        id: $scope.id,
+                        id: commonFunctionsService.getIdInLengthNine($scope.id),
                         firstName: $scope.firstname,
                         lastName: $scope.lastname,
                         phone: $scope.phone,
@@ -72,7 +72,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
                     break;
                 case "coach":
                     data.push({
-                        id: $scope.id,
+                        id: commonFunctionsService.getIdInLengthNine($scope.id),
                         firstName: $scope.firstname,
                         lastName: $scope.lastname,
                         phone: $scope.phone,
@@ -84,7 +84,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
                     break;
                 case "judge":
                     data.push({
-                        id: $scope.id,
+                        id: commonFunctionsService.getIdInLengthNine($scope.id),
                         firstName: $scope.firstname,
                         lastName: $scope.lastname,
                         phone: $scope.phone,
