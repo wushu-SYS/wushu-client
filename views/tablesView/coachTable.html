@@ -75,6 +75,9 @@
             <th class="tableTh">תמונת פרופיל</th>
             <th class="tableTh">שם פרטי</th>
             <th class="tableTh">שם משפחה</th>
+            <th class="tableTh">שם מועדון</th>
+            <th class="tableTh">עיר</th>
+            <th class="tableTh">טלפון</th>
             <th class="tableTh" ng-show="isSportsmanList">מס' תחרויות</th>
             <th class="tableTh"><i class="fa fa-eye" aria-hidden="true"></i></th>
         </tr>
@@ -84,6 +87,9 @@
                      alt=""/></td>
             <td class="tableTd">{{user.firstname}}</td>
             <td class="tableTd">{{user.lastname}}</td>
+            <td class="tableTd">{{getClubName(user.sportclub)}}</td>
+            <td class="tableTd">{{user.address}}</td>
+            <td class="tableTd">{{user.phone}}</td>
             <td class="tableTd" ng-show="isSportsmanList">{{user.competitionCount}}</td>
             <td class="tableTd">
                 <button class="linkDark" ng-click="watchProfile(user.id)"> צפה בפרופיל</button>

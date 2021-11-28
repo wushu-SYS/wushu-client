@@ -115,6 +115,7 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
                     phone: $scope.user.phone,
                     email: $scope.user.email,
                     birthDate: $filter('date')($scope.user.birthdate, "MM/dd/yyyy"),
+                    //birthDate: $filter('date')($scope.user.birthdate, "yyyy/MM/dd"),
                     address: $scope.user.address,
                     sex: $scope.user.sex,
                     oldId: oldId,

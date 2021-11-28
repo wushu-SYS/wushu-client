@@ -37,6 +37,8 @@
     <table class="tableUser" cellspacing="0">
         <tr class="tableTr">
             <th class="tableTh">שם</th>
+            <th class="tableTh">שם עמותה</th>  
+            <th class="tableTh">מספר עמותה</th>
             <th class="tableTh">כתובת</th>
             <th class="tableTh">טלפון</th>
             <th class="tableTh">איש קשר</th>
@@ -44,6 +46,8 @@
         </tr>
         <tr class="tableTr" ng-repeat="club in clubs | filter: (searchClicked || '') && searchText | filter:{ergonId: selectedErgon.id, amutaId: selectedAmuta.id, agudaId: selectedAguda.id}">
             <td class="tableTd">{{club.name}}</td>
+            <td class="tableTd">{{getAmutasName(club.amutaId);}}</td>
+            <td class="tableTd">{{club.amutaId}}</td>
             <td class="tableTd">{{club.address}}</td>
             <td class="tableTd">{{club.phone}}</td>
             <td class="tableTd">{{club.contactname}}</td>

@@ -66,6 +66,8 @@ app.service('sportsmanService', function($window, $http, constants, $location) {
      * @param searchText - can filter by string of first name or last name to search
      * @param sportStyle - can filter by sport style
      * @param club - can filter by club id
+     * @param amuta can filter by amuta id
+     * @param address can filter by address
      * @param sex - can filter by sex
      * @param isToDesc - can define the sorting order, desc or asc
      * @param compId - can filter by comp id
@@ -76,7 +78,7 @@ app.service('sportsmanService', function($window, $http, constants, $location) {
      * @param endIndex - for setting the end of the paging
      * @return part of string url that starts with ?, if no filter centurions exists return empty string
      */
-    this.buildConditionds = function buildConditions(searchText, sportStyle, club, sex, isToDesc, compId, compOperator, startIndex, endIndex, isNumCompToDesc){
+    this.buildConditionds = function buildConditions(searchText, sportStyle, club,amuta,address, sex, isToDesc, compId, compOperator, startIndex, endIndex, isNumCompToDesc){
         var conditions = [];
 
         if(searchText !== null && searchText !== undefined && searchText !== '') {
@@ -87,6 +89,12 @@ app.service('sportsmanService', function($window, $http, constants, $location) {
         }
         if(club != null && club !== undefined){
             conditions.push('club=' + club.id);
+        }
+        if(amuta != null && amuta !== undefined){
+            conditions.push('amuta=' + amuta.id);
+        }
+        if(address != null && address !== undefined){
+            conditions.push('address=' + address.address);
         }
         if(sex !== null && sex !== undefined){
             conditions.push('sex=' + sex.name);

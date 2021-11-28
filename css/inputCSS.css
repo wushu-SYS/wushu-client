@@ -32,6 +32,9 @@ textarea::-moz-placeholder { color: #fff;}
 textarea:-ms-input-placeholder { color: #fff;}
 
 
+.reg_name {
+    max-width:100px;
+}
 .changePassInput{
     width: 300px;
     margin-right: 100px;
@@ -106,6 +109,7 @@ input[type=date]::-webkit-inner-spin-button {
     transition: all 0.4s;
     background: #599bb3;
 }
+
 .downloadLink .focus-input100::after {
     display: block;
     width: 100%;
@@ -163,3 +167,4 @@ input[type=date]::-webkit-inner-spin-button {
     padding-left: 7px;
     /*float: right;*/
 }
+
