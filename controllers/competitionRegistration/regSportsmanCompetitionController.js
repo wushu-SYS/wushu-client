@@ -21,7 +21,18 @@ app.controller("regSportsmanCompetitionController", function ($scope, $rootScope
             }, function (error) {
                 console.log(error)
             });
-
+        //clubService.getAmutas()
+        //    .then(function (result) {
+        //        $scope.amutas = result.data;
+        //    }, function (error) {
+        //        console.log(error)
+        //    });
+        //clubService.getAddresses()
+        //    .then(function (result) {
+        //        $scope.addresses = result.data;
+        //    }, function (error) {
+        //        console.log(error)
+        //    });
         let result = await categoryService.getCategories();
         $scope.categories = result.data;
         setPage(1);

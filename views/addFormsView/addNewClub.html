@@ -35,6 +35,18 @@
                    ng-required="true" ng-pattern="regex.regexHeb" ng-pattern-restrict>
             <span class="focus-input100" data-symbol="&#xf207;"></span>
         </div>
+        <div class="wrap-input100 validate-input">
+            <span class="label-input100"> שם מאמן ראשי</span>
+            <input class="input100" type="text" name="contactcoach" ng-model="contactcoach"
+                   ng-required="false" ng-pattern="regex.regexHeb" ng-pattern-restrict>
+            <span class="focus-input100" data-symbol="&#xf207;"></span>
+        </div>
+        <div class="wrap-input100 validate-input">
+            <span class="label-input100">טלפון מאמן ראשי</span>
+            <input class="input100" type="text" name="phonecoach" ng-model="phonecoach"
+                   ng-required="false" ng-minlength="10" ng-maxlength="10" ng-pattern="regex.regexOnlyNumbers" ng-pattern-restrict>
+            <span class="focus-input100" data-symbol="&#xf2b6;"></span>
+        </div>
         <div id="ergon" class="wrap-input100 validate-input"
              ng-class="{'alert-validate' : addClubForm.ergon.$invalid && (addClubForm.ergon.$touched || isClicked)}"
              data-validate="בחר ארגון">
@@ -70,7 +82,30 @@
             </select>
             <span class="focus-input100" data-symbol="&#xf20c"></span>
         </div>
-
+        <div class="wrap-input100 validate-input">
+            <span class="label-input100">פייסבוק </span>
+            <input class="input100" type="text" name="facebook" ng-model="facebook"
+                  ng-required="false">
+                  <span class="focus-input100" ><a href="#" class="fa fa-facebook" style="position: absolute;
+                    bottom: 10px; background: #3B5998;color: white; font-size: 20px; width: 20px; text-align: center;"></a></span>
+       </div>
+        <div class="wrap-input100 validate-input">
+            <span class="label-input100">אינסטגרם </span>
+            <input class="input100" type="text" name="instagram" ng-model="instagram" ng-required="false">
+            <span class="focus-input100" ><a href="#" class="fa fa-instagram" style="position: absolute;
+                bottom: 10px; font-size: 20px; width: 20px; text-align: center;"></a></span>
+        </div>
+        <div class="wrap-input100 validate-input">
+            <span class="label-input100">אתר </span>
+            <input class="input100" type="text" name="website" ng-model="website" ng-required="false">
+            <span class="focus-input100" data-symbol="&#64;"></span>
+        </div>
+        <div class="wrap-input100 validate-input">
+            <span class="label-input100">מידע נוסף </span>
+            <input class="input100" type="text" name="moredata" ng-model="moredata"
+                ng-required="false">
+            <span class="focus-input100" data-symbol="&#9750;"></span>
+        </div>
 
         <div style="text-align: center">
             <input type="submit" name="signup_submit" ng-click="isClicked=true" value="שמור"/>

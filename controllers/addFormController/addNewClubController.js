@@ -36,7 +36,13 @@ app.controller("addNewClubController", function ($scope, $rootScope,$filter,$loc
                 phone: $scope.phone,
                 contactname: $scope.contact,
                 ergonId: $scope.ergon.id,
-                agudaId: $scope.aguda.id
+                agudaId: $scope.aguda.id,
+                contactcoach: $scope.contactcoach,
+                phonecoach: $scope.phonecoach,
+                facebook: $scope.facebook,
+                instagram: $scope.instagram,
+                website: $scope.website,
+                moredata: $scope.moredata
             };
             if($scope.amuta)
                 data.amutaId = $scope.amuta.id;

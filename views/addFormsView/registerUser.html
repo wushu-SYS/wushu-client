@@ -9,7 +9,11 @@
                checked="true">
         רישום ספורטאי </input>
         <input type="radio" name="userType"
+<<<<<<< HEAD
                ng-click="userType='coach';downloadClicked=false;judgeFill=false;emptyFields()"> רישום מאמן\מדריך </input>
+=======
+               ng-click="userType='coach';downloadClicked=false;judgeFill=false;emptyFields()"> רישום מאמן/מדריך </input>
+>>>>>>> 77ce4b3ba04575fa9bb0c08b5dd0aa38937909eb
         <input type="radio" name="userType"
                ng-click="userType='judge';downloadClicked=false;judgeFill=false; emptyFields()"> רישום שופט </input>
     </div>
@@ -19,7 +23,11 @@
 <div id="box" class="flexBox">
     <div class="right">
         <h1 ng-show="userType=='sportsman'">רישום ספורטאי חדש למערכת</h1>
+<<<<<<< HEAD
         <h1 ng-show="userType=='coach'">רישום מאמן\מדריך חדש למערכת</h1>
+=======
+        <h1 ng-show="userType=='coach'">רישום מאמן/מדריך חדש למערכת</h1>
+>>>>>>> 77ce4b3ba04575fa9bb0c08b5dd0aa38937909eb
         <h1 ng-show="userType=='judge'">רישום שופט חדש למערכת</h1>
 
         <form class="login100-form validate-form" name="registerForm" ng-submit="submit(registerForm.$valid)"
@@ -121,7 +129,7 @@
             <div ng-show="userType!='judge'" class="wrap-input100 validate-input"
                  ng-class="{'alert-validate' : registerForm.address.$invalid && (registerForm.address.$touched || isClicked)}"
                  data-validate="{{registerForm.address.$error.required ? 'הכנס כתובת' : (registerForm.address.$error.pattern ? 'כתובת לא תקינה' : '')}}">
-                <span class="label-input100">כתובת מגורים</span>
+                <span class="label-input100">כתובת יישוב</span>
                 <input class="input100" type="text" name="address" ng-model="address" ng-disabled="!idChecked || (addressFilled && idFound)"
                        ng-required="userType!='judge' && userType!='sportsman'" ng-pattern="regex.regexHebrewAndNumbers" ng-pattern-restrict>
                 <span class="focus-input100" data-symbol="&#xf175;"></span>
