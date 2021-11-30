@@ -74,6 +74,7 @@ app.controller("refereeProfileController", function ($scope, $http, $route,$filt
                 lastName: $scope.user.lastname,
                 phone: $scope.user.phone,
                 email: $scope.user.email,
+                comment:$scope.user.comment,
                 oldId: $routeParams.id
             };
             refereesService.updateProfile(data)

@@ -20,11 +20,25 @@ app.controller("sportsmenController", function ($scope, $http, $window, $locatio
             }, function (error) {
                 console.log(error)
             });
+        clubService.getAmutas()
+            .then(function (result) {
+                $scope.amutas = result.data;
+            }, function (error) {
+                console.log(error)
+            });
+        clubService.getAddresses()
+            .then(function (result) {
+                $scope.addresses = result.data;
+            }, function (error) {
+                console.log(error)
+            });
     }
     function setUserFiltersByCache(){
         $scope.searchText = cacheService.get('searchText');
         $scope.selectedSportStyle = cacheService.get('sportStyle');
         $scope.selectedClub = cacheService.get('club');
+        $scope.selectedAmuta = cacheService.get('amuta');
+        $scope.selectedAddress = cacheService.get('address');
         $scope.selectedSex = cacheService.get('sex');
         $scope.isToDesc = cacheService.get('isToDesc');
         $scope.startIndex = cacheService.get('startIndex');
@@ -41,12 +55,12 @@ app.controller("sportsmenController", function ($scope, $http, $window, $locatio
             return;
         }
 
-        sportsmanService.getSportsmenCount(sportsmanService.buildConditionds($scope.searchText, $scope.selectedsportStyle, $scope.selectedClub, $scope.selectedSex, $scope.isToDesc,null, null, null, null, $scope.isNumberToDesc))
+        sportsmanService.getSportsmenCount(sportsmanService.buildConditionds($scope.searchText, $scope.selectedsportStyle, $scope.selectedClub,$scope.selectedAmuta,$scope.selectedAddress, $scope.selectedSex, $scope.isToDesc,null, null, null, null, $scope.isNumberToDesc))
             .then(function (result) {
                 let totalCount = result.data.count;
                 $scope.pager = pagingService.GetPager(totalCount, page);
 
-                sportsmanService.getSportsmen(sportsmanService.buildConditionds($scope.searchText, $scope.selectedsportStyle, $scope.selectedClub, $scope.selectedSex, $scope.isToDesc, null, null, $scope.pager.startIndex + 1, $scope.pager.endIndex + 1, $scope.isNumberToDesc))
+                sportsmanService.getSportsmen(sportsmanService.buildConditionds($scope.searchText, $scope.selectedsportStyle, $scope.selectedClub,$scope.selectedAmuta,$scope.selectedAddress, $scope.selectedSex, $scope.isToDesc, null, null, $scope.pager.startIndex + 1, $scope.pager.endIndex + 1, $scope.isNumberToDesc))
                     .then(function (result) {
                         $scope.users = result.data.sportsmen;
                     }, function (error) {

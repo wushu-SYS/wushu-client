@@ -45,4 +45,9 @@ app.controller("coachController", function ($scope, $http, $filter, $window, $lo
         exportList.setAttribute('href', url);
         exportList.click();
     }
+
+    $scope.getClubName = function(clubId){
+        var elem = $scope.clubs.find( ({ id }) => id === clubId );
+        return elem.name;
+    }
 });

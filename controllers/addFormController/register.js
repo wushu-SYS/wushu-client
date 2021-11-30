@@ -6,6 +6,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
     $scope.userType = 'sportsman';
     let access = $window.sessionStorage.getItem('access');
 
+
     getDisplayData();
 
     /**
@@ -13,6 +14,7 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
      */
 
     async function getDisplayData() {
+
         await getCoaches()
         await getClubs();
         switch (parseInt(access)) {
@@ -62,7 +64,9 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
                         lastName: $scope.lastname,
                         phone: $scope.phone,
                         address: $scope.address,
-                        birthDate: $filter('date')($scope.birthdate, "MM/dd/yyyy").toString(),
+                        //birthDate : $scope.birthdate && !$scope.radioDate ? $filter('date')($scope.birthdate, "yyyy/MM/dd").toString() : $scope.birthdateYear+"/"+$scope.birthdateMonth+"/"+$scope.birthdateDay,
+                        //birthDate: $filter('date')($scope.birthdate, "MM/dd/yyyy").toString(),
+                        birthDate: $filter('date')($scope.birthdate, "yyyy/MM/dd").toString(),
                         email: $scope.email,
                         sportClub: $scope.sportclub.id,
                         sex: $scope.selectedSex,
@@ -78,8 +82,13 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
                         phone: $scope.phone,
                         address: $scope.address,
                         email: $scope.email,
-                        birthDate: $filter('date')($scope.birthdate, "MM/dd/yyyy").toString(),
+                        birthDate: $filter('date')($scope.birthdate, "yyyy/MM/dd").toString(),
+                        //birthDate: $filter('date')($scope.birthdate, "MM/dd/yyyy").toString(),
                         sportClub: $scope.sportclub.id,
+                        facebook: $scope.facebook,
+                        instagram: $scope.instagram,
+                        anotherLink: $scope.anotherLink,
+                        comment: $scope.comment,
                     });
                     break;
                 case "judge":
@@ -89,7 +98,11 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
                         lastName: $scope.lastname,
                         phone: $scope.phone,
                         email: $scope.email,
-
+                        sportClub: $scope.sportclub.id,
+                        facebook: $scope.facebook,
+                        instagram: $scope.instagram,
+                        anotherLink: $scope.anotherLink,
+                        comment: $scope.comment,
                     });
                     break;
             }
@@ -110,7 +123,10 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
                     if (err.data.number === 2627)
                         toastNotificationService.errorNotification("ת.ז " + getIdFromErrorMessage(err.data.message) + " קיימת כבר במערכת.");
                     else {
-                        toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע הרישום. אנא פנה לתמיכה טכנית");
+                        if (err.data[0].errors.length>0)
+                            toastNotificationService.errorNotification(err.data[0].errors[0]);
+                        else
+                            toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע הרישום. אנא פנה לתמיכה טכנית");
                     }
                 } else
                     toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע הרישום");
@@ -129,12 +145,11 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
                 .catch((err) => {
                     $scope.emptyFields()
                     $scope.idChecked = true;
-                    $scope.idFound = false
+                    $scope.idFound = false;
                 })
         }
 
     }
-
 
 //excel side------------------------------------------------------------------------------------------------------------
     let dropZoneRegisterUsers = document.getElementById("dropZoneRegisterUsers");
@@ -261,7 +276,10 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
 
         $scope.birthdate = new Date(data.birthdate);
         $scope.birthdateFilled = !!data.birthdate
-
+        
+        //$scope.birthdateSplit = new Date(data.birthdateYear,data.birthdateMonth,data.birthdateDay);
+        //$scope.birthdateSplitFilled = !!data.birthdateYear || !!data.birthdateMonth || !!data.birthdateDay
+//
         $scope.sportStyle = data.sportStyle
         $scope.sportStyleFilled = !!data.sportStyle
 
@@ -310,7 +328,29 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
         $scope.email = '';
         $scope.address = '';
         $scope.birthdate = '';
+        $scope.birthdateYear = '';
+        $scope.birthdateMonth = '';
+        $scope.birthdateDay = '';
         $scope.sportclub = $scope.clubs.find(club => club.name === 'בחר מועדון ספורט');
+        $scope.facebook = '';
+        $scope.instagram = '';
+        $scope.anotherLink = '';
+        $scope.comment = '';
+    }
+    $scope.emptyFieldsDate = function () {
+        //$scope.id = '';
+        if($scope.birthdate){
+            $scope.birthdateYear = $scope.birthdate.getFullYear();
+            $scope.birthdateMonth = $scope.birthdate.getMonth()+1;
+            $scope.birthdateDay = $scope.birthdate.getDate();
+        }
+    }
+    $scope.emptyFieldsDateFormat = function () {
+        $scope.birthdate = new Date($scope.birthdateYear,$scope.birthdateMonth-1,$scope.birthdateDay);
+        if($scope.birthdate.getFullYear()!=$scope.birthdateYear || $scope.birthdate.getMonth()+1!=$scope.birthdateMonth || $scope.birthdate.getDate()!=$scope.birthdateDay){
+            $scope.birthdate=''
+        }
+        
     }
     $rootScope.isChangingLocationFirstTime = true;
     $scope.$on('$routeChangeStart', function (event, newRoute, oldRoute) {

@@ -36,6 +36,17 @@ app.service('clubService', function($window, $http, constants) {
         return $http(req);
     };
 
+    this.getAddresses = function () {
+        var req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/commonCoachManager/getAddresses',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+        };
+        return $http(req);
+    };
+
     this.getAgudas = function () {
         var req = {
             method: 'POST',

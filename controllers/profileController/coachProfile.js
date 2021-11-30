@@ -29,7 +29,9 @@ app.controller("coachProfileController", function ($scope, $http, $route, $filte
                 phone: $scope.user.phone,
                 email: $scope.user.email,
                 birthDate: $filter('date')($scope.user.birthdate, "MM/dd/yyyy"),
+                //birthDate: $filter('date')($scope.user.birthdate, "yyyy/MM/dd"),
                 address: $scope.user.address,
+                comment:$scope.user.comment,
                 oldId: oldId
             }
             coachService.updateProfile(data)

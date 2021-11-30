@@ -12,8 +12,8 @@ let app = angular.module('myApp', ["ngRoute", 'ui.bootstrap', 'ngPatternRestrict
 
 app.service('SocketService', ['socketFactory', function SocketService(socketFactory) {
     return socketFactory({
-        ioSocket: io.connect("https://wushu-server.herokuapp.com")
-        //ioSocket: io.connect("http://localhost:3000")
+        //ioSocket: io.connect("https://wushu-server.herokuapp.com")
+        ioSocket: io.connect("http://localhost:3000")
     });
 }]);
 
@@ -152,7 +152,7 @@ app.config(function ($routeProvider) {
                 requireAuth: true
             })
             .when('/users/couches', {
-                templateUrl: 'views/tablesView/userTable.html',
+                templateUrl: 'views/tablesView/coachTable.html',
                 controller: 'coachController as coachCtrl',
                 requireAuth: true
             })

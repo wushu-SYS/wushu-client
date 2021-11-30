@@ -33,7 +33,7 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <div ng-show="!changeCoach">
+                <div ng-show="access!=userTypes.SPORTSMAN && !changeCoach">
                     <i class="fa fa-pencil iColored" aria-hidden="true"></i>
                     <a class="linkDark iLink" href="" ng-click="isEditModeOn = !isEditModeOn">{{isEditModeOn ? 'ביטול עריכת פרופיל' : 'ערוך פרופיל'}}</a>
                 </div>
@@ -45,7 +45,7 @@
                 <!--                <i class="fa fa-chain-broken iColored" aria-hidden="true"></i>-->
                 <!--                <a class="linkDark iLink" href="">החלפת מאמן</a>-->
                 <!--            </div>-->
-                <div>
+                <div ng-show="access!=userTypes.SPORTSMAN">
                     <i class="fa fa-picture-o" aria-hidden="true"></i>
                     <input class="linkDark iLink" aria-hidden="true" type="button" value="שנה תמונה" ng-click="btnPressed()" style="background: none"/>
                     <input type="file"  id="profilePicUpload" ngf-select  name="file" ngf-pattern="'image/'" accept="image/" ngf-max-size="20MB" onchange="angular.element(this).scope().uploadFile(this.files)"/>
@@ -136,7 +136,7 @@
                                      data-validate="{{updateProfile.date.$error.required ? 'הכנס תאריך לידה' : updateProfile.date.$error.max ? 'תאריך לא תקין' : ''}}"
                                      show-spinners="false">
                                     <input class="update-input100" type="date" name="date" ng-model="user.birthdate"
-                                           placeholder="תאריך לידה" ng-max="currentDate" required>
+                                           placeholder="תאריך לידה" ng-max="currentDate" required onkeypress="return false">
                                 </div>
                             </div>
                         </div>
@@ -203,7 +203,7 @@
                                 </div>
                             </div>
                         </div>
-                        <br>
+                        <!--<br ng-show="user.sportStyle">-->
                         <div id="profileSportClub" class="row" ng-show="user.club">
                             <div class="col-md-3">
                                 <label>מועדון ספורט</label>
@@ -226,8 +226,24 @@
                                 </select>
                             </div>
                         </div>
-
+                        <div class="row" ng-if="eWhoAmI=='referee' || eWhoAmI=='coach'">
+                            <div class="col-md-3">
+                                <label>הערות</label>
+                            </div>
+                            <div class="col-md-6" >
+                                <label ng-show="!isEditModeOn">{{user.comment}}</label>
+                                <div ng-show="isEditModeOn" class="update-input">
+                                    <input class="update-input100" type="text" name="comment"
+                                        ng-model="user.comment" placeholder="הערות">
+                                </div>
+                            </div>
+                        </div><br>
+                        <a id="facebookProfile" target="_blank" href="http://{{user.facebook}}" class="fa fa-facebook" ng-show=user.facebook></a>
+                        <a id="facebookProfile" target="_blank" href="http://{{user.instagram}}" class="fa fa-instagram" ng-show=user.instagram></a>
+                        <a id="facebookProfile" target="_blank" href="http://{{user.anotherLink}}" class="fa fa-link" ng-show=user.anotherLink></a>
+                        <!--Documents here-->
                     </div>
+
                     <div class="tab-pane fade"
                          ng-class="{'show' : activeTag==='attachments' , 'active' : activeTag==='attachments'}"
                          id="attachments" role="tabpanel" aria-labelledby="attachments">
