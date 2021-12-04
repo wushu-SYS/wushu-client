@@ -1,0 +1,115 @@
+<body class="bodyTable">
+
+    <div class="center">
+        <div ng-init="searchClicked=false">
+            <input class="searchInput" type="text" placeholder="חפש שם..." ng-model="searchText" ng-change="searchClicked=false" ng-keydown="$event.keyCode === 13 && setPage(1); searchClicked=true; cacheService.put('searchText', searchText)">
+            <button ng-click="setPage(1); searchClicked=true" ng-show="searchClicked==false">
+                <i class="fa fa-search clickableSearch" style="left: 45px" aria-hidden="true"></i>
+            </button>
+            <button ng-click="searchText=''; setPage(1); searchClicked=false" ng-show="searchClicked==true">
+                <i class="fa fa-times clickableSearch" style="left: 45px" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div class="filtersBar">
+            <select ng-show="access==userTypes.MANAGER && clubs.length > 0" class="searchInput" name="selectedClub" ng-model="selectedClub"
+                    ng-options="x.name
+                    for
+                    x in clubs" ng-change="setPage(1)">
+                <option value="">כל המועדונים</option>
+            </select>
+            <select ng-show="access==userTypes.MANAGER && amutas.length > 0" class="searchInput" name="selectedAmuta" ng-model="selectedAmuta"
+                    ng-options="x.name
+                    for
+                    x in amutas" ng-change="setPage(1)">
+                <option value="">כל העמותות</option>
+            </select>
+            <select class="searchInput" name="sportStyle" ng-model="selectedsportStyle" ng-show="sportStyles.length > 0"
+                    ng-options="x.name
+                    for
+                    x in sportStyles" ng-change="setPage(1)">
+                <option value="">כל הענפים</option>
+            </select>
+            <select ng-show="access==userTypes.MANAGER && addresses.length > 0" class="searchInput" name="selectedAddress" ng-model="selectedAddress"
+                    ng-options="x.address
+                    for
+                    x in addresses" ng-change="setPage(1)">
+                <option value="">כל הערים</option>
+            </select>
+        </div>
+    </div>
+    <div class="center">
+        <div class="filtersBar">
+            <select class="searchInput" name="sex" ng-model="selectedSex" ng-show="sexEnum.length > 0"
+                ng-options="x.name
+                for
+                x in sexEnum" ng-change="setPage(1)">
+                <option value="">זכר ונקבה</option>
+            </select>
+            <button style="height: 55px;" data-toggle="tooltip" data-placement="right" title="מיין לפי שם פרטי">
+                <i ng-model="isToDesc"
+                   ng-class="isToDesc ? 'fa fa-sort-alpha-desc clickableSearch' : 'fa fa-sort-alpha-asc clickableSearch'"
+                   ng-click="isToDesc = !isToDesc; setPage(1)" ng-change="setPage(1)" aria-hidden="true"></i>
+            </button>
+            <button style="height: 55px;" data-toggle="tooltip" data-placement="right" title="מיין לפי השתתפות בתחרויות" ng-show="isSportsmanList">
+                <i ng-model="isNumberToDesc"
+                   ng-class="isNumberToDesc ? 'fa fa-sort-numeric-desc clickableSearch' : 'fa fa-sort-numeric-asc clickableSearch'"
+                   ng-click="isNumberToDesc = !isNumberToDesc; setPage(1)" ng-change="setPage(1)" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div class="actionsBar">
+            <button style="height: 55px;">
+                <a id="export" href="">
+                    <i class="fa fa-file-excel-o clickableSearch" ng-click="export()" aria-hidden="true"></i>
+                </a>
+            </button>
+        </div>
+        <div class="actionsBar" ng-show="false">
+            <a  class="linkDark iLink" href="" ng-click="moveEditUsers()" ng-show="headerTable == 'ספורטאיים'" >ערוך שופטים באמצעות אקסל</a>
+        </div>
+    </div>
+    
+    <div class="tableDiv narrowTableDiv">
+        <div class="headerTable">{{headerTable}}</div>
+        <table class="tableUser" cellspacing="0">
+            <tr class="tableTr">
+                <th class="tableTh">תמונת פרופיל</th>
+                <th class="tableTh">שם פרטי</th>
+                <th class="tableTh">שם משפחה</th>
+                <th class="tableTh" ng-show="isSportsmanList">מס' תחרויות</th>
+                <th class="tableTh"><i class="fa fa-eye" aria-hidden="true"></i></th>
+            </tr>
+            <tr class="tableTr" ng-repeat="user in users">
+                <td class="tableTd"><img class="tableProfileImg"
+                         ng-src="{{user.photo}}"
+                         alt=""/></td>
+                <td class="tableTd">{{user.firstname}}</td>
+                <td class="tableTd">{{user.lastname}}</td>
+                <td class="tableTd" ng-show="isSportsmanList">{{user.competitionCount}}</td>
+                <td class="tableTd">
+                    <button class="linkDark" ng-click="watchProfile(user.id)"> צפה בפרופיל</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="center" ng-show="pager.totalPages>1">
+        <!-- pager -->
+        <ul ng-if="pager.pages.length" class="pagination">
+            <li ng-class="{'disabled':pager.currentPage === 1}">
+                <a ng-click="setPage(1)">ראשון</a>
+            </li>
+            <li ng-class="{'disabled':pager.currentPage === 1}">
+                <a ng-click="setPage(pager.currentPage - 1)">הקודם</a>
+            </li>
+            <li ng-repeat="page in pager.pages" ng-class="{'numberBtn' : true, 'active' : pager.currentPage===page}" ng-click="setPage(page)">
+                {{page}}
+            </li>
+            <li ng-class="{'disabled':pager.currentPage === pager.totalPages}">
+                <a ng-click="setPage(pager.currentPage + 1)">הבא</a>
+            </li>
+            <li ng-class="{'disabled':pager.currentPage === pager.totalPages}">
+                <a ng-click="setPage(pager.totalPages)">אחרון</a>
+            </li>
+        </ul>
+    </div>
+    </body>
+    

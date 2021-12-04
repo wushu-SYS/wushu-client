@@ -167,7 +167,7 @@ app.config(function ($routeProvider) {
                 requireAuth: true
             })
             .when('/users/referees', {
-                templateUrl: 'views/tablesView/userTable.html',
+                templateUrl: 'views/tablesView/refereesTable.html',
                 controller: 'refereesTableController as hCtrl',
                 requireAuth: true
             })
