@@ -81,18 +81,18 @@
             <th class="tableTh" ng-show="isSportsmanList">מס' תחרויות</th>
             <th class="tableTh"><i class="fa fa-eye" aria-hidden="true"></i></th>
         </tr>
-        <tr class="tableTr" ng-repeat="user in users">
+        <tr class="tableTr" ng-repeat="userr in users">
             <td class="tableTd"><img class="tableProfileImg"
                      ng-src="{{user.photo}}"
                      alt=""/></td>
-            <td class="tableTd">{{user.firstname}}</td>
-            <td class="tableTd">{{user.lastname}}</td>
-            <td class="tableTd">{{getClubName(user.sportclub)}}</td>
-            <td class="tableTd">{{user.address}}</td>
-            <td class="tableTd">{{user.phone}}</td>
-            <td class="tableTd" ng-show="isSportsmanList">{{user.competitionCount}}</td>
+            <td class="tableTd">{{userr.firstname}}</td>
+            <td class="tableTd">{{userr.lastname}}</td>
+            <td class="tableTd">{{getClubName(userr.sportclub)}}</td>
+            <td class="tableTd">{{userr.address}}</td>
+            <td class="tableTd">{{userr.phone}}</td>
+            <td class="tableTd" ng-show="isSportsmanList">{{userr.competitionCount}}</td>
             <td class="tableTd">
-                <button class="linkDark" ng-click="watchProfile(user.id)"> צפה בפרופיל</button>
+                <button class="linkDark" ng-click="watchProfile(userr.id)"> צפה בפרופיל</button>
             </td>
         </tr>
     </table>
