@@ -31,6 +31,9 @@ app.controller("coachProfileController", function ($scope, $http, $route, $filte
                 birthDate: $filter('date')($scope.user.birthdate, "MM/dd/yyyy"),
                 //birthDate: $filter('date')($scope.user.birthdate, "yyyy/MM/dd"),
                 address: $scope.user.address,
+                facebook: $scope.user.facebook.slice($scope.user.facebook.indexOf("www")),
+                instagram:  $scope.user.instagram.slice( $scope.user.instagram.indexOf("www")),
+                anotherLink: $scope.user.anotherLink.slice( $scope.user.anotherLink.indexOf("www")),
                 comment:$scope.user.comment,
                 oldId: oldId
             }
@@ -42,12 +45,16 @@ app.controller("coachProfileController", function ($scope, $http, $route, $filte
                     coachService.watchProfile($scope.user.id);
                     $scope.reload()
                 }, function (error) {
-                    toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע העדכון");
+                    if (error.data.length>0){
+                        toastNotificationService.errorNotification(error.data[0]);
+                    }else{
+                        toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע העדכון");
+                    }
                     console.log(error)
                 })
         }
     };
-
+    
     $scope.uploadFile = function (files) {
         var fd = new FormData();
         fd.append("file", files[0]);

@@ -77,6 +77,16 @@ input[type=date]::-webkit-inner-spin-button {
     background: transparent;
     /*padding: 0 38px 0 5px;*/
 }
+.update-input100-link{
+    font-size: 16px;
+    line-height: 1.2;
+    display: block;
+    width: fit-content;
+    height: 30px;
+    background: transparent;
+    width: 100%;
+    /*padding: 0 38px 0 5px;*/
+}
 .input100 {
     font-size: 16px;
     line-height: 1.2;
@@ -168,3 +178,29 @@ input[type=date]::-webkit-inner-spin-button {
     /*float: right;*/
 }
 
+#facebookProfile{
+    padding: 10px;
+    font-size: 20px;
+    width: 40px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+}
+  
+#facebookProfile:hover {
+    opacity: 0.7;
+}
+
+#facebookProfile.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+#facebookProfile.fa-instagram {
+  background: #125688;
+  color: white;
+}
+#facebookProfile.fa-link{
+  background: #125688;
+  color: white;
+}

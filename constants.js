@@ -19,7 +19,7 @@ app.constant('constants', {
         {id : 2, name : 'נקבה' }
     ],
     sportStyleEnum: [
-        {id : 1, name : 'טאולו' },
+        {id : 1, name : 'טלאו' },
         {id : 2, name : 'סנדא' },
         {id :3 ,name : 'משולב'}
     ],
@@ -28,6 +28,14 @@ app.constant('constants', {
       SANDA: 1,
       BOTH: 2
     },
+    internationalsEnum:{
+        national:0,
+        international: 1
+    },
+    internationalStyleEnum: [
+        {id : 1, name : 'בינלאומי' },
+        {id : 2, name : 'לאומי' }
+    ],
     compStatus: [
         {id : 1, name : 'תחרות פתוחה'},
         {id : 2, name : 'תחרות סגורה'},

@@ -1,6 +1,7 @@
 app.controller("registerController", function ($scope, $rootScope, $http, $window, $location, $filter, commonFunctionsService, clubService, excelService, coachService, registerService, constants, confirmDialogService, toastNotificationService) {
     $scope.sexEnum = constants.sexEnum;
     $scope.sportStyleEnum = constants.sportStyleEnum;
+    $scope.internationalStyleEnum = constants.internationalStyleEnum;
     $scope.regex = constants.regex;
     $scope.currentDate = new Date();
     $scope.userType = 'sportsman';
@@ -85,9 +86,9 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
                         birthDate: $filter('date')($scope.birthdate, "yyyy/MM/dd").toString(),
                         //birthDate: $filter('date')($scope.birthdate, "MM/dd/yyyy").toString(),
                         sportClub: $scope.sportclub.id,
-                        facebook: $scope.facebook,
-                        instagram: $scope.instagram,
-                        anotherLink: $scope.anotherLink,
+                        facebook: $scope.facebook.slice($scope.facebook.indexOf("www")),
+                        instagram:  $scope.instagram.slice($scope.instagram.indexOf("www")),
+                        anotherLink: $scope.anotherLink.slice($scope.anotherLink.indexOf("www")),
                         comment: $scope.comment,
                     });
                     break;
@@ -98,10 +99,11 @@ app.controller("registerController", function ($scope, $rootScope, $http, $windo
                         lastName: $scope.lastname,
                         phone: $scope.phone,
                         email: $scope.email,
+                        internationalStyle: $scope.internationalStyle,
                         sportClub: $scope.sportclub.id,
-                        facebook: $scope.facebook,
-                        instagram: $scope.instagram,
-                        anotherLink: $scope.anotherLink,
+                        facebook:  $scope.facebook.slice($scope.facebook.indexOf("www")),
+                        instagram: $scope.instagram.slice($scope.instagram.indexOf("www")),
+                        anotherLink: $scope.anotherLink.slice($scope.anotherLink.indexOf("www")),
                         comment: $scope.comment,
                     });
                     break;

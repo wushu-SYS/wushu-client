@@ -94,5 +94,5 @@ app.controller("sportsmenController", function ($scope, $http, $window, $locatio
         $location.path("/editUsersByExcel/sportsman");
 
     }
-
+ 
 });

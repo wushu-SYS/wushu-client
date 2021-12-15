@@ -74,6 +74,9 @@ app.controller("refereeProfileController", function ($scope, $http, $route,$filt
                 lastName: $scope.user.lastname,
                 phone: $scope.user.phone,
                 email: $scope.user.email,
+                facebook: $scope.user.facebook.slice($scope.user.facebook.indexOf("www")),
+                instagram:  $scope.user.instagram.slice( $scope.user.instagram.indexOf("www")),
+                anotherLink: $scope.user.anotherLink.slice( $scope.user.anotherLink.indexOf("www")),
                 comment:$scope.user.comment,
                 oldId: $routeParams.id
             };
@@ -85,7 +88,11 @@ app.controller("refereeProfileController", function ($scope, $http, $route,$filt
                     refereesService.watchProfile($scope.user.id);
                     $scope.reload()
                 }, function (error) {
-                    toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע העדכון");
+                    if (error.data.length>0){
+                        toastNotificationService.errorNotification(error.data[0]);
+                    }else{
+                        toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע העדכון");
+                    }
                     console.log(error)
                 })
         }

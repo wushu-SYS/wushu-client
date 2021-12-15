@@ -128,7 +128,11 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
                         $scope.isEditModeOn = false;
                         sportsmanService.watchProfile($scope.user.id);
                     }, function (error) {
-                        toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע העדכון");
+                        if (error.data.length>0){
+                            toastNotificationService.errorNotification(error.data[0]);
+                        }else{
+                            toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע העדכון");
+                        }
                         console.log(error)
                     })
             }

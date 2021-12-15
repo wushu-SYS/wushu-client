@@ -35,7 +35,7 @@
             <div class="col-md-4">
                 <div ng-show="access!=userTypes.SPORTSMAN && !changeCoach">
                     <i class="fa fa-pencil iColored" aria-hidden="true"></i>
-                    <a class="linkDark iLink" href="" ng-click="isEditModeOn = !isEditModeOn">{{isEditModeOn ? 'ביטול עריכת פרופיל' : 'ערוך פרופיל'}}</a>
+                    <a class="linkDark iLink" href="" ng-click="isEditModeOn = !isEditModeOn" >{{isEditModeOn ? 'ביטול עריכת פרופיל' : 'ערוך פרופיל'}}</a>
                 </div>
                 <div id="chCoach" ng-show="(access==userTypes.MANAGER ||access==userTypes.COACH )&&!isEditModeOn && userType == userTypes.SPORTSMAN" >
                     <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -180,7 +180,7 @@
                                 <div ng-show="isEditModeOn" class="update-input"
                                      ng-class="{'alert-validate' : updateProfile.email.$invalid && (updateProfile.email.$touched || isClicked)}"
                                      data-validate="{{updateProfile.email.$error.required ? 'הכנס אימייל' : updateProfile.email.$error.pattern ? 'אימייל לא תקין' : ''}}">
-                                    <input class="update-input100" type="email" name="email" ng-model="user.email"
+                                    <input class="update-input100-link" type="email" name="email" ng-model="user.email"
                                            placeholder="איימיל"
                                            ng-pattern="regex.regexEmail">
                                 </div>
@@ -237,10 +237,44 @@
                                         ng-model="user.comment" placeholder="הערות">
                                 </div>
                             </div>
-                        </div><br>
-                        <a id="facebookProfile" target="_blank" href="http://{{user.facebook}}" class="fa fa-facebook" ng-show=user.facebook></a>
-                        <a id="facebookProfile" target="_blank" href="http://{{user.instagram}}" class="fa fa-instagram" ng-show=user.instagram></a>
-                        <a id="facebookProfile" target="_blank" href="http://{{user.anotherLink}}" class="fa fa-link" ng-show=user.anotherLink></a>
+                        </div>
+                        <div class="row" ng-if="eWhoAmI=='referee' || eWhoAmI=='coach'">
+                            <div class="col-md-3" ng-show="isEditModeOn">
+                                <label>פייסבוק - אתר מלא</label>
+                            </div>
+                            <div class="col-md-6" >
+                                <div ng-show="isEditModeOn" class="update-input">
+                                    <input class="update-input100-link" type="text" name="facebook"
+                                        ng-model="user.facebook" placeholder="www.facebook.com/username">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="eWhoAmI=='referee' || eWhoAmI=='coach'">
+                            <div class="col-md-3" ng-show="isEditModeOn">
+                                <label>אינסטגרם - אתר מלא</label>
+                            </div>
+                            <div class="col-md-6" >
+                                <div ng-show="isEditModeOn" class="update-input">
+                                    <input class="update-input100-link" type="text" name="instagram"
+                                        ng-model="user.instagram" placeholder="www.instagram.com/username">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="eWhoAmI=='referee' || eWhoAmI=='coach'">
+                            <div class="col-md-3" ng-show="isEditModeOn">
+                                <label>קישור נוסף - אתר מלא</label>
+                            </div>
+                            <div class="col-md-6" >
+                                <div ng-show="isEditModeOn" class="update-input">
+                                    <input class="update-input100-link" type="text" name="anotherLink"
+                                        ng-model="user.anotherLink">
+                                </div>
+                            </div>
+                        </div>
+                        <br><br>
+                        <a id="facebookProfile" target="_blank" href="https://{{user.facebook}}" class="fa fa-facebook" ng-show=user.facebook></a>
+                        <a id="facebookProfile" target="_blank" href="https://{{user.instagram}}" class="fa fa-instagram" ng-show=user.instagram></a>
+                        <a id="facebookProfile" target="_blank" href="https://{{user.anotherLink}}" class="fa fa-link" ng-show=user.anotherLink></a>
                         <!--Documents here-->
                     </div>
 
