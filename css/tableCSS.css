@@ -45,7 +45,7 @@ tr.deletedItem td:not(:first-child):before {
     width: 1000px;
 }
 .narrowTableDiv{
-    width: 700px;
+    width: 800px;
 }
 
 

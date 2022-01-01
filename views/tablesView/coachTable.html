@@ -83,11 +83,11 @@
         </tr>
         <tr class="tableTr" ng-repeat="userr in users">
             <td class="tableTd"><img class="tableProfileImg"
-                     ng-src="{{user.photo}}"
+                     ng-src="{{userr.photo}}"
                      alt=""/></td>
             <td class="tableTd">{{userr.firstname}}</td>
             <td class="tableTd">{{userr.lastname}}</td>
-            <td class="tableTd">{{getClubName(userr.sportclub)}}</td>
+            <td class="tableTd">{{userr.sportclubName}}</td>
             <td class="tableTd">{{userr.address}}</td>
             <td class="tableTd">{{userr.phone}}</td>
             <td class="tableTd" ng-show="isSportsmanList">{{userr.competitionCount}}</td>

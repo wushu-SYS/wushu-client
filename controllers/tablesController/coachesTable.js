@@ -46,8 +46,8 @@ app.controller("coachController", function ($scope, $http, $filter, $window, $lo
         exportList.click();
     }
 
-    $scope.getClubName = function(clubId){
-        var elem = $scope.clubs.find( ({ id }) => id === clubId );
-        return elem.name;
-    }
+    //$scope.getClubName = function(clubId){
+    //    var elem = $scope.clubs.find( ({ id }) => id === clubId );
+    //    return elem.name;
+    //}
 });
