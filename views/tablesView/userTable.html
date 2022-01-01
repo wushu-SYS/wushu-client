@@ -76,7 +76,7 @@
             <th class="tableTh">שם פרטי</th>
             <th class="tableTh">שם משפחה</th>
             <th class="tableTh" ng-show="isSportsmanList">מס' תחרויות</th>
-            <th class="tableTh">תאריך לידה</th> 
+            <th class="tableTh">גיל</th> 
             <th class="tableTh">כתובת</th>
             <th class="tableTh">מועדון</th>
             <th class="tableTh">שם מאמן</th>
@@ -90,9 +90,9 @@
             <td class="tableTd">{{user.firstname}}</td>
             <td class="tableTd">{{user.lastname}}</td>
             <td class="tableTd" ng-show="isSportsmanList">{{user.competitionCount}}</td>
-            <td class="tableTd">{{user.age | date : "dd.MM.yyyy"}}</td>
+            <td class="tableTd">{{user.age }}</td>
             <td class="tableTd">{{user.address}}</td>
-            <td class="tableTd">{{user.name}}</td>
+            <td class="tableTd">{{user.sportclubName}}</td>
             <td class="tableTd">{{user.contactname}}</td>
             <td class="tableTd">{{user.sportclub}}</td><!-- TO DO -/////////////////////////////////////-->
             <td class="tableTd">
