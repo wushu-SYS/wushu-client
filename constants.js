@@ -23,6 +23,10 @@ app.constant('constants', {
         {id : 2, name : 'סנדא' },
         {id :3 ,name : 'משולב'}
     ],
+    statusEnum:[
+        {id: 1 , name:"פעיל"},
+        {id: 2 , name:"לא פעיל"},
+    ],
     sportStyleType:{
       TAULLO: 0,
       SANDA: 1,

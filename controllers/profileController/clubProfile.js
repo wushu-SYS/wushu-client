@@ -2,6 +2,7 @@ app.controller("clubProfileController", function ($scope, $http, $route, $filter
 
     $scope.whoAmI = "מועדון";
     $scope.regex = constants.regex;
+    $scope.statusEnum = constants.statusEnum;
 
     getDisplayData();
 
@@ -117,7 +118,11 @@ app.controller("clubProfileController", function ($scope, $http, $route, $filter
             console.log(err)
         })
     }
-
+    /*
+    $scope.btnPressed = function () {
+        let file_input = document.getElementById("profilePicUpload");
+        file_input.click();
+    };*/
 
     $scope.submit = function (isValid) {
         if (isValid) {
@@ -141,4 +146,25 @@ app.controller("clubProfileController", function ($scope, $http, $route, $filter
             confirmDialogService.notSavedItems(event, $location.path(), $scope.submit, $scope.updateProfile.$valid);
         }
     });
+    /*$scope.uploadFile = function (files) {
+        var fd = new FormData();
+        fd.append("file", files[0]);
+        $http.post(constants.serverUrl + '/private/uploadClubProfileImage/' + $scope.club.id, fd, {
+            method: 'POST',
+            URL: constants.serverUrl + '/private/uploadClubProfileImage',
+            headers: {
+                'Content-Type': undefined,
+                'x-auth-token': $window.sessionStorage.getItem('token'),
+            },
+            transformRequest: angular.identity
+        })
+            .then(() => {
+                toastNotificationService.successNotification("התמונה נשמרה בהצלחה");
+                sleep(1000)
+                    .then(() => {
+                        $window.location.reload()
+                    })
+            }).catch(() => {
+        })
+    };*/
 });

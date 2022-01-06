@@ -65,5 +65,9 @@ app.service('commonFunctionsService', function(constants, cacheService) {
         cacheService.put('endIndex', endIndex);
         cacheService.put('isNumberToDesc', isNumberToDesc);
     }
+    this.saveClubFiltersToCache = function (status){
+        cacheService.put('status', status);
+        
+    }
 
 });

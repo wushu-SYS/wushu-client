@@ -40,7 +40,13 @@
 <!--                    <i class="fa fa-trash-o iColored" aria-hidden="true"></i>-->
 <!--                    <a class="linkDark iLink" href="" ng-click="delProfile(club.id)">מחק מועדון</a>-->
 <!--                </div>-->
+                <div ng-show="access!=userTypes.SPORTSMAN">
+                    <i class="fa fa-picture-o" aria-hidden="true"></i>
+                    <input class="linkDark iLink" aria-hidden="true" type="button" value="שנה תמונה" ng-click="btnPressed()" style="background: none"/>
+                    <input type="file"  id="profilePicUpload" ngf-select  name="file" ngf-pattern="'image/'" accept="image/" ngf-max-size="20MB" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+                </div>
             </div>
+            
             <div class="col-md-9">
                 <div class="tab-content profile-tab" id="myTabContent">
                     <div class="tab-pane fade"
@@ -150,7 +156,21 @@
 <!--                                </select>-->
                             </div>
                         </div>
-
+                        <div class="row" ng-show="club.status">
+                            <div class="col-md-3">
+                                <label>סטטוס</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label ng-show="!isEditModeOn">{{club.status}}</label>
+                                <div ng-show="isEditModeOn" class="update-input" id="statusClub">
+                                    <span ng-repeat="status in statusEnum" radioInput>
+                                        <input type="radio" name="selectedStatus" ng-model="club.status" ng-required="!selectedStatus" ng-value="status.name">
+                                            <label class="radio_label"> {{status.name}} </label>
+                                        </input>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane fade"
                          ng-class="{'show' : activeTag==='clubStat' , 'active' : activeTag==='clubStat'}" id="clubStat"

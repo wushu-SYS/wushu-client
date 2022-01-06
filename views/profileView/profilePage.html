@@ -194,7 +194,7 @@
                                 <label ng-show="!isEditModeOn">{{user.sportStyle}}</label>
                                 <div ng-show="isEditModeOn" class="update-input" id="sportStyleUser"
                                      ng-class="{'alert-validate' : updateProfile.selectedSportStyle.$invalid && (updateProfile.selectedSportStyle.$touched || isClicked)}"
-                                     data-validate="בחר מין">
+                                     data-validate="בחר ענף">
                                 <span ng-repeat="sportStyle in sportStyleEnum" radioInput>
                                     <input type="radio" name="selectedSportStyle" ng-model="user.sportStyle"
                                            ng-required="!selectedSportStyle" ng-value="sportStyle.name"><label
