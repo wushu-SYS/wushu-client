@@ -50,6 +50,9 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
             case 'healthInsurance':
                 file_input = document.getElementById("medicalInsuranceUpload");
                 break;
+            case 'moreFiles':
+                file_input = document.getElementById("moreFilesUpload");
+                break;
         }
         file_input.click();
     };
@@ -86,6 +89,9 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
                 break;
             case 'healthInsurance':
                 downSportsmaFile = document.getElementById("downSportsmanHealthInsurance");
+                break;
+            case 'moreFiles':
+                downSportsmaFile = document.getElementById("downSportsmanmoreFiles");
                 break;
         }
 
