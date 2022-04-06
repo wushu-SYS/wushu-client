@@ -10,51 +10,22 @@
                 <i class="fa fa-times clickableSearch" style="left: 45px" aria-hidden="true"></i>
             </button>
         </div>
-        <div>
-            <select class="searchInput" name="selectedErgon" ng-model="selectedErgon" ng-show="ergons.length > 0"
-                    ng-options="x.name
-                    for
-                    x in ergons">
-                <option value="">כל הארגונים</option>
-            </select>
-            <select class="searchInput" name="selectedAguda" ng-model="selectedAguda" ng-show="agudas.length > 0"
-                    ng-options="x.name
-                    for
-                    x in agudas">
-                <option value="">כל האגודות</option>
-            </select>
-            <select class="searchInput" name="selectedAmuta" ng-model="selectedAmuta" ng-show="amutas.length > 0"
-                    ng-options="x.name
-                    for
-                    x in amutas">
-                <option value="">כל העמותות</option>
-            </select>
-        </div>
+
     </div>
     
     <div class="tableDiv narrowTableDiv">
-        <div class="headerTable">מועדונים</div>
+        <div class="headerTable">עמותות</div>
         <table class="tableUser" cellspacing="0">
             <tr class="tableTr">
-                <th class="tableTh">שם</th>
                 <th class="tableTh">שם עמותה</th>  
                 <th class="tableTh">מספר עמותה</th>
-                <th class="tableTh">כתובת</th>
-                <th class="tableTh">טלפון</th>
-                <th class="tableTh">איש קשר</th>
-    
                 <th class="tableTh"><i class="fa fa-eye" aria-hidden="true"></i></th>
             </tr>
-            <tr class="tableTr" ng-repeat="club in clubs | filter: (searchClicked || '') && searchText | filter:{ergonId: selectedErgon.id, amutaId: selectedAmuta.id, agudaId: selectedAguda.id}">
-                <td class="tableTd">{{club.name}}</td>
-                <td class="tableTd">{{getAmutasName(club.amutaId);}}</td>
-                <td class="tableTd">{{club.amutaId}}</td>
-                <td class="tableTd">{{club.address}}</td>
-                <td class="tableTd">{{club.phone}}</td>
-                <td class="tableTd">{{club.contactname}}</td>
-                
+            <tr class="tableTr" ng-repeat="amuta in amutas | filter: (searchClicked || '') && searchText | filter:{amutaId: selectedAmuta.id}">
+                <td class="tableTd">{{amuta.name}}</td>
+                <td class="tableTd">{{amuta.id}}</td>               
                 <td class="tableTd">
-                    <button class="linkDark" ng-click="watchProfile(club.id)"> צפה בפרופיל</button>
+                    <button class="linkDark" ng-click="watchProfile(amuta.id)"> צפה בפרופיל</button>
                 </td>
             </tr>
         </table>

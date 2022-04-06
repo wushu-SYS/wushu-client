@@ -11,13 +11,13 @@
                 'x-auth-token': $window.sessionStorage.getItem('token')
             },
             data: {
-                Id: data.Id,
+                id: data.id,
                 name: data.amutaName
             }
         };
         return $http(req);
     }
-
+    /*
     this.getClubs = function () {
         var req = {
             method: 'POST',
@@ -39,7 +39,7 @@
         };
         return $http(req);
     };
-
+    */
     this.getAmutas = function () {
         var req = {
             method: 'POST',
@@ -50,7 +50,7 @@
         };
         return $http(req);
     };
-
+    /*
     this.getAddresses = function () {
         var req = {
             method: 'POST',
@@ -83,7 +83,7 @@
             data: data
         };
         return $http(req);
-    };
+    };*/
     this.addAmuta = function (data) {
         var req = {
             method: 'POST',
@@ -95,22 +95,22 @@
         };
         return $http(req);
     };
-
-    this.getClubProfile = function (clubId) {
+    
+    this.getAmutaProfile = function (amutaId) {
         var req = {
             method: 'GET',
-            url: constants.serverUrl + '/private/commonCoachManager/getClubs/' + clubId,
+            url: constants.serverUrl + '/private/commonCoachManager/getAmutas/' + amutaId,
             headers: {
                 'x-auth-token': $window.sessionStorage.getItem('token')
             }
         };
         return $http(req);
     }
-
-    this.updateClub = function (data) {
+    
+    this.updateAmuta = function (data) {
         var req = {
             method: 'POST',
-            url: constants.serverUrl + '/private/manager/updateClubDetails',
+            url: constants.serverUrl + '/private/manager/updateAmutaDetails',
             headers: {
                 'x-auth-token': $window.sessionStorage.getItem('token')
             },
@@ -118,7 +118,18 @@
         };
         return $http(req);
     }
-
+    this.deleteProfile =function (data) {
+        var req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/manager/deleteAmutaProfile',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: data
+        };
+        return $http(req);
+    }
+    /*
     this.getCoaches = function (clubId) {
         var req = {
             method: 'POST',
@@ -131,5 +142,5 @@
             }
         };
         return $http(req);
-    }
+    }*/
 });

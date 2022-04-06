@@ -19,7 +19,7 @@
              ng-class="{'alert-validate' : addAmutaForm.id.$invalid && (addAmutaForm.id.$touched || isClicked)}"
              data-validate="{{addAmutaForm.id.$error.required ? 'הכנס מספר עמותה.' : ''}}">
             <span class="label-input100">מספר עמותה</span>
-            <input class="input100" type="text" name="Id" ng-model="Id" ng-disabled="" 
+            <input class="input100" type="text" name="id" ng-model="id" ng-disabled="" 
                    ng-required="true" ng-pattern="regex.regexOnlyNumbers" ng-pattern-restrict>
             <span class="focus-input100" data-symbol="&#xf187;"></span>
         </div>

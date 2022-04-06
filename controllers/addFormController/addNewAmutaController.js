@@ -14,23 +14,26 @@ app.controller("addNewAmutaController", function ($scope, $rootScope,$filter,$lo
     }
 
     $scope.submit =async function (isValid) {
-        if ($scope.Id != undefined) {
+        let ischeck = false;
+        if ($scope.id != undefined) {
             let data = {
                 amutaName: $scope.amutaName,
-                Id: $scope.Id,
+                id: $scope.id,
             };
             await amutaService.checkExistAmuta(data)
                 .then((results) => {
                     isValid = false;
+                    ischeck=true;
                 })
                 .catch((err) => {
                     isValid = isValid && true;
+                    ischeck=true;
                 })
         }
         if(isValid) {
             let data = {
                 amutaName: $scope.amutaName,
-                Id: $scope.Id,
+                id: $scope.id,
             };
             amutaService.addAmuta(data)
                 .then(function () {
@@ -42,13 +45,13 @@ app.controller("addNewAmutaController", function ($scope, $rootScope,$filter,$lo
                     console.log(error);
                     toastNotificationService.errorNotification("ארעה שגיאה בעת יצירת העמותה");
                 })
-        }else{
+        }else if(ischeck){
             toastNotificationService.errorNotification("מספר עמותה כבר קיים במערכת!");
         }
     };
 
     $scope.emptyFields = function () {
-        $scope.Id = '';
+        $scope.id = '';
         $scope.amutaName = '';
     }
     //function fillDataUser(data) {
