@@ -127,7 +127,7 @@
                         </div>
                         <div id="profileBirthDate" class="row" ng-if="eWhoAmI!='referee'">
                             <div class="col-md-3">
-                                <label>תאירך לידה</label>
+                                <label>תאריך לידה</label>
                             </div>
                             <div class="col-md-6">
                                 <label ng-show="!isEditModeOn">{{user.birthdate | date : 'dd/MM/yyyy'}}</label>
@@ -322,7 +322,7 @@
                                     <div style="margin-top: -10px">
                                         <input class="linkDark iLink" aria-hidden="true" type="button" ng-value="user.insurance ? 'שנה קובץ' : 'הוסף קובץ'" ng-click="sportsmanFileUpload('moreFiles')" style="padding: 0"/>
                                         <a id="downSportsmanmoreFiles" class="linkDark" aria-hidden="true" ng-show="user.insurance" type="button" ng-click="sportsmanFileDownload(user.medicalScan,'moreFiles')" href="" download>הורד</a>
-                                        <input id="moreFilesUpload" type="file" ngf-select name="file" ngf-pattern="'image/'" accept="image/" ngf-max-size="20MB" onchange="angular.element(this).scope().uploadMedicalScanHealthInsurance(this.files,'moreFiles)"/>
+                                        <input id="moreFilesUpload" type="file" ngf-select name="file" ngf-pattern="'image/'" accept="image/" ngf-max-size="20MB" onchange=angular.element(this).scope().uploadMedicalScanHealthInsurance(this.files,'moreFiles')"/>
                                     </div>
                                 </div>
                             </div>
