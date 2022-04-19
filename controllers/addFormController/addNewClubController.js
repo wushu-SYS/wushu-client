@@ -1,6 +1,5 @@
 app.controller("addNewClubController", function ($scope, $rootScope,$filter,$location, clubService, constants, confirmDialogService, toastNotificationService) {
     $scope.regex = constants.regex;
-
     getDisplayData();
 
     /**
@@ -42,7 +41,8 @@ app.controller("addNewClubController", function ($scope, $rootScope,$filter,$loc
                 facebook: $scope.facebook,
                 instagram: $scope.instagram,
                 website: $scope.website,
-                moredata: $scope.moredata
+                moredata: $scope.moredata,
+                status:1,
             };
             if($scope.amuta)
                 data.amutaId = $scope.amuta.id;

@@ -146,9 +146,33 @@ app.config(function ($routeProvider) {
                 },
                 requireAuth: true
             })
+            .when('/sportClubs/amutaProfile', {
+                resolve: {
+                    "check": function ($rootScope, $location, $window) {
+                        let sportAmuta = $window.sessionStorage.getItem("sportamuta");
+                        $location.path("/sportAmutas/amutaProfile/" + sportAmuta);
+                    }
+                },
+                requireAuth: true
+            })
+            .when('/sportClubs/addSportAmuta',{
+                templateUrl: 'views/addFormsView/addNewAmuta.html',
+                controller: 'addNewAmutaController as addAmutaCtrl',
+                requireAuth: true
+            })
+            .when('/sportClubs/sportAmuta',{
+                templateUrl: 'views/tablesView/amutaTable.html',
+                controller: 'amutaController as amutaCtrl',
+                requireAuth: true
+            })
             .when('/sportClubs/clubProfile/:id?', {
                 templateUrl: 'views/profileView/clubProfile.html',
                 controller: 'clubProfileController as clubProfileCtrl',
+                requireAuth: true
+            })
+            .when('/sportClubs/amutaProfile/:id?', {
+                templateUrl: 'views/profileView/amutaProfile.html',
+                controller: 'amutaProfileController as amutaProfileCtrl',
                 requireAuth: true
             })
             .when('/users/couches', {

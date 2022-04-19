@@ -1,4 +1,10 @@
-app.controller("clubController", function ($scope, $http, $filter, $window, $location, constants, clubService, coachService, commonFunctionsService) {
+app.controller("clubController", function ($scope, $http, $filter, $window, $location, constants, clubService, coachService, commonFunctionsService,cacheService) {
+    
+    setUserFiltersByCache();
+
+    function setUserFiltersByCache(){
+        $scope.selectedStatus = cacheService.get('status');;
+    }
     getDataForDisplay();
     function getDataForDisplay() {
         clubService.getClubs()
@@ -36,6 +42,8 @@ app.controller("clubController", function ($scope, $http, $filter, $window, $loc
     }
 
     $scope.watchProfile = function (selectedId) {
+        commonFunctionsService.saveClubFiltersToCache($scope.status);
+        //sportsmanService.watchProfile(selectedId);
         $location.path("/sportClubs/clubProfile/" + selectedId);
     }
     $scope.getAmutasName = function(amutaId){

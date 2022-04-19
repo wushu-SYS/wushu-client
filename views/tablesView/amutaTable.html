@@ -1,0 +1,34 @@
+<body class="bodyTable">
+
+    <div class="center">
+        <div ng-init="searchClicked=false">
+            <input class="searchInput" type="text" placeholder="חפש..." ng-model="searchText" ng-change="searchClicked=false" ng-keydown="$event.keyCode === 13 && setPage(1); searchClicked=true">
+            <button ng-click="searchClicked=true" ng-show="searchClicked==false">
+                <i class="fa fa-search clickableSearch" style="left: 45px" aria-hidden="true"></i>
+            </button>
+            <button ng-click="searchText=''; searchClicked=false" ng-show="searchClicked==true">
+                <i class="fa fa-times clickableSearch" style="left: 45px" aria-hidden="true"></i>
+            </button>
+        </div>
+
+    </div>
+    
+    <div class="tableDiv narrowTableDiv">
+        <div class="headerTable">עמותות</div>
+        <table class="tableUser" cellspacing="0">
+            <tr class="tableTr">
+                <th class="tableTh">שם עמותה</th>  
+                <th class="tableTh">מספר עמותה</th>
+                <th class="tableTh"><i class="fa fa-eye" aria-hidden="true"></i></th>
+            </tr>
+            <tr class="tableTr" ng-repeat="amuta in amutas | filter: (searchClicked || '') && searchText | filter:{amutaId: selectedAmuta.id}">
+                <td class="tableTd">{{amuta.name}}</td>
+                <td class="tableTd">{{amuta.id}}</td>               
+                <td class="tableTd">
+                    <button class="linkDark" ng-click="watchProfile(amuta.id)"> צפה בפרופיל</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+    </body>
