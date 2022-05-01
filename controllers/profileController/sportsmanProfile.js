@@ -81,6 +81,25 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
         })
     };
 
+    $scope.deleteSportsmanFile = function (fileType) {
+        $http.delete(constants.serverUrl + '/private/deleteSportsmanFile/' + $scope.user.id + '/' + fileType, {
+            headers: {
+                'Content-Type': undefined,
+                'x-auth-token': $window.sessionStorage.getItem('token'),
+            },
+            transformRequest: angular.identity
+        })
+            .then(() => {
+                toastNotificationService.successNotification("הקובץ נמחק בהצלחה");
+                sleep(1000)
+                    .then(() => {
+                        $window.location.reload()
+                    })
+
+            }).catch(() => {
+            })
+    };
+
     $scope.sportsmanFileDownload = function (path, fileType) {
         let downSportsmaFile;
         switch (fileType) {

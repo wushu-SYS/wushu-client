@@ -6,6 +6,10 @@ app.controller("clubProfileController", function ($scope, $http, $route, $filter
 
     getDisplayData();
 
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
     function getDisplayData() {
         clubService.getClubProfile($routeParams.id)
             .then(function (result) {
@@ -118,11 +122,11 @@ app.controller("clubProfileController", function ($scope, $http, $route, $filter
             console.log(err)
         })
     }
-    /*
+
     $scope.btnPressed = function () {
-        let file_input = document.getElementById("profilePicUpload");
+        let file_input = document.getElementById("clubPicUpload");
         file_input.click();
-    };*/
+    };
 
     $scope.submit = function (isValid) {
         if (isValid) {
@@ -146,7 +150,7 @@ app.controller("clubProfileController", function ($scope, $http, $route, $filter
             confirmDialogService.notSavedItems(event, $location.path(), $scope.submit, $scope.updateProfile.$valid);
         }
     });
-    /*$scope.uploadFile = function (files) {
+    $scope.uploadFile = function (files) {
         var fd = new FormData();
         fd.append("file", files[0]);
         $http.post(constants.serverUrl + '/private/uploadClubProfileImage/' + $scope.club.id, fd, {
@@ -164,7 +168,20 @@ app.controller("clubProfileController", function ($scope, $http, $route, $filter
                     .then(() => {
                         $window.location.reload()
                     })
-            }).catch(() => {
+            }).catch((e) => {
+            })
+    };
+
+    $scope.delProfile = async function(id) {
+        confirmDialogService.askQuestion("האם אתה בטוח שברצונך למחוק את המועדון?", function() {
+            clubService.deleteClub(id)
+                .then(function(result) {
+                    toastNotificationService.successNotification("המועדון נמחק בהצלחה");
+                    $location.path("/sportClubs/sportClubs");
+                }, function(error) {
+                    toastNotificationService.errorNotification("ארעה שגיאה בעת ביצוע מחיקה");
+                    console.log(error)
+                })
         })
-    };*/
+    }
 });

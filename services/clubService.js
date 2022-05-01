@@ -106,4 +106,18 @@ app.service('clubService', function($window, $http, constants) {
         };
         return $http(req);
     }
+
+    this.deleteClub = function(id) {
+        var req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/manager/deleteSportClubProfile',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: {
+                id: id
+            }
+        };
+        return $http(req);
+    }
 });

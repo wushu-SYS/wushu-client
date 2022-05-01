@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="profile-img">
-                    <img src="././resources/images/symbol.jpg" alt=""/>
+                    <img src="{{club.photo || '././resources/images/symbol.jpg'}}" alt=""/>
                 </div>
             </div>
             <div class="col-md-9">
@@ -35,6 +35,7 @@
                 <div ng-show="access==userTypes.MANAGER">
                     <i class="fa fa-pencil iColored" aria-hidden="true"></i>
                     <a class="linkDark iLink" href="" ng-click="isEditModeOn = !isEditModeOn">{{isEditModeOn ? 'ביטול עריכה' : 'ערוך מועדון'}}</a>
+                    <a class="linkDark iLink" href="" ng-click="delProfile(club.id)">מחק מועדון</a>
                 </div>
 <!--                <div>-->
 <!--                    <i class="fa fa-trash-o iColored" aria-hidden="true"></i>-->
@@ -43,7 +44,7 @@
                 <div ng-show="access!=userTypes.SPORTSMAN">
                     <i class="fa fa-picture-o" aria-hidden="true"></i>
                     <input class="linkDark iLink" aria-hidden="true" type="button" value="שנה תמונה" ng-click="btnPressed()" style="background: none"/>
-                    <input type="file"  id="profilePicUpload" ngf-select  name="file" ngf-pattern="'image/'" accept="image/" ngf-max-size="20MB" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+                    <input type="file" id="clubPicUpload" ngf-select  name="file" ngf-pattern="'image/'" accept="image/" ngf-max-size="20MB" onchange="angular.element(this).scope().uploadFile(this.files)"/>
                 </div>
             </div>
             
