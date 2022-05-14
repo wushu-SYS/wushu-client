@@ -28,6 +28,18 @@ app.service('sportsmanService', function($window, $http, constants, $location) {
         return $http(req);
     };
 
+    this.getSportsmanArchivedFiles = function (data) {
+        var req = {
+            method: 'POST',
+            url: constants.serverUrl + '/private/allUsers/sportsmanArchivedFiles',
+            headers: {
+                'x-auth-token': $window.sessionStorage.getItem('token')
+            },
+            data: data
+        };
+        return $http(req);
+    };
+
     this.updateProfile =function (data) {
         var req = {
             method: 'POST',

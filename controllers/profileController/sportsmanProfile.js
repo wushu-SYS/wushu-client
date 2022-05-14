@@ -8,7 +8,8 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
     $scope.sportStyleEnum = constants.sportStyleEnum;
     $scope.regex = constants.regex;
     $scope.getIdInLengthNine = commonFunctionsService.getIdInLengthNine;
-    $scope.isDeletable =true
+    $scope.isDeletable = true;
+    $scope.showArchivedMedicalScans = false;
 
     let medicalScanIframe = document.getElementById("medicalScanIframe");
     let insuranceIframe = document.getElementById("insuranceIframe");
@@ -200,6 +201,21 @@ app.controller("sportsmanProfileController", function ($scope, $http, $filter, $
             oldId = $scope.user.id;
             getSportsmanRank();
             getCharts()
+        }, function (error) {
+            console.log(error)
+        })
+        .then(() => {
+            return sportsmanService.getSportsmanArchivedFiles({ id: parseInt($routeParams.id) })
+        })
+        .then(function (archivedFiles) {
+            const lastFiveMedicalScans = archivedFiles.data.filter(function (file) {
+                if (this.count < 5 && file.file_type == "medicalscan") {
+                    this.count++;
+                    return true;
+                }
+                return false;
+            }, { count: 0 });
+            $scope.user.archivedMedicalScans = lastFiveMedicalScans;
         }, function (error) {
             console.log(error)
         });
