@@ -294,7 +294,7 @@
                                         <a id="downSportsmanMedicalScan" class="linkDark" aria-hidden="true" ng-show="user.medicalScan" type="button" ng-click="sportsmanFileDownload(user.medicalScan,'medicalScan')" href="" download>הורד</a>
                                         <input ng-show="access==userTypes.MANAGER && user.medicalScan" class="linkDark iLink" aria-hidden="true" type="button" ng-value="'מחק'" ng-click="deleteSportsmanFile('medicalScan')" style="padding: 0" />
                                         <input id="medicalScanUpload" type="file" ngf-select name="file" ngf-pattern="'image/'" accept="image/" ngf-max-size="20MB" onchange="angular.element(this).scope().uploadMedicalScanHealthInsurance(this.files,'medicalScan')" />
-                                        <div ng-show="access==userTypes.MANAGER || user.medicalScan || user.archivedMedicalScans.length">
+                                        <div ng-show="access==userTypes.MANAGER && user.medicalScan || user.archivedMedicalScans.length">
                                             <a class="linkDark" aria-hidden="true" type="button" ng-click="showArchivedMedicalScans = !showArchivedMedicalScans">הצג היסטוריית קבצים</a>
                                             <div ng-show="showArchivedMedicalScans" ng-repeat="medicalScan in user.archivedMedicalScans">
                                                 <p>
