@@ -22,7 +22,7 @@
                                 אישיים</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='attachments'" ng-class="{'active' : activeTag==='attachments'}" ng-show="userType == userTypes.SPORTSMAN || userType == userTypes.Judge">קבצים מצורפים</a>
+                            <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='attachments'" ng-class="{'active' : activeTag==='attachments'}" ng-show="userType == userTypes.SPORTSMAN || userType == userTypes.Judge || userType == userTypes.COACH">קבצים מצורפים</a>
                         </li>
                         <li class="nav-item" ng-show="userType == userTypes.SPORTSMAN">
                             <a class="nav-link" data-toggle="tab" href="" role="tab" ng-click="activeTag='compData'" ng-class="{'active' : activeTag==='compData'}">מידע תחרויות</a>
@@ -130,13 +130,12 @@
                                 <label>תאריך לידה</label>
                             </div>
                             <div class="col-md-6">
-                                <label ng-show="!isEditModeOn">{{user.birthdate | date : 'dd/MM/yyyy'}}</label>
+                                <label ng-show="!isEditModeOn">{{user.birthdate | date : 'dd/mm/yyyy'}}</label>
                                 <div ng-show="isEditModeOn" class="update-input control-group input-append"
                                      ng-class="{'alert-validate' : updateProfile.date.$invalid && (updateProfile.date.$touched || isClicked)}"
                                      data-validate="{{updateProfile.date.$error.required ? 'הכנס תאריך לידה' : updateProfile.date.$error.max ? 'תאריך לא תקין' : ''}}"
                                      show-spinners="false">
-                                    <input class="update-input100" type="date" name="date" ng-model="user.birthdate"
-                                           placeholder="תאריך לידה" ng-max="currentDate" required onkeypress="return false">
+                                    <input class="update-input100" type="date" name="date" ng-model="user.birthdate" placeholder="תאריך לידה" ng-max="currentDate" required onkeypress="return false">
                                 </div>
                             </div>
                         </div>
