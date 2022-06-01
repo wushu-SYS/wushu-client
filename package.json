@@ -43,7 +43,8 @@
     "xlsx": "^0.15.4"
   },
   "optionalDependencies": {
-    "karma": "^5.2.3"
+    "karma": "^5.2.3",
+    "fsevents": "~2.1.2"
   },
   "engines": {
     "node": "v12.18.3",
