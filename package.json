@@ -42,8 +42,12 @@
     "v-accordion": "^1.6.0",
     "xlsx": "^0.15.4"
   },
+  "optionalDependencies": {
+    "karma": "^5.2.3"
+  },
   "engines": {
     "node": "v12.18.3",
     "npm": "6.14.6"
   }
+
 }
