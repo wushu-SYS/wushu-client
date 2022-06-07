@@ -37,18 +37,16 @@
     "path": "^0.12.7",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
-    "treantjs": "git+https://github.com/fperucic/treant-js.git",
     "util": "^0.12.1",
     "v-accordion": "^1.6.0",
     "xlsx": "^0.15.4"
   },
   "optionalDependencies": {
-    "karma": "^5.2.3",
-    "fsevents": "~2.1.2"
+    "fsevents": "~2.1.2",
+    "karma": "^5.2.3"
   },
   "engines": {
     "node": "v12.18.3",
     "npm": "6.14.6"
   }
-
 }
